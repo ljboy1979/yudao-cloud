@@ -1,4 +1,4 @@
-以 [ruoyi-vue-pro](https://github.com/YunaiV/ruoyi-vue-pro) 为基础，实现的 Spring Cloud Alibaba 微服务架构。开发时以下3个模块必须在每个微服务包括进去：
+以 [ruoyi-vue-pro](https://github.com/YunaiV/ruoyi-vue-pro) 为基础，实现的 Spring Cloud Alibaba 微服务架构。开发微服务时以下3个微服务必须包括进去：
 
 * [x] `gateway` 网关服务，需要新增你开发的微服务的路由
 * [x] `system` 系统服务，一般无需修改
@@ -50,7 +50,7 @@
 
   目前支持两种调用方式：
 
-  openfeign
+  openfeign/dubbo，我们采用openfeign
 
   以bpm为例
 
@@ -70,19 +70,21 @@
 
   调用处用@Resource注入
 
-  dubbo
+  （dubbo方式了解即可，不采用
 
   主要看两个注解
 
   一个是@DubboService，服务方
 
-  一个是@DubboReference(version = "1.0.0", retries = 0)，消费方
+  一个是@DubboReference(version = "1.0.0", retries = 0)，消费方）
 
   \--------------------------
 
   3、代码生成功能：
 
   http://cloud.iocoder.cn/new-feature/
+
+  需要启动前端，yudao-admin-ui，见学习教程
 
   4、权限验证
 
