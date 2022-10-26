@@ -1,0 +1,59 @@
+2022-10-26 20:49:06.566  WARN 31128 --- [main] [TID: N/A] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[null.properties] & group[DEFAULT_GROUP]
+2022-10-26 20:49:06.569  INFO 31128 --- [main] [TID: N/A] b.c.PropertySourceBootstrapConfiguration : Located property source: [BootstrapPropertySource {name='bootstrapProperties-null.properties,DEFAULT_GROUP'}]
+2022-10-26 20:49:06.578  INFO 31128 --- [main] [TID: N/A] c.i.y.m.system.SystemServerApplication   : No active profile set, falling back to 1 default profile: "default"
+2022-10-26 20:49:08.328  WARN 31128 --- [main] [TID: N/A] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.support.BeanDefinitionOverrideException: Invalid bean definition with name 'infra-server.FeignClientSpecification' defined in null: Cannot register bean definition [Generic bean: class [org.springframework.cloud.openfeign.FeignClientSpecification]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] for bean 'infra-server.FeignClientSpecification': There is already [Generic bean: class [org.springframework.cloud.openfeign.FeignClientSpecification]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] bound.
+2022-10-26 20:49:08.340  INFO 31128 --- [main] [TID: N/A] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-10-26 20:49:08.359 ERROR 31128 --- [main] [TID: N/A] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'infra-server.FeignClientSpecification' could not be registered. A bean with that name has already been defined and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+
+2022-10-26 20:49:08.360  WARN 31128 --- [Thread-6] [TID: N/A] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2022-10-26 23:31:32.617  INFO 29728 --- [main] [TID: N/A] ptablePropertiesBeanFactoryPostProcessor : Post-processing PropertySource instances
+2022-10-26 23:31:32.624  INFO 29728 --- [main] [TID: N/A] c.u.j.EncryptablePropertySourceConverter : Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2022-10-26 23:31:32.630  INFO 29728 --- [main] [TID: N/A] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource springCloudBusOverridesProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2022-10-26 23:31:32.630  INFO 29728 --- [main] [TID: N/A] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2022-10-26 23:31:32.630  INFO 29728 --- [main] [TID: N/A] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2022-10-26 23:31:32.631  INFO 29728 --- [main] [TID: N/A] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2022-10-26 23:31:32.633  INFO 29728 --- [main] [TID: N/A] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2022-10-26 23:31:32.633  INFO 29728 --- [main] [TID: N/A] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource cachedrandom [org.springframework.cloud.util.random.CachedRandomPropertySource] to EncryptablePropertySourceWrapper
+2022-10-26 23:31:32.633  INFO 29728 --- [main] [TID: N/A] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2022-10-26 23:31:32.633  INFO 29728 --- [main] [TID: N/A] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource spring.integration.poller [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2022-10-26 23:31:32.633  INFO 29728 --- [main] [TID: N/A] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource springCloudBusDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2022-10-26 23:31:32.634  INFO 29728 --- [main] [TID: N/A] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource defaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2022-10-26 23:31:32.871  INFO 29728 --- [main] [TID: N/A] c.u.j.filter.DefaultLazyPropertyFilter   : Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2022-10-26 23:31:32.892  INFO 29728 --- [main] [TID: N/A] c.u.j.r.DefaultLazyPropertyResolver      : Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2022-10-26 23:31:32.894  INFO 29728 --- [main] [TID: N/A] c.u.j.d.DefaultLazyPropertyDetector      : Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2022-10-26 23:31:36.519  WARN 29728 --- [main] [TID: N/A] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[null.properties] & group[DEFAULT_GROUP]
+2022-10-26 23:31:36.521  INFO 29728 --- [main] [TID: N/A] b.c.PropertySourceBootstrapConfiguration : Located property source: [BootstrapPropertySource {name='bootstrapProperties-null.properties,DEFAULT_GROUP'}]
+2022-10-26 23:31:36.531  INFO 29728 --- [main] [TID: N/A] c.i.y.m.infra.InfraServerApplication     : No active profile set, falling back to 1 default profile: "default"
+2022-10-26 23:31:38.265  WARN 29728 --- [main] [TID: N/A] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.support.BeanDefinitionOverrideException: Invalid bean definition with name 'infra-server.FeignClientSpecification' defined in null: Cannot register bean definition [Generic bean: class [org.springframework.cloud.openfeign.FeignClientSpecification]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] for bean 'infra-server.FeignClientSpecification': There is already [Generic bean: class [org.springframework.cloud.openfeign.FeignClientSpecification]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] bound.
+2022-10-26 23:31:38.278  INFO 29728 --- [main] [TID: N/A] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-10-26 23:31:38.307 ERROR 29728 --- [main] [TID: N/A] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'infra-server.FeignClientSpecification' could not be registered. A bean with that name has already been defined and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+
+2022-10-26 23:31:38.309  WARN 29728 --- [Thread-8] [TID: N/A] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
