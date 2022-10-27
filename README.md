@@ -7,6 +7,12 @@
 启动文档，可见 <https://cloud.iocoder.cn/quick-start/> 地址。
 
 程序可以直接启动，无需任何配置（已将必要的中间件配置在云端，如果嫌云端速度慢，可自行在本地安装必要的中间件）
+-----更新：
+由于公网nacos的注册中心，会导致实例冲突，必须在本地安装nacos
+1下载nacos
+2至/conf目录下配置nacos的mysql连接
+3至/bin目录下打开startup.cmd，搜索cluster改成standalone
+4启动nacos，进入nacos，账号密码nacos/nacos，在命名空间新建dev空间，注意id必须填写dev不能自动生成
 
 ----
 
