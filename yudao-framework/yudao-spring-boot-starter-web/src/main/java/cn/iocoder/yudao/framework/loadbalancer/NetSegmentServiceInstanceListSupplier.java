@@ -1,9 +1,9 @@
-package cn.iocoder.yudao.module.bpm.loadbalancer;
+package cn.iocoder.yudao.framework.loadbalancer;
 
-import com.google.common.collect.Lists;
-import lombok.extern.slf4j.Slf4j;
 import cn.iocoder.yudao.framework.common.util.collection.CollectionUtil;
 import cn.iocoder.yudao.framework.common.util.ip.IPV4Util;
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.cloud.commons.util.InetUtilsProperties;

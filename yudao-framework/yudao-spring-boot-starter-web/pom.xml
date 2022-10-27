@@ -73,6 +73,10 @@
             <artifactId>resilience4j-ratelimiter</artifactId>
             <scope>provided</scope> <!-- 设置为 provided，主要是 GlobalExceptionHandler 使用 -->
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

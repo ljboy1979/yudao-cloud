@@ -1,6 +1,5 @@
-package cn.iocoder.yudao.module.bpm.loadbalancer;
+package cn.iocoder.yudao.framework.loadbalancer;
 
-import cn.iocoder.yudao.module.bpm.loadbalancer.NetSegmentServiceInstanceListSupplier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.loadbalancer.core.ReactorLoadBalancer;

@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-cn.iocoder.yudao.module.bpm.loadbalancer.LoadBalanceAutoConfiguration

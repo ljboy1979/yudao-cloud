@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.bpm.loadbalancer;
+package cn.iocoder.yudao.framework.loadbalancer;
 
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration;
