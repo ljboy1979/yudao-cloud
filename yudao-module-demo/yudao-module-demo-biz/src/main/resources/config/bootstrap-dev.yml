@@ -13,7 +13,7 @@ spring:
       # 配置中心
       config:
         # 本地启动
-        server-addr:  http://172.22.68.36:8848 #${spring.cloud.nacos.discovery.server-addr}
+        server-addr:  http://localhost:8848 #${spring.cloud.nacos.discovery.server-addr}
         file-extension: yaml
         namespace: dev
         #        name: system-server
