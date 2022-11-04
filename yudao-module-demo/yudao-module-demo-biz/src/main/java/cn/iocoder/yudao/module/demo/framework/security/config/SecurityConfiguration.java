@@ -11,13 +11,13 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 /**
  * Infra 模块的 Security 配置
  */
-@Configuration("infraSecurityConfiguration")
+@Configuration("demoSecurityConfiguration")
 public class SecurityConfiguration {
 
     @Value("${spring.boot.admin.context-path:''}")
     private String adminSeverContextPath;
 
-    @Bean("infraAuthorizeRequestsCustomizer")
+    @Bean("git")
     public AuthorizeRequestsCustomizer authorizeRequestsCustomizer() {
         return new AuthorizeRequestsCustomizer() {
 
