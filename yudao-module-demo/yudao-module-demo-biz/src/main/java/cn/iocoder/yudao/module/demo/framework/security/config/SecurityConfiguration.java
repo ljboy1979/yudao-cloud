@@ -1,7 +1,7 @@
 package cn.iocoder.yudao.module.demo.framework.security.config;
 
 import cn.iocoder.yudao.framework.security.config.AuthorizeRequestsCustomizer;
-import cn.iocoder.yudao.module.infra.enums.ApiConstants;
+import cn.iocoder.yudao.module.demo.enums.ApiConstants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 
 /**
- * Infra 模块的 Security 配置
+ * Demo 模块的 Security 配置
  */
 @Configuration("demoSecurityConfiguration")
 public class SecurityConfiguration {
