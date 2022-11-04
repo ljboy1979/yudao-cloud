@@ -12,8 +12,8 @@ spring:
           version: 1.0.0 # 服务实例的版本号，可用于灰度发布
       # 配置中心
       config:
-        # 本地启动
-        server-addr:  http://localhost:8848 #${spring.cloud.nacos.discovery.server-addr}
+        # 远程配置
+        server-addr:  http://123.56.19.224:18848 #${spring.cloud.nacos.discovery.server-addr}
         file-extension: yaml
         namespace: dev
         #        name: system-server
