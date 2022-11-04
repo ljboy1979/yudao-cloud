@@ -1,6 +1,6 @@
 spring:
   application:
-    name: sales-server
+    name: demo-server
 
   profiles:
     active: dev
