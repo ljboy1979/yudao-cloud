@@ -16,6 +16,7 @@ import cn.iocoder.yudao.module.demo.dal.dataobject.category.CategoryDO;
 import cn.iocoder.yudao.module.demo.service.category.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -86,9 +87,14 @@ public class CategoryController /*extends BaseController */{
      * 查询某个id组织架构树状结构列表（仅包含名称、id、子节点）
      */
     @GetMapping("/tree/{id}")
-    public CommonResult<List<TreeSelect>> treeSelect(CategoryDO productCategory, @PathVariable Long id) {
+    @ApiOperation("获得商品分类树表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "categoryDO", value = "产品分类", required = true, example = "", dataTypeClass = CategoryDO.class),
+            @ApiImplicitParam(name = "id", value = "产品分类id", required = true, example = "1", dataTypeClass = Long.class)
+    })
+    public CommonResult<List<TreeSelect>> treeSelect(CategoryDO categoryDO, @PathVariable Long id) {
         List<TreeSelect> treeSelects = TreeUtils.
-                buildTreeSelect(categoryService.selectCategoryList(productCategory),id);
+                buildTreeSelect(categoryService.selectCategoryList(categoryDO),id);
         return success(treeSelects);
     }
 
@@ -96,6 +102,8 @@ public class CategoryController /*extends BaseController */{
      * 查询全部组织架构树状结构列表（仅包含名称、id、子节点）
      */
     @GetMapping("/tree/all")
+    @ApiOperation("获得指定ID商品分类树表")
+    @ApiImplicitParam(name = "categoryDO", value = "产品分类", required = true, example = "", dataTypeClass = CategoryDO.class)
     public CommonResult<List<TreeSelect>> treeSelect(CategoryDO categoryDO) {
         List<TreeSelect> treeSelects = TreeUtils.
                 buildTreeSelect(categoryService.selectCategoryList(categoryDO));
