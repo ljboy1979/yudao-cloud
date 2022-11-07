@@ -159,5 +159,5 @@ yudao:
   security:
     permit-all-urls:
       - /admin-ui/** # /resources/admin-ui 目录下的静态资源
-      - /admin-api/xxx/yyy
+      - /admin-api/demo/**
 debug: false

@@ -53,5 +53,8 @@ public interface ErrorCodeConstants {
     // ========== 数据源配置 1001007000 ==========
     ErrorCode DATA_SOURCE_CONFIG_NOT_EXISTS = new ErrorCode(1001007000, "数据源配置不存在");
     ErrorCode DATA_SOURCE_CONFIG_NOT_OK = new ErrorCode(1001007001, "数据源配置不正确，无法进行连接");
+    // TODO 待办：请将下面的错误码复制到 yudao-module-product-api 模块的 ErrorCodeConstants 类中。注意，请给“TODO 补充编号”设置一个错误码编号！！！
+// ========== 商品分类 TODO 补充编号 ==========
+    ErrorCode CATEGORY_NOT_EXISTS = new ErrorCode(1001008000, "商品分类不存在");
 
 }
