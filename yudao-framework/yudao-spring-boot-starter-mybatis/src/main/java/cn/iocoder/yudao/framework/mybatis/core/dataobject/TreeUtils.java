@@ -1,8 +1,8 @@
 package cn.iocoder.yudao.framework.mybatis.core.dataobject;
 
-import cn.iocoder.yudao.framework.common.util.collection.CollectionUtils;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -18,10 +18,10 @@ public class TreeUtils {
      * @param list 列表
      * @return 树结构列表
      */
-//    public static <T extends TreeEntity<T>> List<TreeSelect> buildTreeSelect(List<T> list) {
-//        List<T> trees = buildTree(list);
-//        return trees.stream().map((Function<T, TreeSelect>) TreeSelect::new).collect(Collectors.toList());
-//    }
+    public static <T extends TreeEntity<T>> List<TreeSelect> buildTreeSelect(List<T> list) {
+        List<T> trees = buildTree(list);
+        return trees.stream().map((Function<T, TreeSelect>) TreeSelect::new).collect(Collectors.toList());
+    }
 
     /**
      * 构建前端所需要树列表
@@ -29,24 +29,26 @@ public class TreeUtils {
      * @param list 列表
      * @return 树结构列表
      */
-//    public static <T extends TreeEntity<T>> List<T> buildTree(List<T> list) {
-//        List<T> returnList = new ArrayList<>();
-//        List<Long> tempList = new ArrayList<>();
-//        for (T t : list) {
-//            tempList.add(t.getId());
-//        }
-//        for (T t : list) {
-//            // 如果是顶级节点, 遍历该父节点的所有子节点
-//            if (!tempList.contains(t.getParentId())) {
-//                recursionFn(list, t);
-//                returnList.add(t);
-//            }
-//        }
-//        if (returnList.isEmpty()) {
-//            returnList = list;
-//        }
-//        return returnList;
-//    }
+    public static <T extends TreeEntity<T>> List<T> buildTree(List<T> list) {
+        // 排序，保证树的有序性
+        list.sort(Comparator.comparing(T::getSort));
+        List<T> returnList = new ArrayList<>();
+        List<Long> tempList = new ArrayList<>();
+        for (T t : list) {
+            tempList.add(t.getId());
+        }
+        for (T t : list) {
+            // 如果是顶级节点, 遍历该父节点的所有子节点
+            if (!tempList.contains(t.getParentId())) {
+                recursionFn(list, t);
+                returnList.add(t);
+            }
+        }
+        if (returnList.isEmpty()) {
+            returnList = list;
+        }
+        return returnList;
+    }
 
     /**
      * 构建前端所需要指定节点的下拉树结构
@@ -68,6 +70,8 @@ public class TreeUtils {
      * @return 树结构列表
      */
     public static <T extends TreeEntity<T>> List<T> buildTree(List<T> list, Long id) {
+        // 排序，保证树的有序性
+        list.sort(Comparator.comparing(T::getSort));
         List<T> returnList = new ArrayList<>();
         for (T t : list) {
             // 如果是指定节点, 遍历该父节点的所有子节点
@@ -82,38 +86,40 @@ public class TreeUtils {
         }
         return returnList;
     }
-
-    public static <T extends TreeEntity<T>> List<TreeSelect> buildTreeSelect(List<T> list) {
-        List<T> trees = buildTree(list);
-        return trees.stream().map((Function<T, TreeSelect>) TreeSelect::new).collect(Collectors.toList());
-    }
-
-    public static <T extends TreeEntity<T>> List<T>  buildTree(List<T> list) {
-        // 排序，保证树的有序性
-        list.sort(Comparator.comparing(T::getSort));
-        // 构建树
-        // 使用 LinkedHashMap 的原因，是为了排序 。实际也可以用 Stream API ，就是太丑了。
-        Map<Long, T> treeNodeMap = new LinkedHashMap<>();
-        list.forEach(t -> treeNodeMap.put(t.getId(), t));
-        // 处理父子关系
-        treeNodeMap.values().stream().filter(node -> !node.getParentId().equals(0L)).//not root node
-                forEach(childNode -> {
-            // 获得父节点
-            T parentNode = treeNodeMap.get(childNode.getParentId());
-            if (parentNode == null) {
-//                LoggerFactory.getLogger(getClass()).error("[buildRouterTree][resource({}) 找不到父资源({})]",
-//                        childNode.getId(), childNode.getParentId());
-                return;
-            }
-            // 将自己添加到父节点中
-            if (parentNode.getChildren() == null) {
-                parentNode.setChildren(new ArrayList<>());
-            }
-            parentNode.getChildren().add(childNode);
-        });
-        // 获得到所有的根节点
-        return CollectionUtils.filterList(treeNodeMap.values(), node -> new Long(0).equals(node.getParentId()));
-    }
+    /**
+     * menu使用的创建树表方法
+     */
+//    public static <T extends TreeEntity<T>> List<TreeSelect> buildTreeSelect(List<T> list) {
+//        List<T> trees = buildTree(list);
+//        return trees.stream().map((Function<T, TreeSelect>) TreeSelect::new).collect(Collectors.toList());
+//    }
+//
+//    public static <T extends TreeEntity<T>> List<T>  buildTree(List<T> list) {
+//        // 排序，保证树的有序性
+//        list.sort(Comparator.comparing(T::getSort));
+//        // 构建树
+//        // 使用 LinkedHashMap 的原因，是为了排序 。实际也可以用 Stream API ，就是太丑了。
+//        Map<Long, T> treeNodeMap = new LinkedHashMap<>();
+//        list.forEach(t -> treeNodeMap.put(t.getId(), t));
+//        // 处理父子关系
+//        treeNodeMap.values().stream().filter(node -> !node.getParentId().equals(0L)).//not root node
+//                forEach(childNode -> {
+//            // 获得父节点
+//            T parentNode = treeNodeMap.get(childNode.getParentId());
+//            if (parentNode == null) {
+////                LoggerFactory.getLogger(getClass()).error("[buildRouterTree][resource({}) 找不到父资源({})]",
+////                        childNode.getId(), childNode.getParentId());
+//                return;
+//            }
+//            // 将自己添加到父节点中
+//            if (parentNode.getChildren() == null) {
+//                parentNode.setChildren(new ArrayList<>());
+//            }
+//            parentNode.getChildren().add(childNode);
+//        });
+//        // 获得到所有的根节点
+//        return CollectionUtils.filterList(treeNodeMap.values(), node -> new Long(0).equals(node.getParentId()));
+//    }
     /**
      * 获取指定节点和其所有子节点和叶子节点的列表
      *
