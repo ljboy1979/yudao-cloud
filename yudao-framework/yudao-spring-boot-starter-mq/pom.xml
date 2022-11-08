@@ -32,6 +32,15 @@
             <!-- 引入基于 RocketMQ 的 Spring Cloud Bus 的实现的依赖，并实现对其的自动配置 -->
             <artifactId>spring-cloud-starter-bus-rocketmq</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-common</artifactId>
+        </dependency>
+        <!-- DB 相关 -->
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-spring-boot-starter-redis</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

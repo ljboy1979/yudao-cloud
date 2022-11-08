@@ -1,19 +1,17 @@
 package cn.iocoder.yudao.module.infra.mq.message.file;
 
+import cn.iocoder.yudao.framework.mq.core.pubsub.AbstractChannelMessage;
 import lombok.Data;
-import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 
 /**
  * 文件配置数据刷新 Message
  */
 @Data
-public class FileConfigRefreshMessage extends RemoteApplicationEvent {
+public class FileConfigRefreshMessage extends AbstractChannelMessage {
 
-    public FileConfigRefreshMessage() {
-    }
-
-    public FileConfigRefreshMessage(Object source, String originService, String destinationService) {
-        super(source, originService, destinationService);
+    @Override
+    public String getChannel() {
+        return "infra.file-config.refresh";
     }
 
 }
