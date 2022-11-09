@@ -13,7 +13,7 @@ import cn.iocoder.yudao.module.infra.controller.admin.file.vo.config.FileConfigP
 import cn.iocoder.yudao.module.infra.controller.admin.file.vo.config.FileConfigUpdateReqVO;
 import cn.iocoder.yudao.module.infra.dal.dataobject.file.FileConfigDO;
 import cn.iocoder.yudao.module.infra.dal.mysql.file.FileConfigMapper;
-import cn.iocoder.yudao.module.infra.mq.producer.FileConfigProducer;
+import cn.iocoder.yudao.module.infra.mq.producer.file.FileConfigProducer;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;

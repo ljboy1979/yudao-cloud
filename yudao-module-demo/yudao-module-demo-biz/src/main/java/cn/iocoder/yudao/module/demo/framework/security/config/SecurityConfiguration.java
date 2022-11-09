@@ -17,7 +17,7 @@ public class SecurityConfiguration {
     @Value("${spring.boot.admin.context-path:''}")
     private String adminSeverContextPath;
 
-    @Bean("git")
+    @Bean("demoAuthorizeRequestsCustomizer")
     public AuthorizeRequestsCustomizer authorizeRequestsCustomizer() {
         return new AuthorizeRequestsCustomizer() {
 
