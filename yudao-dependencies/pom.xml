@@ -64,6 +64,7 @@
         <jsch.version>0.1.55</jsch.version>
         <tika-core.version>2.4.1</tika-core.version>
         <aj-captcha.version>1.3.0</aj-captcha.version>
+        <bcprov.version>1.45</bcprov.version>
         <!-- 三方云服务相关 -->
         <minio.version>8.2.2</minio.version>
         <aliyun-java-sdk-core.version>4.6.0</aliyun-java-sdk-core.version>
@@ -624,6 +625,12 @@
                 <groupId>com.ctrip.framework.apollo</groupId>
                 <artifactId>apollo-client</artifactId> <!-- 引入 Apollo Client 库，实现内嵌的配置中心 -->
                 <version>${apollo.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk16</artifactId>
+                <version>${bcprov.version}</version>
             </dependency>
 
         </dependencies>
