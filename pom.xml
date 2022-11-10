@@ -17,7 +17,7 @@
         <module>yudao-module-system</module>
         <module>yudao-module-infra</module>
         <module>yudao-module-demo</module>
-        <module>acsm-module-user</module>
+        <module>acsm-module-member</module>
         <!--        <module>yudao-module-pay</module>-->
     </modules>
 

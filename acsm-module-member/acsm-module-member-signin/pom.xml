@@ -4,22 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>cn.iocoder.cloud</groupId>
-        <artifactId>acsm-module-user</artifactId>
+        <artifactId>acsm-module-member</artifactId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <modules>
-        <module>acsm-module-user-wallet-api</module>
-        <module>acsm-module-user-wallet-biz</module>
-    </modules>
-
-    <artifactId>acsm-module-user-wallet</artifactId>
+    <artifactId>acsm-module-member-signin</artifactId>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
     <description>
-        acsm-module-user-wallet 模块，主要实现 钱包 等功能。
+        acsm-module-member-signin 模块，主要实现 登录 等功能。
     </description>
+    <modules>
+        <module>acsm-module-member-signin-api</module>
+        <module>acsm-module-member-signin-biz</module>
+    </modules>
 
 </project>

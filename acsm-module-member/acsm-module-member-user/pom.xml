@@ -3,25 +3,23 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>acsm-module-user-wallet</artifactId>
         <groupId>cn.iocoder.cloud</groupId>
+        <artifactId>acsm-module-member</artifactId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>acsm-module-user-wallet-api</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>acsm-module-member-user</artifactId>
+    <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
     <description>
-        acsm-module-user-wallet 模块 API，暴露给其它模块调用
+        acsm-module-member-user 模块，主要实现 用户 等功能。
     </description>
+    <modules>
+        <module>acsm-module-member-user-api</module>
+        <module>acsm-module-member-user-biz</module>
+    </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>cn.iocoder.cloud</groupId>
-            <artifactId>yudao-common</artifactId>
-        </dependency>
-    </dependencies>
 
 </project>

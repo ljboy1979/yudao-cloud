@@ -3,18 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>acsm-module-user-user</artifactId>
+        <artifactId>acsm-module-member-user</artifactId>
         <groupId>cn.iocoder.cloud</groupId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>acsm-module-user-user-biz</artifactId>
+    <artifactId>acsm-module-member-user-biz</artifactId>
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
     <description>
-        acsm-module-user-user 模块 BIZ
+        acsm-module-member-user 模块 BIZ
     </description>
 
     <dependencies>
@@ -32,7 +32,7 @@
         <!-- 依赖服务 -->
         <dependency>
             <groupId>cn.iocoder.cloud</groupId>
-            <artifactId>acsm-module-user-user-api</artifactId>
+            <artifactId>acsm-module-member-user-api</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>

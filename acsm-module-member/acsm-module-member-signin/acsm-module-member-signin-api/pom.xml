@@ -3,23 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
+        <artifactId>acsm-module-member-signin</artifactId>
         <groupId>cn.iocoder.cloud</groupId>
-        <artifactId>yudao</artifactId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <modules>
-        <module>acsm-module-user-signin</module>
-        <module>acsm-module-user-wallet</module>
-        <module>acsm-module-user-user</module>
-    </modules>
-
-    <artifactId>acsm-module-user</artifactId>
-
-    <packaging>pom</packaging>
+    <artifactId>acsm-module-member-signin-api</artifactId>
+    <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
     <description>
-        user 模块，主要实现 注册、钱包、用户 等功能。
+        acsm-module-member-signin 模块 API，暴露给其它模块调用
     </description>
 </project>

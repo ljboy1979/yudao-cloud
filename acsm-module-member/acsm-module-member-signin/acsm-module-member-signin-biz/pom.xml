@@ -3,25 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>acsm-module-user-user</artifactId>
         <groupId>cn.iocoder.cloud</groupId>
+        <artifactId>acsm-module-member-signin</artifactId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>acsm-module-user-user-api</artifactId>
+    <artifactId>acsm-module-member-signin-biz</artifactId>
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
     <description>
-        acsm-module-user-user 模块 API，暴露给其它模块调用
+        acsm-module-member-signin 模块 BIZ
     </description>
-    <dependencies>
-        <dependency>
-            <groupId>cn.iocoder.cloud</groupId>
-            <artifactId>yudao-common</artifactId>
-        </dependency>
-    </dependencies>
-
-
 </project>
