@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author 芋道源码
  */
 @SpringBootApplication
-@MapperScan("cn.acsm.module.user.user.dal.mysql.*")
+@MapperScan("cn.acsm.module.member.user.dal.mysql.*")
 public class MemberUserInfoServerApplication {
 
     public static void main(String[] args) {
