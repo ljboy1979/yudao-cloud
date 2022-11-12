@@ -28,7 +28,7 @@ public class TreeEntity<T> extends BaseDO
     /** 节点名称 */
     private String name;
 
-
+    /** 显示顺序 */
     private Integer sort;
 
     /** 父菜单名称 */
@@ -37,8 +37,8 @@ public class TreeEntity<T> extends BaseDO
     /** 父菜单ID */
     private Long parentId;
 
-    /** 显示顺序 */
-    private Integer orderNum;
+//    /** 显示顺序 */
+//    private Integer orderNum;
 
     /** 祖级列表 */
     @TableField(exist = false)
@@ -46,6 +46,7 @@ public class TreeEntity<T> extends BaseDO
 
     /** 子部门 */
     @TableField(exist = false)
+    //    @TableField(typeHandler = Json) 用json序列化后存在数据库
     private List<T> children = new ArrayList<>();
 
 //    public String getParentName()
