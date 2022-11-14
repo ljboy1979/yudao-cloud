@@ -78,8 +78,7 @@ public class DictDataController {
     @GetMapping(value = "/get")
     @ApiOperation("/查询字典数据详细")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
-//    @PreAuthorize("@ss.hasPermission('system:dict:query')")
-    @PermitAll
+    @PreAuthorize("@ss.hasPermission('system:dict:query')")
     public CommonResult<DictDataRespVO> getDictData(@RequestParam("id") Long id) {
         return success(DictDataConvert.INSTANCE.convert(dictDataService.getDictData(id)));
     }
