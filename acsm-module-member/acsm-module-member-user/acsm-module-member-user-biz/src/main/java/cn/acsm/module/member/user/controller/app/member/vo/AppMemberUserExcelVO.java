@@ -1,10 +1,9 @@
-package cn.acsm.module.member.user.controller.admin.user.vo;
-
-import lombok.*;
-import java.util.*;
-import io.swagger.annotations.*;
+package cn.acsm.module.member.user.controller.app.member.vo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 用户 Excel VO
@@ -12,7 +11,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
  * @author lihongyan
  */
 @Data
-public class MemberUserExcelVO {
+public class AppMemberUserExcelVO {
 
     @ExcelProperty("编号")
     private Long id;

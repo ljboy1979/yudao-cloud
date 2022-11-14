@@ -1,19 +1,19 @@
-package cn.acsm.module.member.user.convert.user;
+package cn.acsm.module.member.user.convert.member;
 
 import java.util.*;
 
-import cn.acsm.module.member.user.controller.admin.user.vo.MemberUserCreateReqVO;
-import cn.acsm.module.member.user.controller.admin.user.vo.MemberUserExcelVO;
-import cn.acsm.module.member.user.controller.admin.user.vo.MemberUserRespVO;
-import cn.acsm.module.member.user.controller.admin.user.vo.MemberUserUpdateReqVO;
-import cn.acsm.module.member.user.dal.dataobject.user.MemberUserDO;
+import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserCreateReqVO;
+import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserExcelVO;
+import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserRespVO;
+import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserUpdateReqVO;
+import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 /**
- * 用户 Convert
+ * 会员 Convert
  *
  * @author lihongyan
  */

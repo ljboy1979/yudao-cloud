@@ -1,17 +1,16 @@
-package cn.acsm.module.member.user.controller.app.user.vo;
+package cn.acsm.module.member.user.controller.admin.member.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+import lombok.*;
+import java.util.*;
+import io.swagger.annotations.*;
+import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
-@ApiModel(value = "用户 APP - 用户 Excel 导出 Request VO", description = "参数和 MemberUserPageReqVO 是一致的")
+@ApiModel(value = "管理后台 - 会员 Excel 导出 Request VO", description = "参数和 MemberUserPageReqVO 是一致的")
 @Data
-public class AppMemberUserExportReqVO {
+public class MemberUserExportReqVO {
 
     @ApiModelProperty(value = "用户昵称")
     private String nickname;

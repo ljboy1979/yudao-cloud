@@ -1,17 +1,17 @@
-package cn.acsm.module.member.user.dal.mysql.user;
+package cn.acsm.module.member.user.dal.mysql.member;
 
 import java.util.*;
 
-import cn.acsm.module.member.user.controller.admin.user.vo.MemberUserExportReqVO;
-import cn.acsm.module.member.user.controller.admin.user.vo.MemberUserPageReqVO;
-import cn.acsm.module.member.user.dal.dataobject.user.MemberUserDO;
+import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserExportReqVO;
+import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserPageReqVO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
+import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 用户 Mapper
+ * 会员 Mapper
  *
  * @author lihongyan
  */
@@ -44,12 +44,6 @@ public interface MemberUserMapper extends BaseMapperX<MemberUserDO> {
                 .betweenIfPresent(MemberUserDO::getLoginDate, reqVO.getLoginDate())
                 .betweenIfPresent(MemberUserDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(MemberUserDO::getId));
-    }
-
-    default MemberUserDO getMemberUserByPhoneAndTenantId(MemberUserExportReqVO reqVO) {
-        return selectOne(new LambdaQueryWrapperX<MemberUserDO>()
-                .eqIfPresent(MemberUserDO::getMobile, reqVO.getMobile())
-                .eqIfPresent(MemberUserDO::getTenantId, reqVO.getTenantId()));
     }
 
 }

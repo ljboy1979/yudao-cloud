@@ -1,6 +1,6 @@
-package cn.acsm.module.member.user.controller.app.user;
+package cn.acsm.module.member.user.controller.app.member;
 
-import cn.acsm.module.member.user.service.user.MemberUserService;
+import cn.acsm.module.member.user.service.member.MemberUserService;
 import io.swagger.annotations.Api;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;

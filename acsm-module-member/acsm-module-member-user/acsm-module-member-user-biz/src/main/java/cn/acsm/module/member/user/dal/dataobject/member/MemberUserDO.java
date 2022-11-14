@@ -1,15 +1,12 @@
-package cn.acsm.module.member.user.dal.dataobject.user;
+package cn.acsm.module.member.user.dal.dataobject.member;
 
-import cn.iocoder.yudao.framework.tenant.core.db.TenantBaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
-
-import java.util.Date;
+import java.util.*;
+import com.baomidou.mybatisplus.annotation.*;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 
 /**
- * 用户 DO
+ * 会员 DO
  *
  * @author lihongyan
  */
@@ -21,7 +18,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberUserDO extends TenantBaseDO {
+public class MemberUserDO extends BaseDO {
 
     /**
      * 编号

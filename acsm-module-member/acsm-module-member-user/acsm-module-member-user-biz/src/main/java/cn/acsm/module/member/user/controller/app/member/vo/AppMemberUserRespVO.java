@@ -1,4 +1,4 @@
-package cn.acsm.module.member.user.controller.app.user.vo;
+package cn.acsm.module.member.user.controller.app.member.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

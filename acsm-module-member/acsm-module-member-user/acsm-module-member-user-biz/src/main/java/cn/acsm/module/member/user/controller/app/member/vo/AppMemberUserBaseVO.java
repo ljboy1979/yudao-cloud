@@ -1,10 +1,11 @@
-package cn.acsm.module.member.user.controller.admin.user.vo;
+package cn.acsm.module.member.user.controller.app.member.vo;
 
-import lombok.*;
-import java.util.*;
-import io.swagger.annotations.*;
-import javax.validation.constraints.*;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
@@ -13,7 +14,7 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 * 如果子 VO 存在差异的字段，请不要添加到这里，影响 Swagger 文档生成
 */
 @Data
-public class MemberUserBaseVO {
+public class AppMemberUserBaseVO {
 
     @ApiModelProperty(value = "用户昵称", required = true)
     @NotNull(message = "用户昵称不能为空")
