@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -28,6 +29,7 @@ import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.E
 @RestController
 @RequestMapping("/system/dict-data")
 @Validated
+@PermitAll
 public class DictDataController {
 
     @Resource
@@ -76,7 +78,8 @@ public class DictDataController {
     @GetMapping(value = "/get")
     @ApiOperation("/查询字典数据详细")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
-    @PreAuthorize("@ss.hasPermission('system:dict:query')")
+//    @PreAuthorize("@ss.hasPermission('system:dict:query')")
+    @PermitAll
     public CommonResult<DictDataRespVO> getDictData(@RequestParam("id") Long id) {
         return success(DictDataConvert.INSTANCE.convert(dictDataService.getDictData(id)));
     }
