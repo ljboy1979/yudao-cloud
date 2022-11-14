@@ -1,7 +1,7 @@
-package cn.iocoder.yudao.module.bpm.framework.bpm.config;
+package cn.iocoder.yudao.module.demo.framework.security.config;
 
 import cn.iocoder.yudao.framework.security.config.AuthorizeRequestsCustomizer;
-import cn.iocoder.yudao.module.bpm.enums.ApiConstants;
+import cn.iocoder.yudao.module.demo.enums.ApiConstants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,25 +9,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 
 /**
- * @author kemengkai
- * @create 2022-05-07 08:15
+ * Demo 模块的 Security 配置
  */
-@Configuration("bpmSecurityConfiguration")
-public class BpmSecurityConfiguration {
+@Configuration("demoSecurityConfiguration")
+public class SecurityConfiguration {
+
     @Value("${spring.boot.admin.context-path:''}")
     private String adminSeverContextPath;
-    @Bean("bpmAuthorizeRequestsCustomizer")
-//    public AuthorizeRequestsCustomizer authorizeRequestsCustomizer() {
-//        return new AuthorizeRequestsCustomizer() {
-//
-//            @Override
-//            public void customize(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry) {
-//                // 任务回退接口
-//                registry.antMatchers(buildAdminApi("/bpm/task/back")).permitAll();
-//            }
-//
-//        };
-//    }
+
+    @Bean("demoAuthorizeRequestsCustomizer")
     public AuthorizeRequestsCustomizer authorizeRequestsCustomizer() {
         return new AuthorizeRequestsCustomizer() {
 
@@ -54,4 +44,5 @@ public class BpmSecurityConfiguration {
 
         };
     }
+
 }
