@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.Expression
  * @author kemengkai
  * @create 2022-05-07 08:15
  */
-@Configuration("bpmSecurityConfiguration")
+@Configuration(proxyBeanMethods = false, value = "bpmSecurityConfiguration")
 public class BpmSecurityConfiguration {
     @Value("${spring.boot.admin.context-path:''}")
     private String adminSeverContextPath;
