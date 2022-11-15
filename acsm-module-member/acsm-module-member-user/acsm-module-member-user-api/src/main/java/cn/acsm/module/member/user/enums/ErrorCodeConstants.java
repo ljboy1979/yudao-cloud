@@ -9,18 +9,17 @@ import cn.iocoder.yudao.framework.common.exception.ErrorCode;
  * User，使用 1-010-000-000 段
  */
 public interface ErrorCodeConstants {
-    ErrorCode USER_INFO_NOT_EXISTS = new ErrorCode(1010000000, "用户基本信息不存在");
-    ErrorCode WEIXIN_DEPLOY_INFO_NOT_EXISTS = new ErrorCode(1010000001, "微信公众号配置信息不存在");
-    ErrorCode WEIXIN_LOGIN_INFO_NOT_EXISTS = new ErrorCode(1010000002, "微信登录信息记录不存在");
-    ErrorCode MEMBER_USER_NOT_EXISTS = new ErrorCode(1010000003, "用户不存在");
-    ErrorCode TENANTID_NOT_EXISTS = new ErrorCode(1010000004, "租户编号参数缺失");
-    ErrorCode WECHAT_CONFIGURATION_NOT_EXISTS = new ErrorCode(1010000005, "该租户下未配置微信公众号信息");
+    ErrorCode USER_NOT_EXISTS = new ErrorCode(1010000000, "会员不存在");
+    ErrorCode MEMBER_USER_NOT_EXISTS = new ErrorCode(1010000001, "会员不存在");
+    ErrorCode TENANTID_NOT_EXISTS = new ErrorCode(1010000002, "租户编号参数缺失");
+    ErrorCode WECHAT_CONFIGURATION_NOT_EXISTS = new ErrorCode(1010000003, "该租户下未配置微信公众号信息");
+    ErrorCode USER_PASSWORD_FAILED = new ErrorCode(1010001004, "密码校验失败");
 
-    // ========== 用户相关  1010001000============
-    ErrorCode USER_NOT_EXISTS = new ErrorCode(1010001000, "用户不存在");
-    ErrorCode USER_PASSWORD_FAILED = new ErrorCode(1010001001, "密码校验失败");
 
-    // ========== AUTH 模块 1010003000 ==========
+
+
+    //    ErrorCode USER_INFO_NOT_EXISTS = new ErrorCode(1010000000, "用户基本信息不存在");
+    // ========== AUTH 模块 1010001000 ==========
     ErrorCode AUTH_LOGIN_BAD_CREDENTIALS = new ErrorCode(1010003000, "登录失败，账号密码不正确");
     ErrorCode AUTH_LOGIN_USER_DISABLED = new ErrorCode(1010003001, "登录失败，账号被禁用");
     ErrorCode AUTH_TOKEN_EXPIRED = new ErrorCode(1010003004, "Token 已经过期");

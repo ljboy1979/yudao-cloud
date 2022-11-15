@@ -44,4 +44,10 @@ public class MemberUserExcelVO {
     @ExcelProperty("创建时间")
     private Date createTime;
 
+    @ExcelProperty("租户集合")
+    private Long source;
+
+    @ExcelProperty("经营主体ID")
+    private Long subjectId;
+
 }

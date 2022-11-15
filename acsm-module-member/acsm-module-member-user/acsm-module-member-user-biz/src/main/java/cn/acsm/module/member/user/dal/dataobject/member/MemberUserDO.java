@@ -57,5 +57,13 @@ public class MemberUserDO extends BaseDO {
      * 最后登录时间
      */
     private Date loginDate;
+    /**
+     * 租户集合
+     */
+    private Long source;
+    /**
+     * 经营主体ID
+     */
+    private Long subjectId;
 
 }

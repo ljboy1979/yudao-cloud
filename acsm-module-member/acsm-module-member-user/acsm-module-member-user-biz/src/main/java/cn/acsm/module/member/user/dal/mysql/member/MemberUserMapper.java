@@ -29,6 +29,8 @@ public interface MemberUserMapper extends BaseMapperX<MemberUserDO> {
                 .eqIfPresent(MemberUserDO::getLoginIp, reqVO.getLoginIp())
                 .betweenIfPresent(MemberUserDO::getLoginDate, reqVO.getLoginDate())
                 .betweenIfPresent(MemberUserDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(MemberUserDO::getSource, reqVO.getSource())
+                .eqIfPresent(MemberUserDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(MemberUserDO::getId));
     }
 
@@ -43,6 +45,8 @@ public interface MemberUserMapper extends BaseMapperX<MemberUserDO> {
                 .eqIfPresent(MemberUserDO::getLoginIp, reqVO.getLoginIp())
                 .betweenIfPresent(MemberUserDO::getLoginDate, reqVO.getLoginDate())
                 .betweenIfPresent(MemberUserDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(MemberUserDO::getSource, reqVO.getSource())
+                .eqIfPresent(MemberUserDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(MemberUserDO::getId));
     }
 

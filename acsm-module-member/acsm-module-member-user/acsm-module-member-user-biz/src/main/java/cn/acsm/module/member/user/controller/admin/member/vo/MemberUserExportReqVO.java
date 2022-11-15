@@ -41,4 +41,10 @@ public class MemberUserExportReqVO {
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] createTime;
 
+    @ApiModelProperty(value = "租户集合")
+    private Long source;
+
+    @ApiModelProperty(value = "经营主体ID")
+    private Long subjectId;
+
 }

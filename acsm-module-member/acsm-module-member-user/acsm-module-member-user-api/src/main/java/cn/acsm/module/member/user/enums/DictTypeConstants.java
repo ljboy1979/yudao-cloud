@@ -7,14 +7,14 @@ package cn.acsm.module.member.user.enums;
  */
 public interface DictTypeConstants {
 
-    String REDIS_TIMEOUT_TYPE = "user_redis_timeout_type"; // Redis 超时类型
+    String REDIS_TIMEOUT_TYPE = "member_redis_timeout_type"; // Redis 超时类型
 
-    String JOB_STATUS = "user_job_status"; // 定时任务状态的枚举
-    String JOB_LOG_STATUS = "user_job_log_status"; // 定时任务日志状态的枚举
+    String JOB_STATUS = "member_job_status"; // 定时任务状态的枚举
+    String JOB_LOG_STATUS = "member_job_log_status"; // 定时任务日志状态的枚举
 
-    String API_ERROR_LOG_PROCESS_STATUS = "user_api_error_log_process_status"; // API 错误日志的处理状态的枚举
+    String API_ERROR_LOG_PROCESS_STATUS = "member_api_error_log_process_status"; // API 错误日志的处理状态的枚举
 
-    String CONFIG_TYPE = "user_config_type"; // 参数配置类型
-    String BOOLEAN_STRING = "user_boolean_string"; // Boolean 是否类型
+    String CONFIG_TYPE = "member_config_type"; // 参数配置类型
+    String BOOLEAN_STRING = "member_boolean_string"; // Boolean 是否类型
 
 }

@@ -15,4 +15,11 @@
     <description>
         acsm-module-member-signin 模块 API，暴露给其它模块调用
     </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-common</artifactId>
+        </dependency>
+    </dependencies>
 </project>
