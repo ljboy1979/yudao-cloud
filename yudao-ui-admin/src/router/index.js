@@ -168,6 +168,16 @@ export const constantRoutes = [
         meta: {title: '流程详情', activeMenu: '/bpm/task/my'}
       }
     ]
+  },{
+    path: '/member',
+    component: Layout,
+    children: [{
+        path: '/member/user/memberDetail',
+        component: (resolve) => require(['@/views/member/user/memberDetail'], resolve),
+        name: '会员详情',
+        meta: {title: '会员详情', icon: 'form', activeMenu: '/member/user/memberDetail'}
+      }
+    ]
   }
 ]
 
