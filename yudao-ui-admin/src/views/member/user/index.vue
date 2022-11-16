@@ -3,12 +3,12 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item prop="">
+      <el-form-item prop="role">
         <el-select v-model="queryParams.role" placeholder="请选择会员角色" clearable size="small">
           <el-option label="数据" value="" />
         </el-select>
       </el-form-item>
-      <el-form-item prop="">
+      <el-form-item prop="type">
         <el-select v-model="queryParams.type" placeholder="请选择会员类型" clearable size="small">
           <el-option label="数据" value="" />
         </el-select>
@@ -22,7 +22,7 @@
       <el-form-item prop="mobile">
         <el-input v-model="queryParams.mobile" placeholder="请输入会员手机号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item prop="">
+      <el-form-item prop="merchant">
         <el-input v-model="queryParams.merchant" placeholder="请输入会员门户" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item>
@@ -110,7 +110,7 @@
                      v-hasPermi="['']">管理</el-button>
           <el-button size="mini" type="text" @click="handleProcess(scope.row)"
                      v-hasPermi="['']">审核</el-button>
-          <el-button size="mini" type="text" @click=""
+          <el-button size="mini" type="text" @click="handleDelete(scope.row)"
                      v-hasPermi="['']">解绑</el-button>
           <el-button size="mini" type="text" @click=""
                      v-hasPermi="['']">置为集采会员</el-button>
@@ -153,15 +153,18 @@
     <!-- 对话框(审核) -->
     <el-dialog :visible.sync="open" width="400px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" >
-        <el-radio-group v-model="form.result" style="display: flex; align-items: center;justify-content: center;">
-          <el-radio :key="true" :label="true">通过</el-radio>
-          <el-radio :key="false" :label="false">不通过</el-radio>
-        </el-radio-group>
-        <el-form-item label="备注" prop="remark" :label-position="left" label-width="40px">
+        <el-form-item  prop="result" label-width="100px">
+          <!-- <el-radio-group v-model="form.result" style="display: flex; align-items: center;justify-content: center;margin: 0 10px;"> -->
+          <el-radio-group v-model="form.result" >
+            <el-radio :key="true" :label="true">通过</el-radio>
+            <el-radio :key="false" :label="false" >不通过</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="备注" prop="remark" :rules="form.result == false ? rules.remark : { required: false}" label-width="55px">
           <el-input type="textarea" :rows="3" v-model="form.remark"></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer" class="dialog-footer" align="center">
         <el-button type="primary" @click="submitForm">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
@@ -241,9 +244,10 @@ export default {
         pageSize: 10,
         id: null,
         nickname: null,
+        mobile: null,
+
         avatar: null,
         status: null,
-        mobile: null,
         password: null,
         registerIp: null,
         loginIp: null,
@@ -256,6 +260,9 @@ export default {
       form: {},
       // 表单校验
       rules: {
+        result: [{ required: true, message: "审核结果不能为空", trigger: "blur" }],
+        remark: [{ required: true, message: "备注不能为空", trigger: "blur" }],
+
         nickname: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
         avatar: [{ required: true, message: "头像不能为空", trigger: "blur" }],
         status: [{ required: true, message: "状态不能为空", trigger: "blur" }],
@@ -289,11 +296,15 @@ export default {
     /** 表单重置 */
     reset() {
       this.form = {
+        role: undefined,
+        role: undefined,
         id: undefined,
         nickname: undefined,
+        mobile: undefined,
+        merchant: undefined,
+
         avatar: undefined,
         status: undefined,
-        mobile: undefined,
         password: undefined,
         registerIp: undefined,
         loginIp: undefined,
@@ -315,7 +326,6 @@ export default {
     },
     /** 详情按钮操作 */
     handleDetail(row) {
-      // console.log("/member/user/memberDetail",row.id)
       this.$router.push({ path: "/member/user/memberDetail", query: { id: row.id}});
     },
     /** 审核按钮操作 */
@@ -325,6 +335,26 @@ export default {
       this.open = true;
       
     },
+    /** 提交按钮 */
+    submitForm() {
+      this.$refs["form"].validate(valid => {
+        if (!valid) {
+          return;
+        }
+        
+      });
+    },
+    /** 解绑按钮操作 */
+    handleDelete(row) {
+      const id = row.id;
+      this.$modal.confirm('是否确认将"' + id + '"解绑?').then(function () {
+        console.log("解绑", id)
+        // return delete(id); //解绑接口
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("解绑成功");
+      }).catch(() => {});
+    }
     /** 新增按钮操作 */
     // handleAdd() {
     //   this.reset();
