@@ -1,28 +1,24 @@
-package cn.acsm.module.wallet.controller.admin.wallet.vo;
+package cn.acsm.module.member.signin.controller.app.auth.vo;
 
 import lombok.*;
-import java.util.*;
 import io.swagger.annotations.*;
 import javax.validation.constraints.*;
 
 /**
-* 钱包信息 Base VO，提供给添加、修改、详细的子 VO 使用
+* 会员登录授权配置信息 Base VO，提供给添加、修改、详细的子 VO 使用
 * 如果子 VO 存在差异的字段，请不要添加到这里，影响 Swagger 文档生成
 */
 @Data
-public class WalletInfoBaseVO {
+public class AppAuthConfigInfoBaseVO {
 
-    @ApiModelProperty(value = "钱包编号")
-    private String walletNo;
+    @ApiModelProperty(value = "公众号appId")
+    private String appId;
 
-    @ApiModelProperty(value = "会员id")
-    private Long memberId;
+    @ApiModelProperty(value = "公众号appSecret")
+    private String appSecret;
 
-    @ApiModelProperty(value = "用户名")
-    private String username;
-
-    @ApiModelProperty(value = "手机号")
-    private String phone;
+    @ApiModelProperty(value = "标识 1-微信")
+    private String appletFlag;
 
     @ApiModelProperty(value = "备注信息")
     private String remark;

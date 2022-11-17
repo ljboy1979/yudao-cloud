@@ -13,10 +13,10 @@ import javax.validation.constraints.*;
 public class BankCardsInfoBaseVO {
 
     @ApiModelProperty(value = "会员id")
-    private String memberId;
+    private Long memberId;
 
     @ApiModelProperty(value = "钱包id")
-    private String walletId;
+    private Long walletId;
 
     @ApiModelProperty(value = "银行卡类型")
     private String bankCardType;

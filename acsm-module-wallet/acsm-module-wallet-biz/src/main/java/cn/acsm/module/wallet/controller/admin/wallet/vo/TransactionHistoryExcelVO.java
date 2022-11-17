@@ -19,10 +19,10 @@ public class TransactionHistoryExcelVO {
     private Long id;
 
     @ExcelProperty("会员id")
-    private String memberId;
+    private Long memberId;
 
     @ExcelProperty("钱包id")
-    private String walletId;
+    private Long walletId;
 
     @ExcelProperty("交易编号")
     private String transactionNumber;

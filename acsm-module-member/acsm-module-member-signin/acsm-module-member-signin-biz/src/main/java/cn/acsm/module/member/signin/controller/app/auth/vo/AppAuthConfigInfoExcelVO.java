@@ -1,33 +1,29 @@
-package cn.acsm.module.wallet.controller.admin.wallet.vo;
+package cn.acsm.module.member.signin.controller.app.auth.vo;
 
 import lombok.*;
 import java.util.*;
-import io.swagger.annotations.*;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 
 /**
- * 钱包信息 Excel VO
+ * 会员登录授权配置信息 Excel VO
  *
  * @author lihongyan
  */
 @Data
-public class WalletInfoExcelVO {
+public class AppAuthConfigInfoExcelVO {
 
     @ExcelProperty("主键ID")
     private Long id;
 
-    @ExcelProperty("钱包编号")
-    private String walletNo;
+    @ExcelProperty("公众号appId")
+    private String appId;
 
-    @ExcelProperty("会员id")
-    private Long memberId;
+    @ExcelProperty("公众号appSecret")
+    private String appSecret;
 
-    @ExcelProperty("用户名")
-    private String username;
-
-    @ExcelProperty("手机号")
-    private String phone;
+    @ExcelProperty("标识 1-微信")
+    private String appletFlag;
 
     @ExcelProperty("备注信息")
     private String remark;

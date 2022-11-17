@@ -24,13 +24,13 @@ public class AuthLoginInfoExcelVO {
     private String phone;
 
     @ExcelProperty("会员id")
-    private String memberId;
+    private Long memberId;
 
     @ExcelProperty("性别(0女，1男)")
-    private String sex;
+    private Integer sex;
 
     @ExcelProperty("类型 1-微信")
-    private String type;
+    private Integer type;
 
     @ExcelProperty("状态（0正常 1停用）")
     private Integer status;

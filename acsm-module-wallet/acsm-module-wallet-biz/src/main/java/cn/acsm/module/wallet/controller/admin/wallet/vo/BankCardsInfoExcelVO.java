@@ -18,10 +18,10 @@ public class BankCardsInfoExcelVO {
     private Long id;
 
     @ExcelProperty("会员id")
-    private String memberId;
+    private Long memberId;
 
     @ExcelProperty("钱包id")
-    private String walletId;
+    private Long walletId;
 
     @ExcelProperty("银行卡类型")
     private String bankCardType;

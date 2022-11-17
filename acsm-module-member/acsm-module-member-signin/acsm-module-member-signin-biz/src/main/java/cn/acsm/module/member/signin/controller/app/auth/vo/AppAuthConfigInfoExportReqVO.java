@@ -1,30 +1,24 @@
-package cn.acsm.module.wallet.controller.admin.wallet.vo;
+package cn.acsm.module.member.signin.controller.app.auth.vo;
 
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
-import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
-@ApiModel("管理后台 - 钱包信息分页 Request VO")
+@ApiModel(value = "用户 APP - 会员登录授权配置信息 Excel 导出 Request VO", description = "参数和 AuthConfigInfoPageReqVO 是一致的")
 @Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-public class WalletInfoPageReqVO extends PageParam {
+public class AppAuthConfigInfoExportReqVO {
 
-    @ApiModelProperty(value = "钱包编号")
-    private String walletNo;
+    @ApiModelProperty(value = "公众号appId")
+    private String appId;
 
-    @ApiModelProperty(value = "会员id")
-    private Long memberId;
+    @ApiModelProperty(value = "公众号appSecret")
+    private String appSecret;
 
-    @ApiModelProperty(value = "用户名")
-    private String username;
-
-    @ApiModelProperty(value = "手机号")
-    private String phone;
+    @ApiModelProperty(value = "标识 1-微信")
+    private String appletFlag;
 
     @ApiModelProperty(value = "备注信息")
     private String remark;

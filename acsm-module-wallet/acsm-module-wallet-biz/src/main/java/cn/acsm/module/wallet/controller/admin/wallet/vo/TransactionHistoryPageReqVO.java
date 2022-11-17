@@ -17,10 +17,10 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 public class TransactionHistoryPageReqVO extends PageParam {
 
     @ApiModelProperty(value = "会员id")
-    private String memberId;
+    private Long memberId;
 
     @ApiModelProperty(value = "钱包id")
-    private String walletId;
+    private Long walletId;
 
     @ApiModelProperty(value = "交易编号")
     private String transactionNumber;

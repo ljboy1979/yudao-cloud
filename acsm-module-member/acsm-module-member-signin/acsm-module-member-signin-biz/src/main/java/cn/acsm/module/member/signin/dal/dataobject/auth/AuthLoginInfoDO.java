@@ -37,15 +37,15 @@ public class AuthLoginInfoDO extends TenantBaseDO {
     /**
      * 会员id
      */
-    private String memberId;
+    private Long memberId;
     /**
      * 性别(0女，1男)
      */
-    private String sex;
+    private Integer sex;
     /**
      * 类型 1-微信
      */
-    private String type;
+    private Integer type;
     /**
      * 状态（0正常 1停用）
      */

@@ -6,6 +6,10 @@ import cn.acsm.module.member.signin.controller.admin.auth.vo.AuthConfigInfoCreat
 import cn.acsm.module.member.signin.controller.admin.auth.vo.AuthConfigInfoExcelVO;
 import cn.acsm.module.member.signin.controller.admin.auth.vo.AuthConfigInfoRespVO;
 import cn.acsm.module.member.signin.controller.admin.auth.vo.AuthConfigInfoUpdateReqVO;
+import cn.acsm.module.member.signin.controller.app.auth.vo.AppAuthConfigInfoCreateReqVO;
+import cn.acsm.module.member.signin.controller.app.auth.vo.AppAuthConfigInfoExcelVO;
+import cn.acsm.module.member.signin.controller.app.auth.vo.AppAuthConfigInfoRespVO;
+import cn.acsm.module.member.signin.controller.app.auth.vo.AppAuthConfigInfoUpdateReqVO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 import org.mapstruct.Mapper;
@@ -33,5 +37,10 @@ public interface AuthConfigInfoConvert {
     PageResult<AuthConfigInfoRespVO> convertPage(PageResult<AuthConfigInfoDO> page);
 
     List<AuthConfigInfoExcelVO> convertList02(List<AuthConfigInfoDO> list);
+
+    // app端
+    AuthConfigInfoDO convert(AppAuthConfigInfoCreateReqVO bean);
+
+    AuthConfigInfoDO convert(AppAuthConfigInfoUpdateReqVO bean);
 
 }

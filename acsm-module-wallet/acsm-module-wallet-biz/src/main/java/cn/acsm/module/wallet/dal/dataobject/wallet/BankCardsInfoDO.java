@@ -29,11 +29,11 @@ public class BankCardsInfoDO extends TenantBaseDO {
     /**
      * 会员id
      */
-    private String memberId;
+    private Long memberId;
     /**
      * 钱包id
      */
-    private String walletId;
+    private Long walletId;
     /**
      * 银行卡类型
      */

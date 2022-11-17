@@ -33,7 +33,7 @@ public class WalletInfoDO extends TenantBaseDO {
     /**
      * 会员id
      */
-    private String memberId;
+    private Long memberId;
     /**
      * 用户名
      */

@@ -16,7 +16,7 @@ public class WalletInfoExportReqVO {
     private String walletNo;
 
     @ApiModelProperty(value = "会员id")
-    private String memberId;
+    private Long memberId;
 
     @ApiModelProperty(value = "用户名")
     private String username;

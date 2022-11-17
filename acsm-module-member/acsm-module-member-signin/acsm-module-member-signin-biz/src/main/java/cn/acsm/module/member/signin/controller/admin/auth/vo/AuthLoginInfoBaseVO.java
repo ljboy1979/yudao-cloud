@@ -19,13 +19,13 @@ public class AuthLoginInfoBaseVO {
     private String phone;
 
     @ApiModelProperty(value = "会员id")
-    private String memberId;
+    private Long memberId;
 
     @ApiModelProperty(value = "性别(0女，1男)")
-    private String sex;
+    private Long sex;
 
     @ApiModelProperty(value = "类型 1-微信")
-    private String type;
+    private Long type;
 
     @ApiModelProperty(value = "状态（0正常 1停用）", required = true)
     @NotNull(message = "状态（0正常 1停用）不能为空")
