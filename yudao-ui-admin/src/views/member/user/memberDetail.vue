@@ -1,0 +1,287 @@
+<template>
+    <div class="app-container">
+
+        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+            <el-tab-pane label="基本信息" name="first">
+                <div class="title">基本信息</div>
+                <div class="info">会员账号</div>
+                <div class="info">会员名称</div>
+                <div class="info">微信号</div>
+                <div class="info">手机号</div>
+                <div class="info">住院号/员工卡号</div>
+            </el-tab-pane>
+            <el-tab-pane label="企业资料" name="second">
+                <div class="title">企业基本信息</div>
+                <div class="info">企业名称</div>
+                <div class="info">经营模式</div>
+                <div class="info">证件编号</div>
+                <div class="info">产业角色</div>
+                <div class="info">地址</div>
+                <div class="info">证件照片</div>
+                <div class="info">经营合格证号</div>
+                <div class="info">社会信用代码</div>
+
+                <div class="title">企业其他信息</div>
+                <div class="info">主营业务</div>
+                <div class="info">企业规模</div>
+                <div class="info">企业介绍</div>
+            </el-tab-pane>
+            <el-tab-pane label="专业资质" name="third">
+                <div class="title">专业资质</div>
+                <el-table v-loading="loading" :data="list" stripe>
+                    <el-table-column label="备案类型" align="center" prop="id" />
+                    <el-table-column label="备案名称" align="center" prop="nickname" />
+                    <el-table-column label="许可证号码" align="center" prop="avatar" />
+                    <el-table-column label="姓名" align="center" prop="status" />
+                    <el-table-column label="手机号" align="center" prop="mobile" />
+                    <el-table-column label="备案日期" align="center" prop="password" />
+                    <el-table-column label="证照" align="center" prop="registerIp" />
+                    <el-table-column label="审核状态" align="center" prop="loginIp" />
+                </el-table>
+            </el-tab-pane>
+            <el-tab-pane label="售品交易记录" name="fourth">
+                <div class="title">售品交易记录</div>
+                <el-table v-loading="loading" :data="list" stripe>
+                    <el-table-column label="订单编号" align="center" prop="id" />
+                    <el-table-column label="下单时间" align="center" prop="nickname" />
+                    <el-table-column label="订单总额" align="center" prop="avatar" />
+                    <el-table-column label="售品名称" align="center" prop="status" />
+                    <el-table-column label="优惠活动" align="center" prop="mobile" />
+                    <el-table-column label="订单状态" align="center" prop="password" />
+                </el-table>
+            </el-tab-pane>
+            <el-tab-pane label="服务交易记录" name="fifth">
+                <div class="title">服务交易记录</div>
+                <el-table v-loading="loading" :data="list" stripe>
+                    <el-table-column label="订单编号" align="center" prop="id" />
+                    <el-table-column label="订单总额" align="center" prop="nickname" />
+                    <el-table-column label="服务提供方" align="center" prop="avatar" />
+                    <el-table-column label="服务类型" align="center" prop="status" />
+                    <el-table-column label="服务名称" align="center" prop="mobile" />
+                    <el-table-column label="下单时间" align="center" prop="mobile" />
+                    <el-table-column label="订单状态" align="center" prop="password" />
+                </el-table>
+            </el-tab-pane>
+            <el-tab-pane label="进出记录" name="sixth">
+                <div class="title">进出记录</div>
+                <el-table v-loading="loading" :data="list" stripe>
+                    <el-table-column label="会员名称" align="center" prop="id" />
+                    <el-table-column label="设备号" align="center" prop="nickname" />
+                    <el-table-column label="进场时间" align="center" prop="avatar" />
+                    <el-table-column label="出厂时间" align="center" prop="status" />
+                </el-table>
+            </el-tab-pane>
+            <el-tab-pane label="会员积分记录" name="seventh">
+                <div class="title">会员积分记录</div>
+                <el-button type="primary" style="margin-right: 15px;">新增</el-button>
+                <el-date-picker v-model="CheckDate" type="daterange" range-separator="至" start-placeholder="开始日期"
+                    end-placeholder="结束日期">
+                </el-date-picker>
+                <el-button style="margin-left: 15px;" type="primary" icon="el-icon-search" @click="handleQuery">搜索
+                </el-button>
+                <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
+                <el-table v-loading="loading" :data="list" stripe>
+                    <el-table-column label="会员账号" align="center" prop="id" />
+                    <el-table-column label="会员名称" align="center" prop="nickname" />
+                    <el-table-column label="评分项目" align="center" prop="avatar" />
+                    <el-table-column label="本次积分变动" align="center" prop="status" />
+                    <el-table-column label="当前剩余积分" align="center" prop="status" />
+                    <el-table-column label="积分变动时间" align="center" prop="status" />
+                    <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+                        <template slot-scope="scope">
+                            <el-button size="mini" type="text" icon="el-icon-edit" @click="handleView(scope.row)"
+                                v-hasPermi="['member:user:update']">查看</el-button>
+                            <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
+                                v-hasPermi="['member:user:update']">修改</el-button>
+                            <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
+                                v-hasPermi="['member:user:delete']">删除</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-tab-pane>
+            <el-tab-pane label="健康档案" name="eighth">
+                <div class="title">健康档案</div>
+                <el-select v-model="value" placeholder="请选择">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </el-tab-pane>
+            <el-tab-pane label="代理商管理" name="ninth">
+                <div class="title">代理商管理</div>
+                <el-input style="width: 150px;" v-model="input" placeholder="请输入内容"></el-input>
+                <el-button style="margin-left: 15px;" type="primary" icon="el-icon-search" @click="handleQuery">搜索
+                </el-button>
+                <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
+                <el-table v-loading="loading" :data="list" stripe>
+                    <el-table-column label="代理商名称" align="center" prop="id" />
+                    <el-table-column label="行政区域" align="center" prop="nickname" />
+                    <el-table-column label="手机号" align="center" prop="avatar" />
+                    <el-table-column label="地址" align="center" prop="status" />
+                    <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+                        <template slot-scope="scope">
+                            <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
+                                v-hasPermi="['member:user:update']">编辑</el-button>
+                            <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
+                                v-hasPermi="['member:user:delete']">删除</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-tab-pane>
+            <el-tab-pane label="钱包交易记录" name="tenth">
+                <div class="title">钱包交易记录</div>
+                 <el-date-picker v-model="CheckDate" type="daterange" range-separator="至" start-placeholder="开始日期"
+                    end-placeholder="结束日期">
+                </el-date-picker>
+                <el-button style="margin-left: 15px;" type="primary" icon="el-icon-search" @click="handleQuery">搜索
+                </el-button>
+                <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
+                <el-button icon="el-icon-refresh" @click="resetQuery">导出</el-button>
+                <el-table v-loading="loading" :data="list" stripe>
+                    <el-table-column label="交易单号" align="center" prop="id" />
+                    <el-table-column label="交易类型" align="center" prop="nickname" />
+                    <el-table-column label="交易方式" align="center" prop="avatar" />
+                    <el-table-column label="交易时间" align="center" prop="status" />
+                    <el-table-column label="售品名称" align="center" prop="mobile" />
+                    <el-table-column label="交易金额" align="center" prop="mobile" />
+                    <el-table-column label="支付账户" align="center" prop="password" />
+                    <el-table-column label="收款账户" align="center" prop="mobile" />
+                    <el-table-column label="交易对象名称" align="center" prop="mobile" />
+                    <el-table-column label="交易状态" align="center" prop="password" />
+                </el-table>
+            </el-tab-pane>
+        </el-tabs>
+    </div>
+</template>
+  
+<script>
+import { createUser, updateUser, deleteUser, getUser, getUserPage, exportUserExcel } from "@/api/member/user";
+
+export default {
+    name: "User",
+    components: {
+    },
+    data() {
+        return {
+            //默认tab显示
+            activeName: 'first',
+            // 遮罩层
+            loading: true,
+            // 导出遮罩层
+            exportLoading: false,
+            // 显示搜索条件
+            showSearch: true,
+            // 总条数
+            total: 0,
+            // 会员列表
+            list: [],
+            // 弹出层标题
+            title: "",
+            // 是否显示弹出层
+            open: false,
+            // 查询参数
+            queryParams: {
+                pageNo: 1,
+                pageSize: 10,
+                nickname: null,
+                avatar: null,
+                status: null,
+                mobile: null,
+                password: null,
+                registerIp: null,
+                loginIp: null,
+                loginDate: [],
+                createTime: [],
+                source: null,
+                subjectId: null,
+            },
+            // 表单参数
+            form: {},
+            // 表单校验
+            rules: {
+                nickname: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
+                avatar: [{ required: true, message: "头像不能为空", trigger: "blur" }],
+                status: [{ required: true, message: "状态不能为空", trigger: "blur" }],
+                mobile: [{ required: true, message: "手机号不能为空", trigger: "blur" }],
+                password: [{ required: true, message: "密码不能为空", trigger: "blur" }],
+                registerIp: [{ required: true, message: "注册 IP不能为空", trigger: "blur" }],
+            },
+            //下拉选择框
+            options: [{
+                value: '选项1',
+                label: '常规信息'
+            }, {
+                value: '选项2',
+                label: '住院记录'
+            }, {
+                value: '选项3',
+                label: '营养检查记录'
+            }, {
+                value: '选项4',
+                label: '处方记录'
+            }, {
+                value: '选项5',
+                label: '医嘱记录'
+            },
+            {
+                value: '选项6',
+                label: '特医食品使用记录'
+            },
+            {
+                value: '选项7',
+                label: '病史记录'
+            },
+            {
+                value: '选项8',
+                label: '其他'
+            }],
+            //下拉选择值
+            value: '',
+            //日期选择
+            CheckDate: '',
+            //代理商输入
+            input:'',
+        };
+    },
+    created() {
+    },
+    methods: {
+        //切换tab
+        handleClick(tab, event) {
+            console.log(tab, event);
+        },
+        //会员积分记录搜索
+        handleQuery() {
+
+        },
+        //会员积分记录重置
+        resetQuery() {
+
+        },
+        //会员积分记录查看
+        handleView() {
+
+        },
+        //会员积分记录修改
+        handleUpdate() {
+
+        },
+        //会员积分记录删除
+        handleDelete() {
+
+        },
+
+    }
+};
+</script>
+<style scoped>
+.title {
+    font-size: 24px;
+    margin: 10px 0 20px 15px;
+}
+
+.info {
+    font-size: 14px;
+    margin: 15px 0 15px 15px;
+}
+</style>
+  
