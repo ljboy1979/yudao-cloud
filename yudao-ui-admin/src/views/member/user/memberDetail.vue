@@ -1,7 +1,7 @@
 <template>
     <div class="app-container">
 
-        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+        <el-tabs v-model="activeName" type="card" @tab-click="handleClick" lazy="true">
             <el-tab-pane label="基本信息" name="first">
                 <div class="title">基本信息</div>
                 <div class="info">会员账号</div>
@@ -29,6 +29,7 @@
             <el-tab-pane label="专业资质" name="third">
                 <div class="title">专业资质</div>
                 <el-table v-loading="loading" :data="list" stripe>
+                    
                     <el-table-column label="备案类型" align="center" prop="id" />
                     <el-table-column label="备案名称" align="center" prop="nickname" />
                     <el-table-column label="许可证号码" align="center" prop="avatar" />
@@ -72,32 +73,7 @@
                 </el-table>
             </el-tab-pane>
             <el-tab-pane label="会员积分记录" name="seventh">
-                <div class="title">会员积分记录</div>
-                <el-button type="primary" style="margin-right: 15px;">新增</el-button>
-                <el-date-picker v-model="CheckDate" type="daterange" range-separator="至" start-placeholder="开始日期"
-                    end-placeholder="结束日期">
-                </el-date-picker>
-                <el-button style="margin-left: 15px;" type="primary" icon="el-icon-search" @click="handleQuery">搜索
-                </el-button>
-                <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
-                <el-table v-loading="loading" :data="list" stripe>
-                    <el-table-column label="会员账号" align="center" prop="id" />
-                    <el-table-column label="会员名称" align="center" prop="nickname" />
-                    <el-table-column label="评分项目" align="center" prop="avatar" />
-                    <el-table-column label="本次积分变动" align="center" prop="status" />
-                    <el-table-column label="当前剩余积分" align="center" prop="status" />
-                    <el-table-column label="积分变动时间" align="center" prop="status" />
-                    <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-                        <template slot-scope="scope">
-                            <el-button size="mini" type="text" icon="el-icon-edit" @click="handleView(scope.row)"
-                                v-hasPermi="['member:user:update']">查看</el-button>
-                            <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
-                                v-hasPermi="['member:user:update']">修改</el-button>
-                            <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
-                                v-hasPermi="['member:user:delete']">删除</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
+                <memberPointsRecord :id="userid" v-if="isOrno"></memberPointsRecord>
             </el-tab-pane>
             <el-tab-pane label="健康档案" name="eighth">
                 <div class="title">健康档案</div>
@@ -129,7 +105,7 @@
             </el-tab-pane>
             <el-tab-pane label="钱包交易记录" name="tenth">
                 <div class="title">钱包交易记录</div>
-                 <el-date-picker v-model="CheckDate" type="daterange" range-separator="至" start-placeholder="开始日期"
+                <el-date-picker v-model="CheckDate" type="daterange" range-separator="至" start-placeholder="开始日期"
                     end-placeholder="结束日期">
                 </el-date-picker>
                 <el-button style="margin-left: 15px;" type="primary" icon="el-icon-search" @click="handleQuery">搜索
@@ -155,17 +131,18 @@
   
 <script>
 import { createUser, updateUser, deleteUser, getUser, getUserPage, exportUserExcel } from "@/api/member/user";
-
+import memberPointsRecord  from "../componets/memberPointsRecord.vue"
 export default {
     name: "User",
     components: {
+        memberPointsRecord
     },
     data() {
         return {
             //默认tab显示
             activeName: 'first',
             // 遮罩层
-            loading: true,
+            loading: false,
             // 导出遮罩层
             exportLoading: false,
             // 显示搜索条件
@@ -239,15 +216,22 @@ export default {
             //日期选择
             CheckDate: '',
             //代理商输入
-            input:'',
+            input: '',
+            //新增会员积分记录
+            userid:'',
+            isOrno:false,
         };
     },
     created() {
+        console.log(this.$route.query.id,'query')
+        this.userid=this.$route.query.id
+        //调接口获取会员信息
     },
     methods: {
         //切换tab
         handleClick(tab, event) {
-            console.log(tab, event);
+            console.log(tab.index, event);
+            tab.index==6?this.isOrno=true:''
         },
         //会员积分记录搜索
         handleQuery() {
@@ -269,7 +253,6 @@ export default {
         handleDelete() {
 
         },
-
     }
 };
 </script>
