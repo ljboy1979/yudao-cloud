@@ -63,7 +63,6 @@
                 </el-table>
             </el-tab-pane>
             <el-tab-pane label="进出记录" name="passInAndOutRecord">
-                <div class="title">进出记录</div>
                 <passInAndOutRecord :id="userid" v-if="activeName=='passInAndOutRecord'"></passInAndOutRecord>
             </el-tab-pane>
             <el-tab-pane label="会员积分记录" name="memberPointsRecord">
