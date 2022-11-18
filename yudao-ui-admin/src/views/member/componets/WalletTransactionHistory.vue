@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="app-container">
         <div class="title">钱包交易记录</div>
         <el-date-picker v-model="CheckDate" type="daterange" range-separator="至" start-placeholder="开始日期"
             end-placeholder="结束日期">
@@ -20,40 +20,61 @@
             <el-table-column label="交易对象名称" align="center" prop="mobile" />
             <el-table-column label="交易状态" align="center" prop="password" />
         </el-table>
+        <!-- 分页组件 -->
+        <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
+            @pagination="getList" />
     </div>
 </template>
 
 <script>
-    export default{
-        name: "User",
-        data() {
+export default {
+    name: "User",
+    data() {
         return {
             //加载
             loading: false,
+            // 总条数
+            // total: 0,
+            total: 1,
             //列表数据
-            list:[],
+            list: [],
+            // 查询参数
+            queryParams: {
+                pageNo: 1,
+                pageSize: 10,
+            },
             //日期
-            CheckDate:'',
+            CheckDate: '',
         }
     },
     created() {
-
+        this.getList();
     },
-    methods:{
-        handleQuery(){
+    methods: {
+        /** 查询列表 */
+        getList() {
+            // this.loading = true;
+            // 执行查询
+            // XXXX(this.queryParams).then(response => {
+            //     this.list = response.data.list;
+            //     this.total = response.data.total;
+            //     this.loading = false;
+            // });
+        },
+        handleQuery() {
 
         },
-        resetQuery(){
+        resetQuery() {
 
         },
     }
-    }
+}
 
 </script>
 
 <style scoped>
-.title{
+.title {
     font-size: 24px;
-    margin: 10px 0 20px 15px; 
+    margin: 10px 0 20px 15px;
 }
 </style>

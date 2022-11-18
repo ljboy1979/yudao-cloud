@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="app-container">
         <div class="title">会员积分记录</div>
         <el-button type="primary" style="margin-right: 15px;" @click="addmemberPointsRecord">新增</el-button>
         <el-date-picker v-model="CheckDate" type="daterange" range-separator="至" start-placeholder="开始日期"
@@ -26,6 +26,9 @@
                 </template>
             </el-table-column>
         </el-table>
+        <!-- 分页组件 -->
+        <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
+            @pagination="getList" />
         <el-dialog title="提示" :visible.sync="memberPointsRecord" width="30%" :before-close="handleClose">
             <el-form :model="ruleForm" :rules="PointsRecordrules" ref="ruleForm" label-width="100px"
                 class="demo-ruleForm">
@@ -68,8 +71,16 @@ export default {
     },
     data() {
         return {
-            loading:false,
-            list:[],
+            loading: false,
+            // 总条数
+            // total: 0,
+            total: 1,
+            list: [],
+            // 查询参数
+            queryParams: {
+                pageNo: 1,
+                pageSize: 10,
+            },
             //新增会员积分记录验证
             PointsRecordrules: {
                 name: [
@@ -90,15 +101,26 @@ export default {
             },
             //新增会员积分记录
             memberPointsRecord: false,
-            ruleForm:{},
-            CheckDate:'',
+            ruleForm: {},
+            CheckDate: '',
 
         }
     },
     created() {
         console.log(this.id)
+        this.getList();
     },
     methods: {
+        /** 查询列表 */
+        getList() {
+            // this.loading = true;
+            // 执行查询
+            // XXXX(this.queryParams).then(response => {
+            //     this.list = response.data.list;
+            //     this.total = response.data.total;
+            //     this.loading = false;
+            // });
+        },
         //会员积分记录搜索
         handleQuery() {
 
