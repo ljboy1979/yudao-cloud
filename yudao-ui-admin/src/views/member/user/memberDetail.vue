@@ -26,41 +26,14 @@
                 <div class="info">企业规模</div>
                 <div class="info">企业介绍</div>
             </el-tab-pane>
-            <el-tab-pane label="专业资质" name="third">
-                <div class="title">专业资质</div>
-                <el-table v-loading="loading" :data="list" stripe>
-                    <el-table-column label="备案类型" align="center" prop="id" />
-                    <el-table-column label="备案名称" align="center" prop="nickname" />
-                    <el-table-column label="许可证号码" align="center" prop="avatar" />
-                    <el-table-column label="姓名" align="center" prop="status" />
-                    <el-table-column label="手机号" align="center" prop="mobile" />
-                    <el-table-column label="备案日期" align="center" prop="password" />
-                    <el-table-column label="证照" align="center" prop="registerIp" />
-                    <el-table-column label="审核状态" align="center" prop="loginIp" />
-                </el-table>
+            <el-tab-pane label="专业资质" name="professionalQualifications">
+                <professionalQualifications :id="userid" v-if="activeName=='professionalQualifications'"></professionalQualifications>
             </el-tab-pane>
-            <el-tab-pane label="售品交易记录" name="fourth">
-                <div class="title">售品交易记录</div>
-                <el-table v-loading="loading" :data="list" stripe>
-                    <el-table-column label="订单编号" align="center" prop="id" />
-                    <el-table-column label="下单时间" align="center" prop="nickname" />
-                    <el-table-column label="订单总额" align="center" prop="avatar" />
-                    <el-table-column label="售品名称" align="center" prop="status" />
-                    <el-table-column label="优惠活动" align="center" prop="mobile" />
-                    <el-table-column label="订单状态" align="center" prop="password" />
-                </el-table>
+            <el-tab-pane label="售品交易记录" name="salesTransaction">
+                <salesTransaction :id="userid" v-if="activeName=='salesTransaction'"></salesTransaction>
             </el-tab-pane>
-            <el-tab-pane label="服务交易记录" name="fifth">
-                <div class="title">服务交易记录</div>
-                <el-table v-loading="loading" :data="list" stripe>
-                    <el-table-column label="订单编号" align="center" prop="id" />
-                    <el-table-column label="订单总额" align="center" prop="nickname" />
-                    <el-table-column label="服务提供方" align="center" prop="avatar" />
-                    <el-table-column label="服务类型" align="center" prop="status" />
-                    <el-table-column label="服务名称" align="center" prop="mobile" />
-                    <el-table-column label="下单时间" align="center" prop="mobile" />
-                    <el-table-column label="订单状态" align="center" prop="password" />
-                </el-table>
+            <el-tab-pane label="服务交易记录" name="serviceTransaction">
+                <serviceTransaction :id="userid" v-if="activeName=='serviceTransaction'"></serviceTransaction>
             </el-tab-pane>
             <el-tab-pane label="进出记录" name="passInAndOutRecord">
                 <passInAndOutRecord :id="userid" v-if="activeName=='passInAndOutRecord'"></passInAndOutRecord>
@@ -68,12 +41,8 @@
             <el-tab-pane label="会员积分记录" name="memberPointsRecord">
                 <memberPointsRecord :id="userid" v-if="activeName=='memberPointsRecord'"></memberPointsRecord>
             </el-tab-pane>
-            <el-tab-pane label="健康档案" name="eighth">
-                <div class="title">健康档案</div>
-                <el-select v-model="value" placeholder="请选择">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                </el-select>
+            <el-tab-pane label="健康档案" name="healthRecords">
+                <healthRecords :id="userid" v-if="activeName=='healthRecords'"></healthRecords>
             </el-tab-pane>
             <el-tab-pane label="代理商管理" name="agentManagement">
                 <agentManagement :id="userid" v-if="activeName=='agentManagement'"></agentManagement>
@@ -91,13 +60,21 @@ import memberPointsRecord from "../componets/memberPointsRecord.vue";
 import agentManagement from "../componets/agentManagement.vue";
 import WalletTransactionHistory from "../componets/WalletTransactionHistory.vue";
 import passInAndOutRecord from "../componets/passInAndOutRecord.vue";
+import professionalQualifications from "../componets/professionalQualifications.vue";
+import healthRecords from "../componets/healthRecords.vue";
+import salesTransaction from "../componets/salesTransaction.vue"
+import serviceTransaction from "../componets/serviceTransaction.vue"
 export default {
     name: "User",
     components: {
         memberPointsRecord,
         agentManagement,
         WalletTransactionHistory,
-        passInAndOutRecord
+        passInAndOutRecord,
+        professionalQualifications,
+        healthRecords,
+        serviceTransaction,
+        salesTransaction
     },
     data() {
         return {
@@ -144,35 +121,6 @@ export default {
                 password: [{ required: true, message: "密码不能为空", trigger: "blur" }],
                 registerIp: [{ required: true, message: "注册 IP不能为空", trigger: "blur" }],
             },
-            //下拉选择框
-            options: [{
-                value: '选项1',
-                label: '常规信息',
-            }, {
-                value: '选项2',
-                label: '住院记录'
-            }, {
-                value: '选项3',
-                label: '营养检查记录'
-            }, {
-                value: '选项4',
-                label: '处方记录'
-            }, {
-                value: '选项5',
-                label: '医嘱记录'
-            },
-            {
-                value: '选项6',
-                label: '特医食品使用记录'
-            },
-            {
-                value: '选项7',
-                label: '病史记录'
-            },
-            {
-                value: '选项8',
-                label: '其他'
-            }],
             //下拉选择值
             value: '',
             //日期选择
