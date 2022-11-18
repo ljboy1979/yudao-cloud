@@ -56,14 +56,14 @@
   
 <script>
 import { createUser, updateUser, deleteUser, getUser, getUserPage, exportUserExcel } from "@/api/member/user";
-import memberPointsRecord from "../componets/memberPointsRecord.vue";
-import agentManagement from "../componets/agentManagement.vue";
-import WalletTransactionHistory from "../componets/WalletTransactionHistory.vue";
-import passInAndOutRecord from "../componets/passInAndOutRecord.vue";
-import professionalQualifications from "../componets/professionalQualifications.vue";
-import healthRecords from "../componets/healthRecords.vue";
-import salesTransaction from "../componets/salesTransaction.vue"
-import serviceTransaction from "../componets/serviceTransaction.vue"
+import memberPointsRecord from "../user/componets/memberPointsRecord.vue";
+import agentManagement from "../user/componets/agentManagement.vue";
+import WalletTransactionHistory from "../user/componets/WalletTransactionHistory.vue";
+import passInAndOutRecord from "../user/componets/passInAndOutRecord.vue";
+import professionalQualifications from "../user/componets/professionalQualifications.vue";
+import healthRecords from "../user/componets/healthRecords.vue";
+import salesTransaction from "../user/componets/salesTransaction.vue"
+import serviceTransaction from "../user/componets/serviceTransaction.vue"
 export default {
     name: "User",
     components: {
@@ -80,56 +80,7 @@ export default {
         return {
             //默认tab显示
             activeName: 'first',
-            // 遮罩层
-            loading: false,
-            // 导出遮罩层
-            exportLoading: false,
-            // 显示搜索条件
-            showSearch: true,
-            // 总条数
-            total: 0,
-            // 会员列表
-            list: [],
-            // 弹出层标题
-            title: "",
-            // 是否显示弹出层
-            open: false,
-            // 查询参数
-            queryParams: {
-                pageNo: 1,
-                pageSize: 10,
-                nickname: null,
-                avatar: null,
-                status: null,
-                mobile: null,
-                password: null,
-                registerIp: null,
-                loginIp: null,
-                loginDate: [],
-                createTime: [],
-                source: null,
-                subjectId: null,
-            },
-            // 表单参数
-            form: {},
-            // 表单校验
-            rules: {
-                nickname: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-                avatar: [{ required: true, message: "头像不能为空", trigger: "blur" }],
-                status: [{ required: true, message: "状态不能为空", trigger: "blur" }],
-                mobile: [{ required: true, message: "手机号不能为空", trigger: "blur" }],
-                password: [{ required: true, message: "密码不能为空", trigger: "blur" }],
-                registerIp: [{ required: true, message: "注册 IP不能为空", trigger: "blur" }],
-            },
-            //下拉选择值
-            value: '',
-            //日期选择
-            CheckDate: '',
-            //代理商输入
-            input: '',
-            //新增会员积分记录
             userid: '',
-            isOrno: false,
         };
     },
     created() {
@@ -141,26 +92,6 @@ export default {
         //切换tab
         handleClick(tab, event) {
             console.log(tab.index, event);
-        },
-        //会员积分记录搜索
-        handleQuery() {
-
-        },
-        //会员积分记录重置
-        resetQuery() {
-
-        },
-        //会员积分记录查看
-        handleView() {
-
-        },
-        //会员积分记录修改
-        handleUpdate() {
-
-        },
-        //会员积分记录删除
-        handleDelete() {
-
         },
     }
 };
