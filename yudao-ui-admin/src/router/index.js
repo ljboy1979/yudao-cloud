@@ -177,7 +177,14 @@ export const constantRoutes = [
         component: (resolve) => require(['@/views/member/user/memberDetail'], resolve),
         name: '会员详情',
         meta: {title: '会员详情', icon: 'form', activeMenu: '/member/user/memberDetail'}
-      }
+      },
+      {
+        path: '/member/user/businessInfoManagement',
+        component: (resolve) => require(['@/views/member/user/businessInfoManagement'], resolve),
+        name: '企业信息管理',
+        meta: {title: '企业信息管理', icon: 'form', activeMenu: '/member/user/businessInfoManagement'}
+      },
+
     ]
   }
 ]
