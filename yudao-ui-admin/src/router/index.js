@@ -171,6 +171,7 @@ export const constantRoutes = [
   },{
     path: '/member',
     component: Layout,
+    hidden: true,
     children: [{
         path: '/member/user/memberDetail',
         component: (resolve) => require(['@/views/member/user/memberDetail'], resolve),
