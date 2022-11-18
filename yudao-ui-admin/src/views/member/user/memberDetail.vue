@@ -29,7 +29,6 @@
             <el-tab-pane label="专业资质" name="third">
                 <div class="title">专业资质</div>
                 <el-table v-loading="loading" :data="list" stripe>
-                    
                     <el-table-column label="备案类型" align="center" prop="id" />
                     <el-table-column label="备案名称" align="center" prop="nickname" />
                     <el-table-column label="许可证号码" align="center" prop="avatar" />
@@ -65,15 +64,10 @@
             </el-tab-pane>
             <el-tab-pane label="进出记录" name="sixth">
                 <div class="title">进出记录</div>
-                <el-table v-loading="loading" :data="list" stripe>
-                    <el-table-column label="会员名称" align="center" prop="id" />
-                    <el-table-column label="设备号" align="center" prop="nickname" />
-                    <el-table-column label="进场时间" align="center" prop="avatar" />
-                    <el-table-column label="出厂时间" align="center" prop="status" />
-                </el-table>
+                <passInAndOutRecord :id="userid" v-if="DynamicLoading[5].Loading"></passInAndOutRecord>
             </el-tab-pane>
             <el-tab-pane label="会员积分记录" name="seventh">
-                <memberPointsRecord :id="userid" v-if="isOrno"></memberPointsRecord>
+                <memberPointsRecord :id="userid" v-if="DynamicLoading[6].Loading"></memberPointsRecord>
             </el-tab-pane>
             <el-tab-pane label="健康档案" name="eighth">
                 <div class="title">健康档案</div>
@@ -83,29 +77,10 @@
                 </el-select>
             </el-tab-pane>
             <el-tab-pane label="代理商管理" name="ninth">
-                <agentManagement :id="userid" ></agentManagement>
+                <agentManagement :id="userid" v-if="DynamicLoading[8].Loading"></agentManagement>
             </el-tab-pane>
             <el-tab-pane label="钱包交易记录" name="tenth">
-                <div class="title">钱包交易记录</div>
-                <el-date-picker v-model="CheckDate" type="daterange" range-separator="至" start-placeholder="开始日期"
-                    end-placeholder="结束日期">
-                </el-date-picker>
-                <el-button style="margin-left: 15px;" type="primary" icon="el-icon-search" @click="handleQuery">搜索
-                </el-button>
-                <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
-                <el-button icon="el-icon-refresh" @click="resetQuery">导出</el-button>
-                <el-table v-loading="loading" :data="list" stripe>
-                    <el-table-column label="交易单号" align="center" prop="id" />
-                    <el-table-column label="交易类型" align="center" prop="nickname" />
-                    <el-table-column label="交易方式" align="center" prop="avatar" />
-                    <el-table-column label="交易时间" align="center" prop="status" />
-                    <el-table-column label="售品名称" align="center" prop="mobile" />
-                    <el-table-column label="交易金额" align="center" prop="mobile" />
-                    <el-table-column label="支付账户" align="center" prop="password" />
-                    <el-table-column label="收款账户" align="center" prop="mobile" />
-                    <el-table-column label="交易对象名称" align="center" prop="mobile" />
-                    <el-table-column label="交易状态" align="center" prop="password" />
-                </el-table>
+                <WalletTransactionHistory :id="userid" v-if="DynamicLoading[9].Loading"></WalletTransactionHistory>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -113,13 +88,17 @@
   
 <script>
 import { createUser, updateUser, deleteUser, getUser, getUserPage, exportUserExcel } from "@/api/member/user";
-import memberPointsRecord  from "../componets/memberPointsRecord.vue"
-import agentManagement  from "../componets/agentManagement.vue"
+import memberPointsRecord from "../componets/memberPointsRecord.vue";
+import agentManagement from "../componets/agentManagement.vue";
+import WalletTransactionHistory from "../componets/WalletTransactionHistory.vue";
+import passInAndOutRecord from "../componets/passInAndOutRecord.vue";
 export default {
     name: "User",
     components: {
         memberPointsRecord,
-        agentManagement
+        agentManagement,
+        WalletTransactionHistory,
+        passInAndOutRecord
     },
     data() {
         return {
@@ -169,7 +148,7 @@ export default {
             //下拉选择框
             options: [{
                 value: '选项1',
-                label: '常规信息'
+                label: '常规信息',
             }, {
                 value: '选项2',
                 label: '住院记录'
@@ -202,20 +181,26 @@ export default {
             //代理商输入
             input: '',
             //新增会员积分记录
-            userid:'',
-            isOrno:false,
+            userid: '',
+            isOrno: false,
+            DynamicLoading: [{ id: '0', Loading: false }, { id: '1', Loading: false }, { id: '2', Loading: false }, { id: '3', Loading: false }, { id: '4', Loading: false }, { id: '5', Loading: false }, { id: '6', Loading: false }, { id: '7', Loading: false }, { id: '8', Loading: false }, { id: '9', Loading: false }]
         };
     },
     created() {
-        console.log(this.$route.query.id,'query')
-        this.userid=this.$route.query.id
+        console.log(this.$route.query.id, 'query')
+        this.userid = this.$route.query.id
         //调接口获取会员信息
     },
     methods: {
         //切换tab
         handleClick(tab, event) {
             console.log(tab.index, event);
-            tab.index==6?this.isOrno=true:''
+            // tab.index==6?this.isOrno=true:''
+            if (this.DynamicLoading[tab.index]) {
+                this.DynamicLoading[tab.index].Loading = true
+            }
+
+
         },
         //会员积分记录搜索
         handleQuery() {
