@@ -10,10 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,12 +30,12 @@ public class CategoryController /*extends BaseController */{
      * 查询某个id组织架构树状结构列表（仅包含名称、id、子节点）
      */
     @GetMapping("/tree/{id}")
-    @ApiOperation("获得商品分类树表")
+    @ApiOperation("获得指定ID商品分类树表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "categoryDO", value = "产品分类", required = true, example = "", dataTypeClass = CategoryDO.class),
             @ApiImplicitParam(name = "id", value = "产品分类id", required = true, example = "1", dataTypeClass = Long.class)
     })
-    public CommonResult<List<TreeSelect>> treeSelect(CategoryDO categoryDO, @PathVariable Long id) {
+    public CommonResult<List<TreeSelect>> treeSelect(@RequestParam(required = false) CategoryDO categoryDO, @PathVariable Long id) {
         List<TreeSelect> treeSelects = TreeUtils.
                 buildTreeSelect(categoryService.selectCategoryList(categoryDO),id);
         return success(treeSelects);
@@ -48,9 +45,9 @@ public class CategoryController /*extends BaseController */{
      * 查询全部组织架构树状结构列表（仅包含名称、id、子节点）
      */
     @GetMapping("/tree/all")
-    @ApiOperation("获得指定ID商品分类树表")
+    @ApiOperation("获得商品分类树表")
     @ApiImplicitParam(name = "categoryDO", value = "产品分类", required = true, example = "", dataTypeClass = CategoryDO.class)
-    public CommonResult<List<TreeSelect>> treeSelect(CategoryDO categoryDO) {
+    public CommonResult<List<TreeSelect>> treeSelect(@RequestParam(required = false) CategoryDO categoryDO) {
         List<TreeSelect> treeSelects = TreeUtils.
                 buildTreeSelect(categoryService.selectCategoryList(categoryDO));
         return success(treeSelects);

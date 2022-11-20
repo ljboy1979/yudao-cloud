@@ -38,6 +38,7 @@ public class TenantDatabaseInterceptor implements TenantLineHandler {
     public boolean ignoreTable(String tableName) {
         return TenantContextHolder.isIgnore() // 情况一，全局忽略多租户
             || CollUtil.contains(ignoreTables, tableName); // 情况二，忽略多租户的表
+//        || TenantContextHolder.getRequiredTenantId() == 1L; //情况三，超级管理员(tenant_id=1)，忽略所有多租户的表，liuj
     }
 
 }

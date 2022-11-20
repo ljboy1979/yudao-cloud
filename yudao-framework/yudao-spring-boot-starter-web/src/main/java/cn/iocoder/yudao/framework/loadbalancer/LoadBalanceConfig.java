@@ -1,3 +1,4 @@
+
 package cn.iocoder.yudao.framework.loadbalancer;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -11,7 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-
+import cn.iocoder.yudao.framework.loadbalancer.NetSegmentServiceInstanceListSupplier;
 @Configuration(proxyBeanMethods = false)
 public class LoadBalanceConfig {
 

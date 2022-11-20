@@ -7,6 +7,7 @@ import cn.iocoder.yudao.module.system.api.permission.PermissionApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
@@ -15,11 +16,9 @@ import java.util.List;
  *
  * @author 芋道源码
  */
-//@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(LoginUser.class)
 @ConditionalOnBean(value = {PermissionApi.class, DeptDataPermissionRuleCustomizer.class})
-//@Configuration(proxyBeanMethods = false)
-//@EnableFeignClients(basePackageClasses = {PermissionApi.class})
 public class YudaoDeptDataPermissionAutoConfiguration {
 
     @Bean
