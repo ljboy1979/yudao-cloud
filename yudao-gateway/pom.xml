@@ -7,7 +7,7 @@
         <groupId>cn.iocoder.cloud</groupId>
         <version>${revision}</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>gi
     <artifactId>yudao-gateway</artifactId>
     <packaging>jar</packaging>
 

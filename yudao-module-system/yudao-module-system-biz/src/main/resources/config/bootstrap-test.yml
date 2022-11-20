@@ -1,0 +1,24 @@
+spring:
+  main:
+    allow-circular-references: true # 允许循环依赖，因为项目是三层架构，无法避免这个情况。
+    allow-bean-definition-overriding: true # 允许 Bean 覆盖，例如说 Dubbo 或者 Feign 等会存在重复定义的服务
+  cloud:
+    nacos:
+      # 注册中心
+      discovery:
+        server-addr: http://123.56.19.224:18848 #http://123.56.19.224:18848
+        namespace: test # 命名空间。这里使用 test 开发环境
+        metadata:
+          version: 1.0.0 # 服务实例的版本号，可用于灰度发布
+      # 配置中心
+      config:
+        # 本地启动
+        server-addr: http://123.56.19.224:18848 #${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yaml
+        namespace: dev
+#        name: system-server
+#        group: DEFAULT_GROUP
+        # 公共配置
+        shared-configs[0]:
+          data-id: yudao-common.yaml
+          refresh: true

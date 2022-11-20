@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -28,6 +29,7 @@ import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.E
 @RestController
 @RequestMapping("/system/dict-data")
 @Validated
+@PermitAll
 public class DictDataController {
 
     @Resource
