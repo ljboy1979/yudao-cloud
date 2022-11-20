@@ -16,7 +16,7 @@ spring:
   # Jackson 配置项
   jackson:
     serialization:
-      write-dates-as-timestamps: true # 设置 Date 的格式，使用时间戳
+      write-dates-as-timestamps: true # 设置 LocalDateTime 的格式，使用时间戳
       write-date-timestamps-as-nanoseconds: false # 设置不使用 nanoseconds 的格式。例如说 1611460870.401，而是直接 1611460870401
       write-durations-as-timestamps: true # 设置 Duration 的格式，使用时间戳
       fail-on-empty-beans: false # 允许序列化无属性的 Bean
@@ -61,7 +61,7 @@ dubbo:
     name: dubbo # 协议名称
     port: -1 # 协议端口，-1 表示自增端口，从 20880 开始
   registry:
-    address: spring-cloud://192.168.1.39:8848 # 设置使用 Spring Cloud 注册中心
+    address: spring-cloud://localhost:8848 # 设置使用 Spring Cloud 注册中心
 
 --- #################### MQ 消息队列相关配置 ####################
 
@@ -73,7 +73,7 @@ spring:
       rocketmq:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
         binder:
-          name-server: 192.168.1.39:9876 # RocketMQ Namesrv 地址
+          name-server: 127.0.0.1:9876 # RocketMQ Namesrv 地址
         default: # 默认 bindings 全局配置
           producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
             group: bpm_producer_group # 生产者分组
@@ -102,7 +102,7 @@ yudao:
     base-package: cn.iocoder.yudao.module.bpm
   web:
     admin-ui:
-      url: http://localhost # Admin 管理后台 UI 的地址
+      url: http://dashboard.yudao.iocoder.cn # Admin 管理后台 UI 的地址
   swagger:
     title: 管理后台
     description: 提供管理员管理的所有功能

@@ -3,7 +3,7 @@ spring:
     name: demo-server
 
   profiles:
-    active: local
+    active: dev
 
 server:
   port: 58082
