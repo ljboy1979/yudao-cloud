@@ -35,6 +35,12 @@
             <version>${revision}</version>
         </dependency>
 
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>acsm-module-member-user-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
         <!-- 业务组件 -->
         <dependency>
             <groupId>cn.iocoder.cloud</groupId>

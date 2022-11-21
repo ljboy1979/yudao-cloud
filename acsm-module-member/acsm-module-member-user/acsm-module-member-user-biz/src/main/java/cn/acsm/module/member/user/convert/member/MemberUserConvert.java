@@ -2,6 +2,7 @@ package cn.acsm.module.member.user.convert.member;
 
 import java.util.*;
 
+import cn.acsm.module.member.user.api.member.dto.MemberUserRespDTO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserCreateReqVO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserExcelVO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserRespVO;
@@ -33,5 +34,7 @@ public interface MemberUserConvert {
     PageResult<MemberUserRespVO> convertPage(PageResult<MemberUserDO> page);
 
     List<MemberUserExcelVO> convertList02(List<MemberUserDO> list);
+
+    MemberUserRespDTO convertRespDTO(MemberUserDO bean);
 
 }

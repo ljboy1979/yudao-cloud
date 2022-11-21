@@ -7,10 +7,14 @@ import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserUpdateReq
 import cn.acsm.module.member.user.convert.member.MemberUserConvert;
 import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
 import cn.acsm.module.member.user.dal.mysql.member.MemberUserMapper;
+import cn.hutool.core.util.IdUtil;
+import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
@@ -28,6 +32,9 @@ public class MemberUserServiceImpl implements MemberUserService {
 
     @Resource
     private MemberUserMapper userMapper;
+
+    @Resource
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Long createUser(MemberUserCreateReqVO createReqVO) {
@@ -81,4 +88,44 @@ public class MemberUserServiceImpl implements MemberUserService {
         return userMapper.selectList(exportReqVO);
     }
 
+    @Override
+    public MemberUserDO createUserIfAbsent(String mobile, String registerIp) {
+        // 用户已经存在
+        MemberUserDO user = userMapper.selectByMobile(mobile);
+        if (user != null) {
+            return user;
+        }
+        // 用户不存在，则进行创建
+        return this.createUser(mobile, registerIp);
+    }
+
+    private MemberUserDO createUser(String mobile, String registerIp) {
+        // 生成密码
+        String password = IdUtil.fastSimpleUUID();
+        // 插入用户
+        MemberUserDO user = new MemberUserDO();
+        user.setMobile(mobile);
+        user.setStatus(CommonStatusEnum.ENABLE.getStatus()); // 默认开启
+        user.setPassword(encodePassword(password)); // 加密密码
+        user.setRegisterIp(registerIp);
+        userMapper.insert(user);
+        return user;
+    }
+
+    /**
+     * 对密码进行加密
+     *
+     * @param password 密码
+     * @return 加密后的密码
+     */
+    private String encodePassword(String password) {
+        return passwordEncoder.encode(password);
+    }
+
+
+    @Override
+    public void updateUserLogin(Long id, String loginIp) {
+        userMapper.updateById(new MemberUserDO().setId(id)
+                .setLoginIp(loginIp).setLoginDate(LocalDateTime.now()));
+    }
 }

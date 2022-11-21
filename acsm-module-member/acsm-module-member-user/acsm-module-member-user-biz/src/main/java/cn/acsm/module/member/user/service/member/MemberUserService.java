@@ -9,6 +9,7 @@ import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserPageReqVO
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserUpdateReqVO;
 import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.common.validation.Mobile;
 
 /**
  * 会员 Service 接口
@@ -70,5 +71,21 @@ public interface MemberUserService {
      * @return 会员列表
      */
     List<MemberUserDO> getUserList(MemberUserExportReqVO exportReqVO);
+
+    /**
+     * 基于手机号创建用户。
+     * 如果用户已经存在，则直接进行返回
+     * @param mobile 手机号
+     * @param registerIp 注册 IP
+     * @return 用户对象
+     */
+    MemberUserDO createUserIfAbsent(@Mobile String mobile, String registerIp);
+
+    /**
+     * 更新用户的最后登陆信息
+     * @param id 用户编号
+     * @param loginIp 登陆 IP
+     */
+    void updateUserLogin(Long id, String loginIp);
 
 }

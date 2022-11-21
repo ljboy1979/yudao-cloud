@@ -11,4 +11,6 @@ import cn.iocoder.yudao.framework.common.exception.ErrorCode;
 public interface ErrorCodeConstants {
     ErrorCode AUTH_CONFIG_INFO_NOT_EXISTS = new ErrorCode(1011000000, "会员登录授权配置信息不存在");
     ErrorCode AUTH_LOGIN_INFO_NOT_EXISTS = new ErrorCode(1011000001, "会员授权登录信息记录不存在");
+    ErrorCode TENANTID_NOT_EXISTS = new ErrorCode(1011000002, "租户编号参数缺失");
+    ErrorCode WECHAT_CONFIGURATION_NOT_EXISTS = new ErrorCode(1011000003, "该租户下未配置微信公众号信息");
 }

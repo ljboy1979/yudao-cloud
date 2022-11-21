@@ -50,4 +50,8 @@ public interface MemberUserMapper extends BaseMapperX<MemberUserDO> {
                 .orderByDesc(MemberUserDO::getId));
     }
 
+    default MemberUserDO selectByMobile(String mobile) {
+        return selectOne(MemberUserDO::getMobile, mobile);
+    }
+
 }

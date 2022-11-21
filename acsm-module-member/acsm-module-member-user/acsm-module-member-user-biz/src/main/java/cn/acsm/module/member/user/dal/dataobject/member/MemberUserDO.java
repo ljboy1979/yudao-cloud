@@ -1,6 +1,9 @@
 package cn.acsm.module.member.user.dal.dataobject.member;
 
+import cn.iocoder.yudao.framework.tenant.core.db.TenantBaseDO;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
@@ -18,7 +21,7 @@ import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberUserDO extends BaseDO {
+public class MemberUserDO extends TenantBaseDO {
 
     /**
      * 编号
@@ -56,7 +59,7 @@ public class MemberUserDO extends BaseDO {
     /**
      * 最后登录时间
      */
-    private Date loginDate;
+    private LocalDateTime loginDate;
     /**
      * 租户集合
      */

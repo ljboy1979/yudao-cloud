@@ -15,18 +15,14 @@ public interface ErrorCodeConstants {
     ErrorCode WECHAT_CONFIGURATION_NOT_EXISTS = new ErrorCode(1010000003, "该租户下未配置微信公众号信息");
     ErrorCode USER_PASSWORD_FAILED = new ErrorCode(1010001004, "密码校验失败");
 
-
-
-
-    //    ErrorCode USER_INFO_NOT_EXISTS = new ErrorCode(1010000000, "用户基本信息不存在");
     // ========== AUTH 模块 1010001000 ==========
-    ErrorCode AUTH_LOGIN_BAD_CREDENTIALS = new ErrorCode(1010003000, "登录失败，账号密码不正确");
-    ErrorCode AUTH_LOGIN_USER_DISABLED = new ErrorCode(1010003001, "登录失败，账号被禁用");
-    ErrorCode AUTH_TOKEN_EXPIRED = new ErrorCode(1010003004, "Token 已经过期");
-    ErrorCode AUTH_THIRD_LOGIN_NOT_BIND = new ErrorCode(1010003005, "未绑定账号，需要进行绑定");
-    ErrorCode AUTH_WEIXIN_MINI_APP_PHONE_CODE_ERROR = new ErrorCode(1010003006, "获得手机号失败");
+    ErrorCode AUTH_LOGIN_BAD_CREDENTIALS = new ErrorCode(1010001000, "登录失败，账号密码不正确");
+    ErrorCode AUTH_LOGIN_USER_DISABLED = new ErrorCode(1010001001, "登录失败，账号被禁用");
+    ErrorCode AUTH_TOKEN_EXPIRED = new ErrorCode(1010001004, "Token 已经过期");
+    ErrorCode AUTH_THIRD_LOGIN_NOT_BIND = new ErrorCode(1010001005, "未绑定账号，需要进行绑定");
+    ErrorCode AUTH_WEIXIN_MINI_APP_PHONE_CODE_ERROR = new ErrorCode(1010001006, "获得手机号失败");
 
-    // ========== 用户收件地址 1010004000 ==========
-    ErrorCode ADDRESS_NOT_EXISTS = new ErrorCode(1010004000, "用户收件地址不存在");
+    // ========== 用户收件地址 1010002000 ==========
+    ErrorCode ADDRESS_NOT_EXISTS = new ErrorCode(1010002000, "用户收件地址不存在");
 
 }
