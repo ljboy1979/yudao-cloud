@@ -1,7 +1,6 @@
 package cn.iocoder.yudao.module.system.mq;
 
 import cn.hutool.core.thread.ThreadUtil;
-import cn.iocoder.yudao.framework.mq.core.RedisMQTemplate;
 import cn.iocoder.yudao.module.system.mq.consumer.mail.MailSendConsumer;
 import cn.iocoder.yudao.module.system.mq.consumer.sms.SmsSendConsumer;
 import cn.iocoder.yudao.module.system.mq.message.mail.MailSendMessage;

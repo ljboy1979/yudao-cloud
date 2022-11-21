@@ -80,6 +80,12 @@
             <groupId>cn.iocoder.cloud</groupId>
             <artifactId>yudao-spring-boot-starter-excel</artifactId>
         </dependency>
+
+        <!-- 监控相关 -->
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-spring-boot-starter-monitor</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <!-- 设置构建的 jar 包名 -->

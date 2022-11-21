@@ -16,7 +16,7 @@ spring:
   # Jackson 配置项
   jackson:
     serialization:
-      write-dates-as-timestamps: true # 设置 Date 的格式，使用时间戳
+      write-dates-as-timestamps: true # 设置 LocalDateTime 的格式，使用时间戳
       write-date-timestamps-as-nanoseconds: false # 设置不使用 nanoseconds 的格式。例如说 1611460870.401，而是直接 1611460870401
       write-durations-as-timestamps: true # 设置 Duration 的格式，使用时间戳
       fail-on-empty-beans: false # 允许序列化无属性的 Bean
@@ -31,6 +31,7 @@ spring:
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 查看mybatis日志
   global-config:
     db-config:
       id-type: NONE # “智能”模式，基于 IdTypeEnvironmentPostProcessor + 数据源的类型，自动适配成 AUTO、INPUT 模式。
@@ -49,7 +50,7 @@ dubbo:
     name: dubbo # 协议名称
     port: -1 # 协议端口，-1 表示自增端口，从 20880 开始
   registry:
-    address: spring-cloud://192.168.1.39:8848 # 设置使用 Spring Cloud 注册中心
+    address: spring-cloud://localhost:8848 # 设置使用 Spring Cloud 注册中心
 
 --- #################### MQ 消息队列相关配置 ####################
 
@@ -70,7 +71,7 @@ spring:
       rocketmq:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
         binder:
-          name-server: 192.168.1.39:9876 # RocketMQ Namesrv 地址
+          name-server: 127.0.0.1:9876 # RocketMQ Namesrv 地址
         default: # 默认 bindings 全局配置
           producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
             group: system_producer_group # 生产者分组
@@ -102,7 +103,7 @@ aj:
     timing-clear: 180 # local定时清除过期缓存(单位秒),设置为0代表不执行
     type: blockPuzzle # 验证码类型 default两种都实例化。 blockPuzzle 滑块拼图 clickWord 文字点选
     water-mark: 芋道源码 # 右下角水印文字(我的水印)，可使用 https://tool.chinaz.com/tools/unicode.aspx 中文转 Unicode，Linux 可能需要转 unicode
-    interference-options: 2 # 滑动干扰项(0/1/2)
+    interference-options: 0 # 滑动干扰项(0/1/2)
     req-frequency-limit-enable: false # 接口请求次数一分钟限制是否开启 true|false
     req-get-lock-limit: 5 # 验证失败5次，get接口锁定
     req-get-lock-seconds: 10 # 验证失败后，锁定时间间隔
@@ -118,14 +119,14 @@ yudao:
     base-package: cn.iocoder.yudao.module.system
   web:
     admin-ui:
-      url: http://localhost # Admin 管理后台 UI 的地址
+      url: http://dashboard.yudao.iocoder.cn # Admin 管理后台 UI 的地址
   swagger:
     title: 管理后台
     description: 提供管理员管理的所有功能
     version: ${yudao.info.version}
     base-package: ${yudao.info.base-package}
   captcha:
-    enable: false # 验证码的开关，默认为 true；注意，优先读取数据库 infra_config 的 yudao.captcha.enable，所以请从数据库修改，可能需要重启项目
+    enable: true # 验证码的开关，默认为 true；注意，优先读取数据库 infra_config 的 yudao.captcha.enable，所以请从数据库修改，可能需要重启项目
   error-code: # 错误码相关配置项
     constants-class-list:
       - cn.iocoder.yudao.module.system.enums.ErrorCodeConstants
@@ -134,10 +135,13 @@ yudao:
     ignore-urls:
       - /admin-api/system/tenant/get-id-by-name # 基于名字获取租户，不许带租户编号
       - /admin-api/system/captcha/get-image # 获取图片验证码，和租户无关
+      - /admin-api/system/captcha/get # 获取图片验证码，和租户无关
+      - /admin-api/system/captcha/check # 校验图片验证码，和租户无关
       - /admin-api/system/sms/callback/* # 短信回调接口，无法带上租户编号
       - /rpc-api/system/tenant/valid # 防止递归。避免调用 /rpc-api/system/tenant/valid 接口时，又去触发 /rpc-api/system/tenant/valid 去校验
       - /rpc-api/system/tenant/id-list # 获得租户列表的时候，无需传递租户编号
       - /rpc-api/system/error-code/* # 错误码的自动创建与下载的接口，无法带上租户编号
+      - /rpc-api/system/oauth2/token/check # 访问令牌校验时，无需传递租户编号；主要解决上传文件的场景，前端不会传递 tenant-id！
     ignore-tables:
       - system_tenant
       - system_tenant_package

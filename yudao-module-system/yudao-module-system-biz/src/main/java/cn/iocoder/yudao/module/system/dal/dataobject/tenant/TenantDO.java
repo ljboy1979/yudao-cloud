@@ -8,8 +8,7 @@ import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 租户 DO
@@ -34,6 +33,7 @@ public class TenantDO extends BaseDO {
     /**
      * 租户编号，自增
      */
+
     @TableId(type = IdType.AUTO)
     private Long id;
     /**
@@ -76,7 +76,7 @@ public class TenantDO extends BaseDO {
     /**
      * 过期时间
      */
-    private Date expireTime;
+    private LocalDateTime expireTime;
     /**
      * 账号数量
      */

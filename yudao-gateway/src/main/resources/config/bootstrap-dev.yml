@@ -1,21 +1,41 @@
 spring:
+  main:
+    allow-circular-references: true # 允许循环依赖，因为项目是三层架构，无法避免这个情况。
+    allow-bean-definition-overriding: true # 允许 Bean 覆盖，例如说 Dubbo 或者 Feign 等会存在重复定义的服务
   cloud:
     nacos:
       # 注册中心
       discovery:
-        server-addr: localhost:8848 #http://123.56.19.224:18848
+        server-addr: http://localhost:8848 #http://123.56.19.224:18848
         namespace: dev # 命名空间。这里使用 dev 开发环境
         metadata:
           version: 1.0.0 # 服务实例的版本号，可用于灰度发布
       # 配置中心
       config:
-        # 本地启动
+        # 远程配置
         server-addr: http://123.56.19.224:18848 #${spring.cloud.nacos.discovery.server-addr}
         file-extension: yaml
         namespace: dev
-        name:
-        group: DEFAULT_GROUP
+        #        name: system-server
+        #        group: DEFAULT_GROUP
         # 公共配置
         shared-configs[0]:
           data-id: yudao-common.yaml
           refresh: true
+# Spring Boot Admin 配置项
+  boot:
+    admin:
+      # Spring Boot Admin Client 客户端的相关配置
+      client:
+        #url: http://127.0.0.1:${server.port}/${spring.boot.admin.context-path} # 设置 Spring Boot Admin Server 地址
+        url: http://123.56.19.224:17880/${spring.boot.admin.context-path} # 设置 Spring Boot Admin Server 地址
+        instance:
+          service-host-type: IP # 注册实例时，优先使用 IP [IP, HOST_NAME, CANONICAL_HOST_NAME]
+      context-path: admin
+      monitor:
+        default-timeout: 30000
+--- # 自定义基于相同网段优先的客户端负载均衡
+#spring:
+#  cloud:
+#    loadbalancer:
+#      configurations: net-segment

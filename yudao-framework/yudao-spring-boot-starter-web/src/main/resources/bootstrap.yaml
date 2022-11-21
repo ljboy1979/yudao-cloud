@@ -1,5 +1,0 @@
---- # 自定义基于相同网段优先的客户端负载均衡
-spring:
-  cloud:
-    loadbalancer:
-      configurations: net-segment
