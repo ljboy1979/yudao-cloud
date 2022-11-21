@@ -60,21 +60,21 @@
 
   以bpm为例
 
-  消费方：
+  消费方（调用方）：
 
-  在framework-rpc包下配置openfeign
+  1在framework-rpc包下配置openfeign
 
   @Configuration(proxyBeanMethods = false) //表示对openfeign的实现类方法不用代理拦截
-
   @EnableFeignClients(clients = {RoleApi.class, DeptApi.class, PostApi.class, AdminUserApi.class, SmsSendApi.class, DictDataApi.class})//声明需要openfeign代理拦截的rpc类
+  
+  2然后在相应的调用处用@Resource注入服务方
+  
+* 服务方（被调用方）：
 
-  服务方：
+  1一个是在rpc包下用@FeignClient声明需要被内部调用的接口，
+* 2方法上要加入调用链接
 
-  一个是在rpc包下用@FeignClient声明需要被内部调用的方法，方法上要加入调用链接
-
-  然后在相应的
-
-  调用处用@Resource注入
+  
 
   （dubbo方式了解即可，不采用
 
