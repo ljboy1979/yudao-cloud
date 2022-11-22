@@ -5,7 +5,7 @@ import { DICT_TYPE } from '@/utils/dict'
 const { t } = useI18n() // 国际化
 // 表单校验
 export const rules = reactive({
-  manageStatus: [{ required: true, message: '经营状态：下拉列表，包含存续、在业、吊销、注销、迁入、迁出、停业、清算不能为空', trigger: 'blur' }],
+  manageStatus: [{ required: true, message: '经营状态不能为空', trigger: 'change' }],
 })
 // CrudSchema
 const crudSchemas = reactive<CrudSchema[]>([
@@ -41,17 +41,11 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    label: '主体类型：下拉列表，包含个体、企业、合作社、有限责任公司、股份有限公司',
+    label: '主体类型',
     field: 'enterpriseType',
-    form: {
-      show: true,
-    },
+    dictType: DICT_TYPE.ENTERPRISE_TYPE,
     search: {
-      show: true,
-      component: 'Select',
-      componentProps: {
-        option: [{'','请选择字典生成'}]
-      }
+      show: true
     }
   },
   {
@@ -60,9 +54,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '状态',
@@ -77,9 +68,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     label: '产业角色',
     field: 'userTag',
-    form: {
-      show: true,
-    },
+    dictType: DICT_TYPE.USER_TAG,
     search: {
       show: true
     }
@@ -90,23 +79,11 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
-    label: '经营状态：下拉列表，包含存续、在业、吊销、注销、迁入、迁出、停业、清算',
+    label: '经营状态',
     field: 'manageStatus',
-    form: {
-      show: true,
-    },
-    search: {
-      show: true,
-      component: 'Select',
-      componentProps: {
-        option: [{'','请选择字典生成'}]
-      }
-    }
+    dictType: DICT_TYPE.MANAGE_STATUS,
   },
   {
     label: '注册地址',
@@ -114,9 +91,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '详细地址',
@@ -124,9 +98,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '统一社会信用代码或注册号',
@@ -134,9 +105,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '电子营业执照',
@@ -144,9 +112,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '法定代表人',
@@ -154,9 +119,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '法人身份证',
@@ -164,9 +126,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '法人身份证照片',
@@ -174,9 +133,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '注册时间',
@@ -211,8 +167,6 @@ const crudSchemas = reactive<CrudSchema[]>([
         valueHtml: ''
       }
     },
-    search: {
-    }
   },
   {
     label: '企业LOGO',
@@ -220,9 +174,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '经营许可证号',
@@ -230,9 +181,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '生产/经营许可证图片',
@@ -240,9 +188,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '证件截止日期',
@@ -255,14 +200,6 @@ const crudSchemas = reactive<CrudSchema[]>([
         valueFormat: 'YYYY-MM-DD HH:mm:ss'
       }
     },
-    search: {
-      show: true,
-      component: 'DatePicker',
-      componentProps: {
-        type: 'datetimerange',
-        valueFormat: 'YYYY-MM-DD HH:mm:ss'
-      }
-    }
   },
   {
     label: '账户名',
@@ -270,9 +207,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '账户银行卡号',
@@ -280,9 +214,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '账户身份证号',
@@ -290,9 +221,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '账户开户行',
@@ -300,9 +228,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '联系人',
@@ -320,9 +245,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '省id',
@@ -390,9 +312,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '主营业务',
@@ -400,9 +319,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '备注',
@@ -410,9 +326,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '租户集合',
@@ -420,9 +333,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '经营主体ID',
@@ -430,24 +340,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
-  },
-  {
-    label: '创建时间',
-    field: 'createTime',
-    form: {
-      show: false
-    },
-    search: {
-      show: true,
-      component: 'DatePicker',
-      componentProps: {
-        type: 'datetimerange',
-        valueFormat: 'YYYY-MM-DD HH:mm:ss'
-      }
-    }
   },
   {
     label: t('table.action'),

@@ -9,119 +9,29 @@
       <el-form-item label="主体名称" prop="name">
         <el-input v-model="queryParams.name" placeholder="请输入主体名称" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="主体类型：下拉列表，包含个体、企业、合作社、有限责任公司、股份有限公司" prop="enterpriseType">
-        <el-select v-model="queryParams.enterpriseType" placeholder="请选择主体类型：下拉列表，包含个体、企业、合作社、有限责任公司、股份有限公司" clearable size="small">
-          <el-option label="请选择字典生成" value="" />
+      <el-form-item label="主体类型" prop="enterpriseType">
+        <el-select v-model="queryParams.enterpriseType" placeholder="请选择主体类型" clearable size="small">
+          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.ENTERPRISE_TYPE)"
+                       :key="dict.value" :label="dict.label" :value="dict.value"/>
         </el-select>
-      </el-form-item>
-      <el-form-item label="主体类型名称" prop="enterpriseTypeName">
-        <el-input v-model="queryParams.enterpriseTypeName" placeholder="请输入主体类型名称" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="状态" prop="stauts">
         <el-input v-model="queryParams.stauts" placeholder="请输入状态" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="产业角色" prop="userTag">
-        <el-input v-model="queryParams.userTag" placeholder="请输入产业角色" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="产业角色名称" prop="userTagName">
-        <el-input v-model="queryParams.userTagName" placeholder="请输入产业角色名称" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="经营状态：下拉列表，包含存续、在业、吊销、注销、迁入、迁出、停业、清算" prop="manageStatus">
-        <el-select v-model="queryParams.manageStatus" placeholder="请选择经营状态：下拉列表，包含存续、在业、吊销、注销、迁入、迁出、停业、清算" clearable size="small">
-          <el-option label="请选择字典生成" value="" />
+        <el-select v-model="queryParams.userTag" placeholder="请选择产业角色" clearable size="small">
+          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.USER_TAG)"
+                       :key="dict.value" :label="dict.label" :value="dict.value"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="注册地址" prop="address">
-        <el-input v-model="queryParams.address" placeholder="请输入注册地址" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="详细地址" prop="detailedAddress">
-        <el-input v-model="queryParams.detailedAddress" placeholder="请输入详细地址" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="统一社会信用代码或注册号" prop="socialCreditCode">
-        <el-input v-model="queryParams.socialCreditCode" placeholder="请输入统一社会信用代码或注册号" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="电子营业执照" prop="businessCertificatePhoto">
-        <el-input v-model="queryParams.businessCertificatePhoto" placeholder="请输入电子营业执照" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="法定代表人" prop="legalPerson">
-        <el-input v-model="queryParams.legalPerson" placeholder="请输入法定代表人" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="法人身份证" prop="legalIdCard">
-        <el-input v-model="queryParams.legalIdCard" placeholder="请输入法人身份证" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="法人身份证照片" prop="legalIdCardPhoto">
-        <el-input v-model="queryParams.legalIdCardPhoto" placeholder="请输入法人身份证照片" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="经营状态" prop="manageStatus">
+        <el-select v-model="queryParams.manageStatus" placeholder="请选择经营状态" clearable size="small">
+          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MANAGE_STATUS)"
+                       :key="dict.value" :label="dict.label" :value="dict.value"/>
+        </el-select>
       </el-form-item>
       <el-form-item label="注册时间" prop="registerTime">
         <el-date-picker v-model="queryParams.registerTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
-                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
-      </el-form-item>
-      <el-form-item label="企业LOGO" prop="logo">
-        <el-input v-model="queryParams.logo" placeholder="请输入企业LOGO" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="经营许可证号" prop="businessLicenseNo">
-        <el-input v-model="queryParams.businessLicenseNo" placeholder="请输入经营许可证号" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="生产/经营许可证图片" prop="businessLicensePhoto">
-        <el-input v-model="queryParams.businessLicensePhoto" placeholder="请输入生产/经营许可证图片" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="证件截止日期" prop="businessLicenseEndTime">
-        <el-date-picker v-model="queryParams.businessLicenseEndTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
-                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
-      </el-form-item>
-      <el-form-item label="账户名" prop="accountName">
-        <el-input v-model="queryParams.accountName" placeholder="请输入账户名" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="账户银行卡号" prop="accountNo">
-        <el-input v-model="queryParams.accountNo" placeholder="请输入账户银行卡号" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="账户身份证号" prop="accountIdCard">
-        <el-input v-model="queryParams.accountIdCard" placeholder="请输入账户身份证号" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="账户开户行" prop="accountBank">
-        <el-input v-model="queryParams.accountBank" placeholder="请输入账户开户行" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="联系人" prop="contactName">
-        <el-input v-model="queryParams.contactName" placeholder="请输入联系人" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="联系人电话" prop="contactPhone">
-        <el-input v-model="queryParams.contactPhone" placeholder="请输入联系人电话" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="省id" prop="villagesAreaId">
-        <el-input v-model="queryParams.villagesAreaId" placeholder="请输入省id" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="省名称" prop="villagesAreaName">
-        <el-input v-model="queryParams.villagesAreaName" placeholder="请输入省名称" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="市id" prop="areaId">
-        <el-input v-model="queryParams.areaId" placeholder="请输入市id" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="市名称" prop="areaName">
-        <el-input v-model="queryParams.areaName" placeholder="请输入市名称" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="区id" prop="ruralId">
-        <el-input v-model="queryParams.ruralId" placeholder="请输入区id" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="区名称" prop="ruralName">
-        <el-input v-model="queryParams.ruralName" placeholder="请输入区名称" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="企业规模" prop="enterpriseScale">
-        <el-input v-model="queryParams.enterpriseScale" placeholder="请输入企业规模" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="主营业务" prop="serviceRange">
-        <el-input v-model="queryParams.serviceRange" placeholder="请输入主营业务" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="备注" prop="remarks">
-        <el-input v-model="queryParams.remarks" placeholder="请输入备注" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="租户集合" prop="source">
-        <el-input v-model="queryParams.source" placeholder="请输入租户集合" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="经营主体ID" prop="subjectId">
-        <el-input v-model="queryParams.subjectId" placeholder="请输入经营主体ID" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="创建时间" prop="createTime">
-        <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
                         range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item>
@@ -145,46 +55,27 @@
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="主键ID" align="center" prop="id" />
       <el-table-column label="主体编号" align="center" prop="code" />
       <el-table-column label="主体名称" align="center" prop="name" />
-      <el-table-column label="主体类型：下拉列表，包含个体、企业、合作社、有限责任公司、股份有限公司" align="center" prop="enterpriseType" />
-      <el-table-column label="主体类型名称" align="center" prop="enterpriseTypeName" />
+      <el-table-column label="主体类型" align="center" prop="enterpriseType">
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.ENTERPRISE_TYPE" :value="scope.row.enterpriseType" />
+        </template>
+      </el-table-column>
       <el-table-column label="状态" align="center" prop="stauts" />
-      <el-table-column label="产业角色" align="center" prop="userTag" />
-      <el-table-column label="产业角色名称" align="center" prop="userTagName" />
-      <el-table-column label="经营状态：下拉列表，包含存续、在业、吊销、注销、迁入、迁出、停业、清算" align="center" prop="manageStatus" />
-      <el-table-column label="注册地址" align="center" prop="address" />
-      <el-table-column label="详细地址" align="center" prop="detailedAddress" />
-      <el-table-column label="统一社会信用代码或注册号" align="center" prop="socialCreditCode" />
-      <el-table-column label="电子营业执照" align="center" prop="businessCertificatePhoto" />
-      <el-table-column label="法定代表人" align="center" prop="legalPerson" />
-      <el-table-column label="法人身份证" align="center" prop="legalIdCard" />
-      <el-table-column label="法人身份证照片" align="center" prop="legalIdCardPhoto" />
+      <el-table-column label="产业角色" align="center" prop="userTag">
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.USER_TAG" :value="scope.row.userTag" />
+        </template>
+      </el-table-column>
       <el-table-column label="注册时间" align="center" prop="registerTime" />
-      <el-table-column label="公司简介" align="center" prop="description" />
-      <el-table-column label="企业LOGO" align="center" prop="logo" />
-      <el-table-column label="经营许可证号" align="center" prop="businessLicenseNo" />
-      <el-table-column label="生产/经营许可证图片" align="center" prop="businessLicensePhoto" />
-      <el-table-column label="证件截止日期" align="center" prop="businessLicenseEndTime" />
-      <el-table-column label="账户名" align="center" prop="accountName" />
-      <el-table-column label="账户银行卡号" align="center" prop="accountNo" />
-      <el-table-column label="账户身份证号" align="center" prop="accountIdCard" />
-      <el-table-column label="账户开户行" align="center" prop="accountBank" />
       <el-table-column label="联系人" align="center" prop="contactName" />
-      <el-table-column label="联系人电话" align="center" prop="contactPhone" />
       <el-table-column label="省id" align="center" prop="villagesAreaId" />
       <el-table-column label="省名称" align="center" prop="villagesAreaName" />
       <el-table-column label="市id" align="center" prop="areaId" />
       <el-table-column label="市名称" align="center" prop="areaName" />
       <el-table-column label="区id" align="center" prop="ruralId" />
       <el-table-column label="区名称" align="center" prop="ruralName" />
-      <el-table-column label="企业规模" align="center" prop="enterpriseScale" />
-      <el-table-column label="主营业务" align="center" prop="serviceRange" />
-      <el-table-column label="备注" align="center" prop="remarks" />
-      <el-table-column label="租户集合" align="center" prop="source" />
-      <el-table-column label="经营主体ID" align="center" prop="subjectId" />
-      <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
@@ -207,9 +98,10 @@
         <el-form-item label="主体名称" prop="name">
           <el-input v-model="form.name" placeholder="请输入主体名称" />
         </el-form-item>
-        <el-form-item label="主体类型：下拉列表，包含个体、企业、合作社、有限责任公司、股份有限公司" prop="enterpriseType">
-          <el-select v-model="form.enterpriseType" placeholder="请选择主体类型：下拉列表，包含个体、企业、合作社、有限责任公司、股份有限公司">
-            <el-option label="请选择字典生成" value="" />
+        <el-form-item label="主体类型" prop="enterpriseType">
+          <el-select v-model="form.enterpriseType" placeholder="请选择主体类型">
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.ENTERPRISE_TYPE)"
+                       :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="主体类型名称" prop="enterpriseTypeName">
@@ -219,15 +111,19 @@
           <el-input v-model="form.stauts" placeholder="请输入状态" />
         </el-form-item>
         <el-form-item label="产业角色" prop="userTag">
-          <el-input v-model="form.userTag" placeholder="请输入产业角色" />
+          <el-select v-model="form.userTag" placeholder="请选择产业角色">
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.USER_TAG)"
+                       :key="dict.value" :label="dict.label" :value="dict.value" />
+          </el-select>
         </el-form-item>
         <el-form-item label="产业角色名称" prop="userTagName">
           <el-input v-model="form.userTagName" placeholder="请输入产业角色名称" />
         </el-form-item>
-        <el-form-item label="经营状态：下拉列表，包含存续、在业、吊销、注销、迁入、迁出、停业、清算" prop="manageStatus">
-          <el-radio-group v-model="form.manageStatus">
-            <el-radio label="1">请选择字典生成</el-radio>
-          </el-radio-group>
+        <el-form-item label="经营状态" prop="manageStatus">
+          <el-select v-model="form.manageStatus" placeholder="请选择经营状态">
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MANAGE_STATUS)"
+                       :key="dict.value" :label="dict.label" :value="dict.value" />
+          </el-select>
         </el-form-item>
         <el-form-item label="注册地址" prop="address">
           <el-input v-model="form.address" placeholder="请输入注册地址" />
@@ -360,48 +256,16 @@ export default {
         code: null,
         name: null,
         enterpriseType: null,
-        enterpriseTypeName: null,
         stauts: null,
         userTag: null,
-        userTagName: null,
         manageStatus: null,
-        address: null,
-        detailedAddress: null,
-        socialCreditCode: null,
-        businessCertificatePhoto: null,
-        legalPerson: null,
-        legalIdCard: null,
-        legalIdCardPhoto: null,
         registerTime: [],
-        description: null,
-        logo: null,
-        businessLicenseNo: null,
-        businessLicensePhoto: null,
-        businessLicenseEndTime: [],
-        accountName: null,
-        accountNo: null,
-        accountIdCard: null,
-        accountBank: null,
-        contactName: null,
-        contactPhone: null,
-        villagesAreaId: null,
-        villagesAreaName: null,
-        areaId: null,
-        areaName: null,
-        ruralId: null,
-        ruralName: null,
-        enterpriseScale: null,
-        serviceRange: null,
-        remarks: null,
-        source: null,
-        subjectId: null,
-        createTime: [],
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        manageStatus: [{ required: true, message: "经营状态：下拉列表，包含存续、在业、吊销、注销、迁入、迁出、停业、清算不能为空", trigger: "blur" }],
+        manageStatus: [{ required: true, message: "经营状态不能为空", trigger: "change" }],
       }
     };
   },

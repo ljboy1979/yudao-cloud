@@ -125,6 +125,12 @@ getList()
       v-model:currentPage="tableObject.currentPage"
       @register="register"
     >
+      <template #enterpriseType="{ row }">
+        <DictTag :type="DICT_TYPE.ENTERPRISE_TYPE" :value="row.enterpriseType" />
+      </template>
+      <template #userTag="{ row }">
+        <DictTag :type="DICT_TYPE.USER_TAG" :value="row.userTag" />
+      </template>
       <template #action="{ row }">
         <XButton
           link
@@ -168,6 +174,12 @@ getList()
       :schema="allSchemas.detailSchema"
       :data="detailRef"
     >
+      <template #enterpriseType="{ row }">
+        <DictTag :type="DICT_TYPE.ENTERPRISE_TYPE" :value="row.enterpriseType" />
+      </template>
+      <template #userTag="{ row }">
+        <DictTag :type="DICT_TYPE.USER_TAG" :value="row.userTag" />
+      </template>
     </Descriptions>
     <!-- 操作按钮 -->
     <template #footer>
