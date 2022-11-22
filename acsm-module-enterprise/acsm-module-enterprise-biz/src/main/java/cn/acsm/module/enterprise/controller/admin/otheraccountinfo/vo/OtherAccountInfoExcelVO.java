@@ -17,9 +17,6 @@ public class OtherAccountInfoExcelVO {
     @ExcelProperty("编号")
     private Long id;
 
-    @ExcelProperty("经营主体ID")
-    private Long enterpriseId;
-
     @ExcelProperty("账户名")
     private String accountName;
 
@@ -32,13 +29,10 @@ public class OtherAccountInfoExcelVO {
     @ExcelProperty("账户开户行")
     private String accountBank;
 
-    @ExcelProperty("租户集合")
-    private Long source;
-
-    @ExcelProperty("经营主体ID")
-    private Long subjectId;
-
     @ExcelProperty("创建时间")
     private Date createTime;
+
+    @ExcelProperty("更新时间")
+    private Date updateTime;
 
 }

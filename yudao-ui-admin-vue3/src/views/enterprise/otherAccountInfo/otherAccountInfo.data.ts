@@ -20,16 +20,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    label: '经营主体ID',
-    field: 'enterpriseId',
-    form: {
-      show: true,
-    },
-    search: {
-      show: true
-    }
-  },
-  {
     label: '账户名',
     field: 'accountName',
     form: {
@@ -70,28 +60,23 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    label: '租户集合',
-    field: 'source',
-    form: {
-      show: true,
-    },
-    search: {
-      show: true
-    }
-  },
-  {
-    label: '经营主体ID',
-    field: 'subjectId',
-    form: {
-      show: true,
-    },
-    search: {
-      show: true
-    }
-  },
-  {
     label: '创建时间',
     field: 'createTime',
+    form: {
+      show: false
+    },
+    search: {
+      show: true,
+      component: 'DatePicker',
+      componentProps: {
+        type: 'datetimerange',
+        valueFormat: 'YYYY-MM-DD HH:mm:ss'
+      }
+    }
+  },
+  {
+    label: '更新时间',
+    field: 'updateTime',
     form: {
       show: false
     },

@@ -8,7 +8,8 @@
       </el-form-item>
       <el-form-item label="证件类型" prop="certificateType">
         <el-select v-model="queryParams.certificateType" placeholder="请选择证件类型" clearable size="small">
-          <el-option label="请选择字典生成" value="" />
+          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.CERTIFICATE_TYPE)"
+                       :key="dict.value" :label="dict.label" :value="dict.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="证件名称" prop="certificateName">
@@ -24,6 +25,9 @@
       <el-form-item label="证件照片" prop="certificatePhoto">
         <el-input v-model="queryParams.certificatePhoto" placeholder="请输入证件照片" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
+      <el-form-item label="租户编号" prop="tenantId">
+        <el-input v-model="queryParams.tenantId" placeholder="请输入租户编号" clearable @keyup.enter.native="handleQuery"/>
+      </el-form-item>
       <el-form-item label="租户集合" prop="source">
         <el-input v-model="queryParams.source" placeholder="请输入租户集合" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
@@ -32,6 +36,10 @@
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
+                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      </el-form-item>
+      <el-form-item label="更新时间" prop="updateTime">
+        <el-date-picker v-model="queryParams.updateTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
                         range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item>
@@ -56,15 +64,19 @@
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="经营主体ID" align="center" prop="enterpriseId" />
-      <el-table-column label="证件类型" align="center" prop="certificateType" />
+      <el-table-column label="证件类型" align="center" prop="certificateType">
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.CERTIFICATE_TYPE" :value="scope.row.certificateType" />
+        </template>
+      </el-table-column>
       <el-table-column label="证件名称" align="center" prop="certificateName" />
       <el-table-column label="证件号" align="center" prop="certificateNo" />
       <el-table-column label="证件截止日期" align="center" prop="certificateEndTime" />
-      <el-table-column label="证件照片" align="center" prop="certificatePhoto" />
+      <el-table-column label="租户编号" align="center" prop="tenantId" />
       <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="更新时间" align="center" prop="updateTime" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
@@ -81,12 +93,10 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="经营主体ID" prop="enterpriseId">
-          <el-input v-model="form.enterpriseId" placeholder="请输入经营主体ID" />
-        </el-form-item>
         <el-form-item label="证件类型" prop="certificateType">
           <el-select v-model="form.certificateType" placeholder="请选择证件类型">
-            <el-option label="请选择字典生成" value="" />
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.CERTIFICATE_TYPE)"
+                       :key="dict.value" :label="dict.label" :value="parseInt(dict.value)" />
           </el-select>
         </el-form-item>
         <el-form-item label="证件名称" prop="certificateName">
@@ -100,6 +110,9 @@
         </el-form-item>
         <el-form-item label="证件照片" prop="certificatePhoto">
           <el-input v-model="form.certificatePhoto" placeholder="请输入证件照片" />
+        </el-form-item>
+        <el-form-item label="租户编号" prop="tenantId">
+          <el-input v-model="form.tenantId" placeholder="请输入租户编号" />
         </el-form-item>
         <el-form-item label="租户集合" prop="source">
           <el-input v-model="form.source" placeholder="请输入租户集合" />
@@ -149,14 +162,17 @@ export default {
         certificateNo: null,
         certificateEndTime: [],
         certificatePhoto: null,
+        tenantId: null,
         source: null,
         subjectId: null,
         createTime: [],
+        updateTime: [],
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
+        tenantId: [{ required: true, message: "租户编号不能为空", trigger: "blur" }],
       }
     };
   },
@@ -183,12 +199,12 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        enterpriseId: undefined,
         certificateType: undefined,
         certificateName: undefined,
         certificateNo: undefined,
         certificateEndTime: undefined,
         certificatePhoto: undefined,
+        tenantId: undefined,
         source: undefined,
         subjectId: undefined,
       };

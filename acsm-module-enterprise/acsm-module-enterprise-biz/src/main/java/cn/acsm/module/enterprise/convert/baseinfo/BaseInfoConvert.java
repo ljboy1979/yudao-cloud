@@ -7,8 +7,8 @@ import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoExcelVO;
 import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoRespVO;
 import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoUpdateReqVO;
 import cn.acsm.module.enterprise.dal.dataobject.baseinfo.BaseInfoDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

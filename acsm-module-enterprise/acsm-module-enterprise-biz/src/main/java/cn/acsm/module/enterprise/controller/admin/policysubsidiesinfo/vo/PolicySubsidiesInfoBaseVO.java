@@ -13,20 +13,11 @@ import javax.validation.constraints.*;
 @Data
 public class PolicySubsidiesInfoBaseVO {
 
-    @ApiModelProperty(value = "经营主体ID")
-    private Long enterpriseId;
-
     @ApiModelProperty(value = "补贴种类")
     private String subsidiesCategory;
 
     @ApiModelProperty(value = "补贴名称")
     private String subsidiesName;
-
-    @ApiModelProperty(value = "补贴金额")
-    private BigDecimal subsidiesAmount;
-
-    @ApiModelProperty(value = "补贴方式")
-    private String subsidiesType;
 
     @ApiModelProperty(value = "补贴状态")
     private Integer subsidiesStatus;
@@ -36,11 +27,5 @@ public class PolicySubsidiesInfoBaseVO {
 
     @ApiModelProperty(value = "申请时间")
     private Date applyTime;
-
-    @ApiModelProperty(value = "租户集合")
-    private Long source;
-
-    @ApiModelProperty(value = "经营主体ID")
-    private Long subjectId;
 
 }

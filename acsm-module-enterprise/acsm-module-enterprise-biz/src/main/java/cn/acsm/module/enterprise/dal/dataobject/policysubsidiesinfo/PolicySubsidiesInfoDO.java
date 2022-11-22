@@ -32,6 +32,8 @@ public class PolicySubsidiesInfoDO extends BaseDO {
     private Long enterpriseId;
     /**
      * 补贴种类
+     *
+     * 枚举 {@link TODO subsidies_category 对应的类}
      */
     private String subsidiesCategory;
     /**
@@ -44,10 +46,14 @@ public class PolicySubsidiesInfoDO extends BaseDO {
     private BigDecimal subsidiesAmount;
     /**
      * 补贴方式
+     *
+     * 枚举 {@link TODO subsidies_type 对应的类}
      */
     private String subsidiesType;
     /**
      * 补贴状态
+     *
+     * 枚举 {@link TODO subsidies_status 对应的类}
      */
     private Integer subsidiesStatus;
     /**
@@ -58,6 +64,10 @@ public class PolicySubsidiesInfoDO extends BaseDO {
      * 申请时间
      */
     private Date applyTime;
+    /**
+     * 租户编号
+     */
+    private Long tenantId;
     /**
      * 租户集合
      */

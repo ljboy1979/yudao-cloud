@@ -3,9 +3,6 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="经营主体ID" prop="enterpriseId">
-        <el-input v-model="queryParams.enterpriseId" placeholder="请输入经营主体ID" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
       <el-form-item label="账户名" prop="accountName">
         <el-input v-model="queryParams.accountName" placeholder="请输入账户名" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
@@ -18,14 +15,12 @@
       <el-form-item label="账户开户行" prop="accountBank">
         <el-input v-model="queryParams.accountBank" placeholder="请输入账户开户行" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="租户集合" prop="source">
-        <el-input v-model="queryParams.source" placeholder="请输入租户集合" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="经营主体ID" prop="subjectId">
-        <el-input v-model="queryParams.subjectId" placeholder="请输入经营主体ID" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
+                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      </el-form-item>
+      <el-form-item label="更新时间" prop="updateTime">
+        <el-date-picker v-model="queryParams.updateTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
                         range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item>
@@ -50,14 +45,12 @@
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="经营主体ID" align="center" prop="enterpriseId" />
       <el-table-column label="账户名" align="center" prop="accountName" />
       <el-table-column label="账户银行卡号" align="center" prop="accountNo" />
       <el-table-column label="账户身份证号" align="center" prop="accountIdCard" />
       <el-table-column label="账户开户行" align="center" prop="accountBank" />
-      <el-table-column label="租户集合" align="center" prop="source" />
-      <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="更新时间" align="center" prop="updateTime" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
@@ -74,9 +67,6 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="经营主体ID" prop="enterpriseId">
-          <el-input v-model="form.enterpriseId" placeholder="请输入经营主体ID" />
-        </el-form-item>
         <el-form-item label="账户名" prop="accountName">
           <el-input v-model="form.accountName" placeholder="请输入账户名" />
         </el-form-item>
@@ -88,12 +78,6 @@
         </el-form-item>
         <el-form-item label="账户开户行" prop="accountBank">
           <el-input v-model="form.accountBank" placeholder="请输入账户开户行" />
-        </el-form-item>
-        <el-form-item label="租户集合" prop="source">
-          <el-input v-model="form.source" placeholder="请输入租户集合" />
-        </el-form-item>
-        <el-form-item label="经营主体ID" prop="subjectId">
-          <el-input v-model="form.subjectId" placeholder="请输入经营主体ID" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -131,14 +115,12 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        enterpriseId: null,
         accountName: null,
         accountNo: null,
         accountIdCard: null,
         accountBank: null,
-        source: null,
-        subjectId: null,
         createTime: [],
+        updateTime: [],
       },
       // 表单参数
       form: {},
@@ -170,13 +152,10 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        enterpriseId: undefined,
         accountName: undefined,
         accountNo: undefined,
         accountIdCard: undefined,
         accountBank: undefined,
-        source: undefined,
-        subjectId: undefined,
       };
       this.resetForm("form");
     },

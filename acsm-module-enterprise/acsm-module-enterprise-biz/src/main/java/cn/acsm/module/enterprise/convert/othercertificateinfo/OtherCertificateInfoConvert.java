@@ -1,6 +1,5 @@
 package cn.acsm.module.enterprise.convert.othercertificateinfo;
 
-import java.util.*;
 
 import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.OtherCertificateInfoCreateReqVO;
 import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.OtherCertificateInfoExcelVO;
@@ -8,9 +7,10 @@ import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.OtherC
 import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.OtherCertificateInfoUpdateReqVO;
 import cn.acsm.module.enterprise.dal.dataobject.othercertificateinfo.OtherCertificateInfoDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * 经营主体其他证件 Convert

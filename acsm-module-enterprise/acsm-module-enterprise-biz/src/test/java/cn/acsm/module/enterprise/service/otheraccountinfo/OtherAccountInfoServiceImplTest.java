@@ -6,18 +6,19 @@ import cn.acsm.module.enterprise.controller.admin.otheraccountinfo.vo.OtherAccou
 import cn.acsm.module.enterprise.controller.admin.otheraccountinfo.vo.OtherAccountInfoUpdateReqVO;
 import cn.acsm.module.enterprise.dal.dataobject.otheraccountinfo.OtherAccountInfoDO;
 import cn.acsm.module.enterprise.dal.mysql.otheraccountinfo.OtherAccountInfoMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
+import org.apache.xmlbeans.GDate;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.annotation.Resource;
 
-
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
-
 import org.springframework.context.annotation.Import;
-import java.util.*;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 import static cn.acsm.module.enterprise.enums.ErrorCodeConstants.OTHER_ACCOUNT_INFO_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.util.object.ObjectUtils.*;
@@ -109,18 +110,14 @@ public class OtherAccountInfoServiceImplTest extends BaseDbUnitTest {
     public void testGetOtherAccountInfoPage() {
        // mock 数据
        OtherAccountInfoDO dbOtherAccountInfo = randomPojo(OtherAccountInfoDO.class, o -> { // 等会查询到
-           o.setEnterpriseId(null);
            o.setAccountName(null);
            o.setAccountNo(null);
            o.setAccountIdCard(null);
            o.setAccountBank(null);
-           o.setSource(null);
-           o.setSubjectId(null);
            o.setCreateTime(null);
+           o.setUpdateTime(null);
        });
        otherAccountInfoMapper.insert(dbOtherAccountInfo);
-       // 测试 enterpriseId 不匹配
-       otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setEnterpriseId(null)));
        // 测试 accountName 不匹配
        otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setAccountName(null)));
        // 测试 accountNo 不匹配
@@ -129,22 +126,18 @@ public class OtherAccountInfoServiceImplTest extends BaseDbUnitTest {
        otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setAccountIdCard(null)));
        // 测试 accountBank 不匹配
        otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setAccountBank(null)));
-       // 测试 source 不匹配
-       otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setSource(null)));
-       // 测试 subjectId 不匹配
-       otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setSubjectId(null)));
        // 测试 createTime 不匹配
        otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setCreateTime(null)));
+       // 测试 updateTime 不匹配
+       otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setUpdateTime(null)));
        // 准备参数
        OtherAccountInfoPageReqVO reqVO = new OtherAccountInfoPageReqVO();
-       reqVO.setEnterpriseId(null);
        reqVO.setAccountName(null);
        reqVO.setAccountNo(null);
        reqVO.setAccountIdCard(null);
        reqVO.setAccountBank(null);
-       reqVO.setSource(null);
-       reqVO.setSubjectId(null);
-       reqVO.setCreateTime(new Date[]{});
+       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        PageResult<OtherAccountInfoDO> pageResult = otherAccountInfoService.getOtherAccountInfoPage(reqVO);
@@ -159,18 +152,14 @@ public class OtherAccountInfoServiceImplTest extends BaseDbUnitTest {
     public void testGetOtherAccountInfoList() {
        // mock 数据
        OtherAccountInfoDO dbOtherAccountInfo = randomPojo(OtherAccountInfoDO.class, o -> { // 等会查询到
-           o.setEnterpriseId(null);
            o.setAccountName(null);
            o.setAccountNo(null);
            o.setAccountIdCard(null);
            o.setAccountBank(null);
-           o.setSource(null);
-           o.setSubjectId(null);
            o.setCreateTime(null);
+           o.setUpdateTime(null);
        });
        otherAccountInfoMapper.insert(dbOtherAccountInfo);
-       // 测试 enterpriseId 不匹配
-       otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setEnterpriseId(null)));
        // 测试 accountName 不匹配
        otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setAccountName(null)));
        // 测试 accountNo 不匹配
@@ -179,22 +168,18 @@ public class OtherAccountInfoServiceImplTest extends BaseDbUnitTest {
        otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setAccountIdCard(null)));
        // 测试 accountBank 不匹配
        otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setAccountBank(null)));
-       // 测试 source 不匹配
-       otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setSource(null)));
-       // 测试 subjectId 不匹配
-       otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setSubjectId(null)));
        // 测试 createTime 不匹配
        otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setCreateTime(null)));
+       // 测试 updateTime 不匹配
+       otherAccountInfoMapper.insert(cloneIgnoreId(dbOtherAccountInfo, o -> o.setUpdateTime(null)));
        // 准备参数
        OtherAccountInfoExportReqVO reqVO = new OtherAccountInfoExportReqVO();
-       reqVO.setEnterpriseId(null);
        reqVO.setAccountName(null);
        reqVO.setAccountNo(null);
        reqVO.setAccountIdCard(null);
        reqVO.setAccountBank(null);
-       reqVO.setSource(null);
-       reqVO.setSubjectId(null);
-       reqVO.setCreateTime(new Date[]{});
+       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        List<OtherAccountInfoDO> list = otherAccountInfoService.getOtherAccountInfoList(reqVO);

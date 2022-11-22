@@ -16,4 +16,7 @@ public class OtherAccountInfoRespVO extends OtherAccountInfoBaseVO {
     @ApiModelProperty(value = "创建时间", required = true)
     private Date createTime;
 
+    @ApiModelProperty(value = "更新时间", required = true)
+    private Date updateTime;
+
 }

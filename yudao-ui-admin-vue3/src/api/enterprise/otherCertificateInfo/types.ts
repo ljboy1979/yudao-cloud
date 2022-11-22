@@ -1,11 +1,11 @@
 export type OtherCertificateInfoVO = {
   id: number
-  enterpriseId: number
   certificateType: number
   certificateName: string
   certificateNo: string
   certificateEndTime: string
   certificatePhoto: string
+  tenantId: number
   source: number
   subjectId: number
 }
@@ -17,9 +17,11 @@ export type OtherCertificateInfoPageReqVO = {
   certificateNo: string
   certificateEndTime: string
   certificatePhoto: string
+  tenantId: number
   source: number
   subjectId: number
   createTime: string
+  updateTime: string
 }
 
 export type OtherCertificateInfoExcelReqVO = {
@@ -29,7 +31,9 @@ export type OtherCertificateInfoExcelReqVO = {
   certificateNo: string
   certificateEndTime: string
   certificatePhoto: string
+  tenantId: number
   source: number
   subjectId: number
   createTime: string
+  updateTime: string
 }

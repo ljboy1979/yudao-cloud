@@ -13,29 +13,29 @@ export type PolicySubsidiesInfoVO = {
 }
 
 export type PolicySubsidiesInfoPageReqVO = {
-  enterpriseId: number
   subsidiesCategory: string
   subsidiesName: string
-  subsidiesAmount: bigdecimal
   subsidiesType: string
   subsidiesStatus: number
   applyPerson: string
   applyTime: string
+  tenantId: number
   source: number
   subjectId: number
   createTime: string
+  updateTime: string
 }
 
 export type PolicySubsidiesInfoExcelReqVO = {
-  enterpriseId: number
   subsidiesCategory: string
   subsidiesName: string
-  subsidiesAmount: bigdecimal
   subsidiesType: string
   subsidiesStatus: number
   applyPerson: string
   applyTime: string
+  tenantId: number
   source: number
   subjectId: number
   createTime: string
+  updateTime: string
 }

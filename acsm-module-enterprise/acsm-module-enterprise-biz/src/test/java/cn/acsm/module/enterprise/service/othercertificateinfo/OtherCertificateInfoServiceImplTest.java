@@ -1,32 +1,29 @@
 package cn.acsm.module.enterprise.service.othercertificateinfo;
 
-import cn.iocoder.yudao.framework.common.exception.ErrorCode;
+import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.OtherCertificateInfoCreateReqVO;
+import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.OtherCertificateInfoExportReqVO;
+import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.OtherCertificateInfoPageReqVO;
+import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.OtherCertificateInfoUpdateReqVO;
+import cn.acsm.module.enterprise.dal.dataobject.othercertificateinfo.OtherCertificateInfoDO;
+import cn.acsm.module.enterprise.dal.mysql.othercertificateinfo.OtherCertificateInfoMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import javax.annotation.Resource;
 
-
-import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.*;
-import cn.acsm.module.enterprise.dal.dataobject.othercertificateinfo.OtherCertificateInfoDO;
-import cn.acsm.module.enterprise.dal.mysql.othercertificateinfo.OtherCertificateInfoMapper;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
-
-import javax.annotation.Resource;
 import org.springframework.context.annotation.Import;
-import java.util.*;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
-import static cn.hutool.core.util.RandomUtil.*;
-import static cn.acsm.module.enterprise.enums.ErrorCodeConstants.*;
+import static cn.acsm.module.enterprise.enums.ErrorCodeConstants.OTHER_CERTIFICATE_INFO_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.util.object.ObjectUtils.*;
-import static cn.iocoder.yudao.framework.common.util.date.DateUtils.*;
 import static cn.iocoder.yudao.framework.test.core.util.AssertUtils.assertPojoEquals;
 import static cn.iocoder.yudao.framework.test.core.util.AssertUtils.assertServiceException;
 import static cn.iocoder.yudao.framework.test.core.util.RandomUtils.randomLongId;
 import static cn.iocoder.yudao.framework.test.core.util.RandomUtils.randomPojo;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 /**
 * {@link OtherCertificateInfoServiceImpl} 的单元测试类
@@ -116,9 +113,11 @@ public class OtherCertificateInfoServiceImplTest extends BaseDbUnitTest {
            o.setCertificateNo(null);
            o.setCertificateEndTime(null);
            o.setCertificatePhoto(null);
+           o.setTenantId(null);
            o.setSource(null);
            o.setSubjectId(null);
            o.setCreateTime(null);
+           o.setUpdateTime(null);
        });
        otherCertificateInfoMapper.insert(dbOtherCertificateInfo);
        // 测试 enterpriseId 不匹配
@@ -133,12 +132,16 @@ public class OtherCertificateInfoServiceImplTest extends BaseDbUnitTest {
        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateEndTime(null)));
        // 测试 certificatePhoto 不匹配
        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificatePhoto(null)));
+       // 测试 tenantId 不匹配
+       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setTenantId(null)));
        // 测试 source 不匹配
        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSource(null)));
        // 测试 subjectId 不匹配
        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSubjectId(null)));
        // 测试 createTime 不匹配
        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCreateTime(null)));
+       // 测试 updateTime 不匹配
+       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setUpdateTime(null)));
        // 准备参数
        OtherCertificateInfoPageReqVO reqVO = new OtherCertificateInfoPageReqVO();
        reqVO.setEnterpriseId(null);
@@ -147,9 +150,11 @@ public class OtherCertificateInfoServiceImplTest extends BaseDbUnitTest {
        reqVO.setCertificateNo(null);
        reqVO.setCertificateEndTime(new Date[]{});
        reqVO.setCertificatePhoto(null);
+       reqVO.setTenantId(null);
        reqVO.setSource(null);
        reqVO.setSubjectId(null);
        reqVO.setCreateTime(new Date[]{});
+       reqVO.setUpdateTime(new Date[]{});
 
        // 调用
        PageResult<OtherCertificateInfoDO> pageResult = otherCertificateInfoService.getOtherCertificateInfoPage(reqVO);
@@ -170,9 +175,11 @@ public class OtherCertificateInfoServiceImplTest extends BaseDbUnitTest {
            o.setCertificateNo(null);
            o.setCertificateEndTime(null);
            o.setCertificatePhoto(null);
+           o.setTenantId(null);
            o.setSource(null);
            o.setSubjectId(null);
            o.setCreateTime(null);
+           o.setUpdateTime(null);
        });
        otherCertificateInfoMapper.insert(dbOtherCertificateInfo);
        // 测试 enterpriseId 不匹配
@@ -187,12 +194,16 @@ public class OtherCertificateInfoServiceImplTest extends BaseDbUnitTest {
        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateEndTime(null)));
        // 测试 certificatePhoto 不匹配
        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificatePhoto(null)));
+       // 测试 tenantId 不匹配
+       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setTenantId(null)));
        // 测试 source 不匹配
        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSource(null)));
        // 测试 subjectId 不匹配
        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSubjectId(null)));
        // 测试 createTime 不匹配
        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCreateTime(null)));
+       // 测试 updateTime 不匹配
+       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setUpdateTime(null)));
        // 准备参数
        OtherCertificateInfoExportReqVO reqVO = new OtherCertificateInfoExportReqVO();
        reqVO.setEnterpriseId(null);
@@ -201,9 +212,11 @@ public class OtherCertificateInfoServiceImplTest extends BaseDbUnitTest {
        reqVO.setCertificateNo(null);
        reqVO.setCertificateEndTime(new Date[]{});
        reqVO.setCertificatePhoto(null);
+       reqVO.setTenantId(null);
        reqVO.setSource(null);
        reqVO.setSubjectId(null);
        reqVO.setCreateTime(new Date[]{});
+       reqVO.setUpdateTime(new Date[]{});
 
        // 调用
        List<OtherCertificateInfoDO> list = otherCertificateInfoService.getOtherCertificateInfoList(reqVO);

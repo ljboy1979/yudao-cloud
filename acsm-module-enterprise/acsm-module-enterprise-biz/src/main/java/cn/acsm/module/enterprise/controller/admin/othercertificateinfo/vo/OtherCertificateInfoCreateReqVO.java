@@ -1,6 +1,5 @@
 package cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo;
 
-import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.OtherCertificateInfoBaseVO;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
@@ -11,5 +10,8 @@ import javax.validation.constraints.*;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class OtherCertificateInfoCreateReqVO extends OtherCertificateInfoBaseVO {
+
+    @ApiModelProperty(value = "证件照片")
+    private String certificatePhoto;
 
 }

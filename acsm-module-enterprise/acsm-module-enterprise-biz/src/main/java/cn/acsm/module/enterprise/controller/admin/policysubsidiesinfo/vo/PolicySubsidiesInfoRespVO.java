@@ -1,6 +1,5 @@
 package cn.acsm.module.enterprise.controller.admin.policysubsidiesinfo.vo;
 
-import cn.acsm.module.enterprise.controller.admin.policysubsidiesinfo.vo.PolicySubsidiesInfoBaseVO;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
@@ -16,5 +15,8 @@ public class PolicySubsidiesInfoRespVO extends PolicySubsidiesInfoBaseVO {
 
     @ApiModelProperty(value = "创建时间", required = true)
     private Date createTime;
+
+    @ApiModelProperty(value = "更新时间", required = true)
+    private Date updateTime;
 
 }

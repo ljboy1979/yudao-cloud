@@ -1,6 +1,5 @@
 package cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo;
 
-import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.OtherCertificateInfoBaseVO;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
@@ -14,7 +13,13 @@ public class OtherCertificateInfoRespVO extends OtherCertificateInfoBaseVO {
     @ApiModelProperty(value = "编号", required = true)
     private Long id;
 
+    @ApiModelProperty(value = "租户编号", required = true)
+    private Long tenantId;
+
     @ApiModelProperty(value = "创建时间", required = true)
     private Date createTime;
+
+    @ApiModelProperty(value = "更新时间", required = true)
+    private Date updateTime;
 
 }

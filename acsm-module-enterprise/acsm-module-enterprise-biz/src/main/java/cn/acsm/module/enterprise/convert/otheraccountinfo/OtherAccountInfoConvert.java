@@ -8,7 +8,6 @@ import cn.acsm.module.enterprise.controller.admin.otheraccountinfo.vo.OtherAccou
 import cn.acsm.module.enterprise.controller.admin.otheraccountinfo.vo.OtherAccountInfoUpdateReqVO;
 import cn.acsm.module.enterprise.dal.dataobject.otheraccountinfo.OtherAccountInfoDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

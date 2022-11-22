@@ -1,7 +1,6 @@
 package cn.acsm.module.enterprise.dal.dataobject.otheraccountinfo;
 
 import lombok.*;
-import java.util.*;
 import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 
@@ -45,6 +44,10 @@ public class OtherAccountInfoDO extends BaseDO {
      * 账户开户行
      */
     private String accountBank;
+    /**
+     * 租户编号
+     */
+    private Long tenantId;
     /**
      * 租户集合
      */

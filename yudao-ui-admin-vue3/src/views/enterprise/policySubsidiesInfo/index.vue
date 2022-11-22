@@ -125,6 +125,12 @@ getList()
       v-model:currentPage="tableObject.currentPage"
       @register="register"
     >
+      <template #subsidiesCategory="{ row }">
+        <DictTag :type="DICT_TYPE.SUBSIDIES_CATEGORY" :value="row.subsidiesCategory" />
+      </template>
+      <template #subsidiesStatus="{ row }">
+        <DictTag :type="DICT_TYPE.SUBSIDIES_STATUS" :value="row.subsidiesStatus" />
+      </template>
       <template #action="{ row }">
         <XButton
           link
@@ -168,6 +174,12 @@ getList()
       :schema="allSchemas.detailSchema"
       :data="detailRef"
     >
+      <template #subsidiesCategory="{ row }">
+        <DictTag :type="DICT_TYPE.SUBSIDIES_CATEGORY" :value="row.subsidiesCategory" />
+      </template>
+      <template #subsidiesStatus="{ row }">
+        <DictTag :type="DICT_TYPE.SUBSIDIES_STATUS" :value="row.subsidiesStatus" />
+      </template>
     </Descriptions>
     <!-- 操作按钮 -->
     <template #footer>

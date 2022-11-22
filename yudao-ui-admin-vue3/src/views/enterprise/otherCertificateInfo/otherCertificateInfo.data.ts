@@ -5,6 +5,7 @@ import { DICT_TYPE } from '@/utils/dict'
 const { t } = useI18n() // 国际化
 // 表单校验
 export const rules = reactive({
+  tenantId: [{ required: true, message: '租户编号不能为空', trigger: 'blur' }],
 })
 // CrudSchema
 const crudSchemas = reactive<CrudSchema[]>([
@@ -23,24 +24,15 @@ const crudSchemas = reactive<CrudSchema[]>([
     label: '经营主体ID',
     field: 'enterpriseId',
     form: {
-      show: true,
+      show: false
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '证件类型',
     field: 'certificateType',
-    form: {
-      show: true,
-    },
+    dictType: DICT_TYPE.CERTIFICATE_TYPE,
     search: {
-      show: true,
-      component: 'Select',
-      componentProps: {
-        option: [{'','请选择字典生成'}]
-      }
+      show: true
     }
   },
   {
@@ -89,6 +81,13 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
+  },
+  {
+    label: '租户编号',
+    field: 'tenantId',
+    form: {
+      show: true,
+    },
     search: {
       show: true
     }
@@ -116,6 +115,21 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     label: '创建时间',
     field: 'createTime',
+    form: {
+      show: false
+    },
+    search: {
+      show: true,
+      component: 'DatePicker',
+      componentProps: {
+        type: 'datetimerange',
+        valueFormat: 'YYYY-MM-DD HH:mm:ss'
+      }
+    }
+  },
+  {
+    label: '更新时间',
+    field: 'updateTime',
     form: {
       show: false
     },

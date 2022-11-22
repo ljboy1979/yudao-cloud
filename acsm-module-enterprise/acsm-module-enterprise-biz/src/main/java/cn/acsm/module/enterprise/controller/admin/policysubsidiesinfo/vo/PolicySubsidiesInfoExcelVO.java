@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 import io.swagger.annotations.*;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
+import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
+
 
 /**
  * 企业政策补贴信息 Excel VO
@@ -18,22 +21,15 @@ public class PolicySubsidiesInfoExcelVO {
     @ExcelProperty("编号")
     private Long id;
 
-    @ExcelProperty("经营主体ID")
-    private Long enterpriseId;
-
-    @ExcelProperty("补贴种类")
+    @ExcelProperty(value = "补贴种类", converter = DictConvert.class)
+    @DictFormat("subsidies_category") // TODO 代码优化：建议设置到对应的 XXXDictTypeConstants 枚举类中
     private String subsidiesCategory;
 
     @ExcelProperty("补贴名称")
     private String subsidiesName;
 
-    @ExcelProperty("补贴金额")
-    private BigDecimal subsidiesAmount;
-
-    @ExcelProperty("补贴方式")
-    private String subsidiesType;
-
-    @ExcelProperty("补贴状态")
+    @ExcelProperty(value = "补贴状态", converter = DictConvert.class)
+    @DictFormat("subsidies_status") // TODO 代码优化：建议设置到对应的 XXXDictTypeConstants 枚举类中
     private Integer subsidiesStatus;
 
     @ExcelProperty("申请人")
@@ -42,13 +38,10 @@ public class PolicySubsidiesInfoExcelVO {
     @ExcelProperty("申请时间")
     private Date applyTime;
 
-    @ExcelProperty("租户集合")
-    private Long source;
-
-    @ExcelProperty("经营主体ID")
-    private Long subjectId;
-
     @ExcelProperty("创建时间")
     private Date createTime;
+
+    @ExcelProperty("更新时间")
+    private Date updateTime;
 
 }

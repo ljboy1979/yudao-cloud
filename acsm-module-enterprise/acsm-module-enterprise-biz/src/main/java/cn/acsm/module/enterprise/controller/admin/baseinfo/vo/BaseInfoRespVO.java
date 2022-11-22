@@ -10,10 +10,7 @@ import io.swagger.annotations.*;
 @ToString(callSuper = true)
 public class BaseInfoRespVO extends BaseInfoBaseVO {
 
-    @ApiModelProperty(value = "主键ID", required = true)
-    private Long id;
-
-    @ApiModelProperty(value = "创建时间", required = true)
-    private Date createTime;
+    @ApiModelProperty(value = "状态")
+    private String stauts;
 
 }

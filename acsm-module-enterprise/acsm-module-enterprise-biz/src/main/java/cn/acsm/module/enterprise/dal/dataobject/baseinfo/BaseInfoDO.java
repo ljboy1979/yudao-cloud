@@ -34,7 +34,9 @@ public class BaseInfoDO extends BaseDO {
      */
     private String name;
     /**
-     * 主体类型：下拉列表，包含个体、企业、合作社、有限责任公司、股份有限公司
+     * 主体类型
+     *
+     * 枚举 {@link TODO enterprise_type 对应的类}
      */
     private String enterpriseType;
     /**
@@ -47,6 +49,8 @@ public class BaseInfoDO extends BaseDO {
     private String stauts;
     /**
      * 产业角色
+     *
+     * 枚举 {@link TODO user_tag 对应的类}
      */
     private String userTag;
     /**
@@ -54,7 +58,9 @@ public class BaseInfoDO extends BaseDO {
      */
     private String userTagName;
     /**
-     * 经营状态：下拉列表，包含存续、在业、吊销、注销、迁入、迁出、停业、清算
+     * 经营状态
+     *
+     * 枚举 {@link TODO manage_status 对应的类}
      */
     private String manageStatus;
     /**
@@ -169,6 +175,10 @@ public class BaseInfoDO extends BaseDO {
      * 备注
      */
     private String remarks;
+    /**
+     * 租户编号
+     */
+    private Long tenantId;
     /**
      * 租户集合
      */

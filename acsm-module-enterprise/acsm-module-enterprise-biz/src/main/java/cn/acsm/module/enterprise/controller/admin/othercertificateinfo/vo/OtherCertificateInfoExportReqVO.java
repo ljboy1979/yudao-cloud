@@ -31,6 +31,9 @@ public class OtherCertificateInfoExportReqVO {
     @ApiModelProperty(value = "证件照片")
     private String certificatePhoto;
 
+    @ApiModelProperty(value = "租户编号")
+    private Long tenantId;
+
     @ApiModelProperty(value = "租户集合")
     private Long source;
 
@@ -40,5 +43,9 @@ public class OtherCertificateInfoExportReqVO {
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] createTime;
+
+    @ApiModelProperty(value = "更新时间")
+    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date[] updateTime;
 
 }

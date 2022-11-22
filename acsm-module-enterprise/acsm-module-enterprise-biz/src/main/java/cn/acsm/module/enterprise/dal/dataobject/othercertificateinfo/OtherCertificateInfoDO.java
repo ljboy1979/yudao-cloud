@@ -31,6 +31,8 @@ public class OtherCertificateInfoDO extends BaseDO {
     private Long enterpriseId;
     /**
      * 证件类型
+     *
+     * 枚举 {@link TODO certificate_type 对应的类}
      */
     private Integer certificateType;
     /**
@@ -49,6 +51,10 @@ public class OtherCertificateInfoDO extends BaseDO {
      * 证件照片
      */
     private String certificatePhoto;
+    /**
+     * 租户编号
+     */
+    private Long tenantId;
     /**
      * 租户集合
      */

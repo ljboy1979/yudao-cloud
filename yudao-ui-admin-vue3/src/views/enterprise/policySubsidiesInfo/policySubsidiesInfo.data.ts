@@ -25,16 +25,11 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '补贴种类',
     field: 'subsidiesCategory',
-    form: {
-      show: true,
-    },
+    dictType: DICT_TYPE.SUBSIDIES_CATEGORY,
     search: {
       show: true
     }
@@ -55,36 +50,18 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '补贴方式',
     field: 'subsidiesType',
-    form: {
-      show: true,
-    },
-    search: {
-      show: true,
-      component: 'Select',
-      componentProps: {
-        option: [{'','请选择字典生成'}]
-      }
-    }
+    dictType: DICT_TYPE.SUBSIDIES_TYPE,
   },
   {
     label: '补贴状态',
     field: 'subsidiesStatus',
-    form: {
-      show: true,
-    },
+    dictType: DICT_TYPE.SUBSIDIES_STATUS,
     search: {
-      show: true,
-      component: 'Select',
-      componentProps: {
-        option: [{'','请选择字典生成'}]
-      }
+      show: true
     }
   },
   {
@@ -118,14 +95,18 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
+    label: '租户编号',
+    field: 'tenantId',
+    form: {
+      show: false
+    },
+  },
+  {
     label: '租户集合',
     field: 'source',
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '经营主体ID',
@@ -133,13 +114,25 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       show: true,
     },
-    search: {
-      show: true
-    }
   },
   {
     label: '创建时间',
     field: 'createTime',
+    form: {
+      show: false
+    },
+    search: {
+      show: true,
+      component: 'DatePicker',
+      componentProps: {
+        type: 'datetimerange',
+        valueFormat: 'YYYY-MM-DD HH:mm:ss'
+      }
+    }
+  },
+  {
+    label: '更新时间',
+    field: 'updateTime',
     form: {
       show: false
     },

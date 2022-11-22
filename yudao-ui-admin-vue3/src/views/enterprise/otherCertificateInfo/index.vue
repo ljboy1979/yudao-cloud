@@ -125,6 +125,9 @@ getList()
       v-model:currentPage="tableObject.currentPage"
       @register="register"
     >
+      <template #certificateType="{ row }">
+        <DictTag :type="DICT_TYPE.CERTIFICATE_TYPE" :value="row.certificateType" />
+      </template>
       <template #action="{ row }">
         <XButton
           link
@@ -168,6 +171,9 @@ getList()
       :schema="allSchemas.detailSchema"
       :data="detailRef"
     >
+      <template #certificateType="{ row }">
+        <DictTag :type="DICT_TYPE.CERTIFICATE_TYPE" :value="row.certificateType" />
+      </template>
     </Descriptions>
     <!-- 操作按钮 -->
     <template #footer>

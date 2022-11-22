@@ -3,26 +3,25 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="经营主体ID" prop="enterpriseId">
-        <el-input v-model="queryParams.enterpriseId" placeholder="请输入经营主体ID" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
       <el-form-item label="补贴种类" prop="subsidiesCategory">
-        <el-input v-model="queryParams.subsidiesCategory" placeholder="请输入补贴种类" clearable @keyup.enter.native="handleQuery"/>
+        <el-select v-model="queryParams.subsidiesCategory" placeholder="请选择补贴种类" clearable size="small">
+          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_CATEGORY)"
+                       :key="dict.value" :label="dict.label" :value="dict.value"/>
+        </el-select>
       </el-form-item>
       <el-form-item label="补贴名称" prop="subsidiesName">
         <el-input v-model="queryParams.subsidiesName" placeholder="请输入补贴名称" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="补贴金额" prop="subsidiesAmount">
-        <el-input v-model="queryParams.subsidiesAmount" placeholder="请输入补贴金额" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
       <el-form-item label="补贴方式" prop="subsidiesType">
         <el-select v-model="queryParams.subsidiesType" placeholder="请选择补贴方式" clearable size="small">
-          <el-option label="请选择字典生成" value="" />
+          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_TYPE)"
+                       :key="dict.value" :label="dict.label" :value="dict.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="补贴状态" prop="subsidiesStatus">
         <el-select v-model="queryParams.subsidiesStatus" placeholder="请选择补贴状态" clearable size="small">
-          <el-option label="请选择字典生成" value="" />
+          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_STATUS)"
+                       :key="dict.value" :label="dict.label" :value="dict.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="申请人" prop="applyPerson">
@@ -32,6 +31,9 @@
         <el-date-picker v-model="queryParams.applyTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
                         range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
+      <el-form-item label="租户编号" prop="tenantId">
+        <el-input v-model="queryParams.tenantId" placeholder="请输入租户编号" clearable @keyup.enter.native="handleQuery"/>
+      </el-form-item>
       <el-form-item label="租户集合" prop="source">
         <el-input v-model="queryParams.source" placeholder="请输入租户集合" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
@@ -40,6 +42,10 @@
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
+                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      </el-form-item>
+      <el-form-item label="更新时间" prop="updateTime">
+        <el-date-picker v-model="queryParams.updateTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
                         range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item>
@@ -64,17 +70,21 @@
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="经营主体ID" align="center" prop="enterpriseId" />
-      <el-table-column label="补贴种类" align="center" prop="subsidiesCategory" />
+      <el-table-column label="补贴种类" align="center" prop="subsidiesCategory">
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.SUBSIDIES_CATEGORY" :value="scope.row.subsidiesCategory" />
+        </template>
+      </el-table-column>
       <el-table-column label="补贴名称" align="center" prop="subsidiesName" />
-      <el-table-column label="补贴金额" align="center" prop="subsidiesAmount" />
-      <el-table-column label="补贴方式" align="center" prop="subsidiesType" />
-      <el-table-column label="补贴状态" align="center" prop="subsidiesStatus" />
+      <el-table-column label="补贴状态" align="center" prop="subsidiesStatus">
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.SUBSIDIES_STATUS" :value="scope.row.subsidiesStatus" />
+        </template>
+      </el-table-column>
       <el-table-column label="申请人" align="center" prop="applyPerson" />
       <el-table-column label="申请时间" align="center" prop="applyTime" />
-      <el-table-column label="租户集合" align="center" prop="source" />
-      <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="更新时间" align="center" prop="updateTime" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
@@ -95,7 +105,10 @@
           <el-input v-model="form.enterpriseId" placeholder="请输入经营主体ID" />
         </el-form-item>
         <el-form-item label="补贴种类" prop="subsidiesCategory">
-          <el-input v-model="form.subsidiesCategory" placeholder="请输入补贴种类" />
+          <el-select v-model="form.subsidiesCategory" placeholder="请选择补贴种类">
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_CATEGORY)"
+                       :key="dict.value" :label="dict.label" :value="dict.value" />
+          </el-select>
         </el-form-item>
         <el-form-item label="补贴名称" prop="subsidiesName">
           <el-input v-model="form.subsidiesName" placeholder="请输入补贴名称" />
@@ -105,13 +118,15 @@
         </el-form-item>
         <el-form-item label="补贴方式" prop="subsidiesType">
           <el-select v-model="form.subsidiesType" placeholder="请选择补贴方式">
-            <el-option label="请选择字典生成" value="" />
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_TYPE)"
+                       :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="补贴状态" prop="subsidiesStatus">
-          <el-radio-group v-model="form.subsidiesStatus">
-            <el-radio label="1">请选择字典生成</el-radio>
-          </el-radio-group>
+          <el-select v-model="form.subsidiesStatus" placeholder="请选择补贴状态">
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_STATUS)"
+                       :key="dict.value" :label="dict.label" :value="parseInt(dict.value)" />
+          </el-select>
         </el-form-item>
         <el-form-item label="申请人" prop="applyPerson">
           <el-input v-model="form.applyPerson" placeholder="请输入申请人" />
@@ -161,17 +176,17 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        enterpriseId: null,
         subsidiesCategory: null,
         subsidiesName: null,
-        subsidiesAmount: null,
         subsidiesType: null,
         subsidiesStatus: null,
         applyPerson: null,
         applyTime: [],
+        tenantId: null,
         source: null,
         subjectId: null,
         createTime: [],
+        updateTime: [],
       },
       // 表单参数
       form: {},
