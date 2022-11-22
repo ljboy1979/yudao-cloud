@@ -177,16 +177,27 @@ export const constantRoutes = [
         component: (resolve) => require(['@/views/member/user/memberDetail'], resolve),
         name: '会员详情',
         meta: {title: '会员详情', icon: 'form', activeMenu: '/member/user/memberDetail'}
+      }
+    ]
+  },{
+    path: '/enterprise',
+    component: Layout,
+    hidden: true,
+    children: [{
+        path: '/enterprise/baseInfo/businessInfo',
+        component: (resolve) => require(['@/views/enterprise/baseInfo/businessInfo'], resolve),
+        name: '编辑企业信息',
+        meta: {title: '编辑企业信息', icon: 'form', activeMenu: '/enterprise/baseInfo/businessInfo'}
       },
       {
-        path: '/member/user/businessInfoManagement',
-        component: (resolve) => require(['@/views/member/user/businessInfoManagement'], resolve),
+        path: '/enterprise/baseInfo/businessInfoManagement',
+        component: (resolve) => require(['@/views/enterprise/baseInfo/businessInfoManagement'], resolve),
         name: '企业信息管理',
-        meta: {title: '企业信息管理', icon: 'form', activeMenu: '/member/user/businessInfoManagement'}
+        meta: {title: '企业信息管理', icon: 'form', activeMenu: '/enterprise/baseInfo/businessInfoManagement'}
       },
 
     ]
-  }
+  },
 ]
 
 // 防止连续点击多次路由报错
