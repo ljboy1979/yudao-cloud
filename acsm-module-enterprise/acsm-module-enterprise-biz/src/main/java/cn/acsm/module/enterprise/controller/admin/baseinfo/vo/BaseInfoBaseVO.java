@@ -1,0 +1,51 @@
+package cn.acsm.module.enterprise.controller.admin.baseinfo.vo;
+
+import lombok.*;
+import java.util.*;
+import io.swagger.annotations.*;
+import javax.validation.constraints.*;
+
+/**
+* 经营主体 Base VO，提供给添加、修改、详细的子 VO 使用
+* 如果子 VO 存在差异的字段，请不要添加到这里，影响 Swagger 文档生成
+*/
+@Data
+public class BaseInfoBaseVO {
+
+    @ApiModelProperty(value = "主体编号")
+    private String code;
+
+    @ApiModelProperty(value = "主体名称")
+    private String name;
+
+    @ApiModelProperty(value = "主体类型")
+    private String enterpriseType;
+
+    @ApiModelProperty(value = "产业角色")
+    private String userTag;
+
+    @ApiModelProperty(value = "注册时间")
+    private Date registerTime;
+
+    @ApiModelProperty(value = "联系人")
+    private String contactName;
+
+    @ApiModelProperty(value = "省id")
+    private String villagesAreaId;
+
+    @ApiModelProperty(value = "省名称")
+    private String villagesAreaName;
+
+    @ApiModelProperty(value = "市id")
+    private String areaId;
+
+    @ApiModelProperty(value = "市名称")
+    private String areaName;
+
+    @ApiModelProperty(value = "区id")
+    private String ruralId;
+
+    @ApiModelProperty(value = "区名称")
+    private String ruralName;
+
+}

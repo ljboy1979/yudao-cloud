@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>cn.iocoder.cloud</groupId>
+        <artifactId>yudao</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>acsm-module-wallet</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>acsm-module-wallet-api</module>
+        <module>acsm-module-wallet-biz</module>
+    </modules>
+    <name>${project.artifactId}</name>
+    <description>
+        wallet 模块，主要实现 钱包相关 功能。
+    </description>
+
+</project>
