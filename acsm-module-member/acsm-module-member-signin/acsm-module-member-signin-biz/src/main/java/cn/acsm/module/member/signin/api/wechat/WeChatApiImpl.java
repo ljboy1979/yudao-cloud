@@ -25,9 +25,4 @@ public class WeChatApiImpl implements WeChatApi {
     public CommonResult getOpenIdAndPhone(WeChatReqDTO reqDTO) {
         return authConfigInfoService.getOpenIdAndPhone(reqDTO);
     }
-
-    @Override
-    public CommonResult getMemberUser(Long id) {
-        return null;
-    }
 }

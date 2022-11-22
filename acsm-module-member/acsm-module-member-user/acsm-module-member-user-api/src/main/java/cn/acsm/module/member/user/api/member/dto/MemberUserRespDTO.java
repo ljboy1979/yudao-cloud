@@ -47,6 +47,10 @@ public class MemberUserRespDTO {
      */
     private String loginIp;
     /**
+     * openid
+     */
+    private String openId;
+    /**
      * 最后登录时间
      */
     private LocalDateTime loginDate;

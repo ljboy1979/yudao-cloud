@@ -28,4 +28,9 @@ public class AppAuthLoginRespVO {
     @ApiModelProperty(value = "过期时间", required = true)
     private LocalDateTime expiresTime;
 
+    @ApiModelProperty(value = "手机号")
+    private String phone;
+
+    @ApiModelProperty(value = "openId")
+    private String openId;
 }

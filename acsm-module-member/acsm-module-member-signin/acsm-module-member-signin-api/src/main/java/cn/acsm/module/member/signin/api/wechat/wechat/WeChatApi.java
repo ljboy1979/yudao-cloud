@@ -14,15 +14,10 @@ import javax.annotation.security.PermitAll;
 @Api(tags = "RPC 服务 - 微信相关接口")
 public interface WeChatApi {
 
-    String PREFIX = ApiConstants.PREFIX + "/member";
+    String PREFIX = ApiConstants.PREFIX + "/weChat";
 
     @GetMapping(PREFIX + "/getOpenIdAndPhone")
     @ApiOperation("获取微信用户的openid和手机号")
     CommonResult getOpenIdAndPhone(@RequestBody WeChatReqDTO reqDTO);
-
-
-    @GetMapping("/member/member/getMemberUser")
-    @ApiOperation("获取会员信息")
-    CommonResult getMemberUser(@RequestParam("id") Long id);
 
 }
