@@ -4,6 +4,7 @@ import java.util.*;
 import javax.validation.*;
 
 import cn.acsm.module.member.signin.api.wechat.wechat.dto.WeChatReqDTO;
+import cn.acsm.module.member.signin.api.wechat.wechat.dto.WeChatRespDTO;
 import cn.acsm.module.member.signin.controller.admin.config.vo.AuthConfigInfoCreateReqVO;
 import cn.acsm.module.member.signin.controller.admin.config.vo.AuthConfigInfoExportReqVO;
 import cn.acsm.module.member.signin.controller.admin.config.vo.AuthConfigInfoPageReqVO;
@@ -81,6 +82,6 @@ public interface AuthConfigInfoService {
      * @throws
      * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
      */
-    CommonResult getOpenIdAndPhone(WeChatReqDTO reqDTO);
+    CommonResult<WeChatRespDTO> getOpenIdAndPhone(WeChatReqDTO reqDTO);
 
 }

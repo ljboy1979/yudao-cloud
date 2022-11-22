@@ -12,12 +12,10 @@ import cn.iocoder.yudao.framework.common.pojo.CommonResult;
  */
 public interface AppAuthService {
 
-    CommonResult getMemberUser(Long id);
-
     /**
      * 微信小程序的一键登录
      * @param weChatReqDTO 登录信息
      * @return 登录结果
      */
-    AppAuthLoginRespVO weixinMiniAppLogin(WeChatReqDTO weChatReqDTO);
+    CommonResult weixinMiniAppLogin(WeChatReqDTO weChatReqDTO);
 }

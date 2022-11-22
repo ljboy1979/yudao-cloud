@@ -98,12 +98,12 @@ public class AuthConfigInfoServiceImpl implements AuthConfigInfoService {
      */
     public CommonResult<WeChatRespDTO> getOpenIdAndPhone(WeChatReqDTO reqDTO){
         WeChatRespDTO respDTO = new WeChatRespDTO();
-        if(!StringUtils.isNotEmpty(reqDTO.getTenantId())){
-            return CommonResult.error(TENANTID_NOT_EXISTS);
+        if(Objects.isNull(reqDTO.getSource())){
+            return CommonResult.error(SOURCE_NOT_EXISTS);
         }
         // 获取微信配置信息
         AuthConfigInfoDO authConfigInfoDO = new AuthConfigInfoDO();
-        authConfigInfoDO.setTenantId(Long.valueOf(reqDTO.getTenantId()));
+        authConfigInfoDO.setSource(reqDTO.getSource());
         authConfigInfoDO.setAppletFlag(reqDTO.getAppletFlag());
         List<AuthConfigInfoDO> weixinDeployInfoDOList = authConfigInfoMapper.selectListBySource(authConfigInfoDO);
         if (weixinDeployInfoDOList.size() > 0){
@@ -141,6 +141,9 @@ public class AuthConfigInfoServiceImpl implements AuthConfigInfoService {
             respDTO.setOpenId(openId);
 
         }else{
+//            respDTO.setPhone("18888888888");
+//            respDTO.setOpenId("asdqwfgasfa65481df");
+//            return  CommonResult.success(respDTO);
             return CommonResult.error(WECHAT_CONFIGURATION_NOT_EXISTS);
         }
         return  CommonResult.success(respDTO);

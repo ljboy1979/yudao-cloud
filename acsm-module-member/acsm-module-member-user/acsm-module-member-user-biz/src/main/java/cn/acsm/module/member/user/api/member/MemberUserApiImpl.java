@@ -34,7 +34,8 @@ public class MemberUserApiImpl implements MemberUserApi {
 
     @Override
     public CommonResult<MemberUserRespDTO> createUserIfAbsent(String phone, String clientIp) {
-        return CommonResult.success(MemberUserConvert.INSTANCE.convertRespDTO(userService.createUserIfAbsent(phone, clientIp)));
+        MemberUserRespDTO dto = MemberUserConvert.INSTANCE.convertRespDTO(userService.createUserIfAbsent(phone, clientIp));
+        return CommonResult.success(dto);
     }
 
     @Override

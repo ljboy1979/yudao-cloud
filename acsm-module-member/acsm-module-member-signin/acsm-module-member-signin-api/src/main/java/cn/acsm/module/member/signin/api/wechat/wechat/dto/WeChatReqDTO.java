@@ -58,7 +58,7 @@ public class WeChatReqDTO {
      * 租户编号
      */
     @ApiModelProperty(value = "租户编号")
-    private String tenantId;
+    private Long tenantId;
 
     /**
      * 加密数据
@@ -77,5 +77,16 @@ public class WeChatReqDTO {
      */
     @ApiModelProperty(value = "标识")
     private String appletFlag;
+
+    /**
+     * 租户集合
+     */
+    @ApiModelProperty(value = "租户集合")
+    private Long source;
+    /**
+     * 经营主体ID
+     */
+    @ApiModelProperty(value = "经营主体ID")
+    private Long subjectId;
 
 }

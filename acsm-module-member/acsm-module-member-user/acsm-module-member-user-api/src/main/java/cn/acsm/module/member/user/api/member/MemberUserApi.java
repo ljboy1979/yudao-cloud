@@ -1,5 +1,6 @@
 package cn.acsm.module.member.user.api.member;
 
+import cn.acsm.module.member.user.api.member.dto.MemberUserRespDTO;
 import cn.acsm.module.member.user.enums.ApiConstants;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import io.swagger.annotations.Api;
@@ -20,7 +21,7 @@ public interface MemberUserApi {
 
     @GetMapping(PREFIX + "/createUserIfAbsent")
     @ApiOperation("查询是否存在会员信息并创建")
-    CommonResult createUserIfAbsent(@RequestParam("phone") String phone, @RequestParam("clientIp") String clientIp);
+    CommonResult<MemberUserRespDTO> createUserIfAbsent(@RequestParam("phone") String phone, @RequestParam("clientIp") String clientIp);
 
     @GetMapping(PREFIX + "/createLoginLog")
     @ApiOperation("注册插入登陆日志")

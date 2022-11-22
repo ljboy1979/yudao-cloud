@@ -26,7 +26,7 @@ public class MemberUserDO extends TenantBaseDO {
     /**
      * 编号
      */
-    @TableId
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
      * 用户昵称
