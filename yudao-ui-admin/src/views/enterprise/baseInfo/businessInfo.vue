@@ -54,7 +54,7 @@
                     <el-input v-model="ruleForm.name" class="inputSize"></el-input>
                 </el-form-item>
             </el-form-item>
-            <el-form-item>
+            <!-- <el-form-item>
                 <el-form-item label="电子营业执照" prop="name">
                     <el-upload action="#" list-type="picture-card" :auto-upload="false"
                         :on-preview="handlePictureCardPreview" :on-remove="handleRemoveLicense"
@@ -64,7 +64,7 @@
                     <div style="font-size: 14px;color:#AAA">最多6张 <span
                             style="font-size: 12px;">仅支持扩展名".jpg/.jpeg/.png"</span></div>
                 </el-form-item>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item>
                 <el-col :span="10">
                     <el-form-item label="法人身份证照片" prop="IDimgfront">
@@ -95,6 +95,37 @@
             </el-form-item>
             <el-form-item>
                 <el-col :span="10">
+                    <el-form-item label="联系人" prop="name">
+                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="10">
+                    <el-form-item label="联系人电话" prop="name">
+                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-form-item>
+            <el-form-item>
+                <el-col :span="10">
+                    <el-form-item label="行政区域" prop="name">
+                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="10">
+                    <el-form-item label="企业规模" prop="name">
+                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-form-item>
+            <el-form-item>
+                <el-col :span="15">
+                    <el-form-item label="主营业务" prop="desc">
+                        <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入公司简介" :rows="2"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-form-item>
+            <el-form-item>
+                <el-col :span="15">
                     <el-form-item label="公司简介" prop="desc">
                         <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入公司简介" :rows="2"></el-input>
                     </el-form-item>
@@ -110,6 +141,13 @@
                     <div style="font-size: 14px;color:#AAA">最多1张 <span
                             style="font-size: 12px;">仅支持扩展名".jpg/.jpeg/.png"</span></div>
                 </el-form-item>
+            </el-form-item>
+            <el-form-item>
+                <el-col :span="15">
+                    <el-form-item label="备注" prop="desc">
+                        <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入公司简介" :rows="2"></el-input>
+                    </el-form-item>
+                </el-col>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
