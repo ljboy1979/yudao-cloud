@@ -10,7 +10,12 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Map;
 
@@ -122,5 +127,52 @@ public class HttpUtils {
         return null;
     }
 
+    public static String getInvokePOSTMethod(String uri){
+        HttpURLConnection connection = null;
+        OutputStreamWriter osw = null;
+        InputStreamReader isr = null;
+        Long start = System.currentTimeMillis();
+        try {
+            //创建URL访问连接
+            URL url = new URL(uri);
+            connection = (HttpURLConnection) url.openConnection();
+            //数据传输方式
+            connection.setRequestMethod("GET");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setUseCaches(false);
+            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(10000);
+            connection.connect();
+
+            isr = new InputStreamReader(connection.getInputStream(), "UTF-8");
+
+            int c = -1;
+            StringBuilder sb = new StringBuilder();
+            while ((c = isr.read()) >= 0) {
+                sb.append((char) c);
+            }
+
+            return sb.toString();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }finally {
+            try {
+                if (null != osw)
+                    osw.close();
+
+                if (null != isr)
+                    isr.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            connection.disconnect();
+            Long end = System.currentTimeMillis();
+        }
+    }
 
 }
