@@ -38,6 +38,12 @@ public interface BaseInfoService {
      * @param id 编号
      */
     void deleteBaseInfo(Long id);
+    /**
+     * 停用经营主体
+     *
+     * @param id 编号
+     */
+    void stopEnterprise(Long id);
 
     /**
      * 获得经营主体

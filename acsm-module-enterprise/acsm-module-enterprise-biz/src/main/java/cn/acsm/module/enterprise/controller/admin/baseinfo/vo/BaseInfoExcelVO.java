@@ -7,6 +7,9 @@ import io.swagger.annotations.*;
 import com.alibaba.excel.annotation.ExcelProperty;
 import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
 import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 
 /**
@@ -48,6 +51,7 @@ public class BaseInfoExcelVO {
     private String manageStatus;
 
     @ExcelProperty("注册时间")
+    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date registerTime;
 
     @ExcelProperty("联系人")

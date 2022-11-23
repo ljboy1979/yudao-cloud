@@ -1,8 +1,11 @@
 package cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.*;
 
 /**
@@ -25,6 +28,8 @@ public class OtherCertificateInfoBaseVO {
     private String certificateNo;
 
     @ApiModelProperty(value = "证件截止日期")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date certificateEndTime;
 
     @ApiModelProperty(value = "租户集合")

@@ -7,6 +7,8 @@ import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoUpdateReqV
 import cn.acsm.module.enterprise.convert.baseinfo.BaseInfoConvert;
 import cn.acsm.module.enterprise.dal.dataobject.baseinfo.BaseInfoDO;
 import cn.acsm.module.enterprise.dal.mysql.baseinfo.BaseInfoMapper;
+import cn.acsm.module.enterprise.enums.enterprisebaseinfo.EnterpriseStatusEnum;
+import cn.acsm.module.enterprise.utils.generator.EnterpriseCodeGenerator;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -28,11 +30,15 @@ public class BaseInfoServiceImpl implements BaseInfoService {
 
     @Resource
     private BaseInfoMapper baseInfoMapper;
+    @Resource
+    private EnterpriseCodeGenerator enterpriseCodeGenerator;
 
     @Override
     public Long createBaseInfo(BaseInfoCreateReqVO createReqVO) {
         // 插入
         BaseInfoDO baseInfo = BaseInfoConvert.INSTANCE.convert(createReqVO);
+        String code = enterpriseCodeGenerator.generate();
+        baseInfo.setCode(code);
         baseInfoMapper.insert(baseInfo);
         // 返回
         return baseInfo.getId();
@@ -53,6 +59,13 @@ public class BaseInfoServiceImpl implements BaseInfoService {
         this.validateBaseInfoExists(id);
         // 删除
         baseInfoMapper.deleteById(id);
+    }
+
+    @Override
+    public void stopEnterprise(Long id) {
+        BaseInfoDO baseInfoDO = baseInfoMapper.selectById(id);
+        baseInfoDO.setStauts(EnterpriseStatusEnum.UNUSED.getStatus());
+        baseInfoMapper.updateById(baseInfoDO);
     }
 
     private void validateBaseInfoExists(Long id) {

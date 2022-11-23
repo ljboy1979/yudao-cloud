@@ -1,9 +1,12 @@
 package cn.acsm.module.enterprise.controller.admin.policysubsidiesinfo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
 import java.math.BigDecimal;
 import io.swagger.annotations.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.*;
 
 /**
@@ -35,11 +38,9 @@ public class PolicySubsidiesInfoBaseVO {
     private String applyPerson;
 
     @ApiModelProperty(value = "申请时间")
+    @DateTimeFormat(pattern = "yyyy-MM")
+    @JsonFormat(pattern = "yyyy-MM")
     private Date applyTime;
-
-    @ApiModelProperty(value = "租户编号", required = true)
-    @NotNull(message = "租户编号不能为空")
-    private Long tenantId;
 
     @ApiModelProperty(value = "租户集合")
     private Long source;

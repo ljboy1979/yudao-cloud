@@ -1,8 +1,11 @@
 package cn.acsm.module.enterprise.controller.admin.baseinfo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.*;
 
 @ApiModel("管理后台 - 经营主体更新 Request VO")
@@ -49,6 +52,8 @@ public class BaseInfoUpdateReqVO extends BaseInfoBaseVO {
     private String businessLicensePhoto;
 
     @ApiModelProperty(value = "证件截止日期")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date businessLicenseEndTime;
 
     @ApiModelProperty(value = "账户名")
