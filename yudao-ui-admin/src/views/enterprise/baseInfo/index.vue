@@ -366,7 +366,7 @@ export default {
     },
     /** 管理按钮操作 */
     handleDetail(row) {
-      this.$router.push({ path: "/enterprise/baseInfo/businessInfoManagement", query: { id: row.areaId } });
+      this.$router.push({ path: "/enterprise/baseInfo/businessInfoManagement", query: { id: row.id } });
     },
     /** 导出按钮操作 */
     handleExport() {

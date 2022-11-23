@@ -59,7 +59,7 @@
       </el-tab-pane>
       <el-tab-pane label="政策补贴记录" name="policySubsidyRecord">
         <div class="title">政策补贴记录</div>
-        <PolicySubsidiesInfo :id="areaId"></PolicySubsidiesInfo>
+        <PolicySubsidiesInfo :id="id"></PolicySubsidiesInfo>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -76,7 +76,7 @@ export default {
     return {
       //默认tab显示
       activeName: 'first',
-      areaId: '',
+      id: '',
       // 遮罩层
       // loading: true,
       loading: false,

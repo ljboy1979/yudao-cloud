@@ -81,26 +81,11 @@
       <el-table-column label="证件名称" align="center" prop="certificateName" />
       <el-table-column label="证件号" align="center" prop="certificateNo" />
       <el-table-column label="证件截止日期" align="center" prop="certificateEndTime" />
-      <!-- <el-table-column label="证件截止日期" align="center" prop="certificateEndTime" >
-      <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.certificateEndTime,'{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column> -->
-      <el-table-column label="租户编号" align="center" prop="tenantId" />
+      <!-- <el-table-column label="租户编号" align="center" prop="tenantId" />
       <el-table-column label="租户集合" align="center" prop="source" />
-      <el-table-column label="经营主体ID" align="center" prop="subjectId" />
+      <el-table-column label="经营主体ID" align="center" prop="subjectId" /> -->
       <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="更新时间" align="center" prop="updateTime" />
-      <!-- <el-table-column label="创建时间" align="center" prop="createTime">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.createTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="更新时间" align="center" prop="updateTime" >
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.updateTime) }}</span>
-        </template>
-      </el-table-column> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
