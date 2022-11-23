@@ -184,10 +184,10 @@ export const constantRoutes = [
     component: Layout,
     hidden: true,
     children: [{
-        path: '/enterprise/baseInfo/businessInfo',
-        component: (resolve) => require(['@/views/enterprise/baseInfo/businessInfo'], resolve),
+        path: '/enterprise/baseInfo/businessEditInfo',
+        component: (resolve) => require(['@/views/enterprise/baseInfo/businessEditInfo'], resolve),
         name: '编辑企业信息',
-        meta: {title: '编辑企业信息', icon: 'form', activeMenu: '/enterprise/baseInfo/businessInfo'}
+        meta: {title: '编辑企业信息', icon: 'form', activeMenu: '/enterprise/baseInfo/businessEditInfo'}
       },
       {
         path: '/enterprise/baseInfo/businessInfoManagement',
