@@ -43,12 +43,15 @@ public class BaseInfoBaseVO {
     private String manageStatus;
 
     @ApiModelProperty(value = "注册时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date registerTime;
 
     @ApiModelProperty(value = "联系人")
     private String contactName;
+
+    @ApiModelProperty(value = "联系人电话")
+    private String contactPhone;
 
     @ApiModelProperty(value = "省id")
     private String villagesAreaId;

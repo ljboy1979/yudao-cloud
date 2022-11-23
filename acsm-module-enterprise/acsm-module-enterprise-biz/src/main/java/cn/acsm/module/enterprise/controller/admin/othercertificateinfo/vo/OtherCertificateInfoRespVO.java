@@ -1,8 +1,12 @@
 package cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 @ApiModel("管理后台 - 经营主体其他证件 Response VO")
 @Data
@@ -17,12 +21,16 @@ public class OtherCertificateInfoRespVO extends OtherCertificateInfoBaseVO {
     private String creator;
 
     @ApiModelProperty(value = "创建时间", required = true)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @ApiModelProperty(value = "更新者")
     private String updater;
 
     @ApiModelProperty(value = "更新时间", required = true)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
 }

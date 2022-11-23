@@ -40,7 +40,7 @@ public class BaseInfoExportReqVO {
     private String manageStatus;
 
     @ApiModelProperty(value = "注册时间")
-    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date[] registerTime;
 
 }
