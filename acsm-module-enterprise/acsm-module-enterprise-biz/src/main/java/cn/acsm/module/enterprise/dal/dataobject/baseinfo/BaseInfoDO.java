@@ -1,5 +1,6 @@
 package cn.acsm.module.enterprise.dal.dataobject.baseinfo;
 
+import cn.iocoder.yudao.framework.tenant.core.db.TenantBaseDO;
 import lombok.*;
 import java.util.*;
 import com.baomidou.mybatisplus.annotation.*;
@@ -18,7 +19,7 @@ import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseInfoDO extends BaseDO {
+public class BaseInfoDO extends TenantBaseDO {
 
     /**
      * 主键ID
@@ -175,10 +176,6 @@ public class BaseInfoDO extends BaseDO {
      * 备注
      */
     private String remarks;
-    /**
-     * 租户编号
-     */
-    private Long tenantId;
     /**
      * 租户集合
      */

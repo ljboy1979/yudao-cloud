@@ -11,19 +11,6 @@ import javax.validation.constraints.*;
 @ToString(callSuper = true)
 public class BaseInfoCreateReqVO extends BaseInfoBaseVO {
 
-    @ApiModelProperty(value = "主体类型名称")
-    private String enterpriseTypeName;
-
-    @ApiModelProperty(value = "状态")
-    private String stauts;
-
-    @ApiModelProperty(value = "产业角色名称")
-    private String userTagName;
-
-    @ApiModelProperty(value = "经营状态", required = true)
-    @NotNull(message = "经营状态不能为空")
-    private String manageStatus;
-
     @ApiModelProperty(value = "注册地址")
     private String address;
 

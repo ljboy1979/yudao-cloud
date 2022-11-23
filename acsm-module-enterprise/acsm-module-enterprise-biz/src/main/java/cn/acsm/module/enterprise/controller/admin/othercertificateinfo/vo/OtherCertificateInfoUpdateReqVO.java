@@ -18,8 +18,4 @@ public class OtherCertificateInfoUpdateReqVO extends OtherCertificateInfoBaseVO 
     @ApiModelProperty(value = "证件照片")
     private String certificatePhoto;
 
-    @ApiModelProperty(value = "租户编号", required = true)
-    @NotNull(message = "租户编号不能为空")
-    private Long tenantId;
-
 }

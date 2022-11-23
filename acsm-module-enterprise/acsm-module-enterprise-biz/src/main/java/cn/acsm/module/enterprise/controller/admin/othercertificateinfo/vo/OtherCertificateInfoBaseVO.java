@@ -12,6 +12,9 @@ import javax.validation.constraints.*;
 @Data
 public class OtherCertificateInfoBaseVO {
 
+    @ApiModelProperty(value = "经营主体ID")
+    private Long enterpriseId;
+
     @ApiModelProperty(value = "证件类型")
     private Integer certificateType;
 

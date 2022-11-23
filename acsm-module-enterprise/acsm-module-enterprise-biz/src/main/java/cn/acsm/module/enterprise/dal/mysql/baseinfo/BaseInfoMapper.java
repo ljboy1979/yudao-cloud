@@ -19,11 +19,14 @@ public interface BaseInfoMapper extends BaseMapperX< BaseInfoDO > {
 
     default PageResult<BaseInfoDO> selectPage(BaseInfoPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<BaseInfoDO>()
+                .eqIfPresent(BaseInfoDO::getId, reqVO.getId())
                 .eqIfPresent(BaseInfoDO::getCode, reqVO.getCode())
                 .likeIfPresent(BaseInfoDO::getName, reqVO.getName())
                 .eqIfPresent(BaseInfoDO::getEnterpriseType, reqVO.getEnterpriseType())
+                .likeIfPresent(BaseInfoDO::getEnterpriseTypeName, reqVO.getEnterpriseTypeName())
                 .eqIfPresent(BaseInfoDO::getStauts, reqVO.getStauts())
                 .eqIfPresent(BaseInfoDO::getUserTag, reqVO.getUserTag())
+                .likeIfPresent(BaseInfoDO::getUserTagName, reqVO.getUserTagName())
                 .eqIfPresent(BaseInfoDO::getManageStatus, reqVO.getManageStatus())
                 .betweenIfPresent(BaseInfoDO::getRegisterTime, reqVO.getRegisterTime())
                 .orderByDesc(BaseInfoDO::getId));
@@ -31,11 +34,14 @@ public interface BaseInfoMapper extends BaseMapperX< BaseInfoDO > {
 
     default List<BaseInfoDO> selectList(BaseInfoExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<BaseInfoDO>()
+                .eqIfPresent(BaseInfoDO::getId, reqVO.getId())
                 .eqIfPresent(BaseInfoDO::getCode, reqVO.getCode())
                 .likeIfPresent(BaseInfoDO::getName, reqVO.getName())
                 .eqIfPresent(BaseInfoDO::getEnterpriseType, reqVO.getEnterpriseType())
+                .likeIfPresent(BaseInfoDO::getEnterpriseTypeName, reqVO.getEnterpriseTypeName())
                 .eqIfPresent(BaseInfoDO::getStauts, reqVO.getStauts())
                 .eqIfPresent(BaseInfoDO::getUserTag, reqVO.getUserTag())
+                .likeIfPresent(BaseInfoDO::getUserTagName, reqVO.getUserTagName())
                 .eqIfPresent(BaseInfoDO::getManageStatus, reqVO.getManageStatus())
                 .betweenIfPresent(BaseInfoDO::getRegisterTime, reqVO.getRegisterTime())
                 .orderByDesc(BaseInfoDO::getId));

@@ -13,8 +13,14 @@ public class OtherAccountInfoRespVO extends OtherAccountInfoBaseVO {
     @ApiModelProperty(value = "编号", required = true)
     private Long id;
 
+    @ApiModelProperty(value = "创建者")
+    private String creator;
+
     @ApiModelProperty(value = "创建时间", required = true)
     private Date createTime;
+
+    @ApiModelProperty(value = "更新者")
+    private String updater;
 
     @ApiModelProperty(value = "更新时间", required = true)
     private Date updateTime;

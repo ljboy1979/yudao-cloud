@@ -21,32 +21,42 @@ public interface PolicySubsidiesInfoMapper extends BaseMapperX< PolicySubsidiesI
 
     default PageResult<PolicySubsidiesInfoDO> selectPage(PolicySubsidiesInfoPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<PolicySubsidiesInfoDO>()
+                .eqIfPresent(PolicySubsidiesInfoDO::getId, reqVO.getId())
+                .eqIfPresent(PolicySubsidiesInfoDO::getEnterpriseId, reqVO.getEnterpriseId())
                 .eqIfPresent(PolicySubsidiesInfoDO::getSubsidiesCategory, reqVO.getSubsidiesCategory())
                 .likeIfPresent(PolicySubsidiesInfoDO::getSubsidiesName, reqVO.getSubsidiesName())
+                .eqIfPresent(PolicySubsidiesInfoDO::getSubsidiesAmount, reqVO.getSubsidiesAmount())
                 .eqIfPresent(PolicySubsidiesInfoDO::getSubsidiesType, reqVO.getSubsidiesType())
                 .eqIfPresent(PolicySubsidiesInfoDO::getSubsidiesStatus, reqVO.getSubsidiesStatus())
                 .eqIfPresent(PolicySubsidiesInfoDO::getApplyPerson, reqVO.getApplyPerson())
                 .betweenIfPresent(PolicySubsidiesInfoDO::getApplyTime, reqVO.getApplyTime())
-//                .eqIfPresent(PolicySubsidiesInfoDO::getTenantId, reqVO.getTenantId())
+                .eqIfPresent(PolicySubsidiesInfoDO::getTenantId, reqVO.getTenantId())
                 .eqIfPresent(PolicySubsidiesInfoDO::getSource, reqVO.getSource())
                 .eqIfPresent(PolicySubsidiesInfoDO::getSubjectId, reqVO.getSubjectId())
+                .eqIfPresent(PolicySubsidiesInfoDO::getCreator, reqVO.getCreator())
                 .betweenIfPresent(PolicySubsidiesInfoDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(PolicySubsidiesInfoDO::getUpdater, reqVO.getUpdater())
                 .betweenIfPresent(PolicySubsidiesInfoDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(PolicySubsidiesInfoDO::getId));
     }
 
     default List<PolicySubsidiesInfoDO> selectList(PolicySubsidiesInfoExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<PolicySubsidiesInfoDO>()
+                .eqIfPresent(PolicySubsidiesInfoDO::getId, reqVO.getId())
+                .eqIfPresent(PolicySubsidiesInfoDO::getEnterpriseId, reqVO.getEnterpriseId())
                 .eqIfPresent(PolicySubsidiesInfoDO::getSubsidiesCategory, reqVO.getSubsidiesCategory())
                 .likeIfPresent(PolicySubsidiesInfoDO::getSubsidiesName, reqVO.getSubsidiesName())
+                .eqIfPresent(PolicySubsidiesInfoDO::getSubsidiesAmount, reqVO.getSubsidiesAmount())
                 .eqIfPresent(PolicySubsidiesInfoDO::getSubsidiesType, reqVO.getSubsidiesType())
                 .eqIfPresent(PolicySubsidiesInfoDO::getSubsidiesStatus, reqVO.getSubsidiesStatus())
                 .eqIfPresent(PolicySubsidiesInfoDO::getApplyPerson, reqVO.getApplyPerson())
                 .betweenIfPresent(PolicySubsidiesInfoDO::getApplyTime, reqVO.getApplyTime())
-//                .eqIfPresent(PolicySubsidiesInfoDO::getTenantId, reqVO.getTenantId())
+                .eqIfPresent(PolicySubsidiesInfoDO::getTenantId, reqVO.getTenantId())
                 .eqIfPresent(PolicySubsidiesInfoDO::getSource, reqVO.getSource())
                 .eqIfPresent(PolicySubsidiesInfoDO::getSubjectId, reqVO.getSubjectId())
+                .eqIfPresent(PolicySubsidiesInfoDO::getCreator, reqVO.getCreator())
                 .betweenIfPresent(PolicySubsidiesInfoDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(PolicySubsidiesInfoDO::getUpdater, reqVO.getUpdater())
                 .betweenIfPresent(PolicySubsidiesInfoDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(PolicySubsidiesInfoDO::getId));
     }

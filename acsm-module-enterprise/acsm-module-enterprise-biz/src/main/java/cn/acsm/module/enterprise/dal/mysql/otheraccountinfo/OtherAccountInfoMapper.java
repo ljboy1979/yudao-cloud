@@ -20,22 +20,30 @@ public interface OtherAccountInfoMapper extends BaseMapperX< OtherAccountInfoDO 
 
     default PageResult<OtherAccountInfoDO> selectPage(OtherAccountInfoPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<OtherAccountInfoDO>()
+                .eqIfPresent(OtherAccountInfoDO::getId, reqVO.getId())
+                .eqIfPresent(OtherAccountInfoDO::getEnterpriseId, reqVO.getEnterpriseId())
                 .likeIfPresent(OtherAccountInfoDO::getAccountName, reqVO.getAccountName())
                 .eqIfPresent(OtherAccountInfoDO::getAccountNo, reqVO.getAccountNo())
                 .eqIfPresent(OtherAccountInfoDO::getAccountIdCard, reqVO.getAccountIdCard())
                 .eqIfPresent(OtherAccountInfoDO::getAccountBank, reqVO.getAccountBank())
+                .eqIfPresent(OtherAccountInfoDO::getCreator, reqVO.getCreator())
                 .betweenIfPresent(OtherAccountInfoDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(OtherAccountInfoDO::getUpdater, reqVO.getUpdater())
                 .betweenIfPresent(OtherAccountInfoDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(OtherAccountInfoDO::getId));
     }
 
     default List<OtherAccountInfoDO> selectList(OtherAccountInfoExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<OtherAccountInfoDO>()
+                .eqIfPresent(OtherAccountInfoDO::getId, reqVO.getId())
+                .eqIfPresent(OtherAccountInfoDO::getEnterpriseId, reqVO.getEnterpriseId())
                 .likeIfPresent(OtherAccountInfoDO::getAccountName, reqVO.getAccountName())
                 .eqIfPresent(OtherAccountInfoDO::getAccountNo, reqVO.getAccountNo())
                 .eqIfPresent(OtherAccountInfoDO::getAccountIdCard, reqVO.getAccountIdCard())
                 .eqIfPresent(OtherAccountInfoDO::getAccountBank, reqVO.getAccountBank())
+                .eqIfPresent(OtherAccountInfoDO::getCreator, reqVO.getCreator())
                 .betweenIfPresent(OtherAccountInfoDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(OtherAccountInfoDO::getUpdater, reqVO.getUpdater())
                 .betweenIfPresent(OtherAccountInfoDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(OtherAccountInfoDO::getId));
     }

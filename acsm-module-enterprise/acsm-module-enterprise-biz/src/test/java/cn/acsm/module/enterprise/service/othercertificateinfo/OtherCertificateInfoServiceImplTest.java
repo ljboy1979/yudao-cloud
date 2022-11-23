@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Import;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -89,8 +88,8 @@ public class OtherCertificateInfoServiceImplTest extends BaseDbUnitTest {
 
         // 调用
         otherCertificateInfoService.deleteOtherCertificateInfo(id);
-       // 校验数据不存在了
-       assertNull(otherCertificateInfoMapper.selectById(id));
+        // 校验数据不存在了
+        assertNull(otherCertificateInfoMapper.selectById(id));
     }
 
     @Test
@@ -105,124 +104,124 @@ public class OtherCertificateInfoServiceImplTest extends BaseDbUnitTest {
     @Test
     @Disabled  // TODO 请修改 null 为需要的值，然后删除 @Disabled 注解
     public void testGetOtherCertificateInfoPage() {
-       // mock 数据
-       OtherCertificateInfoDO dbOtherCertificateInfo = randomPojo(OtherCertificateInfoDO.class, o -> { // 等会查询到
-           o.setEnterpriseId(null);
-           o.setCertificateType(null);
-           o.setCertificateName(null);
-           o.setCertificateNo(null);
-           o.setCertificateEndTime(null);
-           o.setCertificatePhoto(null);
-           o.setTenantId(null);
-           o.setSource(null);
-           o.setSubjectId(null);
-           o.setCreateTime(null);
-           o.setUpdateTime(null);
-       });
-       otherCertificateInfoMapper.insert(dbOtherCertificateInfo);
-       // 测试 enterpriseId 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setEnterpriseId(null)));
-       // 测试 certificateType 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateType(null)));
-       // 测试 certificateName 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateName(null)));
-       // 测试 certificateNo 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateNo(null)));
-       // 测试 certificateEndTime 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateEndTime(null)));
-       // 测试 certificatePhoto 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificatePhoto(null)));
-       // 测试 tenantId 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setTenantId(null)));
-       // 测试 source 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSource(null)));
-       // 测试 subjectId 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSubjectId(null)));
-       // 测试 createTime 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCreateTime(null)));
-       // 测试 updateTime 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setUpdateTime(null)));
-       // 准备参数
-       OtherCertificateInfoPageReqVO reqVO = new OtherCertificateInfoPageReqVO();
-       reqVO.setEnterpriseId(null);
-       reqVO.setCertificateType(null);
-       reqVO.setCertificateName(null);
-       reqVO.setCertificateNo(null);
-       reqVO.setCertificateEndTime(new Date[]{});
-       reqVO.setCertificatePhoto(null);
-       reqVO.setTenantId(null);
-       reqVO.setSource(null);
-       reqVO.setSubjectId(null);
-       reqVO.setCreateTime(new Date[]{});
-       reqVO.setUpdateTime(new Date[]{});
+        // mock 数据
+        OtherCertificateInfoDO dbOtherCertificateInfo = randomPojo(OtherCertificateInfoDO.class, o -> { // 等会查询到
+            o.setId(null);
+            o.setEnterpriseId(null);
+            o.setCertificateType(null);
+            o.setCertificateName(null);
+            o.setCertificateNo(null);
+            o.setCertificateEndTime(null);
+            o.setCertificatePhoto(null);
+            o.setSource(null);
+            o.setSubjectId(null);
+            o.setCreateTime(null);
+            o.setUpdateTime(null);
+        });
+        otherCertificateInfoMapper.insert(dbOtherCertificateInfo);
+        // 测试 id 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setId(null)));
+        // 测试 enterpriseId 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setEnterpriseId(null)));
+        // 测试 certificateType 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateType(null)));
+        // 测试 certificateName 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateName(null)));
+        // 测试 certificateNo 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateNo(null)));
+        // 测试 certificateEndTime 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateEndTime(null)));
+        // 测试 certificatePhoto 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificatePhoto(null)));
+        // 测试 source 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSource(null)));
+        // 测试 subjectId 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSubjectId(null)));
+        // 测试 createTime 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCreateTime(null)));
+        // 测试 updateTime 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setUpdateTime(null)));
+        // 准备参数
+        OtherCertificateInfoPageReqVO reqVO = new OtherCertificateInfoPageReqVO();
+        reqVO.setId(null);
+        reqVO.setEnterpriseId(null);
+        reqVO.setCertificateType(null);
+        reqVO.setCertificateName(null);
+        reqVO.setCertificateNo(null);
+        reqVO.setCertificateEndTime((new Date[]{}));
+        reqVO.setCertificatePhoto(null);
+        reqVO.setSource(null);
+        reqVO.setSubjectId(null);
+        reqVO.setCreateTime((new Date[]{}));
+        reqVO.setUpdateTime((new Date[]{}));
 
-       // 调用
-       PageResult<OtherCertificateInfoDO> pageResult = otherCertificateInfoService.getOtherCertificateInfoPage(reqVO);
-       // 断言
-       assertEquals(1, pageResult.getTotal());
-       assertEquals(1, pageResult.getList().size());
-       assertPojoEquals(dbOtherCertificateInfo, pageResult.getList().get(0));
+        // 调用
+        PageResult<OtherCertificateInfoDO> pageResult = otherCertificateInfoService.getOtherCertificateInfoPage(reqVO);
+        // 断言
+        assertEquals(1, pageResult.getTotal());
+        assertEquals(1, pageResult.getList().size());
+        assertPojoEquals(dbOtherCertificateInfo, pageResult.getList().get(0));
     }
 
     @Test
     @Disabled  // TODO 请修改 null 为需要的值，然后删除 @Disabled 注解
     public void testGetOtherCertificateInfoList() {
-       // mock 数据
-       OtherCertificateInfoDO dbOtherCertificateInfo = randomPojo(OtherCertificateInfoDO.class, o -> { // 等会查询到
-           o.setEnterpriseId(null);
-           o.setCertificateType(null);
-           o.setCertificateName(null);
-           o.setCertificateNo(null);
-           o.setCertificateEndTime(null);
-           o.setCertificatePhoto(null);
-           o.setTenantId(null);
-           o.setSource(null);
-           o.setSubjectId(null);
-           o.setCreateTime(null);
-           o.setUpdateTime(null);
-       });
-       otherCertificateInfoMapper.insert(dbOtherCertificateInfo);
-       // 测试 enterpriseId 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setEnterpriseId(null)));
-       // 测试 certificateType 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateType(null)));
-       // 测试 certificateName 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateName(null)));
-       // 测试 certificateNo 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateNo(null)));
-       // 测试 certificateEndTime 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateEndTime(null)));
-       // 测试 certificatePhoto 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificatePhoto(null)));
-       // 测试 tenantId 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setTenantId(null)));
-       // 测试 source 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSource(null)));
-       // 测试 subjectId 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSubjectId(null)));
-       // 测试 createTime 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCreateTime(null)));
-       // 测试 updateTime 不匹配
-       otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setUpdateTime(null)));
-       // 准备参数
-       OtherCertificateInfoExportReqVO reqVO = new OtherCertificateInfoExportReqVO();
-       reqVO.setEnterpriseId(null);
-       reqVO.setCertificateType(null);
-       reqVO.setCertificateName(null);
-       reqVO.setCertificateNo(null);
-       reqVO.setCertificateEndTime(new Date[]{});
-       reqVO.setCertificatePhoto(null);
-       reqVO.setTenantId(null);
-       reqVO.setSource(null);
-       reqVO.setSubjectId(null);
-       reqVO.setCreateTime(new Date[]{});
-       reqVO.setUpdateTime(new Date[]{});
+        // mock 数据
+        OtherCertificateInfoDO dbOtherCertificateInfo = randomPojo(OtherCertificateInfoDO.class, o -> { // 等会查询到
+            o.setId(null);
+            o.setEnterpriseId(null);
+            o.setCertificateType(null);
+            o.setCertificateName(null);
+            o.setCertificateNo(null);
+            o.setCertificateEndTime(null);
+            o.setCertificatePhoto(null);
+            o.setSource(null);
+            o.setSubjectId(null);
+            o.setCreateTime(null);
+            o.setUpdateTime(null);
+        });
+        otherCertificateInfoMapper.insert(dbOtherCertificateInfo);
+        // 测试 id 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setId(null)));
+        // 测试 enterpriseId 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setEnterpriseId(null)));
+        // 测试 certificateType 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateType(null)));
+        // 测试 certificateName 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateName(null)));
+        // 测试 certificateNo 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateNo(null)));
+        // 测试 certificateEndTime 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificateEndTime(null)));
+        // 测试 certificatePhoto 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCertificatePhoto(null)));
+        // 测试 source 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSource(null)));
+        // 测试 subjectId 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setSubjectId(null)));
+        // 测试 createTime 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setCreateTime(null)));
+        // 测试 updateTime 不匹配
+        otherCertificateInfoMapper.insert(cloneIgnoreId(dbOtherCertificateInfo, o -> o.setUpdateTime(null)));
+        // 准备参数
+        OtherCertificateInfoExportReqVO reqVO = new OtherCertificateInfoExportReqVO();
+        reqVO.setId(null);
+        reqVO.setEnterpriseId(null);
+        reqVO.setCertificateType(null);
+        reqVO.setCertificateName(null);
+        reqVO.setCertificateNo(null);
+        reqVO.setCertificateEndTime((new Date[]{}));
+        reqVO.setCertificatePhoto(null);
+        reqVO.setSource(null);
+        reqVO.setSubjectId(null);
+        reqVO.setCreateTime((new Date[]{}));
+        reqVO.setUpdateTime((new Date[]{}));
 
-       // 调用
-       List<OtherCertificateInfoDO> list = otherCertificateInfoService.getOtherCertificateInfoList(reqVO);
-       // 断言
-       assertEquals(1, list.size());
-       assertPojoEquals(dbOtherCertificateInfo, list.get(0));
+        // 调用
+        List<OtherCertificateInfoDO> list = otherCertificateInfoService.getOtherCertificateInfoList(reqVO);
+        // 断言
+        assertEquals(1, list.size());
+        assertPojoEquals(dbOtherCertificateInfo, list.get(0));
     }
 
 }

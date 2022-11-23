@@ -12,6 +12,9 @@ import javax.validation.constraints.*;
 @Data
 public class OtherAccountInfoBaseVO {
 
+    @ApiModelProperty(value = "经营主体ID")
+    private Long enterpriseId;
+
     @ApiModelProperty(value = "账户名")
     private String accountName;
 

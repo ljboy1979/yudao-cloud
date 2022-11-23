@@ -17,6 +17,9 @@ import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
 @Data
 public class BaseInfoExcelVO {
 
+    @ExcelProperty("主键ID")
+    private Long id;
+
     @ExcelProperty("主体编号")
     private String code;
 
@@ -27,12 +30,22 @@ public class BaseInfoExcelVO {
     @DictFormat("enterprise_type") // TODO 代码优化：建议设置到对应的 XXXDictTypeConstants 枚举类中
     private String enterpriseType;
 
+    @ExcelProperty("主体类型名称")
+    private String enterpriseTypeName;
+
     @ExcelProperty("状态")
     private String stauts;
 
     @ExcelProperty(value = "产业角色", converter = DictConvert.class)
     @DictFormat("user_tag") // TODO 代码优化：建议设置到对应的 XXXDictTypeConstants 枚举类中
     private String userTag;
+
+    @ExcelProperty("产业角色名称")
+    private String userTagName;
+
+    @ExcelProperty(value = "经营状态", converter = DictConvert.class)
+    @DictFormat("manage_status") // TODO 代码优化：建议设置到对应的 XXXDictTypeConstants 枚举类中
+    private String manageStatus;
 
     @ExcelProperty("注册时间")
     private Date registerTime;
