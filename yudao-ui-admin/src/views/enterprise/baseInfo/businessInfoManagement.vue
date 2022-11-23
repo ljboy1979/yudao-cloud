@@ -62,7 +62,7 @@
         <!-- 搜索工作栏 -->
         <el-form :model="querySubsidyParams" ref="querySubsidyForm" size="small" :inline="true" v-show="showSearch"
           label-width="68px">
-          <el-form-item prop="status">
+          <el-form-item prop="create">
             <el-button type="primary" icon="el-icon-plus" @click="handleAdd">新增</el-button>
           </el-form-item>
           <el-form-item prop="status">
