@@ -3,63 +3,72 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="经营主体ID" prop="enterpriseId">
-        <el-input v-model="queryParams.enterpriseId" placeholder="请输入经营主体ID" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-plus" @click="handleAdd"
+          v-hasPermi="['enterprise:other-certificate-info:create']">新增</el-button>
       </el-form-item>
-      <el-form-item label="证件类型" prop="certificateType">
+      <el-form-item prop="enterpriseId">
+        <el-input v-model="queryParams.enterpriseId" placeholder="请输入经营主体ID" clearable
+          @keyup.enter.native="handleQuery" />
+      </el-form-item>
+      <el-form-item prop="certificateType">
         <el-select v-model="queryParams.certificateType" placeholder="请选择证件类型" clearable size="small">
-          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.CERTIFICATE_TYPE)"
-                       :key="dict.value" :label="dict.label" :value="dict.value"/>
+          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.CERTIFICATE_TYPE)" :key="dict.value" :label="dict.label"
+            :value="dict.value" />
         </el-select>
       </el-form-item>
-      <el-form-item label="证件名称" prop="certificateName">
-        <el-input v-model="queryParams.certificateName" placeholder="请输入证件名称" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item prop="certificateName">
+        <el-input v-model="queryParams.certificateName" placeholder="请输入证件名称" clearable
+          @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="证件号" prop="certificateNo">
-        <el-input v-model="queryParams.certificateNo" placeholder="请输入证件号" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item prop="certificateNo">
+        <el-input v-model="queryParams.certificateNo" placeholder="请输入证件号" clearable
+          @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="证件截止日期" prop="certificateEndTime">
-        <el-date-picker v-model="queryParams.certificateEndTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
-                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      <el-form-item prop="certificateEndTime">
+        <el-date-picker v-model="queryParams.certificateEndTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
+          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
-      <el-form-item label="证件照片" prop="certificatePhoto">
-        <el-input v-model="queryParams.certificatePhoto" placeholder="请输入证件照片" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item prop="certificatePhoto">
+        <el-input v-model="queryParams.certificatePhoto" placeholder="请输入证件照片" clearable
+          @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="租户编号" prop="tenantId">
-        <el-input v-model="queryParams.tenantId" placeholder="请输入租户编号" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item prop="tenantId">
+        <el-input v-model="queryParams.tenantId" placeholder="请输入租户编号" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="租户集合" prop="source">
-        <el-input v-model="queryParams.source" placeholder="请输入租户集合" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item prop="source">
+        <el-input v-model="queryParams.source" placeholder="请输入租户集合" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="经营主体ID" prop="subjectId">
-        <el-input v-model="queryParams.subjectId" placeholder="请输入经营主体ID" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item prop="subjectId">
+        <el-input v-model="queryParams.subjectId" placeholder="请输入经营主体ID" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="创建时间" prop="createTime">
-        <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
-                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      <el-form-item prop="createTime">
+        <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
+          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
-      <el-form-item label="更新时间" prop="updateTime">
-        <el-date-picker v-model="queryParams.updateTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
-                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      <el-form-item prop="updateTime">
+        <el-date-picker v-model="queryParams.updateTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
+          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
+        <el-button type="primary" plain icon="el-icon-download" @click="handleExport" :loading="exportLoading"
+          v-hasPermi="['enterprise:other-certificate-info:export']">导出</el-button>
       </el-form-item>
     </el-form>
 
     <!-- 操作工具栏 -->
-    <el-row :gutter="10" class="mb8">
+    <!-- <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
-                   v-hasPermi="['enterprise:other-certificate-info:create']">新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
-                   v-hasPermi="['enterprise:other-certificate-info:export']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row>
+    </el-row> -->
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
@@ -72,31 +81,46 @@
       <el-table-column label="证件名称" align="center" prop="certificateName" />
       <el-table-column label="证件号" align="center" prop="certificateNo" />
       <el-table-column label="证件截止日期" align="center" prop="certificateEndTime" />
+      <!-- <el-table-column label="证件截止日期" align="center" prop="certificateEndTime" >
+      <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.certificateEndTime,'{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column> -->
       <el-table-column label="租户编号" align="center" prop="tenantId" />
       <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="更新时间" align="center" prop="updateTime" />
+      <!-- <el-table-column label="创建时间" align="center" prop="createTime">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.createTime) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="更新时间" align="center" prop="updateTime" >
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.updateTime) }}</span>
+        </template>
+      </el-table-column> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
-                     v-hasPermi="['enterprise:other-certificate-info:update']">修改</el-button>
+            v-hasPermi="['enterprise:other-certificate-info:update']">修改</el-button>
           <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
-                     v-hasPermi="['enterprise:other-certificate-info:delete']">删除</el-button>
+            v-hasPermi="['enterprise:other-certificate-info:delete']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="证件类型" prop="certificateType">
           <el-select v-model="form.certificateType" placeholder="请选择证件类型">
-            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.CERTIFICATE_TYPE)"
-                       :key="dict.value" :label="dict.label" :value="parseInt(dict.value)" />
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.CERTIFICATE_TYPE)" :key="dict.value"
+              :label="dict.label" :value="parseInt(dict.value)" />
           </el-select>
         </el-form-item>
         <el-form-item label="证件名称" prop="certificateName">
@@ -106,7 +130,8 @@
           <el-input v-model="form.certificateNo" placeholder="请输入证件号" />
         </el-form-item>
         <el-form-item label="证件截止日期" prop="certificateEndTime">
-          <el-date-picker clearable v-model="form.certificateEndTime" type="date" value-format="timestamp" placeholder="选择证件截止日期" />
+          <el-date-picker clearable v-model="form.certificateEndTime" type="date" value-format="timestamp"
+            placeholder="选择证件截止日期" />
         </el-form-item>
         <el-form-item label="证件照片" prop="certificatePhoto">
           <el-input v-model="form.certificatePhoto" placeholder="请输入证件照片" />
@@ -262,26 +287,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除经营主体其他证件编号为"' + id + '"的数据项?').then(function() {
-          return deleteOtherCertificateInfo(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除经营主体其他证件编号为"' + id + '"的数据项?').then(function () {
+        return deleteOtherCertificateInfo(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有经营主体其他证件数据项?').then(() => {
-          this.exportLoading = true;
-          return exportOtherCertificateInfoExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '经营主体其他证件.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportOtherCertificateInfoExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '经营主体其他证件.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };

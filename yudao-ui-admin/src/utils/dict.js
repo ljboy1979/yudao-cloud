@@ -56,12 +56,17 @@ export const DICT_TYPE = {
   PAY_ORDER_REFUND_STATUS: 'pay_order_refund_status', // 商户支付订单退款状态
   PAY_REFUND_ORDER_STATUS: 'pay_refund_order_status', // 退款订单状态
   PAY_REFUND_ORDER_TYPE: 'pay_refund_order_type', // 退款订单类别
+
   // ========== ENTERPRISE 模块 ==========
   ENTERPRISE_TYPE: 'enterprise_type', // 主体类型
-  SUBSIDIES_STATUS: 'subsidies_status', // 补贴状态
-  SUBSIDIES_CATEGORY: 'subsidies_category', // 补贴种类
   USER_TAG: 'user_tag', // 产业角色
   MANAGE_STATUS: 'manage_status', //经营状态
+  // ---------- 经营主体其他 ----------
+  CERTIFICATE_TYPE: 'certificate_type', //证件类型
+  // ---------- 政策补贴记录 ----------
+  SUBSIDIES_STATUS: 'subsidies_status', // 补贴状态
+  SUBSIDIES_CATEGORY: 'subsidies_category', // 补贴种类
+  SUBSIDIES_TYPE: 'subsidies_type', // 补贴方式
 }
 
 /**

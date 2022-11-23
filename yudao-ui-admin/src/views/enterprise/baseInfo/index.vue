@@ -62,8 +62,8 @@
       @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" :visible.sync="open" width="600px" v-dialogDrag append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="主体编号" prop="code">
           <el-input v-model="form.code" placeholder="请输入主体编号" />
         </el-form-item>
@@ -241,7 +241,7 @@ export default {
     };
   },
   created() {
-    // this.getList();
+    this.getList();
   },
   methods: {
     /** 查询列表 */
@@ -366,7 +366,7 @@ export default {
     },
     /** 管理按钮操作 */
     handleDetail(row) {
-      this.$router.push({ path: "/enterprise/baseInfo/businessInfoManagement", query: { id: row.id } });
+      this.$router.push({ path: "/enterprise/baseInfo/businessInfoManagement", query: { id: row.areaId } });
     },
     /** 导出按钮操作 */
     handleExport() {

@@ -3,7 +3,7 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item prop="status">
+      <el-form-item>
         <el-button type="primary" icon="el-icon-plus" @click="handleAdd"
           v-hasPermi="['enterprise:policy-subsidies-info:create']">新增</el-button>
       </el-form-item>
@@ -31,6 +31,8 @@
       <el-form-item>
         <el-button icon="el-icon-search" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
+        <!-- <el-button type="primary" plain icon="el-icon-download" @click="handleExport" :loading="exportLoading"
+          v-hasPermi="['enterprise:policy-subsidies-info:export']">导出</el-button> -->
       </el-form-item>
     </el-form>
 
@@ -113,12 +115,20 @@ import { createPolicySubsidiesInfo, updatePolicySubsidiesInfo, deletePolicySubsi
 
 export default {
   name: "PolicySubsidiesInfo",
+  /**接受父组件传值*/
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   components: {
   },
   data() {
     return {
       // 遮罩层
-      loading: true,
+      // loading: true,
+      loading: false,
       // 导出遮罩层
       exportLoading: false,
       // 显示搜索条件
