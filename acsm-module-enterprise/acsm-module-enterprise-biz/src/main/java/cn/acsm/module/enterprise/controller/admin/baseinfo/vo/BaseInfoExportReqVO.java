@@ -12,6 +12,9 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @Data
 public class BaseInfoExportReqVO {
 
+    @ApiModelProperty(value = "主键ID")
+    private Long id;
+
     @ApiModelProperty(value = "主体编号")
     private String code;
 
@@ -21,17 +24,23 @@ public class BaseInfoExportReqVO {
     @ApiModelProperty(value = "主体类型")
     private String enterpriseType;
 
+    @ApiModelProperty(value = "主体类型名称")
+    private String enterpriseTypeName;
+
     @ApiModelProperty(value = "状态")
     private String stauts;
 
     @ApiModelProperty(value = "产业角色")
     private String userTag;
 
+    @ApiModelProperty(value = "产业角色名称")
+    private String userTagName;
+
     @ApiModelProperty(value = "经营状态")
     private String manageStatus;
 
     @ApiModelProperty(value = "注册时间")
-    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date[] registerTime;
 
 }

@@ -1,8 +1,11 @@
 package cn.acsm.module.enterprise.controller.admin.baseinfo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.*;
 
 @ApiModel("管理后台 - 经营主体创建 Request VO")
@@ -10,19 +13,6 @@ import javax.validation.constraints.*;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class BaseInfoCreateReqVO extends BaseInfoBaseVO {
-
-    @ApiModelProperty(value = "主体类型名称")
-    private String enterpriseTypeName;
-
-    @ApiModelProperty(value = "状态")
-    private String stauts;
-
-    @ApiModelProperty(value = "产业角色名称")
-    private String userTagName;
-
-    @ApiModelProperty(value = "经营状态", required = true)
-    @NotNull(message = "经营状态不能为空")
-    private String manageStatus;
 
     @ApiModelProperty(value = "注册地址")
     private String address;
@@ -58,6 +48,8 @@ public class BaseInfoCreateReqVO extends BaseInfoBaseVO {
     private String businessLicensePhoto;
 
     @ApiModelProperty(value = "证件截止日期")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date businessLicenseEndTime;
 
     @ApiModelProperty(value = "账户名")

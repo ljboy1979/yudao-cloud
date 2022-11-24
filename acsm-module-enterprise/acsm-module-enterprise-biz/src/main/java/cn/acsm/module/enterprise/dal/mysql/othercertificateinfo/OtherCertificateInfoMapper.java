@@ -20,6 +20,7 @@ public interface OtherCertificateInfoMapper extends BaseMapperX< OtherCertificat
 
     default PageResult<OtherCertificateInfoDO> selectPage(OtherCertificateInfoPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<OtherCertificateInfoDO>()
+                .eqIfPresent(OtherCertificateInfoDO::getId, reqVO.getId())
                 .eqIfPresent(OtherCertificateInfoDO::getEnterpriseId, reqVO.getEnterpriseId())
                 .eqIfPresent(OtherCertificateInfoDO::getCertificateType, reqVO.getCertificateType())
                 .likeIfPresent(OtherCertificateInfoDO::getCertificateName, reqVO.getCertificateName())
@@ -35,6 +36,7 @@ public interface OtherCertificateInfoMapper extends BaseMapperX< OtherCertificat
 
     default List<OtherCertificateInfoDO> selectList(OtherCertificateInfoExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<OtherCertificateInfoDO>()
+                .eqIfPresent(OtherCertificateInfoDO::getId, reqVO.getId())
                 .eqIfPresent(OtherCertificateInfoDO::getEnterpriseId, reqVO.getEnterpriseId())
                 .eqIfPresent(OtherCertificateInfoDO::getCertificateType, reqVO.getCertificateType())
                 .likeIfPresent(OtherCertificateInfoDO::getCertificateName, reqVO.getCertificateName())

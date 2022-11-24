@@ -1,9 +1,12 @@
 package cn.acsm.module.enterprise.controller.admin.baseinfo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.*;
+
 
 /**
 * 经营主体 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -16,19 +19,38 @@ public class BaseInfoBaseVO {
     private String code;
 
     @ApiModelProperty(value = "主体名称")
+
     private String name;
 
     @ApiModelProperty(value = "主体类型")
     private String enterpriseType;
 
+    @ApiModelProperty(value = "主体类型名称")
+    private String enterpriseTypeName;
+
+    @ApiModelProperty(value = "状态")
+    private String stauts;
+
     @ApiModelProperty(value = "产业角色")
     private String userTag;
 
+    @ApiModelProperty(value = "产业角色名称")
+    private String userTagName;
+
+    @ApiModelProperty(value = "经营状态", required = true)
+    @NotNull(message = "经营状态不能为空")
+    private String manageStatus;
+
     @ApiModelProperty(value = "注册时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registerTime;
 
     @ApiModelProperty(value = "联系人")
     private String contactName;
+
+    @ApiModelProperty(value = "联系人电话")
+    private String contactPhone;
 
     @ApiModelProperty(value = "省id")
     private String villagesAreaId;

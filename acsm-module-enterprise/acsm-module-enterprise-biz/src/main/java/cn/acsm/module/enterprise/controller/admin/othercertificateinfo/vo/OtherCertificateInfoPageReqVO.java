@@ -14,6 +14,9 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class OtherCertificateInfoPageReqVO extends PageParam {
 
+    @ApiModelProperty(value = "编号")
+    private Long id;
+
     @ApiModelProperty(value = "经营主体ID")
     private Long enterpriseId;
 
@@ -32,9 +35,6 @@ public class OtherCertificateInfoPageReqVO extends PageParam {
 
     @ApiModelProperty(value = "证件照片")
     private String certificatePhoto;
-
-    @ApiModelProperty(value = "租户编号")
-    private Long tenantId;
 
     @ApiModelProperty(value = "租户集合")
     private Long source;

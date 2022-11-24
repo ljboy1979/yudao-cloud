@@ -1,5 +1,6 @@
 package cn.acsm.module.enterprise.dal.dataobject.policysubsidiesinfo;
 
+import cn.iocoder.yudao.framework.tenant.core.db.TenantBaseDO;
 import lombok.*;
 import java.util.*;
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PolicySubsidiesInfoDO extends BaseDO {
+public class PolicySubsidiesInfoDO extends TenantBaseDO {
 
     /**
      * 编号
@@ -64,10 +65,6 @@ public class PolicySubsidiesInfoDO extends BaseDO {
      * 申请时间
      */
     private Date applyTime;
-    /**
-     * 租户编号
-     */
-    private Long tenantId;
     /**
      * 租户集合
      */

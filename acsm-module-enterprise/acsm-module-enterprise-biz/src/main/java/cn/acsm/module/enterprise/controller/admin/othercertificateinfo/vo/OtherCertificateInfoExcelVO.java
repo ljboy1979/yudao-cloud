@@ -20,6 +20,9 @@ public class OtherCertificateInfoExcelVO {
     @ExcelProperty("编号")
     private Long id;
 
+    @ExcelProperty("经营主体ID")
+    private Long enterpriseId;
+
     @ExcelProperty(value = "证件类型", converter = DictConvert.class)
     @DictFormat("certificate_type") // TODO 代码优化：建议设置到对应的 XXXDictTypeConstants 枚举类中
     private Integer certificateType;
@@ -33,17 +36,20 @@ public class OtherCertificateInfoExcelVO {
     @ExcelProperty("证件截止日期")
     private Date certificateEndTime;
 
-    @ExcelProperty("租户编号")
-    private Long tenantId;
-
     @ExcelProperty("租户集合")
     private Long source;
 
     @ExcelProperty("经营主体ID")
     private Long subjectId;
 
+    @ExcelProperty("创建者")
+    private String creator;
+
     @ExcelProperty("创建时间")
     private Date createTime;
+
+    @ExcelProperty("更新者")
+    private String updater;
 
     @ExcelProperty("更新时间")
     private Date updateTime;

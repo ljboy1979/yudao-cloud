@@ -52,6 +52,12 @@
             <artifactId>yudao-spring-boot-starter-mybatis</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-spring-boot-starter-redis</artifactId>
+        </dependency>
+
+
         <!-- Test 测试相关 -->
         <dependency>
             <groupId>cn.iocoder.cloud</groupId>
@@ -84,6 +90,39 @@
         <dependency>
             <groupId>cn.iocoder.cloud</groupId>
             <artifactId>yudao-spring-boot-starter-monitor</artifactId>
+        </dependency>
+        <!-- 业务组件 -->
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-spring-boot-starter-banner</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-spring-boot-starter-biz-operatelog</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-spring-boot-starter-biz-sms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-spring-boot-starter-biz-dict</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-spring-boot-starter-biz-data-permission</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-spring-boot-starter-biz-social</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-spring-boot-starter-biz-tenant</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>yudao-spring-boot-starter-biz-error-code</artifactId>
         </dependency>
     </dependencies>
     <build>

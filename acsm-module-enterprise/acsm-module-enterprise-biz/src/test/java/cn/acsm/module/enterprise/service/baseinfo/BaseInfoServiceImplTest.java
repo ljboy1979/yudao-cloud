@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import org.springframework.context.annotation.Import;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -89,8 +88,8 @@ public class BaseInfoServiceImplTest extends BaseDbUnitTest {
 
         // 调用
         baseInfoService.deleteBaseInfo(id);
-       // 校验数据不存在了
-       assertNull(baseInfoMapper.selectById(id));
+        // 校验数据不存在了
+        assertNull(baseInfoMapper.selectById(id));
     }
 
     @Test
@@ -105,92 +104,116 @@ public class BaseInfoServiceImplTest extends BaseDbUnitTest {
     @Test
     @Disabled  // TODO 请修改 null 为需要的值，然后删除 @Disabled 注解
     public void testGetBaseInfoPage() {
-       // mock 数据
-       BaseInfoDO dbBaseInfo = randomPojo(BaseInfoDO.class, o -> { // 等会查询到
-           o.setCode(null);
-           o.setName(null);
-           o.setEnterpriseType(null);
-           o.setStauts(null);
-           o.setUserTag(null);
-           o.setManageStatus(null);
-           o.setRegisterTime(null);
-       });
-       baseInfoMapper.insert(dbBaseInfo);
-       // 测试 code 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setCode(null)));
-       // 测试 name 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setName(null)));
-       // 测试 enterpriseType 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setEnterpriseType(null)));
-       // 测试 stauts 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setStauts(null)));
-       // 测试 userTag 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setUserTag(null)));
-       // 测试 manageStatus 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setManageStatus(null)));
-       // 测试 registerTime 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setRegisterTime(null)));
-       // 准备参数
-       BaseInfoPageReqVO reqVO = new BaseInfoPageReqVO();
-       reqVO.setCode(null);
-       reqVO.setName(null);
-       reqVO.setEnterpriseType(null);
-       reqVO.setStauts(null);
-       reqVO.setUserTag(null);
-       reqVO.setManageStatus(null);
-       reqVO.setRegisterTime((new Date[]{}));
+        // mock 数据
+        BaseInfoDO dbBaseInfo = randomPojo(BaseInfoDO.class, o -> { // 等会查询到
+            o.setId(null);
+            o.setCode(null);
+            o.setName(null);
+            o.setEnterpriseType(null);
+            o.setEnterpriseTypeName(null);
+            o.setStauts(null);
+            o.setUserTag(null);
+            o.setUserTagName(null);
+            o.setManageStatus(null);
+            o.setRegisterTime(null);
+        });
+        baseInfoMapper.insert(dbBaseInfo);
+        // 测试 id 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setId(null)));
+        // 测试 code 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setCode(null)));
+        // 测试 name 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setName(null)));
+        // 测试 enterpriseType 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setEnterpriseType(null)));
+        // 测试 enterpriseTypeName 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setEnterpriseTypeName(null)));
+        // 测试 stauts 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setStauts(null)));
+        // 测试 userTag 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setUserTag(null)));
+        // 测试 userTagName 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setUserTagName(null)));
+        // 测试 manageStatus 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setManageStatus(null)));
+        // 测试 registerTime 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setRegisterTime(null)));
+        // 准备参数
+        BaseInfoPageReqVO reqVO = new BaseInfoPageReqVO();
+        reqVO.setId(null);
+        reqVO.setCode(null);
+        reqVO.setName(null);
+        reqVO.setEnterpriseType(null);
+        reqVO.setEnterpriseTypeName(null);
+        reqVO.setStauts(null);
+        reqVO.setUserTag(null);
+        reqVO.setUserTagName(null);
+        reqVO.setManageStatus(null);
+        reqVO.setRegisterTime((new Date[]{}));
 
-       // 调用
-       PageResult<BaseInfoDO> pageResult = baseInfoService.getBaseInfoPage(reqVO);
-       // 断言
-       assertEquals(1, pageResult.getTotal());
-       assertEquals(1, pageResult.getList().size());
-       assertPojoEquals(dbBaseInfo, pageResult.getList().get(0));
+        // 调用
+        PageResult<BaseInfoDO> pageResult = baseInfoService.getBaseInfoPage(reqVO);
+        // 断言
+        assertEquals(1, pageResult.getTotal());
+        assertEquals(1, pageResult.getList().size());
+        assertPojoEquals(dbBaseInfo, pageResult.getList().get(0));
     }
 
     @Test
     @Disabled  // TODO 请修改 null 为需要的值，然后删除 @Disabled 注解
     public void testGetBaseInfoList() {
-       // mock 数据
-       BaseInfoDO dbBaseInfo = randomPojo(BaseInfoDO.class, o -> { // 等会查询到
-           o.setCode(null);
-           o.setName(null);
-           o.setEnterpriseType(null);
-           o.setStauts(null);
-           o.setUserTag(null);
-           o.setManageStatus(null);
-           o.setRegisterTime(null);
-       });
-       baseInfoMapper.insert(dbBaseInfo);
-       // 测试 code 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setCode(null)));
-       // 测试 name 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setName(null)));
-       // 测试 enterpriseType 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setEnterpriseType(null)));
-       // 测试 stauts 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setStauts(null)));
-       // 测试 userTag 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setUserTag(null)));
-       // 测试 manageStatus 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setManageStatus(null)));
-       // 测试 registerTime 不匹配
-       baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setRegisterTime(null)));
-       // 准备参数
-       BaseInfoExportReqVO reqVO = new BaseInfoExportReqVO();
-       reqVO.setCode(null);
-       reqVO.setName(null);
-       reqVO.setEnterpriseType(null);
-       reqVO.setStauts(null);
-       reqVO.setUserTag(null);
-       reqVO.setManageStatus(null);
-       reqVO.setRegisterTime((new Date[]{}));
+        // mock 数据
+        BaseInfoDO dbBaseInfo = randomPojo(BaseInfoDO.class, o -> { // 等会查询到
+            o.setId(null);
+            o.setCode(null);
+            o.setName(null);
+            o.setEnterpriseType(null);
+            o.setEnterpriseTypeName(null);
+            o.setStauts(null);
+            o.setUserTag(null);
+            o.setUserTagName(null);
+            o.setManageStatus(null);
+            o.setRegisterTime(null);
+        });
+        baseInfoMapper.insert(dbBaseInfo);
+        // 测试 id 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setId(null)));
+        // 测试 code 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setCode(null)));
+        // 测试 name 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setName(null)));
+        // 测试 enterpriseType 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setEnterpriseType(null)));
+        // 测试 enterpriseTypeName 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setEnterpriseTypeName(null)));
+        // 测试 stauts 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setStauts(null)));
+        // 测试 userTag 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setUserTag(null)));
+        // 测试 userTagName 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setUserTagName(null)));
+        // 测试 manageStatus 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setManageStatus(null)));
+        // 测试 registerTime 不匹配
+        baseInfoMapper.insert(cloneIgnoreId(dbBaseInfo, o -> o.setRegisterTime(null)));
+        // 准备参数
+        BaseInfoExportReqVO reqVO = new BaseInfoExportReqVO();
+        reqVO.setId(null);
+        reqVO.setCode(null);
+        reqVO.setName(null);
+        reqVO.setEnterpriseType(null);
+        reqVO.setEnterpriseTypeName(null);
+        reqVO.setStauts(null);
+        reqVO.setUserTag(null);
+        reqVO.setUserTagName(null);
+        reqVO.setManageStatus(null);
+        reqVO.setRegisterTime((new Date[]{}));
 
-       // 调用
-       List<BaseInfoDO> list = baseInfoService.getBaseInfoList(reqVO);
-       // 断言
-       assertEquals(1, list.size());
-       assertPojoEquals(dbBaseInfo, list.get(0));
+        // 调用
+        List<BaseInfoDO> list = baseInfoService.getBaseInfoList(reqVO);
+        // 断言
+        assertEquals(1, list.size());
+        assertPojoEquals(dbBaseInfo, list.get(0));
     }
 
 }

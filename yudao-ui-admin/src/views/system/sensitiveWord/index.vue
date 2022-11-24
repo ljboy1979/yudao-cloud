@@ -314,7 +314,7 @@ export default {
         this.exportLoading = true;
         return exportSensitiveWordExcel(params);
       }).then(response => {
-        this.$download.excel(response, '${table.classComment}.xls');
+        this.$download.excel(response, '敏感词.xls');
         this.exportLoading = false;
       }).catch(() => {
       });

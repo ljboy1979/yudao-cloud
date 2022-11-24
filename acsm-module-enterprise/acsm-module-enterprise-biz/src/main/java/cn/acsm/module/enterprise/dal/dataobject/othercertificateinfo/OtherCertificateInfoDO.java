@@ -1,5 +1,6 @@
 package cn.acsm.module.enterprise.dal.dataobject.othercertificateinfo;
 
+import cn.iocoder.yudao.framework.tenant.core.db.TenantBaseDO;
 import lombok.*;
 import java.util.*;
 import com.baomidou.mybatisplus.annotation.*;
@@ -18,7 +19,7 @@ import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OtherCertificateInfoDO extends BaseDO {
+public class OtherCertificateInfoDO extends TenantBaseDO {
 
     /**
      * 编号
@@ -51,10 +52,6 @@ public class OtherCertificateInfoDO extends BaseDO {
      * 证件照片
      */
     private String certificatePhoto;
-    /**
-     * 租户编号
-     */
-    private Long tenantId;
     /**
      * 租户集合
      */

@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Import;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -90,8 +89,8 @@ public class PolicySubsidiesInfoServiceImplTest extends BaseDbUnitTest {
 
         // 调用
         policySubsidiesInfoService.deletePolicySubsidiesInfo(id);
-       // 校验数据不存在了
-       assertNull(policySubsidiesInfoMapper.selectById(id));
+        // 校验数据不存在了
+        assertNull(policySubsidiesInfoMapper.selectById(id));
     }
 
     @Test
@@ -106,124 +105,164 @@ public class PolicySubsidiesInfoServiceImplTest extends BaseDbUnitTest {
     @Test
     @Disabled  // TODO 请修改 null 为需要的值，然后删除 @Disabled 注解
     public void testGetPolicySubsidiesInfoPage() {
-       // mock 数据
-       PolicySubsidiesInfoDO dbPolicySubsidiesInfo = randomPojo(PolicySubsidiesInfoDO.class, o -> { // 等会查询到
-           o.setSubsidiesCategory(null);
-           o.setSubsidiesName(null);
-           o.setSubsidiesType(null);
-           o.setSubsidiesStatus(null);
-           o.setApplyPerson(null);
-           o.setApplyTime(null);
-           o.setTenantId(null);
-           o.setSource(null);
-           o.setSubjectId(null);
-           o.setCreateTime(null);
-           o.setUpdateTime(null);
-       });
-       policySubsidiesInfoMapper.insert(dbPolicySubsidiesInfo);
-       // 测试 subsidiesCategory 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesCategory(null)));
-       // 测试 subsidiesName 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesName(null)));
-       // 测试 subsidiesType 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesType(null)));
-       // 测试 subsidiesStatus 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesStatus(null)));
-       // 测试 applyPerson 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setApplyPerson(null)));
-       // 测试 applyTime 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setApplyTime(null)));
-       // 测试 tenantId 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setTenantId(null)));
-       // 测试 source 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSource(null)));
-       // 测试 subjectId 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubjectId(null)));
-       // 测试 createTime 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setCreateTime(null)));
-       // 测试 updateTime 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setUpdateTime(null)));
-       // 准备参数
-       PolicySubsidiesInfoPageReqVO reqVO = new PolicySubsidiesInfoPageReqVO();
-       reqVO.setSubsidiesCategory(null);
-       reqVO.setSubsidiesName(null);
-       reqVO.setSubsidiesType(null);
-       reqVO.setSubsidiesStatus(null);
-       reqVO.setApplyPerson(null);
-       reqVO.setApplyTime(new Date[]{});
-       reqVO.setTenantId(null);
-       reqVO.setSource(null);
-       reqVO.setSubjectId(null);
-       reqVO.setCreateTime(new Date[]{});
-       reqVO.setUpdateTime(new Date[]{});
+        // mock 数据
+        PolicySubsidiesInfoDO dbPolicySubsidiesInfo = randomPojo(PolicySubsidiesInfoDO.class, o -> { // 等会查询到
+            o.setId(null);
+            o.setEnterpriseId(null);
+            o.setSubsidiesCategory(null);
+            o.setSubsidiesName(null);
+            o.setSubsidiesAmount(null);
+            o.setSubsidiesType(null);
+            o.setSubsidiesStatus(null);
+            o.setApplyPerson(null);
+            o.setApplyTime(null);
+            o.setTenantId(null);
+            o.setSource(null);
+            o.setSubjectId(null);
+            o.setCreator(null);
+            o.setCreateTime(null);
+            o.setUpdater(null);
+            o.setUpdateTime(null);
+        });
+        policySubsidiesInfoMapper.insert(dbPolicySubsidiesInfo);
+        // 测试 id 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setId(null)));
+        // 测试 enterpriseId 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setEnterpriseId(null)));
+        // 测试 subsidiesCategory 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesCategory(null)));
+        // 测试 subsidiesName 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesName(null)));
+        // 测试 subsidiesAmount 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesAmount(null)));
+        // 测试 subsidiesType 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesType(null)));
+        // 测试 subsidiesStatus 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesStatus(null)));
+        // 测试 applyPerson 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setApplyPerson(null)));
+        // 测试 applyTime 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setApplyTime(null)));
+        // 测试 tenantId 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setTenantId(null)));
+        // 测试 source 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSource(null)));
+        // 测试 subjectId 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubjectId(null)));
+        // 测试 creator 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setCreator(null)));
+        // 测试 createTime 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setCreateTime(null)));
+        // 测试 updater 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setUpdater(null)));
+        // 测试 updateTime 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setUpdateTime(null)));
+        // 准备参数
+        PolicySubsidiesInfoPageReqVO reqVO = new PolicySubsidiesInfoPageReqVO();
+        reqVO.setId(null);
+        reqVO.setEnterpriseId(null);
+        reqVO.setSubsidiesCategory(null);
+        reqVO.setSubsidiesName(null);
+        reqVO.setSubsidiesAmount(null);
+        reqVO.setSubsidiesType(null);
+        reqVO.setSubsidiesStatus(null);
+        reqVO.setApplyPerson(null);
+        reqVO.setApplyTime((new Date[]{}));
+        reqVO.setTenantId(null);
+        reqVO.setSource(null);
+        reqVO.setSubjectId(null);
+        reqVO.setCreator(null);
+        reqVO.setCreateTime((new Date[]{}));
+        reqVO.setUpdater(null);
+        reqVO.setUpdateTime((new Date[]{}));
 
-       // 调用
-       PageResult<PolicySubsidiesInfoDO> pageResult = policySubsidiesInfoService.getPolicySubsidiesInfoPage(reqVO);
-       // 断言
-       assertEquals(1, pageResult.getTotal());
-       assertEquals(1, pageResult.getList().size());
-       assertPojoEquals(dbPolicySubsidiesInfo, pageResult.getList().get(0));
+        // 调用
+        PageResult<PolicySubsidiesInfoDO> pageResult = policySubsidiesInfoService.getPolicySubsidiesInfoPage(reqVO);
+        // 断言
+        assertEquals(1, pageResult.getTotal());
+        assertEquals(1, pageResult.getList().size());
+        assertPojoEquals(dbPolicySubsidiesInfo, pageResult.getList().get(0));
     }
 
     @Test
     @Disabled  // TODO 请修改 null 为需要的值，然后删除 @Disabled 注解
     public void testGetPolicySubsidiesInfoList() {
-       // mock 数据
-       PolicySubsidiesInfoDO dbPolicySubsidiesInfo = randomPojo(PolicySubsidiesInfoDO.class, o -> { // 等会查询到
-           o.setSubsidiesCategory(null);
-           o.setSubsidiesName(null);
-           o.setSubsidiesType(null);
-           o.setSubsidiesStatus(null);
-           o.setApplyPerson(null);
-           o.setApplyTime(null);
-           o.setTenantId(null);
-           o.setSource(null);
-           o.setSubjectId(null);
-           o.setCreateTime(null);
-           o.setUpdateTime(null);
-       });
-       policySubsidiesInfoMapper.insert(dbPolicySubsidiesInfo);
-       // 测试 subsidiesCategory 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesCategory(null)));
-       // 测试 subsidiesName 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesName(null)));
-       // 测试 subsidiesType 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesType(null)));
-       // 测试 subsidiesStatus 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesStatus(null)));
-       // 测试 applyPerson 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setApplyPerson(null)));
-       // 测试 applyTime 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setApplyTime(null)));
-       // 测试 tenantId 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setTenantId(null)));
-       // 测试 source 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSource(null)));
-       // 测试 subjectId 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubjectId(null)));
-       // 测试 createTime 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setCreateTime(null)));
-       // 测试 updateTime 不匹配
-       policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setUpdateTime(null)));
-       // 准备参数
-       PolicySubsidiesInfoExportReqVO reqVO = new PolicySubsidiesInfoExportReqVO();
-       reqVO.setSubsidiesCategory(null);
-       reqVO.setSubsidiesName(null);
-       reqVO.setSubsidiesType(null);
-       reqVO.setSubsidiesStatus(null);
-       reqVO.setApplyPerson(null);
-       reqVO.setApplyTime(new Date[]{});
-       reqVO.setTenantId(null);
-       reqVO.setSource(null);
-       reqVO.setSubjectId(null);
-       reqVO.setCreateTime(new Date[]{});
-       reqVO.setUpdateTime(new Date[]{});
+        // mock 数据
+        PolicySubsidiesInfoDO dbPolicySubsidiesInfo = randomPojo(PolicySubsidiesInfoDO.class, o -> { // 等会查询到
+            o.setId(null);
+            o.setEnterpriseId(null);
+            o.setSubsidiesCategory(null);
+            o.setSubsidiesName(null);
+            o.setSubsidiesAmount(null);
+            o.setSubsidiesType(null);
+            o.setSubsidiesStatus(null);
+            o.setApplyPerson(null);
+            o.setApplyTime(null);
+            o.setTenantId(null);
+            o.setSource(null);
+            o.setSubjectId(null);
+            o.setCreator(null);
+            o.setCreateTime(null);
+            o.setUpdater(null);
+            o.setUpdateTime(null);
+        });
+        policySubsidiesInfoMapper.insert(dbPolicySubsidiesInfo);
+        // 测试 id 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setId(null)));
+        // 测试 enterpriseId 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setEnterpriseId(null)));
+        // 测试 subsidiesCategory 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesCategory(null)));
+        // 测试 subsidiesName 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesName(null)));
+        // 测试 subsidiesAmount 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesAmount(null)));
+        // 测试 subsidiesType 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesType(null)));
+        // 测试 subsidiesStatus 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubsidiesStatus(null)));
+        // 测试 applyPerson 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setApplyPerson(null)));
+        // 测试 applyTime 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setApplyTime(null)));
+        // 测试 tenantId 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setTenantId(null)));
+        // 测试 source 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSource(null)));
+        // 测试 subjectId 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setSubjectId(null)));
+        // 测试 creator 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setCreator(null)));
+        // 测试 createTime 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setCreateTime(null)));
+        // 测试 updater 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setUpdater(null)));
+        // 测试 updateTime 不匹配
+        policySubsidiesInfoMapper.insert(cloneIgnoreId(dbPolicySubsidiesInfo, o -> o.setUpdateTime(null)));
+        // 准备参数
+        PolicySubsidiesInfoExportReqVO reqVO = new PolicySubsidiesInfoExportReqVO();
+        reqVO.setId(null);
+        reqVO.setEnterpriseId(null);
+        reqVO.setSubsidiesCategory(null);
+        reqVO.setSubsidiesName(null);
+        reqVO.setSubsidiesAmount(null);
+        reqVO.setSubsidiesType(null);
+        reqVO.setSubsidiesStatus(null);
+        reqVO.setApplyPerson(null);
+        reqVO.setApplyTime((new Date[]{}));
+        reqVO.setTenantId(null);
+        reqVO.setSource(null);
+        reqVO.setSubjectId(null);
+        reqVO.setCreator(null);
+        reqVO.setCreateTime((new Date[]{}));
+        reqVO.setUpdater(null);
+        reqVO.setUpdateTime((new Date[]{}));
 
-       // 调用
-       List<PolicySubsidiesInfoDO> list = policySubsidiesInfoService.getPolicySubsidiesInfoList(reqVO);
-       // 断言
-       assertEquals(1, list.size());
-       assertPojoEquals(dbPolicySubsidiesInfo, list.get(0));
+        // 调用
+        List<PolicySubsidiesInfoDO> list = policySubsidiesInfoService.getPolicySubsidiesInfoList(reqVO);
+        // 断言
+        assertEquals(1, list.size());
+        assertPojoEquals(dbPolicySubsidiesInfo, list.get(0));
     }
 
 }

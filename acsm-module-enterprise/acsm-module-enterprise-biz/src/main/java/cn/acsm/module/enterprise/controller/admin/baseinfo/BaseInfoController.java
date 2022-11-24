@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.annotations.*;
 
+import javax.annotation.security.PermitAll;
 import javax.validation.constraints.*;
 import javax.validation.*;
 import javax.servlet.http.*;
@@ -30,6 +31,7 @@ import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.*
 @RestController
 @RequestMapping("/enterprise/base-info")
 @Validated
+@PermitAll
 public class BaseInfoController {
 
     @Resource
@@ -37,7 +39,8 @@ public class BaseInfoController {
 
     @PostMapping("/create")
     @ApiOperation("创建经营主体")
-    @PreAuthorize("@ss.hasPermission('enterprise:base-info:create')")
+    @PermitAll
+//    @PreAuthorize("@ss.hasPermission('enterprise:base-info:create')")
     public CommonResult<Long> createBaseInfo(@Valid @RequestBody BaseInfoCreateReqVO createReqVO) {
         return success(baseInfoService.createBaseInfo(createReqVO));
     }
@@ -47,6 +50,14 @@ public class BaseInfoController {
     @PreAuthorize("@ss.hasPermission('enterprise:base-info:update')")
     public CommonResult<Boolean> updateBaseInfo(@Valid @RequestBody BaseInfoUpdateReqVO updateReqVO) {
         baseInfoService.updateBaseInfo(updateReqVO);
+        return success(true);
+    }
+    @PutMapping("/stop")
+    @ApiOperation("停用经营主体")
+    @PreAuthorize("@ss.hasPermission('enterprise:base-info:update')")
+    @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
+    public CommonResult<Boolean> stop(@RequestParam("id") Long id) {
+        baseInfoService.stopEnterprise(id);
         return success(true);
     }
 
@@ -79,7 +90,8 @@ public class BaseInfoController {
 
     @GetMapping("/page")
     @ApiOperation("获得经营主体分页")
-    @PreAuthorize("@ss.hasPermission('enterprise:base-info:query')")
+//    @PreAuthorize("@ss.hasPermission('enterprise:base-info:query')")
+    @PermitAll
     public CommonResult<PageResult<BaseInfoRespVO>> getBaseInfoPage(@Valid BaseInfoPageReqVO pageVO) {
         PageResult<BaseInfoDO> pageResult = baseInfoService.getBaseInfoPage(pageVO);
         return success(BaseInfoConvert.INSTANCE.convertPage(pageResult));

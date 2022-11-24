@@ -21,12 +21,22 @@ public class PolicySubsidiesInfoExcelVO {
     @ExcelProperty("编号")
     private Long id;
 
+    @ExcelProperty("经营主体ID")
+    private Long enterpriseId;
+
     @ExcelProperty(value = "补贴种类", converter = DictConvert.class)
     @DictFormat("subsidies_category") // TODO 代码优化：建议设置到对应的 XXXDictTypeConstants 枚举类中
     private String subsidiesCategory;
 
     @ExcelProperty("补贴名称")
     private String subsidiesName;
+
+    @ExcelProperty("补贴金额")
+    private BigDecimal subsidiesAmount;
+
+    @ExcelProperty(value = "补贴方式", converter = DictConvert.class)
+    @DictFormat("subsidies_type") // TODO 代码优化：建议设置到对应的 XXXDictTypeConstants 枚举类中
+    private String subsidiesType;
 
     @ExcelProperty(value = "补贴状态", converter = DictConvert.class)
     @DictFormat("subsidies_status") // TODO 代码优化：建议设置到对应的 XXXDictTypeConstants 枚举类中
@@ -38,8 +48,23 @@ public class PolicySubsidiesInfoExcelVO {
     @ExcelProperty("申请时间")
     private Date applyTime;
 
+    @ExcelProperty("租户编号")
+    private Long tenantId;
+
+    @ExcelProperty("租户集合")
+    private Long source;
+
+    @ExcelProperty("经营主体ID")
+    private Long subjectId;
+
+    @ExcelProperty("创建者")
+    private String creator;
+
     @ExcelProperty("创建时间")
     private Date createTime;
+
+    @ExcelProperty("更新者")
+    private String updater;
 
     @ExcelProperty("更新时间")
     private Date updateTime;
