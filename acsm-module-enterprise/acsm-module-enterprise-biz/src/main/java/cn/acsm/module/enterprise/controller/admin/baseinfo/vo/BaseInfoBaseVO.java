@@ -5,10 +5,8 @@ import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.*;
 
-import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 /**
 * 经营主体 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -21,6 +19,7 @@ public class BaseInfoBaseVO {
     private String code;
 
     @ApiModelProperty(value = "主体名称")
+
     private String name;
 
     @ApiModelProperty(value = "主体类型")
@@ -43,8 +42,8 @@ public class BaseInfoBaseVO {
     private String manageStatus;
 
     @ApiModelProperty(value = "注册时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registerTime;
 
     @ApiModelProperty(value = "联系人")

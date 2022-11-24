@@ -31,6 +31,7 @@ import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.*
 @RestController
 @RequestMapping("/enterprise/base-info")
 @Validated
+@PermitAll
 public class BaseInfoController {
 
     @Resource
@@ -89,7 +90,8 @@ public class BaseInfoController {
 
     @GetMapping("/page")
     @ApiOperation("获得经营主体分页")
-    @PreAuthorize("@ss.hasPermission('enterprise:base-info:query')")
+//    @PreAuthorize("@ss.hasPermission('enterprise:base-info:query')")
+    @PermitAll
     public CommonResult<PageResult<BaseInfoRespVO>> getBaseInfoPage(@Valid BaseInfoPageReqVO pageVO) {
         PageResult<BaseInfoDO> pageResult = baseInfoService.getBaseInfoPage(pageVO);
         return success(BaseInfoConvert.INSTANCE.convertPage(pageResult));

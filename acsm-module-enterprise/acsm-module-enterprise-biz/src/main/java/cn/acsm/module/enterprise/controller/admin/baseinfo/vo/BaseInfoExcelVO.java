@@ -2,6 +2,7 @@ package cn.acsm.module.enterprise.controller.admin.baseinfo.vo;
 
 import cn.acsm.module.enterprise.enums.DictTypeConstants;
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
 
@@ -37,8 +38,7 @@ public class BaseInfoExcelVO {
 //    @ExcelProperty("主体类型名称")
 //    private String enterpriseTypeName;
 
-    @ExcelProperty("状态")
-    @EnumValue() // TODO 代码优化：建议设置到对应的 XXXDictTypeConstants 枚举类中
+    @ExcelProperty(value = "状态", converter = DictConvert.class)
     @DictFormat(DictTypeConstants.ENTERPRISE_STATUS)
     private String stauts;
 
@@ -55,6 +55,7 @@ public class BaseInfoExcelVO {
 
     @ExcelProperty("注册时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registerTime;
 
 //    @ExcelProperty("联系人")
