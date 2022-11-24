@@ -56,7 +56,7 @@
                     </el-form-item>
                 </el-col>
             </el-form-item>
-            <el-form-item>
+            <!-- <el-form-item>
                 <el-col :span="10">
                     <el-form-item label="其他证件号码" prop="name">
                         <el-input v-model="ruleForm.name" class="inputSize"></el-input>
@@ -68,9 +68,9 @@
                         </el-date-picker>
                     </el-form-item>
                 </el-col>
-            </el-form-item>
+            </el-form-item> -->
 
-            <el-form-item>
+            <!-- <el-form-item>
                 <el-col :span="20">
                     <el-form-item label="其他证件号码照片" prop="businessCertfront">
                         <el-upload action="#" list-type="picture-card" :auto-upload="false"
@@ -83,7 +83,7 @@
 
                     </el-form-item>
                 </el-col>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
