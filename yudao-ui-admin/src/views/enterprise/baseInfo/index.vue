@@ -24,6 +24,8 @@
       <el-form-item>
         <el-button icon="el-icon-search" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
+        <el-button type="primary" plain icon="el-icon-download" @click="handleExport" :loading="exportLoading"
+          v-hasPermi="['enterprise:base-info:export']">导出</el-button>
       </el-form-item>
     </el-form>
 
@@ -46,14 +48,16 @@
       <el-table-column label="省名称" align="center" prop="villagesAreaName" />
       <el-table-column label="市名称" align="center" prop="areaName" />
       <el-table-column label="区名称" align="center" prop="ruralName" />
-      <el-table-column label="状态" align="center" prop="stauts" />
+      <el-table-column label="状态" align="center" prop="stauts">
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.ENTERPRISE_STATUS" :value="scope.row.stauts" />
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" @click="handleDetail(scope.row)" v-hasPermi="['']">管理</el-button>
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
             v-hasPermi="['enterprise:base-info:update']">修改</el-button>
-          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
-            v-hasPermi="['enterprise:base-info:delete']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

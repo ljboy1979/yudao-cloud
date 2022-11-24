@@ -59,6 +59,7 @@ export const DICT_TYPE = {
 
   // ========== ENTERPRISE 模块 ==========
   ENTERPRISE_TYPE: 'enterprise_type', // 主体类型
+  ENTERPRISE_STATUS: 'enterprise_status', // 主体类型
   USER_TAG: 'user_tag', // 产业角色
   MANAGE_STATUS: 'manage_status', //经营状态
   // ---------- 经营主体其他 ----------
