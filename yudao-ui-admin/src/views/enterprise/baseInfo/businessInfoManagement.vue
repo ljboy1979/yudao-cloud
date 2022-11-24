@@ -4,6 +4,7 @@
     <el-tabs v-model="activeName" type="card" @tab-click="handleClick" lazy="true">
       <el-tab-pane label="企业信息" name="first">
         <div class="title">企业信息</div>
+        <el-button @click="gotoEdit">编辑</el-button>
       </el-tab-pane>
       <el-tab-pane label="设施" name="facilities">
         <div class="title">设施信息</div>
@@ -121,6 +122,9 @@ export default {
     handleExport() {
 
     },
+    gotoEdit() {
+      this.$router.push({ path: "/enterprise/baseInfo/businessEditInfo" });
+    }
   }
 };
 </script>

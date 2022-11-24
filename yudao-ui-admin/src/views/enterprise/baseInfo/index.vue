@@ -56,6 +56,10 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" @click="handleDetail(scope.row)" v-hasPermi="['']">管理</el-button>
+          <el-button size="mini" type="text" @click="handleStop(scope.row)" v-hasPermi="['']">
+            <span v-if="scope.row.stauts==1">停用</span>
+            <span v-else>启用</span>
+          </el-button>
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
             v-hasPermi="['enterprise:base-info:update']">修改</el-button>
         </template>
@@ -203,7 +207,7 @@
 </template>
 
 <script>
-import { createBaseInfo, updateBaseInfo, deleteBaseInfo, getBaseInfo, getBaseInfoPage, exportBaseInfoExcel } from "@/api/enterprise/baseInfo";
+import { createBaseInfo, updateBaseInfo, deleteBaseInfo, getBaseInfo, getBaseInfoPage, exportBaseInfoExcel, stopBaseInfoPage } from "@/api/enterprise/baseInfo";
 import Editor from '@/components/Editor';
 import { DICT_TYPE, getDictDatas } from "@/utils/dict";
 export default {
@@ -371,6 +375,16 @@ export default {
     /** 管理按钮操作 */
     handleDetail(row) {
       this.$router.push({ path: "/enterprise/baseInfo/businessInfoManagement", query: { id: row.id } });
+    },
+    handleStop(row) {
+      const id = row.id;
+      let stauts = row.stauts == 1 ? '停用' : '启用';
+      this.$modal.confirm(`是否确认${stauts}编号为${id}的经营主体`).then(function () {
+        return stopBaseInfoPage(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess(`${stauts}成功!`);
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
