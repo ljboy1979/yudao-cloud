@@ -10,7 +10,7 @@
             label-position="left">
             <el-form-item>
                 <el-col :span="10">
-                    <el-form-item label="主体编号" prop="bodyNumber">
+                    <el-form-item label="主体编号" prop="name">
                         <el-input v-model="ruleForm.name" class="inputSize"></el-input>
                     </el-form-item>
                 </el-col>
@@ -44,11 +44,11 @@
                     </el-form-item>
                 </el-col>
             </el-form-item>
-            <el-form-item>
+            <!-- <el-form-item>
                 <el-form-item label="统一社会信用代码或注册号" prop="name">
                     <el-input v-model="ruleForm.name" class="inputSize"></el-input>
                 </el-form-item>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item>
                 <el-form-item label="法定代表人" prop="name">
                     <el-input v-model="ruleForm.name" class="inputSize"></el-input>
@@ -67,10 +67,10 @@
             </el-form-item> -->
             <el-form-item>
                 <el-col :span="10">
-                    <el-form-item label="法人身份证照片" prop="IDimgfront">
+                    <el-form-item label="法人身份证照片" prop="legalIDcard">
                         <el-upload action="#" list-type="picture-card" :auto-upload="false"
                             :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :on-change="changeIDimg"
-                            :class="{ hide: IDimg }" ref="uploadID">
+                            :class="{ hide: IDimg }" ref="uploadID" :file-list="ruleForm.legalIDcard">
                             <i class="el-icon-plus"></i>
                         </el-upload>
                         <div style="font-size: 14px;color:#AAA">身份证正面 <span
@@ -81,10 +81,11 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
-                    <el-form-item label="" prop="IDimg">
+                    <el-form-item label="" prop="legalIDcardReverse">
                         <el-upload action="#" list-type="picture-card" :auto-upload="false"
                             :on-preview="handlePictureCardPreview" :on-remove="handleRemoveReverse"
-                            :on-change="changeIDimgReverse" :class="{ hide: IDimgReverse }" ref="uploadIDReverse">
+                            :on-change="changeIDimgReverse" :class="{ hide: IDimgReverse }" ref="uploadIDReverse"
+                            :file-list="ruleForm.legalIDcardReverse">
                             <i class="el-icon-plus"></i>
                         </el-upload>
                         <div style="font-size: 14px;color:#AAA">身份证反面 <span
@@ -132,10 +133,11 @@
                 </el-col>
             </el-form-item>
             <el-form-item>
-                <el-form-item label="企业LOGO" prop="name">
+                <el-form-item label="企业LOGO" prop="LogoUrl">
                     <el-upload action="#" list-type="picture-card" :auto-upload="false"
                         :on-preview="handlePictureCardPreview" :on-remove="handleRemoveLogo" :on-change="changeLogoimg"
-                        :class="{ hide: Logoimg }" :before-upload="beforeAvatarUpload" ref="uploadLogo">
+                        :class="{ hide: Logoimg }" :before-upload="beforeAvatarUpload" ref="uploadLogo"
+                        :file-list="ruleForm.LogoUrl">
                         <i class="el-icon-plus"></i>
                     </el-upload>
                     <div style="font-size: 14px;color:#AAA">最多1张 <span
@@ -150,7 +152,7 @@
                 </el-col>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
         </el-form>
@@ -164,7 +166,12 @@ export default {
     /**注册组件*/
     components: {},
     /**接受父组件传值*/
-    props: {},
+    props: {
+        id: {
+            type: String,
+            required: true
+        }
+    },
     name: 'businessInfo',
     data() {
         return {
@@ -211,6 +218,9 @@ export default {
             LicenseimgList: [],//电子营业执照图片
             Licenseimg: false,//电子营业执照图片是否可继续上传
             Logoimg: false,//Logo是否可继续上传
+            legalIDcardReverse: '',//法人身份证反面照片
+            legalIDcard: '',//法人身份证正面
+            LogoUrl: ''//企业Logo
         };
     },
     /**计算属性*/
@@ -222,8 +232,21 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!');
+
+                    this.LogoUrl == '' ? this.$message({
+                        message: '请上传企业Logo',
+                        type: 'error'
+                    }): ''
+                    this.legalIDcardReverse == '' ? this.$message({
+                        message: '请上传法人身份证反面照片',
+                        type: 'error'
+                    }) : ''
+                    this.legalIDcard == '' ? this.$message({
+                        message: '请上传法人身份证正面照片',
+                        type: 'error'
+                    }) : ''
                 } else {
+                    
                     console.log('error submit!!');
                     return false;
                 }
@@ -235,11 +258,13 @@ export default {
         //移除身份证正面照片
         handleRemove(file, fileList) {
             console.log(file, fileList);
+            this.legalIDcard = ''
             this.IDimg = false;
         },
         //移除身份证反面照片
         handleRemoveReverse(file, fileList) {
             console.log(file, fileList);
+            this.legalIDcardReverse = '';
             this.IDimgReverse = false;
         },
         //移除电子营业执照图片
@@ -251,6 +276,7 @@ export default {
         //移除企业Logo
         handleRemoveLogo(file, fileList) {
             console.log(file, fileList);
+            this.LogoUrl = ''
             this.Logoimg = false;
         },
         //预览照片
@@ -262,6 +288,7 @@ export default {
         changeIDimg(file) {
             let check = this.beforeAvatarUpload(file);
             if (check) {
+                this.legalIDcard = file.url;
                 this.IDimg = true;
             } else {
                 this.$refs.uploadID.uploadFiles.splice(this.$refs.uploadID.uploadFiles.length - 1, 1)
@@ -271,6 +298,7 @@ export default {
         changeIDimgReverse(file) {
             let check = this.beforeAvatarUpload(file);
             if (check) {
+                this.legalIDcardReverse = file.url;
                 this.IDimgReverse = true;
             } else {
                 this.$refs.uploadIDReverse.uploadFiles.splice(this.$refs.uploadIDReverse.uploadFiles.length - 1, 1)
@@ -292,7 +320,7 @@ export default {
             let check = this.beforeAvatarUpload(file);
             if (check) {
                 this.Logoimg = true;
-
+                this.LogoUrl = file.url;
             } else {
                 this.$refs.uploadLogo.uploadFiles.splice(this.$refs.uploadLogo.uploadFiles.length - 1, 1)
             }

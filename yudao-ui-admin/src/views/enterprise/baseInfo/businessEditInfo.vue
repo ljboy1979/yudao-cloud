@@ -12,8 +12,12 @@
             <el-tab-pane label="企业相关资料" name="businessRelatedInfo">
                 <businessRelatedInfo :id="userid" v-if="activeName=='businessRelatedInfo'"></businessRelatedInfo>
             </el-tab-pane>
-            <!-- <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-            <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane> -->
+            <el-tab-pane label="其他账户" name="otherCertificateInfo">
+                <otherCertificateInfo :id="userid" v-if="activeName=='otherCertificateInfo'"></otherCertificateInfo>
+            </el-tab-pane>
+            <el-tab-pane label="其他证件" name="otherAccountInfo">
+                <otherAccountInfo :id="userid" v-if="activeName=='otherAccountInfo'"></otherAccountInfo>
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -21,9 +25,12 @@
 //import(导入)其他文件（如：组件，工具js，第三方插件js，json文件，图片文件等）
 import businessInfo from "./businessInfo.vue"
 import businessRelatedInfo from "./businessRelatedInfo.vue"
+import otherCertificateInfo from"../../enterprise/otherCertificateInfo"
+import otherAccountInfo from"../../enterprise/otherAccountInfo"
+
 export default {
     /**注册组件*/
-    components: {businessInfo,businessRelatedInfo},
+    components: {businessInfo,businessRelatedInfo,otherCertificateInfo,otherAccountInfo},
     /**接受父组件传值*/
     props: {},
     name: 'EditbusinessInfo',

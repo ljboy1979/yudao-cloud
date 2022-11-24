@@ -146,6 +146,12 @@ export default {
   name: "OtherCertificateInfo",
   components: {
   },
+  props: {
+        id: {
+            type: String,
+            required: true
+        }
+    },
   data() {
     return {
       // 遮罩层
