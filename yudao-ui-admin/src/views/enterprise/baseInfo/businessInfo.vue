@@ -22,20 +22,29 @@
             </el-form-item>
             <el-form-item>
                 <el-col :span="10">
-                    <el-form-item label="主体类型" prop="name">
-                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                    <el-form-item label="主体类型">
+                        <el-select v-model="ruleForm.bodyType" placeholder="请选择主体类型">
+                            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.ENTERPRISE_TYPE)" :key="dict.value"
+                                :label="dict.label" :value="parseInt(dict.value)" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
                     <el-form-item label="产业角色" prop="name">
-                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                        <el-select v-model="ruleForm.userTag" placeholder="请选择产业角色">
+                            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.USER_TAG)" :key="dict.value"
+                                :label="dict.label" :value="parseInt(dict.value)" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
             </el-form-item>
             <el-form-item>
                 <el-col :span="10">
-                    <el-form-item label="经营状态" prop="name">
-                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                    <el-form-item label="经营状态" prop="status">
+                        <el-select v-model="ruleForm.status" placeholder="请选择经营状态">
+                            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MANAGE_STATUS)" :key="dict.value"
+                                :label="dict.label" :value="parseInt(dict.value)" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
@@ -109,12 +118,18 @@
             <el-form-item>
                 <el-col :span="10">
                     <el-form-item label="行政区域" prop="name">
-                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                        <el-select v-model="ruleForm.status" placeholder="请选择行政区域">
+                            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MANAGE_STATUS)" :key="dict.value"
+                                :label="dict.label" :value="parseInt(dict.value)" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
                     <el-form-item label="企业规模" prop="name">
-                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                        <el-select v-model="ruleForm.status" placeholder="请选择企业规模">
+                            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MANAGE_STATUS)" :key="dict.value"
+                                :label="dict.label" :value="parseInt(dict.value)" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
             </el-form-item>
@@ -184,7 +199,10 @@ export default {
                 delivery: false,
                 type: [],
                 resource: '',
-                desc: ''
+                desc: '',
+                bodyType: '',
+                status:'',
+                userTag:''
             },
             //表单检验规则
             rules: {
@@ -192,8 +210,8 @@ export default {
                     { required: true, message: '请输入活动名称', trigger: 'blur' },
                     // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
                 ],
-                bodyNumber: [
-                    { required: true, message: '请选择活动区域', trigger: 'change' }
+                bodyType: [
+                    { required: true, message: '请选择主体类型', trigger: 'change' }
                 ],
                 date1: [
                     { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
@@ -209,6 +227,12 @@ export default {
                 ],
                 desc: [
                     { required: true, message: '请填写公司简介', trigger: 'blur' }
+                ],
+                status:[
+                { required: true, message: '请选择经营状态', trigger: 'blur' }
+                ],
+                userTag:[
+                { required: true, message: '请选择产业角色', trigger: 'blur' }
                 ]
             },
             dialogVisible: false,//是否开启预览
@@ -232,21 +256,9 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-
-                    this.LogoUrl == '' ? this.$message({
-                        message: '请上传企业Logo',
-                        type: 'error'
-                    }): ''
-                    this.legalIDcardReverse == '' ? this.$message({
-                        message: '请上传法人身份证反面照片',
-                        type: 'error'
-                    }) : ''
-                    this.legalIDcard == '' ? this.$message({
-                        message: '请上传法人身份证正面照片',
-                        type: 'error'
-                    }) : ''
+                    this.legalIDcard == '' ? this.$message.error('请上传法人身份证正面照片') : this.legalIDcardReverse == '' ? this.$message.error('请上传法人身份证反面照片') : this.LogoUrl == '' ? this.$message.error('请上传企业Logo') : ''
                 } else {
-                    
+
                     console.log('error submit!!');
                     return false;
                 }
