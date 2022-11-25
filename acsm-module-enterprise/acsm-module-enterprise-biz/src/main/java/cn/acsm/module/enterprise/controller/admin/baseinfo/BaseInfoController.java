@@ -4,34 +4,32 @@ import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.*;
 import cn.acsm.module.enterprise.convert.baseinfo.BaseInfoConvert;
 import cn.acsm.module.enterprise.dal.dataobject.baseinfo.BaseInfoDO;
 import cn.acsm.module.enterprise.service.baseinfo.BaseInfoService;
-import org.springframework.web.bind.annotation.*;
-import javax.annotation.Resource;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.security.access.prepost.PreAuthorize;
-import io.swagger.annotations.*;
-
-import javax.annotation.security.PermitAll;
-import javax.validation.constraints.*;
-import javax.validation.*;
-import javax.servlet.http.*;
-import java.util.*;
-import java.io.IOException;
-
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
-
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
-
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
-import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+
+import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
+import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
 
 @Api(tags = "管理后台 - 经营主体")
 @RestController
 @RequestMapping("/enterprise/base-info")
 @Validated
-@PermitAll
 public class BaseInfoController {
 
     @Resource
@@ -39,8 +37,7 @@ public class BaseInfoController {
 
     @PostMapping("/create")
     @ApiOperation("创建经营主体")
-    @PermitAll
-//    @PreAuthorize("@ss.hasPermission('enterprise:base-info:create')")
+    @PreAuthorize("@ss.hasPermission('enterprise:base-info:create')")
     public CommonResult<Long> createBaseInfo(@Valid @RequestBody BaseInfoCreateReqVO createReqVO) {
         return success(baseInfoService.createBaseInfo(createReqVO));
     }
@@ -90,8 +87,7 @@ public class BaseInfoController {
 
     @GetMapping("/page")
     @ApiOperation("获得经营主体分页")
-//    @PreAuthorize("@ss.hasPermission('enterprise:base-info:query')")
-    @PermitAll
+    @PreAuthorize("@ss.hasPermission('enterprise:base-info:query')")
     public CommonResult<PageResult<BaseInfoRespVO>> getBaseInfoPage(@Valid BaseInfoPageReqVO pageVO) {
         PageResult<BaseInfoDO> pageResult = baseInfoService.getBaseInfoPage(pageVO);
         return success(BaseInfoConvert.INSTANCE.convertPage(pageResult));
