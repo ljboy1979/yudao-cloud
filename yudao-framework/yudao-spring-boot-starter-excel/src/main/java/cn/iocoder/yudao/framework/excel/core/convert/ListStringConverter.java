@@ -40,4 +40,5 @@ public class ListStringConverter implements Converter<List> {
         String json = JSONUtil.toJsonStr(list);
         return new WriteCellData(json);
     }
+
 }
