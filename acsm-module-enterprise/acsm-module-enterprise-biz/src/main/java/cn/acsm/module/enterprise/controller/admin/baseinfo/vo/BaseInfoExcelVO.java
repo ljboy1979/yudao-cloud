@@ -1,7 +1,6 @@
 package cn.acsm.module.enterprise.controller.admin.baseinfo.vo;
 
 import cn.acsm.module.enterprise.enums.DictTypeConstants;
-import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
@@ -9,7 +8,6 @@ import java.util.*;
 import com.alibaba.excel.annotation.ExcelProperty;
 import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
 import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
@@ -54,8 +52,7 @@ public class BaseInfoExcelVO {
 //    private String manageStatus;
 
     @ExcelProperty("注册时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = "GMT+8")
     private Date registerTime;
 
 //    @ExcelProperty("联系人")

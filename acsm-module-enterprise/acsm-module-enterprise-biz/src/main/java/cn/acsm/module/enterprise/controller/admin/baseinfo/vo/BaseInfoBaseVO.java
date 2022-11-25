@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.*;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 
 /**
@@ -42,8 +43,8 @@ public class BaseInfoBaseVO {
     private String manageStatus;
 
     @ApiModelProperty(value = "注册时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = "GMT+8")
     private Date registerTime;
 
     @ApiModelProperty(value = "联系人")

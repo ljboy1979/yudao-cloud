@@ -1,8 +1,9 @@
 package cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo;
 
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
-import io.swagger.annotations.*;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
@@ -46,12 +47,12 @@ public class OtherCertificateInfoExcelVO {
     private String creator;
 
     @ExcelProperty("创建时间")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ExcelProperty("更新者")
     private String updater;
 
     @ExcelProperty("更新时间")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
 }

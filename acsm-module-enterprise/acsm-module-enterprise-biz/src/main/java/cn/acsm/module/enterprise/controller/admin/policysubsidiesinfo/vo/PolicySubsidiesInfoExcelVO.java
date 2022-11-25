@@ -1,13 +1,17 @@
 package cn.acsm.module.enterprise.controller.admin.policysubsidiesinfo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import java.math.BigDecimal;
-import io.swagger.annotations.*;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
 import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 
 /**
@@ -61,12 +65,12 @@ public class PolicySubsidiesInfoExcelVO {
     private String creator;
 
     @ExcelProperty("创建时间")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ExcelProperty("更新者")
     private String updater;
 
     @ExcelProperty("更新时间")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
 }
