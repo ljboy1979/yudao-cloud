@@ -123,7 +123,7 @@ export default {
 
     },
     gotoEdit() {
-      this.$router.push({ path: "/enterprise/baseInfo/businessEditInfo" });
+      this.$router.push({ path: "/enterprise/baseInfo/businessEditInfo" ,query: { id: this.businessid } });
     }
   }
 };
