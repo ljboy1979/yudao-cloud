@@ -1,8 +1,6 @@
 package cn.acsm.module.enterprise.controller.admin.otheraccountinfo.vo;
 
 import lombok.*;
-import java.util.*;
-import io.swagger.annotations.*;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 
@@ -31,17 +29,4 @@ public class OtherAccountInfoExcelVO {
 
     @ExcelProperty("账户开户行")
     private String accountBank;
-
-    @ExcelProperty("创建者")
-    private String creator;
-
-    @ExcelProperty("创建时间")
-    private Date createTime;
-
-    @ExcelProperty("更新者")
-    private String updater;
-
-    @ExcelProperty("更新时间")
-    private Date updateTime;
-
 }
