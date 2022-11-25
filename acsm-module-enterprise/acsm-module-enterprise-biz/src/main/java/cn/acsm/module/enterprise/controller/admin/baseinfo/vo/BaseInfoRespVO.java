@@ -4,7 +4,6 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import io.swagger.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +17,9 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class BaseInfoRespVO extends BaseInfoBaseVO {
+
+    @ApiModelProperty(value = "主键ID", required = true)
+    private Long id;
 
     @ApiModelProperty(value = "主体编号")
     private String code;
@@ -76,10 +78,6 @@ public class BaseInfoRespVO extends BaseInfoBaseVO {
 
     @ApiModelProperty(value = "区名称")
     private String ruralName;
-
-
-    @ApiModelProperty(value = "主键ID", required = true)
-    private Long id;
 
     @ApiModelProperty(value = "注册地址")
     private String address;
