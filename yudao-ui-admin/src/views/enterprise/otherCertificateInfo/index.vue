@@ -115,18 +115,23 @@
           <el-input v-model="form.certificateNo" placeholder="请输入证件号" />
         </el-form-item>
         <el-form-item label="证件截止日期" prop="certificateEndTime">
-          <el-date-picker clearable v-model="form.certificateEndTime" type="date" value-format="timestamp"
+          <el-date-picker clearable v-model="form.certificateEndTime" type="date" 
             placeholder="选择证件截止日期" />
         </el-form-item>
         <el-form-item label="证件照片" prop="certificatePhoto">
-          <el-upload ref="certificatePhoto" action="#" list-type="picture-card" :auto-upload="false"
-            accept=".jpg, .png, .gif" :before-upload="fileBeforeUpload" :http-request="alipayPublicCertUpload"
-            :file-list="form.certificatePhoto">
+          <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemovecertificatePhoto" :on-change="changecertificatePhoto" :class="{ hide: certificate }"
+            ref="certificatePhoto" :file-list="form.certificatePhoto">
             <i class="el-icon-plus"></i>
-            <div class="el-upload__tip" slot="tip">提示：仅允许导入 jpg、png、gif 格式文件！</div>
           </el-upload>
+          <div style="font-size: 14px;color:#AAA">最多6张 <span style="font-size: 12px;">仅支持扩展名".jpg/.jpeg/.png"</span>
+          </div>
+          <el-dialog :visible.sync="dialogVisible" append-to-body>
+            <img width="50%" height="50%" :src="dialogImageUrl" alt="">
+          </el-dialog>
+
         </el-form-item>
-        <el-form-item label="租户编号" prop="tenantId">
+        <!-- <el-form-item label="租户编号" prop="tenantId">
           <el-input v-model="form.tenantId" placeholder="请输入租户编号" />
         </el-form-item>
         <el-form-item label="租户集合" prop="source">
@@ -134,7 +139,7 @@
         </el-form-item>
         <el-form-item label="经营主体ID" prop="subjectId">
           <el-input v-model="form.subjectId" placeholder="请输入经营主体ID" />
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -182,7 +187,7 @@ export default {
         certificateName: null,
         certificateNo: null,
         certificateEndTime: [],
-        certificatePhoto: null,
+        certificatePhoto: [],
         tenantId: null,
         source: null,
         subjectId: null,
@@ -193,8 +198,12 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        tenantId: [{ required: true, message: "租户编号不能为空", trigger: "blur" }],
-      }
+        // tenantId: [{ required: true, message: "租户编号不能为空", trigger: "blur" }],
+      },
+      businessLicensePhoto: [],//经营许可证
+      certificate: false,//经营许可证是否可继续上传
+      dialogVisible: false,//是否开启预览
+      dialogImageUrl: '',//当前预览图片地址
     };
   },
   created() {
@@ -273,6 +282,9 @@ export default {
       const id = row.id;
       getOtherCertificateInfo(id).then(response => {
         this.form = response.data;
+        console.log(response)
+        //图片反显
+        this.certificatePhoto=this.ToUpload(this.form.certificatePhoto);
         this.open = true;
         this.title = "修改经营主体其他证件";
       });
@@ -280,7 +292,8 @@ export default {
     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
-        if (!valid) {
+        if (!valid||this.certificatePhoto.length==0||this.certificatePhoto=='') {
+          this.$message.error("信息填写不完整");
           return;
         }
         console.log("form:", this.form)
@@ -294,11 +307,14 @@ export default {
           return;
         }
         // 添加的提交
-        createOtherCertificateInfo(this.form).then(response => {
-          this.$modal.msgSuccess("新增成功");
-          this.open = false;
-          this.getList();
-        });
+        let obj = JSON.parse(JSON.stringify(this.form));
+        obj.certificatePhoto=this.ArrayToString(this.certificatePhoto)
+        console.log(obj)
+        // createOtherCertificateInfo(obj).then(response => {
+        //   this.$modal.msgSuccess("新增成功");
+        //   this.open = false;
+        //   this.getList();
+        // });
       });
     },
     /** 删除按钮操作 */
@@ -324,7 +340,76 @@ export default {
         this.$download.excel(response, '经营主体其他证件.xls');
         this.exportLoading = false;
       }).catch(() => { });
-    }
+    },
+    //移除企业经营许可证
+    handleRemovecertificatePhoto(file, fileList) {
+      this.businessLicensePhoto = fileList
+      fileList.length < 6 ? this.certificate = false : ''
+      this.Logoimg = false;
+    },
+    //预览照片
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    //上传经营许可证，等于6张隐藏上传按钮
+    changecertificatePhoto(file, fileList) {
+      let check = this.beforeAvatarUpload(file);
+      if (check) {
+        fileList.length == 6 ? this.certificate = true : ''
+        this.certificatePhoto = fileList
+      } else {
+        this.$refs.certificate.uploadFiles.splice(this.$refs.certificate.uploadFiles.length - 1, 1)
+      }
+    },
+    //检验上传图片格式以及大小
+    beforeAvatarUpload(file) {
+      const isJPG = file.raw.type === 'image/jpeg' ? true : file.raw.type === 'image/jpg' ? true : file.raw.type === 'image/png' ? true : false;
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG) {
+        this.$message.error('上传图片只能是 JPG/JPEG/PNG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传图片大小不能超过 2MB!');
+      }
+      return isLt2M && isJPG;
+    },
+    //字符串转换成对应的upload接受类型参数
+    ToUpload(imgurl) {
+            //是否有多张图片
+            if(imgurl==''||imgurl==undefined){
+              return;
+            }
+            if (imgurl.indexOf(',') === -1) {
+                if (imgurl instanceof Array) {
+                } else {
+                    imgurl = [imgurl]
+                }
+            } else {
+                imgurl = imgurl.split(',');
+            }
+            let imgObject = [];
+            for (let i = 0; i < imgurl.length; i++) {
+                let obj = {};
+                obj.url = imgurl[i];
+                imgObject.push(obj)
+            }
+            return imgObject;
+
+        },
+        //将数组转换为后端需要的图片地址
+        ArrayToString(Arr) {
+            if (Array.isArray(Arr)) {
+                let Str = '';
+                for (let i = 0; i < Arr.length; i++) {
+                    i == 0 ? Str = Arr[i].url : Str = Str+',' + Arr[i].url;
+
+                }
+                return Str
+            }else{
+            }
+
+        }
   }
 };
 </script>

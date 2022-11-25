@@ -12,10 +12,10 @@
             <!-- <el-tab-pane label="企业相关资料" name="businessRelatedInfo">
                 <businessRelatedInfo :id="businessId" v-if="activeName == 'businessRelatedInfo'"></businessRelatedInfo>
             </el-tab-pane> -->
-            <el-tab-pane label="其他账户" name="otherCertificateInfo">
+            <el-tab-pane label="其他证件" name="otherCertificateInfo">
                 <otherCertificateInfo :id="businessId" v-if="activeName == 'otherCertificateInfo'"></otherCertificateInfo>
             </el-tab-pane>
-            <el-tab-pane label="其他证件" name="otherAccountInfo">
+            <el-tab-pane label="其他账户" name="otherAccountInfo">
                 <otherAccountInfo :id="businessId" v-if="activeName == 'otherAccountInfo'"></otherAccountInfo>
             </el-tab-pane>
         </el-tabs>
