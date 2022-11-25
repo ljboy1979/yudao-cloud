@@ -1,6 +1,7 @@
 package cn.acsm.module.enterprise.dal.dataobject.baseinfo;
 
 import cn.iocoder.yudao.framework.tenant.core.db.TenantBaseDO;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import java.util.*;
 import com.baomidou.mybatisplus.annotation.*;
@@ -89,9 +90,13 @@ public class BaseInfoDO extends TenantBaseDO {
      */
     private String legalIdCard;
     /**
-     * 法人身份证照片
+     * 法人身份证正面照片
      */
-    private String legalIdCardPhoto;
+    private String legalIdCardFrontPhoto;
+    /**
+     * 法人身份证背面照片
+     */
+    private String legalIdCardBackPhoto;
     /**
      * 注册时间
      */

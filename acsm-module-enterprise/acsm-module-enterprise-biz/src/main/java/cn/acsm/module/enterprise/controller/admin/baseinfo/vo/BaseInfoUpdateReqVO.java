@@ -36,8 +36,11 @@ public class BaseInfoUpdateReqVO extends BaseInfoBaseVO {
     @ApiModelProperty(value = "法人身份证")
     private String legalIdCard;
 
-    @ApiModelProperty(value = "法人身份证照片")
-    private String legalIdCardPhoto;
+    @ApiModelProperty(value = "法人身份证正面照片")
+    private String legalIdCardFrontPhoto;
+
+    @ApiModelProperty(value = "法人身份证背面照片")
+    private String legalIdCardBackPhoto;
 
     @ApiModelProperty(value = "公司简介")
     private String description;

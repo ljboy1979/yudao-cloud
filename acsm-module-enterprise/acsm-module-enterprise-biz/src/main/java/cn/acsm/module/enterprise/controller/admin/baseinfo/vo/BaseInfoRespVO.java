@@ -51,8 +51,8 @@ public class BaseInfoRespVO extends BaseInfoBaseVO {
 ////    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 //    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = "GMT+8")
 //    private Date registerTime;
-    @ExcelProperty("创建时间")
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = "GMT+8")
+    @ApiModelProperty(value = "创建时间", required = true)
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date createTime;
 
     @ApiModelProperty(value = "联系人")
@@ -97,8 +97,11 @@ public class BaseInfoRespVO extends BaseInfoBaseVO {
     @ApiModelProperty(value = "法人身份证")
     private String legalIdCard;
 
-    @ApiModelProperty(value = "法人身份证照片")
-    private String legalIdCardPhoto;
+    @ApiModelProperty(value = "法人身份证正面照片")
+    private String legalIdCardFrontPhoto;
+
+    @ApiModelProperty(value = "法人身份证背面照片")
+    private String legalIdCardBackPhoto;
 
     @ApiModelProperty(value = "公司简介")
     private String description;
