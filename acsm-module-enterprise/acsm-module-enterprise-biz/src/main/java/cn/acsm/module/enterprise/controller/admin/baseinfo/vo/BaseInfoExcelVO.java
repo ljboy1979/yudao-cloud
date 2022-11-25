@@ -3,6 +3,8 @@ package cn.acsm.module.enterprise.controller.admin.baseinfo.vo;
 import cn.acsm.module.enterprise.enums.DictTypeConstants;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 
 import com.alibaba.excel.annotation.ExcelProperty;
@@ -51,9 +53,9 @@ public class BaseInfoExcelVO {
 //    @DictFormat("manage_status") // TODO 代码优化：建议设置到对应的 XXXDictTypeConstants 枚举类中
 //    private String manageStatus;
 
-    @ExcelProperty("注册时间")
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = "GMT+8")
-    private Date registerTime;
+//    @ExcelProperty("注册时间")
+//    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = "GMT+8")
+//    private Date registerTime;
 
 //    @ExcelProperty("联系人")
 //    private String contactName;
@@ -78,5 +80,7 @@ public class BaseInfoExcelVO {
 //
 //    @ExcelProperty("区名称")
 //    private String ruralName;
+    @ExcelProperty("创建时间")
+    private LocalDateTime createTime;
 
 }
