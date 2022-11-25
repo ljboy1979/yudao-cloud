@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import org.springframework.context.annotation.Import;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -149,7 +151,7 @@ public class BaseInfoServiceImplTest extends BaseDbUnitTest {
         reqVO.setUserTag(null);
         reqVO.setUserTagName(null);
         reqVO.setManageStatus(null);
-        reqVO.setRegisterTime((new Date[]{}));
+        reqVO.setCreateTime((new LocalDateTime[]{}));
 
         // 调用
         PageResult<BaseInfoDO> pageResult = baseInfoService.getBaseInfoPage(reqVO);
@@ -207,7 +209,7 @@ public class BaseInfoServiceImplTest extends BaseDbUnitTest {
         reqVO.setUserTag(null);
         reqVO.setUserTagName(null);
         reqVO.setManageStatus(null);
-        reqVO.setRegisterTime((new Date[]{}));
+        reqVO.setCreateTime((new LocalDateTime[]{}));
 
         // 调用
         List<BaseInfoDO> list = baseInfoService.getBaseInfoList(reqVO);

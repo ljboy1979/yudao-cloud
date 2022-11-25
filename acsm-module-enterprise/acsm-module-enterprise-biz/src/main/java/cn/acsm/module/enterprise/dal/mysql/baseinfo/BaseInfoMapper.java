@@ -2,6 +2,7 @@ package cn.acsm.module.enterprise.dal.mysql.baseinfo;
 import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoExportReqVO;
 import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoPageReqVO;
 import cn.acsm.module.enterprise.dal.dataobject.baseinfo.BaseInfoDO;
+import cn.acsm.module.enterprise.dal.dataobject.othercertificateinfo.OtherCertificateInfoDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
@@ -28,7 +29,8 @@ public interface BaseInfoMapper extends BaseMapperX< BaseInfoDO > {
                 .eqIfPresent(BaseInfoDO::getUserTag, reqVO.getUserTag())
                 .likeIfPresent(BaseInfoDO::getUserTagName, reqVO.getUserTagName())
                 .eqIfPresent(BaseInfoDO::getManageStatus, reqVO.getManageStatus())
-                .betweenIfPresent(BaseInfoDO::getRegisterTime, reqVO.getRegisterTime())
+//                .betweenIfPresent(BaseInfoDO::getRegisterTime, reqVO.getRegisterTime())
+                .betweenIfPresent(BaseInfoDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(BaseInfoDO::getId));
     }
 
@@ -43,7 +45,8 @@ public interface BaseInfoMapper extends BaseMapperX< BaseInfoDO > {
                 .eqIfPresent(BaseInfoDO::getUserTag, reqVO.getUserTag())
                 .likeIfPresent(BaseInfoDO::getUserTagName, reqVO.getUserTagName())
                 .eqIfPresent(BaseInfoDO::getManageStatus, reqVO.getManageStatus())
-                .betweenIfPresent(BaseInfoDO::getRegisterTime, reqVO.getRegisterTime())
+                .betweenIfPresent(BaseInfoDO::getCreateTime, reqVO.getCreateTime())
+//                .betweenIfPresent(BaseInfoDO::getRegisterTime, reqVO.getRegisterTime())
                 .orderByDesc(BaseInfoDO::getId));
     }
 

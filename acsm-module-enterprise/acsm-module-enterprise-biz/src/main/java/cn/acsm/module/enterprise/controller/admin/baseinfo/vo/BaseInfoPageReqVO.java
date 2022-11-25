@@ -1,6 +1,8 @@
 package cn.acsm.module.enterprise.controller.admin.baseinfo.vo;
 
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import io.swagger.annotations.*;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
@@ -41,8 +43,12 @@ public class BaseInfoPageReqVO extends PageParam {
     @ApiModelProperty(value = "经营状态")
     private String manageStatus;
 
-    @ApiModelProperty(value = "注册时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date[] registerTime;
+//    @ApiModelProperty(value = "注册时间")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private Date[] registerTime;
+
+    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @ApiModelProperty(value = "创建时间")
+    private LocalDateTime[] createTime;
 
 }
