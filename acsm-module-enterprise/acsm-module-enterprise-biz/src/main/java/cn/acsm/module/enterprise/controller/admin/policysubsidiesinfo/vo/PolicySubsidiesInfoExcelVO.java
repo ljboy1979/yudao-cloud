@@ -2,6 +2,8 @@ package cn.acsm.module.enterprise.controller.admin.policysubsidiesinfo.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import java.math.BigDecimal;
 
@@ -63,14 +65,12 @@ public class PolicySubsidiesInfoExcelVO {
     private String creator;
 
     @ExcelProperty("创建时间")
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ExcelProperty("更新者")
     private String updater;
 
     @ExcelProperty("更新时间")
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
 }

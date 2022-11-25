@@ -1,15 +1,13 @@
 package cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
 import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 
 /**
@@ -49,16 +47,12 @@ public class OtherCertificateInfoExcelVO {
     private String creator;
 
     @ExcelProperty("创建时间")
-    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ExcelProperty("更新者")
     private String updater;
 
     @ExcelProperty("更新时间")
-    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
 }
