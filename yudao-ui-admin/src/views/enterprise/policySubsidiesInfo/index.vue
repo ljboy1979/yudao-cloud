@@ -100,7 +100,7 @@
         <el-form-item label="补贴状态" prop="subsidiesStatus">
           <el-select v-model="form.subsidiesStatus" placeholder="请选择补贴状态">
             <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_STATUS)" :key="dict.value"
-              :label="dict.label" :value="parseInt(dict.value)" />
+              :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="申请人" prop="applyPerson">

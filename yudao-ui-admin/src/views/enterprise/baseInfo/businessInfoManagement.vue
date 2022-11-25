@@ -18,44 +18,45 @@
           </el-form-item>
           <el-form-item>
             <el-col :span="10">
-              <el-form-item label="主体类型">
-                <dict-tag :type="DICT_TYPE.ENTERPRISE_TYPE" :value="ruleForm.bodyType" />
+              <el-form-item label="主体类型" prop="enterpriseType">
+                <dict-tag :type="DICT_TYPE.ENTERPRISE_TYPE" :value="ruleForm.enterpriseType" />
               </el-form-item>
             </el-col>
             <el-col :span="10">
-              <el-form-item label="产业角色" prop="name">
+              <el-form-item label="产业角色" prop="userTag">
                 <dict-tag :type="DICT_TYPE.USER_TAG" :value="ruleForm.userTag" />
               </el-form-item>
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-col :span="10">
-              <el-form-item label="经营状态" prop="status">
-                <dict-tag :type="DICT_TYPE.MANAGE_STATUS" :value="ruleForm.status" />
+              <el-form-item label="经营状态" prop="manageStatus">
+                <dict-tag :type="DICT_TYPE.MANAGE_STATUS" :value="ruleForm.manageStatus" />
               </el-form-item>
             </el-col>
             <el-col :span="10">
-              <el-form-item label="注册地址" prop="name">{{ ruleForm.name }}</el-form-item>
+              <el-form-item label="注册地址" prop="address">{{ ruleForm.address }}</el-form-item>
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-col :span="10">
-              <el-form-item label="法定代表人" prop="name">{{ ruleForm.name }}</el-form-item>
+              <el-form-item label="法定代表人" prop="legalPerson">{{ ruleForm.legalPerson }}</el-form-item>
             </el-col>
             <el-col :span="10">
-              <el-form-item label="法人身份证号" prop="name">{{ ruleForm.name }}</el-form-item>
+              <el-form-item label="法人身份证号" prop="legalIdCard">{{ ruleForm.legalIdCard }}</el-form-item>
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-col :span="10">
-              <el-form-item label="法人身份证照片" prop="legalIDcard">
-                <img v-if="ruleForm.legalIDcard" :src="ruleForm.legalIDcard" alt="企业LOGO" style="height: 100px" />
+              <el-form-item label="法人身份证照片" prop="legalIdCardFrontPhoto">
+                <el-image v-if="ruleForm.legalIdCardFrontPhoto" :src="ruleForm.legalIdCardFrontPhoto" alt="企业LOGO" 
+                  style="width:100px;height: 100px" ></el-image>
                 <div style="font-size: 14px;color:#AAA">身份证正面</div>
               </el-form-item>
             </el-col>
             <el-col :span="10">
-              <el-form-item label="" prop="legalIDcardReverse">
-                <img v-if="ruleForm.legalIDcardReverse" :src="ruleForm.legalIDcardReverse" alt="企业LOGO"
+              <el-form-item label="" prop="legalIdCardBackPhoto">
+                <el-image v-if="ruleForm.legalIdCardBackPhoto" :src="ruleForm.legalIdCardBackPhoto" alt="企业LOGO"
                   style="height: 100px" />
                 <div style="font-size: 14px;color:#AAA">身份证反面</div>
               </el-form-item>
@@ -63,101 +64,100 @@
           </el-form-item>
           <el-form-item>
             <el-col :span="10">
-              <el-form-item label="联系人" prop="name">{{ ruleForm.name }}</el-form-item>
+              <el-form-item label="联系人" prop="contactName">{{ ruleForm.contactName }}</el-form-item>
             </el-col>
             <el-col :span="10">
-              <el-form-item label="联系人电话" prop="name">{{ ruleForm.name }}</el-form-item>
+              <el-form-item label="联系人电话" prop="contactPhone">{{ ruleForm.contactPhone }}</el-form-item>
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-col :span="10">
-              <el-form-item label="行政区域" prop="name">
+              <el-form-item label="行政区域" prop="status">
                 <dict-tag :type="DICT_TYPE.MANAGE_STATUS" :value="ruleForm.status" />
               </el-form-item>
             </el-col>
             <el-col :span="10">
-              <el-form-item label="企业规模" prop="name">
-                <dict-tag :type="DICT_TYPE.MANAGE_STATUS" :value="ruleForm.status" />
+              <el-form-item label="企业规模" prop="enterpriseScale">
+                <dict-tag :type="DICT_TYPE.MANAGE_STATUS" :value="ruleForm.enterpriseScale" />
               </el-form-item>
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-col :span="15">
-              <el-form-item label="主营业务" prop="desc">{{ ruleForm.desc }}</el-form-item>
+              <el-form-item label="主营业务" prop="serviceRange">{{ ruleForm.serviceRange }}</el-form-item>
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-col :span="15">
-              <el-form-item label="公司简介" prop="desc">{{ ruleForm.desc }}</el-form-item>
+              <el-form-item label="公司简介" prop="description">{{ ruleForm.description }}</el-form-item>
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-form-item label="企业LOGO" prop="LogoUrl">
-              <img v-if="ruleForm.LogoUrl" :src="ruleForm.LogoUrl" alt="企业LOGO" style="height: 100px" />
+              <el-image v-if="ruleForm.logo" :src="ruleForm.logo" alt="企业LOGO" style="height: 100px" />
             </el-form-item>
           </el-form-item>
           <el-form-item>
             <el-col :span="15">
-              <el-form-item label="备注" prop="desc">{{ ruleForm.desc }}</el-form-item>
+              <el-form-item label="备注" prop="remarks">{{ ruleForm.remarks }}</el-form-item>
             </el-col>
           </el-form-item>
         </el-form>
+
         <div class="subtitle">企业相关资料</div>
         <el-form :model="ruleForm" label-width="200px" ref="ruleForm" class="demo-ruleForm" label-position="left">
-
           <el-form-item>
-            <el-form-item label="统一社会信用代码或注册号" prop="name">{{ ruleForm.name }}</el-form-item>
+            <el-form-item label="统一社会信用代码或注册号" prop="socialCreditCode">{{ ruleForm.socialCreditCode }}</el-form-item>
           </el-form-item>
           <el-form-item>
-            <el-form-item label="电子营业执照" prop="name">
-              <img v-if="ruleForm.img" :src="ruleForm.img" alt="电子营业执照" style="height: 100px" />
+            <el-form-item label="电子营业执照" prop="businessCertificatePhoto">
+              <div v-for="(item, index) in ruleForm.businessLicensePhoto" :key="index"
+                style="display: inline; margin: 0 10px;">
+                <el-image :src="item" alt="电子营业执照" style="height: 100px" />
+              </div>
             </el-form-item>
           </el-form-item>
           <el-form-item>
-            <el-form-item label="经营许可证">
-              <el-row>
-                <el-col :span="10">
-                  <el-form-item label="经营许可证号码" prop="name">{{ ruleForm.name }}</el-form-item>
-                </el-col>
-                <el-col :span="10">
-                  <el-form-item label="经营许可证有效日期" prop="date2">{{ parseTime(ruleForm.date2, '{y}-{m}-{d}') }}
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="20">
-                  <el-form-item label="经营许可证照片" prop="businessCertfront">
-                    <img v-if="ruleForm.businessCertfront" :src="ruleForm.businessCertfront" alt="经营许可证照片"
-                      style="height: 100px" />
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-form-item>
+            <el-col :span="10">
+              <el-form-item label="经营许可证号码" prop="businessLicenseNo">{{ ruleForm.businessLicenseNo }}</el-form-item>
+            </el-col>
+            <el-col :span="10">
+              <el-form-item label="经营许可证有效日期" prop="businessLicenseEndTime">{{
+                  parseTime(ruleForm.businessLicenseEndTime, '{y}-{m}-{d}')
+              }}
+              </el-form-item>
+            </el-col>
+          </el-form-item>
+          <el-form-item>
+            <el-col :span="20">
+              <el-form-item label="经营许可证照片" prop="businessCertfront">
+                <div v-for="(item, index) in ruleForm.businessCertificatePhoto" :key="index"
+                  style="display: inline; margin: 0 10px;">
+                  <el-image :src="item" alt="电子营业执照" style="height: 100px" />
+                </div>
+              </el-form-item>
+            </el-col>
           </el-form-item>
         </el-form>
         <div class="subtitle">账户信息</div>
         <el-form :model="ruleForm" label-width="200px" ref="ruleForm" class="demo-ruleForm" label-position="left">
           <el-form-item>
-            <el-form-item label="注册账户信息">
-              <el-row>
-                <el-col :span="10">
-                  <el-form-item label="账户名" prop="name">{{ ruleForm.name }}</el-form-item>
-                </el-col>
-                <el-col :span="10">
-                  <el-form-item label="身份证号" prop="date2">{{ parseTime(ruleForm.date2, '{y}-{m}-{d}') }}
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="10">
-                  <el-form-item label="银行卡号" prop="name">{{ ruleForm.name }}</el-form-item>
-                </el-col>
-                <el-col :span="10">
-                  <el-form-item label="开户行" prop="date2">{{ parseTime(ruleForm.date2, '{y}-{m}-{d}') }}
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-form-item>
+            <el-col :span="10">
+              <el-form-item label="账户名" prop="accountName">{{ ruleForm.accountName }}</el-form-item>
+            </el-col>
+            <el-col :span="10">
+              <el-form-item label="身份证号" prop="accountIdCard">{{ ruleForm.accountIdCard }}
+              </el-form-item>
+            </el-col>
+          </el-form-item>
+          <el-form-item>
+            <el-col :span="10">
+              <el-form-item label="银行卡号" prop="accountNo">{{ ruleForm.accountNo }}</el-form-item>
+            </el-col>
+            <el-col :span="10">
+              <el-form-item label="开户行" prop="accountBank">{{ ruleForm.accountBank }}
+              </el-form-item>
+            </el-col>
           </el-form-item>
         </el-form>
 
@@ -221,11 +221,11 @@
       </el-tab-pane>
       <el-tab-pane label="其他证件" name="otherCertificateInfo">
         <div class="title">其他证件</div>
-        <otherCertificateInfo :id="id" v-if="activeName=='otherCertificateInfo'"></otherCertificateInfo>
+        <otherCertificateInfo :id="id" v-if="activeName == 'otherCertificateInfo'"></otherCertificateInfo>
       </el-tab-pane>
       <el-tab-pane label="其他账户" name="otherAccountInfo">
         <div class="title">其他账户</div>
-        <otherAccountInfo :id="id" v-if="activeName=='otherAccountInfo'"></otherAccountInfo>
+        <otherAccountInfo :id="id" v-if="activeName == 'otherAccountInfo'"></otherAccountInfo>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -234,13 +234,40 @@
 <script>
 import { getBaseInfo } from "@/api/enterprise/baseInfo"
 import PolicySubsidiesInfo from '../policySubsidiesInfo/index.vue'
-import otherCertificateInfo from"../../enterprise/otherCertificateInfo"
-import otherAccountInfo from"../../enterprise/otherAccountInfo"
-import { resolveObjectURL } from 'buffer';
+import otherCertificateInfo from "../../enterprise/otherCertificateInfo"
+import otherAccountInfo from "../../enterprise/otherAccountInfo"
+const defaultRefundDetail = {
+  code: '',
+  name: '',
+  enterpriseType: '',
+  userTag: '',
+  manageStatus: false,
+  address: '',
+  legalPerson: '',
+  legalIdCard: '',
+  contactName: '',
+  contactPhone: '',
+  enterpriseScale: '',
+  serviceRange: '',
+  description: '',
+  remarks: '',
+  socialCreditCode: '',
+  businessLicenseNo: '',
+  businessLicenseEndTime: '',
+  accountName: '',
+  accountIdCard: '',
+  accountNo: '',
+  accountBank: '',
+  legalIdCardBackPhoto: [],//法人身份证反面照片
+  legalIdCardFrontPhoto: [],//法人身份证正面
+  logo: [],//企业Logo
+  businessLicensePhoto: [],//经营许可证
+  businessCertificatePhoto: []//电子营业执照图片
+}
 export default {
   name: "User",
   components: {
-    PolicySubsidiesInfo,otherCertificateInfo,otherAccountInfo
+    PolicySubsidiesInfo, otherCertificateInfo, otherAccountInfo
   },
   data() {
     return {
@@ -254,8 +281,7 @@ export default {
       exportLoading: false,
 
       //表单内容
-      ruleForm: {
-      },
+      ruleForm: JSON.parse(JSON.stringify(defaultRefundDetail)),
 
       // 显示搜索条件
       showSearch: true,
@@ -278,12 +304,24 @@ export default {
     console.log(this.$route.query.id, 'query')
     this.businessid = this.$route.query.id
     //调接口获取会员信息
+    this.getBaseInfoMessage()
   },
   methods: {
     //切换tab
     handleClick(tab, event) {
       console.log(tab.index, event);
     },
+
+    //获取表单原有数据
+    getBaseInfoMessage() {
+      const id = this.businessid
+      getBaseInfo(id).then(response => {
+        this.ruleForm = response.data;
+        this.ruleForm.businessLicensePhoto = response.data.businessLicensePhoto.split(',')
+        this.ruleForm.businessCertificatePhoto = response.data.businessCertificatePhoto.split(',')
+      });
+    },
+
     /** 搜索按钮操作 */
     handleQuery() {
 
@@ -297,7 +335,7 @@ export default {
 
     },
     gotoEdit() {
-      this.$router.push({ path: "/enterprise/baseInfo/businessEditInfo", query: {id: this.businessid} });
+      this.$router.push({ path: "/enterprise/baseInfo/businessEditInfo", query: { id: this.businessid } });
     }
   }
 };
@@ -307,6 +345,7 @@ export default {
   font-size: 24px;
   margin: 10px 0 10px 15px;
 }
+
 .subtitle {
   font-size: 18px;
   margin: 10px 0 20px 15px;
