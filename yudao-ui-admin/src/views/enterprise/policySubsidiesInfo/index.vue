@@ -3,69 +3,38 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="补贴种类" prop="subsidiesCategory">
-        <el-select v-model="queryParams.subsidiesCategory" placeholder="请选择补贴种类" clearable size="small">
-          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_CATEGORY)"
-                       :key="dict.value" :label="dict.label" :value="dict.value"/>
-        </el-select>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-plus" @click="handleAdd"
+          v-hasPermi="['enterprise:policy-subsidies-info:create']">新增</el-button>
       </el-form-item>
-      <el-form-item label="补贴名称" prop="subsidiesName">
-        <el-input v-model="queryParams.subsidiesName" placeholder="请输入补贴名称" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="补贴方式" prop="subsidiesType">
-        <el-select v-model="queryParams.subsidiesType" placeholder="请选择补贴方式" clearable size="small">
-          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_TYPE)"
-                       :key="dict.value" :label="dict.label" :value="dict.value"/>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="补贴状态" prop="subsidiesStatus">
+      <el-form-item prop="subsidiesStatus">
         <el-select v-model="queryParams.subsidiesStatus" placeholder="请选择补贴状态" clearable size="small">
-          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_STATUS)"
-                       :key="dict.value" :label="dict.label" :value="dict.value"/>
+          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_STATUS)" :key="dict.value" :label="dict.label"
+            :value="dict.value" />
         </el-select>
       </el-form-item>
-      <el-form-item label="申请人" prop="applyPerson">
-        <el-input v-model="queryParams.applyPerson" placeholder="请输入申请人" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item prop="subsidiesCategory">
+        <el-select v-model="queryParams.subsidiesCategory" placeholder="请选择补贴种类" clearable size="small">
+          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_CATEGORY)" :key="dict.value"
+            :label="dict.label" :value="dict.value" />
+        </el-select>
       </el-form-item>
-      <el-form-item label="申请时间" prop="applyTime">
-        <el-date-picker v-model="queryParams.applyTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
-                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      <el-form-item prop="subsidiesName">
+        <el-input v-model="queryParams.subsidiesName" placeholder="请输入补贴名称" clearable
+          @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="租户编号" prop="tenantId">
-        <el-input v-model="queryParams.tenantId" placeholder="请输入租户编号" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="租户集合" prop="source">
-        <el-input v-model="queryParams.source" placeholder="请输入租户集合" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="经营主体ID" prop="subjectId">
-        <el-input v-model="queryParams.subjectId" placeholder="请输入经营主体ID" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="创建时间" prop="createTime">
-        <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
-                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
-      </el-form-item>
-      <el-form-item label="更新时间" prop="updateTime">
-        <el-date-picker v-model="queryParams.updateTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
-                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      <el-form-item prop="applyTime">
+        <el-date-picker v-model="queryParams.applyTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
+          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-search" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
+        <!-- <el-button type="primary" plain icon="el-icon-download" @click="handleExport" :loading="exportLoading"
+          v-hasPermi="['enterprise:policy-subsidies-info:export']">导出</el-button> -->
       </el-form-item>
     </el-form>
-
-    <!-- 操作工具栏 -->
-    <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
-                   v-hasPermi="['enterprise:policy-subsidies-info:create']">新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
-                   v-hasPermi="['enterprise:policy-subsidies-info:export']">导出</el-button>
-      </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row>
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
@@ -87,27 +56,28 @@
       <el-table-column label="更新时间" align="center" prop="updateTime" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
-          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
-                     v-hasPermi="['enterprise:policy-subsidies-info:update']">修改</el-button>
-          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
-                     v-hasPermi="['enterprise:policy-subsidies-info:delete']">删除</el-button>
+          <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
+            v-hasPermi="['enterprise:policy-subsidies-info:update']">修改</el-button>
+          <el-button size="mini" type="text" @click="handleDelete(scope.row)"
+            v-hasPermi="['enterprise:policy-subsidies-info:delete']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="经营主体ID" prop="enterpriseId">
-          <el-input v-model="form.enterpriseId" placeholder="请输入经营主体ID" />
+        <el-form-item label="申请时间" prop="applyTime">
+          <el-date-picker clearable v-model="form.applyTime" type="date" value-format="timestamp"
+            placeholder="选择申请时间" />
         </el-form-item>
         <el-form-item label="补贴种类" prop="subsidiesCategory">
           <el-select v-model="form.subsidiesCategory" placeholder="请选择补贴种类">
-            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_CATEGORY)"
-                       :key="dict.value" :label="dict.label" :value="dict.value" />
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_CATEGORY)" :key="dict.value"
+              :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="补贴名称" prop="subsidiesName">
@@ -118,27 +88,18 @@
         </el-form-item>
         <el-form-item label="补贴方式" prop="subsidiesType">
           <el-select v-model="form.subsidiesType" placeholder="请选择补贴方式">
-            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_TYPE)"
-                       :key="dict.value" :label="dict.label" :value="dict.value" />
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_TYPE)" :key="dict.value" :label="dict.label"
+              :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="补贴状态" prop="subsidiesStatus">
           <el-select v-model="form.subsidiesStatus" placeholder="请选择补贴状态">
-            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_STATUS)"
-                       :key="dict.value" :label="dict.label" :value="parseInt(dict.value)" />
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_STATUS)" :key="dict.value"
+              :label="dict.label" :value="parseInt(dict.value)" />
           </el-select>
         </el-form-item>
         <el-form-item label="申请人" prop="applyPerson">
           <el-input v-model="form.applyPerson" placeholder="请输入申请人" />
-        </el-form-item>
-        <el-form-item label="申请时间" prop="applyTime">
-          <el-date-picker clearable v-model="form.applyTime" type="date" value-format="timestamp" placeholder="选择申请时间" />
-        </el-form-item>
-        <el-form-item label="租户集合" prop="source">
-          <el-input v-model="form.source" placeholder="请输入租户集合" />
-        </el-form-item>
-        <el-form-item label="经营主体ID" prop="subjectId">
-          <el-input v-model="form.subjectId" placeholder="请输入经营主体ID" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -154,12 +115,20 @@ import { createPolicySubsidiesInfo, updatePolicySubsidiesInfo, deletePolicySubsi
 
 export default {
   name: "PolicySubsidiesInfo",
+  /**接受父组件传值*/
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   components: {
   },
   data() {
     return {
       // 遮罩层
-      loading: true,
+      // loading: true,
+      loading: false,
       // 导出遮罩层
       exportLoading: false,
       // 显示搜索条件
@@ -245,7 +214,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加企业政策补贴信息";
+      this.title = "新增政策补贴";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -254,7 +223,7 @@ export default {
       getPolicySubsidiesInfo(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改企业政策补贴信息";
+        this.title = "修改政策补贴";
       });
     },
     /** 提交按钮 */
@@ -283,26 +252,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除企业政策补贴信息编号为"' + id + '"的数据项?').then(function() {
-          return deletePolicySubsidiesInfo(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除企业政策补贴信息编号为"' + id + '"的数据项?').then(function () {
+        return deletePolicySubsidiesInfo(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有企业政策补贴信息数据项?').then(() => {
-          this.exportLoading = true;
-          return exportPolicySubsidiesInfoExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '企业政策补贴信息.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportPolicySubsidiesInfoExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '企业政策补贴信息.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };

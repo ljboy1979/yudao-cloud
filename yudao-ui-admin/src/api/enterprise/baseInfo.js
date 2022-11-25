@@ -43,6 +43,15 @@ export function getBaseInfoPage(query) {
   })
 }
 
+// 停用经营主体分页
+export function stopBaseInfoPage(id) {
+  return request({
+    url: '/enterprise/base-info/stop?id=' + id,
+    method: 'put',
+    // params: query
+  })
+}
+
 // 导出经营主体 Excel
 export function exportBaseInfoExcel(query) {
   return request({

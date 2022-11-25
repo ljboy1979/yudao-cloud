@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-
+    <div class="title">会员管理</div>
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item prop="role">
@@ -213,3 +213,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+.title {
+    font-size: 24px;
+    margin: 10px 0 20px 15px;
+}
+</style>

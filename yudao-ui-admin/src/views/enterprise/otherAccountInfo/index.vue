@@ -3,44 +3,50 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="账户名" prop="accountName">
-        <el-input v-model="queryParams.accountName" placeholder="请输入账户名" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-plus" @click="handleAdd"
+          v-hasPermi="['enterprise:other-account-info:create']">新增</el-button>
       </el-form-item>
-      <el-form-item label="账户银行卡号" prop="accountNo">
-        <el-input v-model="queryParams.accountNo" placeholder="请输入账户银行卡号" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item prop="accountName">
+        <el-input v-model="queryParams.accountName" placeholder="请输入账户名" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="账户身份证号" prop="accountIdCard">
-        <el-input v-model="queryParams.accountIdCard" placeholder="请输入账户身份证号" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item prop="accountNo">
+        <el-input v-model="queryParams.accountNo" placeholder="请输入账户银行卡号" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="账户开户行" prop="accountBank">
-        <el-input v-model="queryParams.accountBank" placeholder="请输入账户开户行" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item prop="accountIdCard">
+        <el-input v-model="queryParams.accountIdCard" placeholder="请输入账户身份证号" clearable
+          @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="创建时间" prop="createTime">
-        <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
-                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      <el-form-item prop="accountBank">
+        <el-input v-model="queryParams.accountBank" placeholder="请输入账户开户行" clearable
+          @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="更新时间" prop="updateTime">
-        <el-date-picker v-model="queryParams.updateTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
-                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      <el-form-item prop="createTime">
+        <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
+          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          :default-time="['00:00:00', '23:59:59']" />
+      </el-form-item>
+      <el-form-item prop="updateTime">
+        <el-date-picker v-model="queryParams.updateTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
+          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
+        <el-button type="primary" plain icon="el-icon-download" @click="handleExport" :loading="exportLoading"
+          v-hasPermi="['enterprise:other-account-info:export']">导出</el-button>
       </el-form-item>
     </el-form>
 
     <!-- 操作工具栏 -->
-    <el-row :gutter="10" class="mb8">
+    <!-- <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
-                   v-hasPermi="['enterprise:other-account-info:create']">新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
-                   v-hasPermi="['enterprise:other-account-info:export']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row>
+    </el-row> -->
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
@@ -54,19 +60,19 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
-                     v-hasPermi="['enterprise:other-account-info:update']">修改</el-button>
+            v-hasPermi="['enterprise:other-account-info:update']">修改</el-button>
           <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
-                     v-hasPermi="['enterprise:other-account-info:delete']">删除</el-button>
+            v-hasPermi="['enterprise:other-account-info:delete']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="账户名" prop="accountName">
           <el-input v-model="form.accountName" placeholder="请输入账户名" />
         </el-form-item>
@@ -211,26 +217,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除经营主体其他账户编号为"' + id + '"的数据项?').then(function() {
-          return deleteOtherAccountInfo(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除经营主体其他账户编号为"' + id + '"的数据项?').then(function () {
+        return deleteOtherAccountInfo(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有经营主体其他账户数据项?').then(() => {
-          this.exportLoading = true;
-          return exportOtherAccountInfoExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '经营主体其他账户.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportOtherAccountInfoExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '经营主体其他账户.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };

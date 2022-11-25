@@ -10,7 +10,7 @@
             label-position="left">
             <el-form-item>
                 <el-col :span="10">
-                    <el-form-item label="主体编号" prop="bodyNumber">
+                    <el-form-item label="主体编号" prop="name">
                         <el-input v-model="ruleForm.name" class="inputSize"></el-input>
                     </el-form-item>
                 </el-col>
@@ -22,20 +22,29 @@
             </el-form-item>
             <el-form-item>
                 <el-col :span="10">
-                    <el-form-item label="主体类型" prop="name">
-                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                    <el-form-item label="主体类型">
+                        <el-select v-model="ruleForm.bodyType" placeholder="请选择主体类型">
+                            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.ENTERPRISE_TYPE)" :key="dict.value"
+                                :label="dict.label" :value="parseInt(dict.value)" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
                     <el-form-item label="产业角色" prop="name">
-                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                        <el-select v-model="ruleForm.userTag" placeholder="请选择产业角色">
+                            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.USER_TAG)" :key="dict.value"
+                                :label="dict.label" :value="parseInt(dict.value)" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
             </el-form-item>
             <el-form-item>
                 <el-col :span="10">
-                    <el-form-item label="经营状态" prop="name">
-                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                    <el-form-item label="经营状态" prop="status">
+                        <el-select v-model="ruleForm.status" placeholder="请选择经营状态">
+                            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MANAGE_STATUS)" :key="dict.value"
+                                :label="dict.label" :value="parseInt(dict.value)" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
@@ -44,11 +53,11 @@
                     </el-form-item>
                 </el-col>
             </el-form-item>
-            <el-form-item>
+            <!-- <el-form-item>
                 <el-form-item label="统一社会信用代码或注册号" prop="name">
                     <el-input v-model="ruleForm.name" class="inputSize"></el-input>
                 </el-form-item>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item>
                 <el-form-item label="法定代表人" prop="name">
                     <el-input v-model="ruleForm.name" class="inputSize"></el-input>
@@ -67,10 +76,10 @@
             </el-form-item> -->
             <el-form-item>
                 <el-col :span="10">
-                    <el-form-item label="法人身份证照片" prop="IDimgfront">
+                    <el-form-item label="法人身份证照片" prop="legalIDcard">
                         <el-upload action="#" list-type="picture-card" :auto-upload="false"
                             :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :on-change="changeIDimg"
-                            :class="{ hide: IDimg }" ref="uploadID">
+                            :class="{ hide: IDimg }" ref="uploadID" :file-list="ruleForm.legalIDcard">
                             <i class="el-icon-plus"></i>
                         </el-upload>
                         <div style="font-size: 14px;color:#AAA">身份证正面 <span
@@ -81,10 +90,11 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
-                    <el-form-item label="" prop="IDimg">
+                    <el-form-item label="" prop="legalIDcardReverse">
                         <el-upload action="#" list-type="picture-card" :auto-upload="false"
                             :on-preview="handlePictureCardPreview" :on-remove="handleRemoveReverse"
-                            :on-change="changeIDimgReverse" :class="{ hide: IDimgReverse }" ref="uploadIDReverse">
+                            :on-change="changeIDimgReverse" :class="{ hide: IDimgReverse }" ref="uploadIDReverse"
+                            :file-list="ruleForm.legalIDcardReverse">
                             <i class="el-icon-plus"></i>
                         </el-upload>
                         <div style="font-size: 14px;color:#AAA">身份证反面 <span
@@ -108,12 +118,18 @@
             <el-form-item>
                 <el-col :span="10">
                     <el-form-item label="行政区域" prop="name">
-                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                        <el-select v-model="ruleForm.status" placeholder="请选择行政区域">
+                            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MANAGE_STATUS)" :key="dict.value"
+                                :label="dict.label" :value="parseInt(dict.value)" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
                     <el-form-item label="企业规模" prop="name">
-                        <el-input v-model="ruleForm.name" class="inputSize"></el-input>
+                        <el-select v-model="ruleForm.status" placeholder="请选择企业规模">
+                            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MANAGE_STATUS)" :key="dict.value"
+                                :label="dict.label" :value="parseInt(dict.value)" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
             </el-form-item>
@@ -132,10 +148,11 @@
                 </el-col>
             </el-form-item>
             <el-form-item>
-                <el-form-item label="企业LOGO" prop="name">
+                <el-form-item label="企业LOGO" prop="LogoUrl">
                     <el-upload action="#" list-type="picture-card" :auto-upload="false"
                         :on-preview="handlePictureCardPreview" :on-remove="handleRemoveLogo" :on-change="changeLogoimg"
-                        :class="{ hide: Logoimg }" :before-upload="beforeAvatarUpload" ref="uploadLogo">
+                        :class="{ hide: Logoimg }" :before-upload="beforeAvatarUpload" ref="uploadLogo"
+                        :file-list="ruleForm.LogoUrl">
                         <i class="el-icon-plus"></i>
                     </el-upload>
                     <div style="font-size: 14px;color:#AAA">最多1张 <span
@@ -150,7 +167,7 @@
                 </el-col>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
         </el-form>
@@ -164,7 +181,12 @@ export default {
     /**注册组件*/
     components: {},
     /**接受父组件传值*/
-    props: {},
+    props: {
+        id: {
+            type: String,
+            required: true
+        }
+    },
     name: 'businessInfo',
     data() {
         return {
@@ -177,7 +199,10 @@ export default {
                 delivery: false,
                 type: [],
                 resource: '',
-                desc: ''
+                desc: '',
+                bodyType: '',
+                status:'',
+                userTag:''
             },
             //表单检验规则
             rules: {
@@ -185,8 +210,8 @@ export default {
                     { required: true, message: '请输入活动名称', trigger: 'blur' },
                     // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
                 ],
-                bodyNumber: [
-                    { required: true, message: '请选择活动区域', trigger: 'change' }
+                bodyType: [
+                    { required: true, message: '请选择主体类型', trigger: 'change' }
                 ],
                 date1: [
                     { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
@@ -202,6 +227,12 @@ export default {
                 ],
                 desc: [
                     { required: true, message: '请填写公司简介', trigger: 'blur' }
+                ],
+                status:[
+                { required: true, message: '请选择经营状态', trigger: 'blur' }
+                ],
+                userTag:[
+                { required: true, message: '请选择产业角色', trigger: 'blur' }
                 ]
             },
             dialogVisible: false,//是否开启预览
@@ -211,6 +242,9 @@ export default {
             LicenseimgList: [],//电子营业执照图片
             Licenseimg: false,//电子营业执照图片是否可继续上传
             Logoimg: false,//Logo是否可继续上传
+            legalIDcardReverse: '',//法人身份证反面照片
+            legalIDcard: '',//法人身份证正面
+            LogoUrl: ''//企业Logo
         };
     },
     /**计算属性*/
@@ -222,8 +256,9 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!');
+                    this.legalIDcard == '' ? this.$message.error('请上传法人身份证正面照片') : this.legalIDcardReverse == '' ? this.$message.error('请上传法人身份证反面照片') : this.LogoUrl == '' ? this.$message.error('请上传企业Logo') : ''
                 } else {
+
                     console.log('error submit!!');
                     return false;
                 }
@@ -235,11 +270,13 @@ export default {
         //移除身份证正面照片
         handleRemove(file, fileList) {
             console.log(file, fileList);
+            this.legalIDcard = ''
             this.IDimg = false;
         },
         //移除身份证反面照片
         handleRemoveReverse(file, fileList) {
             console.log(file, fileList);
+            this.legalIDcardReverse = '';
             this.IDimgReverse = false;
         },
         //移除电子营业执照图片
@@ -251,6 +288,7 @@ export default {
         //移除企业Logo
         handleRemoveLogo(file, fileList) {
             console.log(file, fileList);
+            this.LogoUrl = ''
             this.Logoimg = false;
         },
         //预览照片
@@ -262,6 +300,7 @@ export default {
         changeIDimg(file) {
             let check = this.beforeAvatarUpload(file);
             if (check) {
+                this.legalIDcard = file.url;
                 this.IDimg = true;
             } else {
                 this.$refs.uploadID.uploadFiles.splice(this.$refs.uploadID.uploadFiles.length - 1, 1)
@@ -271,6 +310,7 @@ export default {
         changeIDimgReverse(file) {
             let check = this.beforeAvatarUpload(file);
             if (check) {
+                this.legalIDcardReverse = file.url;
                 this.IDimgReverse = true;
             } else {
                 this.$refs.uploadIDReverse.uploadFiles.splice(this.$refs.uploadIDReverse.uploadFiles.length - 1, 1)
@@ -292,7 +332,7 @@ export default {
             let check = this.beforeAvatarUpload(file);
             if (check) {
                 this.Logoimg = true;
-
+                this.LogoUrl = file.url;
             } else {
                 this.$refs.uploadLogo.uploadFiles.splice(this.$refs.uploadLogo.uploadFiles.length - 1, 1)
             }
