@@ -3,7 +3,7 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item prop="create">
+      <el-form-item>
         <el-button type="primary" icon="el-icon-plus" @click="handleAdd" v-hasPermi="['enterprise:base-info:create']">新增
         </el-button>
       </el-form-item>
@@ -16,8 +16,13 @@
             :value="dict.value" />
         </el-select>
       </el-form-item>
-      <el-form-item prop="registerTime">
+      <!-- <el-form-item prop="registerTime">
         <el-date-picker v-model="queryParams.registerTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
+          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          :default-time="['00:00:00', '23:59:59']" />
+      </el-form-item> -->
+      <el-form-item prop="createTime">
+        <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
           type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
           :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
@@ -44,7 +49,8 @@
         </template>
       </el-table-column>
       <el-table-column label="联系人电话" align="center" prop="contactPhone" />
-      <el-table-column label="注册时间" align="center" prop="registerTime" />
+      <!-- <el-table-column label="注册时间" align="center" prop="registerTime" /> -->
+      <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="省名称" align="center" prop="villagesAreaName" />
       <el-table-column label="市名称" align="center" prop="areaName" />
       <el-table-column label="区名称" align="center" prop="ruralName" />
@@ -60,8 +66,10 @@
             <span v-if="scope.row.stauts==1">停用</span>
             <span v-else>启用</span>
           </el-button>
-          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
+          <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
             v-hasPermi="['enterprise:base-info:update']">修改</el-button>
+          <el-button size="mini" type="text" @click="handleDelete(scope.row)"
+            v-hasPermi="['enterprise:base-info:delete']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -209,7 +217,6 @@
 <script>
 import { createBaseInfo, updateBaseInfo, deleteBaseInfo, getBaseInfo, getBaseInfoPage, exportBaseInfoExcel, stopBaseInfoPage } from "@/api/enterprise/baseInfo";
 import Editor from '@/components/Editor';
-import { DICT_TYPE, getDictDatas } from "@/utils/dict";
 export default {
   name: "BaseInfo",
   components: {

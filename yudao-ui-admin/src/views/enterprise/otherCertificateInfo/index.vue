@@ -7,10 +7,10 @@
         <el-button type="primary" icon="el-icon-plus" @click="handleAdd"
           v-hasPermi="['enterprise:other-certificate-info:create']">新增</el-button>
       </el-form-item>
-      <el-form-item prop="enterpriseId">
+      <!-- <el-form-item prop="enterpriseId">
         <el-input v-model="queryParams.enterpriseId" placeholder="请输入经营主体ID" clearable
           @keyup.enter.native="handleQuery" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item prop="certificateType">
         <el-select v-model="queryParams.certificateType" placeholder="请选择证件类型" clearable size="small">
           <el-option v-for="dict in this.getDictDatas(DICT_TYPE.CERTIFICATE_TYPE)" :key="dict.value" :label="dict.label"
@@ -27,10 +27,10 @@
       </el-form-item>
       <el-form-item prop="certificateEndTime">
         <el-date-picker v-model="queryParams.certificateEndTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
-          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          type="daterange" range-separator="-" start-placeholder="证件截止范围" end-placeholder="证件截止范围"
           :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
-      <el-form-item prop="certificatePhoto">
+      <!-- <el-form-item prop="certificatePhoto">
         <el-input v-model="queryParams.certificatePhoto" placeholder="请输入证件照片" clearable
           @keyup.enter.native="handleQuery" />
       </el-form-item>
@@ -42,15 +42,15 @@
       </el-form-item>
       <el-form-item prop="subjectId">
         <el-input v-model="queryParams.subjectId" placeholder="请输入经营主体ID" clearable @keyup.enter.native="handleQuery" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item prop="createTime">
         <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
-          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          type="daterange" range-separator="-" start-placeholder="创建开始日期" end-placeholder="创建结束日期"
           :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item prop="updateTime">
         <el-date-picker v-model="queryParams.updateTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
-          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          type="daterange" range-separator="-" start-placeholder="更新开始日期" end-placeholder="更新结束日期"
           :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item>
@@ -119,7 +119,12 @@
             placeholder="选择证件截止日期" />
         </el-form-item>
         <el-form-item label="证件照片" prop="certificatePhoto">
-          <el-input v-model="form.certificatePhoto" placeholder="请输入证件照片" />
+          <el-upload ref="certificatePhoto" action="#" list-type="picture-card" :auto-upload="false"
+            accept=".jpg, .png, .gif" :before-upload="fileBeforeUpload" :http-request="alipayPublicCertUpload"
+            :file-list="form.certificatePhoto">
+            <i class="el-icon-plus"></i>
+            <div class="el-upload__tip" slot="tip">提示：仅允许导入 jpg、png、gif 格式文件！</div>
+          </el-upload>
         </el-form-item>
         <el-form-item label="租户编号" prop="tenantId">
           <el-input v-model="form.tenantId" placeholder="请输入租户编号" />
@@ -147,11 +152,11 @@ export default {
   components: {
   },
   props: {
-        id: {
-            type: String,
-            required: true
-        }
-    },
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       // 遮罩层
@@ -206,6 +211,26 @@ export default {
         this.loading = false;
       });
     },
+    fileBeforeUpload(file) {
+      console.log("---", file)
+      // let format = '.' + file.name.split(".")[1];
+      // if (format !== this.fileAccept) {
+      //   this.$message.error('请上传指定格式"' + this.fileAccept + '"文件');
+      //   return false;
+      // }
+      let isRightSize = file.size / 1024 / 1024 < 2
+      if (!isRightSize) {
+        this.$message.error('文件大小超过 2MB')
+      }
+      return isRightSize
+    },
+    alipayPublicCertUpload(event) {
+      const readFile = new FileReader()
+      readFile.onload = (e) => {
+        this.form.aliPayConfig.alipayPublicCertContent = e.target.result
+      }
+      readFile.readAsText(event.file);
+    },
     /** 取消按钮 */
     cancel() {
       this.open = false;
@@ -258,6 +283,7 @@ export default {
         if (!valid) {
           return;
         }
+        console.log("form:", this.form)
         // 修改的提交
         if (this.form.id != null) {
           updateOtherCertificateInfo(this.form).then(response => {

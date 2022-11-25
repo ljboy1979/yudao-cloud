@@ -23,12 +23,12 @@
       </el-form-item>
       <el-form-item prop="createTime">
         <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
-          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          type="daterange" range-separator="-" start-placeholder="创建开始日期" end-placeholder="创建结束日期"
           :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item prop="updateTime">
         <el-date-picker v-model="queryParams.updateTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
-          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          type="daterange" range-separator="-" start-placeholder="更新开始日期" end-placeholder="更新结束日期"
           :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item>
@@ -72,7 +72,7 @@
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="110px">
         <el-form-item label="账户名" prop="accountName">
           <el-input v-model="form.accountName" placeholder="请输入账户名" />
         </el-form-item>
@@ -132,6 +132,10 @@ export default {
       form: {},
       // 表单校验
       rules: {
+        accountName:[{ required: true, message: '请输入账户名', trigger: 'blur' }],
+        accountNo:[{ required: true, message: '请输入账户银行卡号', trigger: 'blur' }],
+        accountIdCard:[{ required: true, message: '请输入账户身份证号', trigger: 'blur' }],
+        accountBank:[{ required: true, message: '请输入账户开户行', trigger: 'blur' }],
       }
     };
   },
