@@ -1,12 +1,11 @@
 package cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
-import java.util.*;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.*;
+import java.util.Date;
 
 /**
 * 经营主体其他证件 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -26,6 +25,9 @@ public class OtherCertificateInfoBaseVO {
 
     @ApiModelProperty(value = "证件号")
     private String certificateNo;
+
+    @ApiModelProperty(value = "证件照片")
+    private String certificatePhoto;
 
     @ApiModelProperty(value = "证件截止日期")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

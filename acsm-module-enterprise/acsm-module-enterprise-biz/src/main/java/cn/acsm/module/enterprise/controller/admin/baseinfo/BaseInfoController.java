@@ -49,12 +49,12 @@ public class BaseInfoController {
         baseInfoService.updateBaseInfo(updateReqVO);
         return success(true);
     }
-    @PutMapping("/stop")
-    @ApiOperation("停用经营主体")
+    @PutMapping("/changeStatus")
+    @ApiOperation("停用/启用经营主体")
     @PreAuthorize("@ss.hasPermission('enterprise:base-info:update')")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
-    public CommonResult<Boolean> stop(@RequestParam("id") Long id) {
-        baseInfoService.stopEnterprise(id);
+    public CommonResult<Boolean> changeStatus(@RequestParam("id") Long id) {
+        baseInfoService.changeStatus(id);
         return success(true);
     }
 

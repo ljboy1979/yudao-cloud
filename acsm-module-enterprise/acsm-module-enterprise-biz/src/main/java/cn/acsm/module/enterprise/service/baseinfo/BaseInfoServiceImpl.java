@@ -11,10 +11,11 @@ import cn.acsm.module.enterprise.enums.enterprisebaseinfo.EnterpriseStatusEnum;
 import cn.acsm.module.enterprise.utils.generator.EnterpriseCodeGenerator;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
 import static cn.acsm.module.enterprise.enums.ErrorCodeConstants.BASE_INFO_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -62,9 +63,13 @@ public class BaseInfoServiceImpl implements BaseInfoService {
     }
 
     @Override
-    public void stopEnterprise(Long id) {
+    public void changeStatus(Long id) {
         BaseInfoDO baseInfoDO = baseInfoMapper.selectById(id);
-        baseInfoDO.setStauts(EnterpriseStatusEnum.UNUSED.getStatus());
+        if(EnterpriseStatusEnum.UNUSED.getStatus().equals(baseInfoDO.getStauts())){
+            baseInfoDO.setStauts(EnterpriseStatusEnum.NORMAL.getStatus());
+        }else if(EnterpriseStatusEnum.NORMAL.getStatus().equals(baseInfoDO.getStauts())){
+            baseInfoDO.setStauts(EnterpriseStatusEnum.UNUSED.getStatus());
+        }
         baseInfoMapper.updateById(baseInfoDO);
     }
 

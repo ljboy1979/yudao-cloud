@@ -12,7 +12,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum EnterpriseStatusEnum {
 
-    NORMA("1"), // 正常
+    NORMAL("1"), // 正常
     UNUSED("2"), // 停用
     ;
 

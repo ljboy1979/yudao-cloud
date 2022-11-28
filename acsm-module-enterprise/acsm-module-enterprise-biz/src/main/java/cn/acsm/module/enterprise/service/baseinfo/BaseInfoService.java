@@ -1,14 +1,15 @@
 package cn.acsm.module.enterprise.service.baseinfo;
 
-import java.util.*;
-import javax.validation.*;
-
 import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoCreateReqVO;
 import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoExportReqVO;
 import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoPageReqVO;
 import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoUpdateReqVO;
 import cn.acsm.module.enterprise.dal.dataobject.baseinfo.BaseInfoDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+
+import javax.validation.Valid;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 经营主体 Service 接口
@@ -39,11 +40,11 @@ public interface BaseInfoService {
      */
     void deleteBaseInfo(Long id);
     /**
-     * 停用经营主体
+     * 停用/启用经营主体
      *
      * @param id 编号
      */
-    void stopEnterprise(Long id);
+    void changeStatus(Long id);
 
     /**
      * 获得经营主体
