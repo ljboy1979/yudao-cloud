@@ -11,10 +11,6 @@ import lombok.Data;
 public class WeChatRespDTO {
 
     /**
-     *  ID
-     */
-    private Long id;
-    /**
      * 公众号appId
      */
     private String appid;
