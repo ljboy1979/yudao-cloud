@@ -1,0 +1,83 @@
+package cn.iocoder.yudao.module.transaction.sales.service.commoditycategory;
+
+import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+import org.springframework.validation.annotation.Validated;
+
+import java.util.*;
+import cn.iocoder.yudao.module.transaction.sales.controller.admin.commoditycategory.vo.*;
+import cn.iocoder.yudao.module.transaction.sales.dal.dataobject.commoditycategory.CommodityCategoryDO;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+
+import cn.iocoder.yudao.module.transaction.sales.convert.commoditycategory.CommodityCategoryConvert;
+import cn.iocoder.yudao.module.transaction.sales.dal.mysql.commoditycategory.CommodityCategoryMapper;
+
+import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static cn.iocoder.yudao.module.transaction.sales.enums.ErrorCodeConstants.COMMODITY_CATEGORY_NOT_EXISTS;
+
+/**
+ * 商品分类 Service 实现类
+ *
+ * @author 芋道源码
+ */
+@Service
+@Validated
+public class CommodityCategoryServiceImpl implements CommodityCategoryService {
+
+    @Resource
+    private CommodityCategoryMapper commodityCategoryMapper;
+
+    @Override
+    public String createCommodityCategory(CommodityCategoryCreateReqVO createReqVO) {
+        // 插入
+        CommodityCategoryDO commodityCategory = CommodityCategoryConvert.INSTANCE.convert(createReqVO);
+        commodityCategoryMapper.insert(commodityCategory);
+        // 返回
+        return commodityCategory.getId();
+    }
+
+    @Override
+    public void updateCommodityCategory(CommodityCategoryUpdateReqVO updateReqVO) {
+        // 校验存在
+        this.validateCommodityCategoryExists(updateReqVO.getId());
+        // 更新
+        CommodityCategoryDO updateObj = CommodityCategoryConvert.INSTANCE.convert(updateReqVO);
+        commodityCategoryMapper.updateById(updateObj);
+    }
+
+    @Override
+    public void deleteCommodityCategory(String id) {
+        // 校验存在
+        this.validateCommodityCategoryExists(id);
+        // 删除
+        commodityCategoryMapper.deleteById(id);
+    }
+
+    private void validateCommodityCategoryExists(String id) {
+        if (commodityCategoryMapper.selectById(id) == null) {
+            throw exception(COMMODITY_CATEGORY_NOT_EXISTS);
+        }
+    }
+
+    @Override
+    public CommodityCategoryDO getCommodityCategory(String id) {
+        return commodityCategoryMapper.selectById(id);
+    }
+
+    @Override
+    public List<CommodityCategoryDO> getCommodityCategoryList(Collection<String> ids) {
+        return commodityCategoryMapper.selectBatchIds(ids);
+    }
+
+    @Override
+    public PageResult<CommodityCategoryDO> getCommodityCategoryPage(CommodityCategoryPageReqVO pageReqVO) {
+        return commodityCategoryMapper.selectPage(pageReqVO);
+    }
+
+    @Override
+    public List<CommodityCategoryDO> getCommodityCategoryList(CommodityCategoryExportReqVO exportReqVO) {
+        return commodityCategoryMapper.selectList(exportReqVO);
+    }
+
+
+}

@@ -1,0 +1,100 @@
+package cn.iocoder.yudao.module.transaction.sales.controller.admin.commodity;
+
+import org.springframework.web.bind.annotation.*;
+import javax.annotation.Resource;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.security.access.prepost.PreAuthorize;
+import io.swagger.annotations.*;
+
+import javax.validation.constraints.*;
+import javax.validation.*;
+import javax.servlet.http.*;
+import java.util.*;
+import java.io.IOException;
+
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
+
+import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
+
+import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
+import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.*;
+
+import cn.iocoder.yudao.module.transaction.sales.controller.admin.commodity.vo.*;
+import cn.iocoder.yudao.module.transaction.sales.dal.dataobject.commodity.CommodityDO;
+import cn.iocoder.yudao.module.transaction.sales.convert.commodity.CommodityConvert;
+import cn.iocoder.yudao.module.transaction.sales.service.commodity.CommodityService;
+
+@Api(tags = "管理后台 - 商品")
+@RestController
+@RequestMapping("/sales/commodity")
+@Validated
+public class CommodityController {
+
+    @Resource
+    private CommodityService commodityService;
+
+    @PostMapping("/create")
+    @ApiOperation("创建商品")
+    @PreAuthorize("@ss.hasPermission('sales:commodity:create')")
+    public CommonResult<String> createCommodity(@Valid @RequestBody CommodityCreateReqVO createReqVO) {
+        return success(commodityService.createCommodity(createReqVO));
+    }
+
+    @PutMapping("/update")
+    @ApiOperation("更新商品")
+    @PreAuthorize("@ss.hasPermission('sales:commodity:update')")
+    public CommonResult<Boolean> updateCommodity(@Valid @RequestBody CommodityUpdateReqVO updateReqVO) {
+        commodityService.updateCommodity(updateReqVO);
+        return success(true);
+    }
+
+    @DeleteMapping("/delete")
+    @ApiOperation("删除商品")
+    @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = String.class)
+    @PreAuthorize("@ss.hasPermission('sales:commodity:delete')")
+    public CommonResult<Boolean> deleteCommodity(@RequestParam("id") String id) {
+        commodityService.deleteCommodity(id);
+        return success(true);
+    }
+
+    @GetMapping("/get")
+    @ApiOperation("获得商品")
+    @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = String.class)
+    @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
+    public CommonResult<CommodityRespVO> getCommodity(@RequestParam("id") String id) {
+        CommodityDO commodity = commodityService.getCommodity(id);
+        return success(CommodityConvert.INSTANCE.convert(commodity));
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("获得商品列表")
+    @ApiImplicitParam(name = "ids", value = "编号列表", required = true, example = "1024,2048", dataTypeClass = List.class)
+    @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
+    public CommonResult<List<CommodityRespVO>> getCommodityList(@RequestParam("ids") Collection<String> ids) {
+        List<CommodityDO> list = commodityService.getCommodityList(ids);
+        return success(CommodityConvert.INSTANCE.convertList(list));
+    }
+
+    @GetMapping("/page")
+    @ApiOperation("获得商品分页")
+    @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
+    public CommonResult<PageResult<CommodityRespVO>> getCommodityPage(@Valid CommodityPageReqVO pageVO) {
+        PageResult<CommodityDO> pageResult = commodityService.getCommodityPage(pageVO);
+        return success(CommodityConvert.INSTANCE.convertPage(pageResult));
+    }
+
+    @GetMapping("/export-excel")
+    @ApiOperation("导出商品 Excel")
+    @PreAuthorize("@ss.hasPermission('sales:commodity:export')")
+    @OperateLog(type = EXPORT)
+    public void exportCommodityExcel(@Valid CommodityExportReqVO exportReqVO,
+              HttpServletResponse response) throws IOException {
+        List<CommodityDO> list = commodityService.getCommodityList(exportReqVO);
+        // 导出 Excel
+        List<CommodityExcelVO> datas = CommodityConvert.INSTANCE.convertList02(list);
+        ExcelUtils.write(response, "商品.xls", "数据", CommodityExcelVO.class, datas);
+    }
+
+}

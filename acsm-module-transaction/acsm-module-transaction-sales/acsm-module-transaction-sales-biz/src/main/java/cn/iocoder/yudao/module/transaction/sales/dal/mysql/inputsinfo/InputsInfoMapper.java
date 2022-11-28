@@ -1,0 +1,36 @@
+package cn.iocoder.yudao.module.transaction.sales.dal.mysql.inputsinfo;
+
+import java.util.*;
+
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
+import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
+import cn.iocoder.yudao.module.transaction.sales.dal.dataobject.inputsinfo.InputsInfoDO;
+import org.apache.ibatis.annotations.Mapper;
+import cn.iocoder.yudao.module.transaction.sales.controller.admin.inputsinfo.vo.*;
+
+/**
+ * 投入品 Mapper
+ *
+ * @author 芋道源码
+ */
+@Mapper
+public interface InputsInfoMapper extends BaseMapperX<InputsInfoDO> {
+
+    default PageResult<InputsInfoDO> selectPage(InputsInfoPageReqVO reqVO) {
+        return selectPage(reqVO, new LambdaQueryWrapperX<InputsInfoDO>()
+                .likeIfPresent(InputsInfoDO::getInputsName, reqVO.getInputsName())
+                .eqIfPresent(InputsInfoDO::getInputsKind, reqVO.getInputsKind())
+                .betweenIfPresent(InputsInfoDO::getCreateTime, reqVO.getCreateTime())
+                .orderByDesc(InputsInfoDO::getId));
+    }
+
+    default List<InputsInfoDO> selectList(InputsInfoExportReqVO reqVO) {
+        return selectList(new LambdaQueryWrapperX<InputsInfoDO>()
+                .likeIfPresent(InputsInfoDO::getInputsName, reqVO.getInputsName())
+                .eqIfPresent(InputsInfoDO::getInputsKind, reqVO.getInputsKind())
+                .betweenIfPresent(InputsInfoDO::getCreateTime, reqVO.getCreateTime())
+                .orderByDesc(InputsInfoDO::getId));
+    }
+
+}
