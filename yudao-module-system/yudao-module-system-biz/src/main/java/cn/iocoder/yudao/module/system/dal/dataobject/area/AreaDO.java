@@ -26,13 +26,12 @@ public class AreaDO extends BaseDO {
     /**
      * 行政区划id
      */
-    @TableId
+    @TableId(type = IdType.INPUT)
     private Long id;
 
     /**
      * 区域编码
      */
-    @TableId(type = IdType.INPUT)
     private String areaCode;
     /**
      * 父级编号
