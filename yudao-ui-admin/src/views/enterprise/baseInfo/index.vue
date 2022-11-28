@@ -215,7 +215,7 @@
 </template>
 
 <script>
-import { createBaseInfo, updateBaseInfo, deleteBaseInfo, getBaseInfo, getBaseInfoPage, exportBaseInfoExcel, stopBaseInfoPage } from "@/api/enterprise/baseInfo";
+import { createBaseInfo, updateBaseInfo, deleteBaseInfo, getBaseInfo, getBaseInfoPage, exportBaseInfoExcel, stopBaseInfoPage,changeStatusBaseInfoPage } from "@/api/enterprise/baseInfo";
 import Editor from '@/components/Editor';
 export default {
   name: "BaseInfo",
@@ -387,7 +387,8 @@ export default {
       const id = row.id;
       let stauts = row.stauts == 1 ? '停用' : '启用';
       this.$modal.confirm(`是否确认${stauts}编号为${id}的经营主体`).then(function () {
-        return stopBaseInfoPage(id);
+        // return stopBaseInfoPage(id);
+        return changeStatusBaseInfoPage(id);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess(`${stauts}成功!`);
