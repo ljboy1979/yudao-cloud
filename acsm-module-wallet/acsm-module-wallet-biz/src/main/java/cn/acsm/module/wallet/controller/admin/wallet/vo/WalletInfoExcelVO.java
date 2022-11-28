@@ -1,6 +1,8 @@
 package cn.acsm.module.wallet.controller.admin.wallet.vo;
 
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import io.swagger.annotations.*;
 
@@ -36,7 +38,7 @@ public class WalletInfoExcelVO {
     private Integer status;
 
     @ExcelProperty("创建时间")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ExcelProperty("租户集合")
     private Long source;

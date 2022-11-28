@@ -7,9 +7,13 @@ import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserCreateReq
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserExportReqVO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserPageReqVO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserUpdateReqVO;
+import cn.acsm.module.member.user.controller.admin.patient.vo.patienthealth.PatientHealthCreateReqVO;
 import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.validation.Mobile;
+import cn.iocoder.yudao.module.system.enums.logger.LoginLogTypeEnum;
+import cn.iocoder.yudao.module.system.enums.logger.LoginResultEnum;
 
 /**
  * 会员 Service 接口
@@ -87,5 +91,38 @@ public interface MemberUserService {
      * @param loginIp 登陆 IP
      */
     void updateUserLogin(Long id, String loginIp);
+
+    /**
+     * @Description:注册插入登陆日志
+     * @param userId
+     * @param mobile
+     * @param logType
+     * @param loginResult
+     * @Date: 2022/11/21
+     * @author: lihongyan
+     * @throws
+     * @return:void
+     */
+    void createLoginLog(Long userId, String mobile, LoginLogTypeEnum logType, LoginResultEnum loginResult);
+
+    /**
+     * @Description:通过His绑定患者信息
+     * @param patientHealthCreateReqVO
+     * @Date: 2022/11/23
+     * @author: lihongyan
+     * @throws
+     * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
+     */
+    CommonResult bindPatientHealthInfoByHis(PatientHealthCreateReqVO patientHealthCreateReqVO);
+
+    /**
+     * @Description:绑定患者信息NoHis
+     * @param patientHealthCreateReqVO
+     * @Date: 2022/11/23
+     * @author: lihongyan
+     * @throws
+     * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
+     */
+    CommonResult bindPatientHealthInfoNoHis(PatientHealthCreateReqVO patientHealthCreateReqVO);
 
 }
