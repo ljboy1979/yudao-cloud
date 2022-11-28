@@ -3,10 +3,10 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="代理商名称" prop="agentName">
+      <el-form-item prop="agentName">
         <el-input v-model="queryParams.agentName" placeholder="请输入代理商名称" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="代理区域" prop="agentAera">
+      <!-- <el-form-item label="代理区域" prop="agentAera">
         <el-input v-model="queryParams.agentAera" placeholder="请输入代理区域" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="地址" prop="address">
@@ -24,7 +24,7 @@
       </el-form-item>
       <el-form-item label="经营主体ID" prop="subjectId">
         <el-input v-model="queryParams.subjectId" placeholder="请输入经营主体ID" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
@@ -32,7 +32,7 @@
     </el-form>
 
     <!-- 操作工具栏 -->
-    <el-row :gutter="10" class="mb8">
+    <!-- <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
                    v-hasPermi="['member:agent-management:create']">新增</el-button>
@@ -42,23 +42,23 @@
                    v-hasPermi="['member:agent-management:export']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row>
+    </el-row> -->
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="主键ID" align="center" prop="id" />
+      <!-- <el-table-column label="主键ID" align="center" prop="id" /> -->
       <el-table-column label="代理商名称" align="center" prop="agentName" />
-      <el-table-column label="代理区域" align="center" prop="agentAera" />
-      <el-table-column label="地址" align="center" prop="address" />
+      <el-table-column label="行政区域" align="center" prop="agentAera" />
       <el-table-column label="手机号" align="center" prop="phone" />
-      <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="地址" align="center" prop="address" />
+      <!-- <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="租户集合" align="center" prop="source" />
-      <el-table-column label="经营主体ID" align="center" prop="subjectId" />
+      <el-table-column label="经营主体ID" align="center" prop="subjectId" /> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
-          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
+          <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
                      v-hasPermi="['member:agent-management:update']">修改</el-button>
-          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
+          <el-button size="mini" type="text" @click="handleDelete(scope.row)"
                      v-hasPermi="['member:agent-management:delete']">删除</el-button>
         </template>
       </el-table-column>
@@ -82,12 +82,12 @@
         <el-form-item label="手机号" prop="phone">
           <el-input v-model="form.phone" placeholder="请输入手机号" />
         </el-form-item>
-        <el-form-item label="租户集合" prop="source">
+        <!-- <el-form-item label="租户集合" prop="source">
           <el-input v-model="form.source" placeholder="请输入租户集合" />
         </el-form-item>
         <el-form-item label="经营主体ID" prop="subjectId">
           <el-input v-model="form.subjectId" placeholder="请输入经营主体ID" />
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -103,6 +103,12 @@ import { createAgentManagement, updateAgentManagement, deleteAgentManagement, ge
 export default {
   name: "AgentManagement",
   components: {
+  },
+  props: {
+        id: {
+            type: String,
+            required: true
+        }
   },
   data() {
     return {
