@@ -121,7 +121,7 @@
         <el-form-item label="证件照片" prop="certificatePhoto">
           <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-preview="handlePictureCardPreview"
             :on-remove="handleRemovecertificatePhoto" :on-change="changecertificatePhoto" :class="{ hide: certificate }"
-            ref="certificatePhoto" :file-list="form.certificatePhoto">
+            ref="certificatePhoto" :file-list="this.certificatePhoto">
             <i class="el-icon-plus"></i>
           </el-upload>
           <div style="font-size: 14px;color:#AAA">最多6张 <span style="font-size: 12px;">仅支持扩展名".jpg/.jpeg/.png"</span>
@@ -187,7 +187,6 @@ export default {
         certificateName: null,
         certificateNo: null,
         certificateEndTime: [],
-        certificatePhoto: [],
         tenantId: null,
         source: null,
         subjectId: null,
@@ -200,7 +199,7 @@ export default {
       rules: {
         // tenantId: [{ required: true, message: "租户编号不能为空", trigger: "blur" }],
       },
-      businessLicensePhoto: [],//经营许可证
+      certificatePhoto: [],//经营许可证
       certificate: false,//经营许可证是否可继续上传
       dialogVisible: false,//是否开启预览
       dialogImageUrl: '',//当前预览图片地址
@@ -273,6 +272,7 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
+      this.certificatePhoto=[];
       this.open = true;
       this.title = "添加经营主体其他证件";
     },
@@ -284,7 +284,7 @@ export default {
         this.form = response.data;
         console.log(response)
         //图片反显
-        this.certificatePhoto=this.ToUpload(this.form.certificatePhoto);
+        this.certificatePhoto=this.ToUpload(response.data.certificatePhoto);
         this.open = true;
         this.title = "修改经营主体其他证件";
       });
@@ -299,6 +299,7 @@ export default {
         console.log("form:", this.form)
         // 修改的提交
         if (this.form.id != null) {
+          this.form.certificatePhoto=this.ArrayToString(this.changecertificatePhoto);
           updateOtherCertificateInfo(this.form).then(response => {
             this.$modal.msgSuccess("修改成功");
             this.open = false;
@@ -310,11 +311,11 @@ export default {
         let obj = JSON.parse(JSON.stringify(this.form));
         obj.certificatePhoto=this.ArrayToString(this.certificatePhoto)
         console.log(obj)
-        // createOtherCertificateInfo(obj).then(response => {
-        //   this.$modal.msgSuccess("新增成功");
-        //   this.open = false;
-        //   this.getList();
-        // });
+        createOtherCertificateInfo(obj).then(response => {
+          this.$modal.msgSuccess("新增成功");
+          this.open = false;
+          this.getList();
+        });
       });
     },
     /** 删除按钮操作 */
@@ -343,7 +344,7 @@ export default {
     },
     //移除企业经营许可证
     handleRemovecertificatePhoto(file, fileList) {
-      this.businessLicensePhoto = fileList
+      this.certificatePhoto = fileList
       fileList.length < 6 ? this.certificate = false : ''
       this.Logoimg = false;
     },
@@ -354,6 +355,7 @@ export default {
     },
     //上传经营许可证，等于6张隐藏上传按钮
     changecertificatePhoto(file, fileList) {
+      console.log(fileList)
       let check = this.beforeAvatarUpload(file);
       if (check) {
         fileList.length == 6 ? this.certificate = true : ''
@@ -377,7 +379,7 @@ export default {
     //字符串转换成对应的upload接受类型参数
     ToUpload(imgurl) {
             //是否有多张图片
-            if(imgurl==''||imgurl==undefined){
+            if(imgurl==''||imgurl==undefined||imgurl==null){
               return;
             }
             if (imgurl.indexOf(',') === -1) {
@@ -413,3 +415,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.hide>>>.el-upload--picture-card {
+    display: none;
+}
+</style>

@@ -219,14 +219,14 @@
         <div class="title">政策补贴记录</div>
         <PolicySubsidiesInfo :id="id"></PolicySubsidiesInfo>
       </el-tab-pane>
-      <el-tab-pane label="其他证件" name="otherCertificateInfo">
+      <!-- <el-tab-pane label="其他证件" name="otherCertificateInfo">
         <div class="title">其他证件</div>
         <otherCertificateInfo :id="id" v-if="activeName == 'otherCertificateInfo'"></otherCertificateInfo>
       </el-tab-pane>
       <el-tab-pane label="其他账户" name="otherAccountInfo">
         <div class="title">其他账户</div>
         <otherAccountInfo :id="id" v-if="activeName == 'otherAccountInfo'"></otherAccountInfo>
-      </el-tab-pane>
+      </el-tab-pane> -->
     </el-tabs>
   </div>
 </template>
