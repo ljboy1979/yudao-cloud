@@ -2,6 +2,8 @@ package cn.iocoder.yudao.module.transaction.sales.service.commodityorganization;
 
 import java.util.*;
 import javax.validation.*;
+
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.module.transaction.sales.controller.admin.commodityorganization.vo.*;
 import cn.iocoder.yudao.module.transaction.sales.dal.dataobject.commodityorganization.CommodityOrganizationDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -19,7 +21,7 @@ public interface CommodityOrganizationService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createCommodityOrganization(@Valid CommodityOrganizationCreateReqVO createReqVO);
+    CommonResult<String> createCommodityOrganization(@Valid CommodityOrganizationCreateReqVO createReqVO);
 
     /**
      * 更新商品组成

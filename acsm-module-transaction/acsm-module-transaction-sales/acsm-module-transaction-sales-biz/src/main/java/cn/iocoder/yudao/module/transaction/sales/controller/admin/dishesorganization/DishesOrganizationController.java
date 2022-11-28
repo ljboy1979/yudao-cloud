@@ -39,7 +39,7 @@ public class DishesOrganizationController {
     @ApiOperation("创建菜品组成")
     @PreAuthorize("@ss.hasPermission('sales:dishes-organization:create')")
     public CommonResult<String> createDishesOrganization(@Valid @RequestBody DishesOrganizationCreateReqVO createReqVO) {
-        return success(dishesOrganizationService.createDishesOrganization(createReqVO));
+        return dishesOrganizationService.createDishesOrganization(createReqVO);
     }
 
     @PutMapping("/update")

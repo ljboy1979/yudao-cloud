@@ -1,5 +1,8 @@
 package cn.iocoder.yudao.module.transaction.sales.service.dishesorganization;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.module.transaction.sales.dal.dataobject.rawmaterial.RawMaterialDO;
+import cn.iocoder.yudao.module.transaction.sales.dal.mysql.rawmaterial.RawMaterialMapper;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -27,13 +30,19 @@ public class DishesOrganizationServiceImpl implements DishesOrganizationService 
     @Resource
     private DishesOrganizationMapper dishesOrganizationMapper;
 
+    @Resource
+    private RawMaterialMapper rawMaterialMapper;
     @Override
-    public String createDishesOrganization(DishesOrganizationCreateReqVO createReqVO) {
+    public CommonResult<String> createDishesOrganization(DishesOrganizationCreateReqVO createReqVO) {
+        RawMaterialDO rawMaterialDO = rawMaterialMapper.selectById(createReqVO.getRawMaterialId());
+        if (rawMaterialDO!=null){
+            return CommonResult.error(RAW_MATERIAL_NOT_EXISTS);
+        }
         // 插入
         DishesOrganizationDO dishesOrganization = DishesOrganizationConvert.INSTANCE.convert(createReqVO);
         dishesOrganizationMapper.insert(dishesOrganization);
         // 返回
-        return dishesOrganization.getId();
+        return CommonResult.success(dishesOrganization.getId());
     }
 
     @Override

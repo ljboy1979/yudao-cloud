@@ -1,5 +1,8 @@
 package cn.iocoder.yudao.module.transaction.sales.service.commodityorganization;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.module.transaction.sales.dal.dataobject.rawmaterial.RawMaterialDO;
+import cn.iocoder.yudao.module.transaction.sales.dal.mysql.rawmaterial.RawMaterialMapper;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -26,14 +29,20 @@ public class CommodityOrganizationServiceImpl implements CommodityOrganizationSe
 
     @Resource
     private CommodityOrganizationMapper commodityOrganizationMapper;
+    @Resource
+    private RawMaterialMapper rawMaterialMapper;
 
     @Override
-    public String createCommodityOrganization(CommodityOrganizationCreateReqVO createReqVO) {
+    public CommonResult<String> createCommodityOrganization(CommodityOrganizationCreateReqVO createReqVO) {
+        RawMaterialDO rawMaterialDO = rawMaterialMapper.selectById(createReqVO.getRawMaterialId());
+        if (rawMaterialDO!=null){
+            return CommonResult.error(RAW_MATERIAL_NOT_EXISTS);
+        }
         // 插入
         CommodityOrganizationDO commodityOrganization = CommodityOrganizationConvert.INSTANCE.convert(createReqVO);
         commodityOrganizationMapper.insert(commodityOrganization);
         // 返回
-        return commodityOrganization.getId();
+        return CommonResult.success(commodityOrganization.getId());
     }
 
     @Override

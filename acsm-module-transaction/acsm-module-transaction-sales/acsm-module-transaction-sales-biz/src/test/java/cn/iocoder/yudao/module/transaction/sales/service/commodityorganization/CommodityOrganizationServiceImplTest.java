@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.module.transaction.sales.service.commodityorganization;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -48,11 +49,11 @@ public class CommodityOrganizationServiceImplTest extends BaseDbUnitTest {
         CommodityOrganizationCreateReqVO reqVO = randomPojo(CommodityOrganizationCreateReqVO.class);
 
         // 调用
-        String commodityOrganizationId = commodityOrganizationService.createCommodityOrganization(reqVO);
+        CommonResult<String> result = commodityOrganizationService.createCommodityOrganization(reqVO);
         // 断言
-        assertNotNull(commodityOrganizationId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        CommodityOrganizationDO commodityOrganization = commodityOrganizationMapper.selectById(commodityOrganizationId);
+        CommodityOrganizationDO commodityOrganization = commodityOrganizationMapper.selectById(result.getData());
         assertPojoEquals(reqVO, commodityOrganization);
     }
 

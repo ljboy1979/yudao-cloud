@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.module.transaction.sales.service.dishesorganization;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -48,11 +49,11 @@ public class DishesOrganizationServiceImplTest extends BaseDbUnitTest {
         DishesOrganizationCreateReqVO reqVO = randomPojo(DishesOrganizationCreateReqVO.class);
 
         // 调用
-        String dishesOrganizationId = dishesOrganizationService.createDishesOrganization(reqVO);
+        CommonResult<String> result = dishesOrganizationService.createDishesOrganization(reqVO);
         // 断言
-        assertNotNull(dishesOrganizationId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        DishesOrganizationDO dishesOrganization = dishesOrganizationMapper.selectById(dishesOrganizationId);
+        DishesOrganizationDO dishesOrganization = dishesOrganizationMapper.selectById(result.getData());
         assertPojoEquals(reqVO, dishesOrganization);
     }
 

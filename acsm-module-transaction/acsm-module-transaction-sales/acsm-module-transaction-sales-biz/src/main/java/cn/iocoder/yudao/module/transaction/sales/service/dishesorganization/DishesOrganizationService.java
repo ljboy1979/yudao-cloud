@@ -2,6 +2,8 @@ package cn.iocoder.yudao.module.transaction.sales.service.dishesorganization;
 
 import java.util.*;
 import javax.validation.*;
+
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.module.transaction.sales.controller.admin.dishesorganization.vo.*;
 import cn.iocoder.yudao.module.transaction.sales.dal.dataobject.dishesorganization.DishesOrganizationDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -19,7 +21,7 @@ public interface DishesOrganizationService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createDishesOrganization(@Valid DishesOrganizationCreateReqVO createReqVO);
+    CommonResult<String> createDishesOrganization(@Valid DishesOrganizationCreateReqVO createReqVO);
 
     /**
      * 更新菜品组成

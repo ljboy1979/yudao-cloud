@@ -39,7 +39,7 @@ public class CommodityOrganizationController {
     @ApiOperation("创建商品组成")
     @PreAuthorize("@ss.hasPermission('sales:commodity-organization:create')")
     public CommonResult<String> createCommodityOrganization(@Valid @RequestBody CommodityOrganizationCreateReqVO createReqVO) {
-        return success(commodityOrganizationService.createCommodityOrganization(createReqVO));
+        return commodityOrganizationService.createCommodityOrganization(createReqVO);
     }
 
     @PutMapping("/update")
