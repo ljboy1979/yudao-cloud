@@ -7,16 +7,16 @@
     <div class='app-container'>
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
             <el-tab-pane label="基本信息" name="businessInfo">
-                <businessInfo :id="userid"></businessInfo>
+                <businessInfo :id="businessId"></businessInfo>
             </el-tab-pane>
-            <el-tab-pane label="企业相关资料" name="businessRelatedInfo">
-                <businessRelatedInfo :id="userid" v-if="activeName=='businessRelatedInfo'"></businessRelatedInfo>
+            <!-- <el-tab-pane label="企业相关资料" name="businessRelatedInfo">
+                <businessRelatedInfo :id="businessId" v-if="activeName == 'businessRelatedInfo'"></businessRelatedInfo>
+            </el-tab-pane> -->
+            <el-tab-pane label="其他证件" name="otherCertificateInfo">
+                <otherCertificateInfo :id="businessId" v-if="activeName == 'otherCertificateInfo'"></otherCertificateInfo>
             </el-tab-pane>
-            <el-tab-pane label="其他账户" name="otherCertificateInfo">
-                <otherCertificateInfo :id="userid" v-if="activeName=='otherCertificateInfo'"></otherCertificateInfo>
-            </el-tab-pane>
-            <el-tab-pane label="其他证件" name="otherAccountInfo">
-                <otherAccountInfo :id="userid" v-if="activeName=='otherAccountInfo'"></otherAccountInfo>
+            <el-tab-pane label="其他账户" name="otherAccountInfo">
+                <otherAccountInfo :id="businessId" v-if="activeName == 'otherAccountInfo'"></otherAccountInfo>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -25,19 +25,19 @@
 //import(导入)其他文件（如：组件，工具js，第三方插件js，json文件，图片文件等）
 import businessInfo from "./businessInfo.vue"
 import businessRelatedInfo from "./businessRelatedInfo.vue"
-import otherCertificateInfo from"../../enterprise/otherCertificateInfo"
-import otherAccountInfo from"../../enterprise/otherAccountInfo"
+import otherCertificateInfo from "../../enterprise/otherCertificateInfo"
+import otherAccountInfo from "../../enterprise/otherAccountInfo"
 
 export default {
     /**注册组件*/
-    components: {businessInfo,businessRelatedInfo,otherCertificateInfo,otherAccountInfo},
+    components: { businessInfo, businessRelatedInfo, otherCertificateInfo, otherAccountInfo },
     /**接受父组件传值*/
     props: {},
     name: 'EditbusinessInfo',
     data() {
         return {
             activeName: 'businessInfo',
-            userid:''
+            businessId: ''
         };
     },
     /**计算属性*/
@@ -53,7 +53,8 @@ export default {
     },
     /**创建组件时执行(有VM对象this)*/
     created() {
-
+        console.log(this.$route.query.id, 'query')
+        this.businessId=this.$route.query.id;
     },
     /**加载完组件时执行(主要预处理数据)*/
     mounted() {

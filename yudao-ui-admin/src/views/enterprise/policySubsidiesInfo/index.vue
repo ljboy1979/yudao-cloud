@@ -25,11 +25,11 @@
       </el-form-item>
       <el-form-item prop="applyTime">
         <el-date-picker v-model="queryParams.applyTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
-          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          type="daterange" range-separator="-" start-placeholder="申请开始日期" end-placeholder="申请结束日期"
           :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-search" @click="handleQuery">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
         <!-- <el-button type="primary" plain icon="el-icon-download" @click="handleExport" :loading="exportLoading"
           v-hasPermi="['enterprise:policy-subsidies-info:export']">导出</el-button> -->
@@ -38,26 +38,31 @@
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="编号" align="center" prop="id" />
+      <!-- <el-table-column label="编号" align="center" prop="id" /> -->
+      <el-table-column label="申请时间" align="center" prop="applyTime" />
+        <!-- <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.applyTime),'{y}-{m}-{d} {h}:{i}:{s}' }}</span>
+        </template>
+      </el-table-column> -->
       <el-table-column label="补贴种类" align="center" prop="subsidiesCategory">
         <template v-slot="scope">
           <dict-tag :type="DICT_TYPE.SUBSIDIES_CATEGORY" :value="scope.row.subsidiesCategory" />
         </template>
       </el-table-column>
       <el-table-column label="补贴名称" align="center" prop="subsidiesName" />
+      <el-table-column label="补贴金额" align="center" prop="subsidiesAmount" />
       <el-table-column label="补贴状态" align="center" prop="subsidiesStatus">
         <template v-slot="scope">
           <dict-tag :type="DICT_TYPE.SUBSIDIES_STATUS" :value="scope.row.subsidiesStatus" />
         </template>
       </el-table-column>
       <el-table-column label="申请人" align="center" prop="applyPerson" />
-      <el-table-column label="申请时间" align="center" prop="applyTime" />
-      <el-table-column label="创建时间" align="center" prop="createTime" />
-      <el-table-column label="更新时间" align="center" prop="updateTime" />
+      <!-- <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="更新时间" align="center" prop="updateTime" /> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
-            v-hasPermi="['enterprise:policy-subsidies-info:update']">修改</el-button>
+            v-hasPermi="['enterprise:policy-subsidies-info:update']">编辑</el-button>
           <el-button size="mini" type="text" @click="handleDelete(scope.row)"
             v-hasPermi="['enterprise:policy-subsidies-info:delete']">删除</el-button>
         </template>
@@ -95,7 +100,7 @@
         <el-form-item label="补贴状态" prop="subsidiesStatus">
           <el-select v-model="form.subsidiesStatus" placeholder="请选择补贴状态">
             <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_STATUS)" :key="dict.value"
-              :label="dict.label" :value="parseInt(dict.value)" />
+              :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="申请人" prop="applyPerson">
