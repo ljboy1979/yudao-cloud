@@ -1,5 +1,6 @@
 package cn.acsm.module.member.user.service.member;
 
+import cn.acsm.module.member.user.api.member.dto.MemberUserReqDTO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserCreateReqVO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserExportReqVO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserPageReqVO;
@@ -113,25 +114,26 @@ public class MemberUserServiceImpl implements MemberUserService {
     }
 
     @Override
-    public MemberUserDO createUserIfAbsent(String mobile, String registerIp) {
+    public MemberUserDO createUserIfAbsent(MemberUserReqDTO memberUserReqDTO) {
         // 用户已经存在
-        MemberUserDO user = userMapper.selectByMobile(mobile);
+        MemberUserDO user = userMapper.selectByMobile(memberUserReqDTO.getMobile());
         if (user != null) {
             return user;
         }
         // 用户不存在，则进行创建
-        return this.createUser(mobile, registerIp);
+        return this.createUser(memberUserReqDTO);
     }
 
-    private MemberUserDO createUser(String mobile, String registerIp) {
+    private MemberUserDO createUser(MemberUserReqDTO memberUserReqDTO) {
         // 生成密码
         String password = IdUtil.fastSimpleUUID();
         // 插入用户
         MemberUserDO user = new MemberUserDO();
-        user.setMobile(mobile);
+        user.setMobile(memberUserReqDTO.getMobile());
         user.setStatus(CommonStatusEnum.ENABLE.getStatus()); // 默认开启
         user.setPassword(encodePassword(password)); // 加密密码
-        user.setRegisterIp(registerIp);
+        user.setRegisterIp(memberUserReqDTO.getRegisterIp());
+        user.setSource(memberUserReqDTO.getSource());
         userMapper.insert(user);
         return user;
     }

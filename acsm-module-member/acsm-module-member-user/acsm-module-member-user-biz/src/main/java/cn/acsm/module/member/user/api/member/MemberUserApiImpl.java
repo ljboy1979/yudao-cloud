@@ -1,5 +1,6 @@
 package cn.acsm.module.member.user.api.member;
 
+import cn.acsm.module.member.user.api.member.dto.MemberUserReqDTO;
 import cn.acsm.module.member.user.api.member.dto.MemberUserRespDTO;
 import cn.acsm.module.member.user.convert.member.MemberUserConvert;
 import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
@@ -30,8 +31,8 @@ public class MemberUserApiImpl implements MemberUserApi {
     }
 
     @Override
-    public CommonResult<MemberUserRespDTO> createUserIfAbsent(String phone, String clientIp) {
-        MemberUserRespDTO dto = MemberUserConvert.INSTANCE.convertRespDTO(userService.createUserIfAbsent(phone, clientIp));
+    public CommonResult<MemberUserRespDTO> createUserIfAbsent(MemberUserReqDTO memberUserReqDTO) {
+        MemberUserRespDTO dto = MemberUserConvert.INSTANCE.convertRespDTO(userService.createUserIfAbsent(memberUserReqDTO));
         return CommonResult.success(dto);
     }
 

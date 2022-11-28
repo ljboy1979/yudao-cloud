@@ -34,6 +34,9 @@ public class AppAuthSmsLoginReqVO {
     @Pattern(regexp = "^[0-9]+$", message = "手机验证码必须都是数字")
     private String code;
 
+    @ApiModelProperty(value = "租户集合")
+    private Long source;
+
     // ========== 绑定社交登录时，需要传递如下参数 ==========
 
     @ApiModelProperty(value = "社交平台的类型", required = true, example = "10", notes = "参见 SysUserSocialTypeEnum 枚举值")
@@ -55,5 +58,6 @@ public class AppAuthSmsLoginReqVO {
     public boolean isSocialState() {
         return socialType == null || StrUtil.isNotEmpty(socialState);
     }
+
 
 }

@@ -3,6 +3,7 @@ package cn.acsm.module.member.user.service.member;
 import java.util.*;
 import javax.validation.*;
 
+import cn.acsm.module.member.user.api.member.dto.MemberUserReqDTO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserCreateReqVO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserExportReqVO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserPageReqVO;
@@ -79,11 +80,9 @@ public interface MemberUserService {
     /**
      * 基于手机号创建用户。
      * 如果用户已经存在，则直接进行返回
-     * @param mobile 手机号
-     * @param registerIp 注册 IP
      * @return 用户对象
      */
-    MemberUserDO createUserIfAbsent(@Mobile String mobile, String registerIp);
+    MemberUserDO createUserIfAbsent(MemberUserReqDTO memberUserReqDTO);
 
     /**
      * 更新用户的最后登陆信息

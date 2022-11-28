@@ -10,6 +10,7 @@ import cn.acsm.module.member.signin.dal.dataobject.config.AuthLoginInfoDO;
 import cn.acsm.module.member.signin.dal.mysql.config.AuthLoginInfoMapper;
 import cn.acsm.module.member.signin.service.config.AuthConfigInfoService;
 import cn.acsm.module.member.user.api.member.MemberUserApi;
+import cn.acsm.module.member.user.api.member.dto.MemberUserReqDTO;
 import cn.acsm.module.member.user.api.member.dto.MemberUserRespDTO;
 import cn.hutool.core.lang.Assert;
 import cn.iocoder.yudao.framework.common.enums.UserTypeEnum;
@@ -78,7 +79,11 @@ public class AppAuthServiceImpl implements AppAuthService {
         smsCodeApi.useSmsCode(AuthConvert.INSTANCE.convert(reqVO, SmsSceneEnum.MEMBER_LOGIN.getScene(), userIp));
 
         // 获得获得注册用户
-        CommonResult<MemberUserRespDTO> respDTOCommonResult = memberUserApi.createUserIfAbsent(reqVO.getMobile(), userIp);
+        MemberUserReqDTO memberUserReqDTO = new MemberUserReqDTO();
+        memberUserReqDTO.setMobile(reqVO.getMobile());
+        memberUserReqDTO.setRegisterIp(userIp);
+        memberUserReqDTO.setSource(reqVO.getSource());
+        CommonResult<MemberUserRespDTO> respDTOCommonResult = memberUserApi.createUserIfAbsent(memberUserReqDTO);
         if (respDTOCommonResult.getCode() != 0){
             return respDTOCommonResult;
         }
@@ -107,7 +112,11 @@ public class AppAuthServiceImpl implements AppAuthService {
         WeChatRespDTO respDTO = result.getData();
         String phone = respDTO.getPhone();
         // 获得获得注册用户
-        CommonResult<MemberUserRespDTO> respDTOCommonResult = memberUserApi.createUserIfAbsent(phone, getClientIP());
+        MemberUserReqDTO memberUserReqDTO = new MemberUserReqDTO();
+        memberUserReqDTO.setMobile(phone);
+        memberUserReqDTO.setRegisterIp(getClientIP());
+        memberUserReqDTO.setSource(weChatReqDTO.getSource());
+        CommonResult<MemberUserRespDTO> respDTOCommonResult = memberUserApi.createUserIfAbsent(memberUserReqDTO);
         if (respDTOCommonResult.getCode() != 0){
             return respDTOCommonResult;
         }
