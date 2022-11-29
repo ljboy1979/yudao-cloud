@@ -20,6 +20,7 @@
         <module>acsm-module-member</module>
         <module>acsm-module-wallet</module>
         <module>acsm-module-enterprise</module>
+        <module>acsm-module-transaction</module>
         <!--        <module>yudao-module-pay</module>-->
     </modules>
 
