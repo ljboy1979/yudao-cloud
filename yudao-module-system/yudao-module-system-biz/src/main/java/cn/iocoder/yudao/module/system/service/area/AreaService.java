@@ -71,5 +71,11 @@ public interface AreaService {
      * @return 行政区划列表
      */
     List<AreaDO> getAreaList(AreaExportReqVO exportReqVO);
+    /**
+     * 获得行政区划列表, 用于 生成树表
+     *
+     * @return 行政区划列表
+     */
+    List<AreaDO> getAreaTreeList();
 
 }

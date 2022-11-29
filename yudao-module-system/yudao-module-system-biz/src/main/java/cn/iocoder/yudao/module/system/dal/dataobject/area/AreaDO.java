@@ -1,10 +1,7 @@
 package cn.iocoder.yudao.module.system.dal.dataobject.area;
 
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -88,10 +85,12 @@ public class AreaDO extends BaseDO {
     /**
      * 左
      */
+    @TableField("`left`")
     private Double left;
     /**
      * 右
      */
+    @TableField("`right`")
     private Double right;
     /**
      * 经度

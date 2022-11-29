@@ -15,7 +15,7 @@ public class NoticePageReqVO extends PageParam {
     private String title;
 
     //修复查询问题，liuj
-    @ApiModelProperty(value = "公告类型", required = false, example = "通知")
+    @ApiModelProperty(value = "公告类型", required = false, example = "1")
     private Integer type;
 
     @ApiModelProperty(value = "展示状态", example = "1", notes = "参见 CommonStatusEnum 枚举类")

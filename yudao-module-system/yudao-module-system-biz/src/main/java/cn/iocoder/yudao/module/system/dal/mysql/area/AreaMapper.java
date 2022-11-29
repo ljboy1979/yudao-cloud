@@ -73,5 +73,9 @@ public interface AreaMapper extends BaseMapperX< AreaDO > {
                 .eqIfPresent(AreaDO::getLatitude, reqVO.getLatitude())
                 .orderByDesc(AreaDO::getId));
     }
+    default List<AreaDO> selectListToTree() {
+        return selectList(new LambdaQueryWrapperX<AreaDO>()
+                .orderByAsc(AreaDO::getId));
+    }
 
 }

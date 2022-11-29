@@ -21,5 +21,8 @@ public interface RedisKeyConstants {
     RedisKeyDefine SOCIAL_AUTH_STATE = new RedisKeyDefine("社交登陆的 state", // 注意，它是被 JustAuth 的 justauth.type.prefix 使用到
             "social_auth_state:%s", // 参数为 state
             STRING, String.class, Duration.ofHours(24)); // 值为 state
+    RedisKeyDefine AREA_DATA_LIST = new RedisKeyDefine("行政区划的数据缓存",
+            "area_data_list", //参数为数据的json串
+            STRING, String.class, RedisKeyDefine.TimeoutTypeEnum.FOREVER);
 
 }

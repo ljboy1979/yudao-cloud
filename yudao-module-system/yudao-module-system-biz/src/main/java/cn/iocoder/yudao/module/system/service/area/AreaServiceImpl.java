@@ -8,6 +8,8 @@ import cn.iocoder.yudao.module.system.controller.admin.area.vo.AreaUpdateReqVO;
 import cn.iocoder.yudao.module.system.convert.area.AreaConvert;
 import cn.iocoder.yudao.module.system.dal.dataobject.area.AreaDO;
 import cn.iocoder.yudao.module.system.dal.mysql.area.AreaMapper;
+import cn.iocoder.yudao.module.system.dal.redis.area.AreaRedisDAO;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -29,6 +31,8 @@ public class AreaServiceImpl implements AreaService {
 
     @Resource
     private AreaMapper areaMapper;
+    @Resource
+    private AreaRedisDAO areaRedisDAO;
 
     @Override
     public Long createArea(AreaCreateReqVO createReqVO) {
@@ -81,5 +85,15 @@ public class AreaServiceImpl implements AreaService {
     public List<AreaDO> getAreaList(AreaExportReqVO exportReqVO) {
         return areaMapper.selectList(exportReqVO);
     }
+
+	@Override
+	public List< AreaDO > getAreaTreeList() {
+        List< AreaDO > areaDOList = areaRedisDAO.get();
+        if(CollectionUtils.isEmpty(areaDOList)){
+            areaDOList = areaMapper.selectListToTree();
+            areaRedisDAO.set(areaDOList);
+        }
+        return areaDOList;
+	}
 
 }
