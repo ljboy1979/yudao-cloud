@@ -1,6 +1,6 @@
 package cn.iocoder.yudao.module.system.controller.admin.area.vo;
 
-import cn.iocoder.yudao.module.system.util.area.TreeEntity;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.TreeEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

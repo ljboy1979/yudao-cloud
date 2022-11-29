@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.system.util.area;
+package cn.iocoder.yudao.framework.mybatis.core.dataobject.area;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.system.util.area;
+package cn.iocoder.yudao.framework.mybatis.core.dataobject.area;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
