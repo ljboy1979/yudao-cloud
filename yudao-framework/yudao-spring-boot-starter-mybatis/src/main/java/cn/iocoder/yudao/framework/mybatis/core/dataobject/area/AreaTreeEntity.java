@@ -16,7 +16,7 @@ import java.util.List;
  * 
  * @author ruoyi
  */
-public class TreeEntity<T>
+public class AreaTreeEntity<T>
 {
     /** 节点ID */
     private String id;

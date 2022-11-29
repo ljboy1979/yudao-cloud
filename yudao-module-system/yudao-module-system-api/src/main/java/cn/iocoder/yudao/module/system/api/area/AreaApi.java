@@ -1,7 +1,7 @@
 package cn.iocoder.yudao.module.system.api.area;
 
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.TreeSelect;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.AreaTreeSelect;
 import cn.iocoder.yudao.module.system.enums.ApiConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,5 +18,5 @@ public interface AreaApi {
 
     @GetMapping(PREFIX + "/tree")
     @ApiOperation("获取行政区划树形数据")
-    CommonResult< List< TreeSelect > >tree();
+    CommonResult< List< AreaTreeSelect > > tree();
 }

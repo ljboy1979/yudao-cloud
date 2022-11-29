@@ -1,8 +1,8 @@
 package cn.iocoder.yudao.module.system.api.area;
 
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.TreeSelect;
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.TreeUtils;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.AreaTreeSelect;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.AreaTreeUtils;
 import cn.iocoder.yudao.module.system.controller.admin.area.vo.AreaTreeVO;
 import cn.iocoder.yudao.module.system.convert.area.AreaConvert;
 import cn.iocoder.yudao.module.system.dal.dataobject.area.AreaDO;
@@ -27,10 +27,10 @@ public class AreaApiImpl implements AreaApi {
     private AreaService areaService;
 
     @Override
-    public CommonResult<List< TreeSelect >> tree() {
+    public CommonResult< List< AreaTreeSelect > > tree() {
         List< AreaDO > areaList = areaService.getAreaTreeList();
         List< AreaTreeVO > areaTreeVos = areaList.stream().map(o -> AreaConvert.convertListToTree(o)).collect(Collectors.toList());
-        List<TreeSelect> treeSelects = TreeUtils.
+        List<AreaTreeSelect> treeSelects = AreaTreeUtils.
                 buildTreeSelect(areaTreeVos);
         return success(treeSelects);
     }

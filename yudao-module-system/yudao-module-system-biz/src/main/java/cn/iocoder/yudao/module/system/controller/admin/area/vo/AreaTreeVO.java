@@ -1,6 +1,6 @@
 package cn.iocoder.yudao.module.system.controller.admin.area.vo;
 
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.TreeEntity;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.AreaTreeEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @ApiModel("管理后台 - 行政区划 Tree VO")
 @Data
-public class AreaTreeVO extends TreeEntity {
+public class AreaTreeVO extends AreaTreeEntity {
     @ApiModelProperty(value = "区域编码", required = true)
     private String areaCode;
 

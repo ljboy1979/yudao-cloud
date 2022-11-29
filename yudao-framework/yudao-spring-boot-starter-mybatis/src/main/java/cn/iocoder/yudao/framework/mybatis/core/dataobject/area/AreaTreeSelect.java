@@ -11,10 +11,8 @@ import java.util.stream.Collectors;
  * 
  * @author ruoyi
  */
-public class TreeSelect<T> implements Serializable
+public class AreaTreeSelect<T> implements Serializable
 {
-    private static final long serialVersionUID = 1L;
-
     /** 节点ID */
     private String id;
 
@@ -23,16 +21,16 @@ public class TreeSelect<T> implements Serializable
 
     /** 子节点 */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<TreeSelect> children;
+    private List< AreaTreeSelect > children;
 
-    public TreeSelect()
+    public AreaTreeSelect()
     {
 
     }
-    public <T extends TreeEntity<T> > TreeSelect(T t) {
+    public <T extends AreaTreeEntity<T> > AreaTreeSelect(T t) {
         this.id = t.getId();
         this.label = t.getName();
-        this.children = t.getChildren().stream().map(TreeSelect<T>::new).collect(Collectors.toList());
+        this.children = t.getChildren().stream().map(AreaTreeSelect<T>::new).collect(Collectors.toList());
     }
 
 //    public TreeSelect(SysDept dept)
@@ -69,12 +67,12 @@ public class TreeSelect<T> implements Serializable
         this.label = label;
     }
 
-    public List<TreeSelect> getChildren()
+    public List< AreaTreeSelect > getChildren()
     {
         return children;
     }
 
-    public void setChildren(List<TreeSelect> children)
+    public void setChildren(List< AreaTreeSelect > children)
     {
         this.children = children;
     }

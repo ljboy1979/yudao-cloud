@@ -3,8 +3,8 @@ package cn.iocoder.yudao.module.system.controller.admin.area;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.TreeSelect;
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.TreeUtils;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.AreaTreeSelect;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.AreaTreeUtils;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
 import cn.iocoder.yudao.framework.tenant.core.aop.TenantIgnore;
 import cn.iocoder.yudao.module.system.controller.admin.area.vo.*;
@@ -109,10 +109,10 @@ public class AreaController {
     @ApiOperation("获得行政区划树表")
     @TenantIgnore
     @PermitAll
-    public CommonResult<List< TreeSelect >> treeSelect() {
+    public CommonResult<List< AreaTreeSelect >> treeSelect() {
         List<AreaDO> areaList = areaService.getAreaTreeList();
         List< AreaTreeVO > areaTreeVos = areaList.stream().map(o -> AreaConvert.convertListToTree(o)).collect(Collectors.toList());
-        List<TreeSelect> treeSelects = TreeUtils.
+        List< AreaTreeSelect > treeSelects = AreaTreeUtils.
                 buildTreeSelect(areaTreeVos);
         return success(treeSelects);
     }

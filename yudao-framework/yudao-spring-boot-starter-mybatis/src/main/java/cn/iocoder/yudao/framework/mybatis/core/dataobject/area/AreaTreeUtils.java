@@ -11,16 +11,16 @@ import java.util.stream.Collectors;
  *
  * @author enkidu66
  */
-public class TreeUtils {
+public class AreaTreeUtils {
     /**
      * 构建前端所需要下拉树结构
      *
      * @param list 列表
      * @return 树结构列表
      */
-    public static <T extends TreeEntity<T> > List< TreeSelect > buildTreeSelect(List<T> list) {
+    public static <T extends AreaTreeEntity<T> > List< AreaTreeSelect > buildTreeSelect(List<T> list) {
         List<T> trees = buildTree(list);
-        return trees.stream().map((Function<T, TreeSelect >) TreeSelect::new).collect(Collectors.toList());
+        return trees.stream().map((Function<T, AreaTreeSelect >) AreaTreeSelect::new).collect(Collectors.toList());
     }
 
     /**
@@ -29,7 +29,7 @@ public class TreeUtils {
      * @param list 列表
      * @return 树结构列表
      */
-    public static <T extends TreeEntity<T> > List<T> buildTree(List<T> list) {
+    public static <T extends AreaTreeEntity<T> > List<T> buildTree(List<T> list) {
         // 排序，保证树的有序性
         list.sort(Comparator.comparing(T::getSort));
         List<T> returnList = new ArrayList<>();
@@ -57,9 +57,9 @@ public class TreeUtils {
      * @param id   节点ID
      * @return 树结构列表
      */
-    public static <T extends TreeEntity<T> > List< TreeSelect > buildTreeSelect(List<T> list, Long id) {
+    public static <T extends AreaTreeEntity<T> > List< AreaTreeSelect > buildTreeSelect(List<T> list, Long id) {
         List<T> trees = buildTree(list, id);
-        return trees.stream().map((Function<T, TreeSelect >) TreeSelect::new).collect(Collectors.toList());
+        return trees.stream().map((Function<T, AreaTreeSelect >) AreaTreeSelect::new).collect(Collectors.toList());
     }
 
     /**
@@ -69,7 +69,7 @@ public class TreeUtils {
      * @param id   节点ID
      * @return 树结构列表
      */
-    public static <T extends TreeEntity<T> > List<T> buildTree(List<T> list, Long id) {
+    public static <T extends AreaTreeEntity<T> > List<T> buildTree(List<T> list, Long id) {
         // 排序，保证树的有序性
         list.sort(Comparator.comparing(T::getSort));
         List<T> returnList = new ArrayList<>();
@@ -127,7 +127,7 @@ public class TreeUtils {
      * @param id   节点ID
      * @return 列表
      */
-    public static <T extends TreeEntity<T> > List<T> buildList(List<T> list, Long id) {
+    public static <T extends AreaTreeEntity<T> > List<T> buildList(List<T> list, Long id) {
         List<T> returnList = new ArrayList<>();
         for (T t : list) {
             // 如果是指定节点, 将其添加到返回值, 并遍历该父节点的所有子节点
@@ -143,7 +143,7 @@ public class TreeUtils {
     /**
      * 递归列表
      */
-    private static <T extends TreeEntity<T> > void recursionFn(List<T> list, T t) {
+    private static <T extends AreaTreeEntity<T> > void recursionFn(List<T> list, T t) {
         // 得到子节点列表
         List<T> childList = getChildList(list, t);
         t.setChildren(childList);
@@ -157,7 +157,7 @@ public class TreeUtils {
     /**
      * 递归列表并统计
      */
-    private static <T extends TreeEntity<T> > void recursionFn(List<T> list, T t, List<T> returnList) {
+    private static <T extends AreaTreeEntity<T> > void recursionFn(List<T> list, T t, List<T> returnList) {
         // 得到子节点列表
         List<T> childList = getChildList(list, t);
         returnList.addAll(childList);
@@ -171,7 +171,7 @@ public class TreeUtils {
     /**
      * 得到子节点列表
      */
-    private static <T extends TreeEntity<T> > List<T> getChildList(List<T> list, T t) {
+    private static <T extends AreaTreeEntity<T> > List<T> getChildList(List<T> list, T t) {
         List<T> childList = new ArrayList<>();
         for (T n : list) {
             if ( n.getParentId() != null && n.getParentId().equals(t.getId())) {
@@ -184,7 +184,7 @@ public class TreeUtils {
     /**
      * 判断是否有子节点
      */
-    private static <T extends TreeEntity<T> > boolean hasChild(List<T> list, T t) {
+    private static <T extends AreaTreeEntity<T> > boolean hasChild(List<T> list, T t) {
         return getChildList(list, t).size() > 0;
     }
 
