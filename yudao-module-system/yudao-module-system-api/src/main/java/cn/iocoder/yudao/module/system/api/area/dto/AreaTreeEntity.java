@@ -1,6 +1,5 @@
-package cn.iocoder.yudao.framework.mybatis.core.dataobject.area;
+package cn.iocoder.yudao.module.system.api.area.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -37,11 +36,8 @@ public class AreaTreeEntity<T>
 //    private Integer orderNum;
 
     /** 祖级列表 */
-    @TableField(exist = false)
     private String ancestors;
 
     /** 子部门 */
-    @TableField(exist = false)
-    //    @TableField(typeHandler = Json) 用json序列化后存在数据库
     private List<T> children = new ArrayList<>();
 }

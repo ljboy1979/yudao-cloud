@@ -1,8 +1,8 @@
 package cn.iocoder.yudao.module.system.api.area;
 
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.AreaTreeSelect;
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.AreaTreeUtils;
+import cn.iocoder.yudao.module.system.api.area.dto.AreaTreeSelect;
+import cn.iocoder.yudao.module.system.api.area.dto.AreaTreeUtils;
 import cn.iocoder.yudao.module.system.controller.admin.area.vo.AreaTreeVO;
 import cn.iocoder.yudao.module.system.convert.area.AreaConvert;
 import cn.iocoder.yudao.module.system.dal.dataobject.area.AreaDO;

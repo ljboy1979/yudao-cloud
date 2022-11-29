@@ -1,7 +1,7 @@
 package cn.iocoder.yudao.module.system.api.area;
 
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.area.AreaTreeSelect;
+import cn.iocoder.yudao.module.system.api.area.dto.AreaTreeSelect;
 import cn.iocoder.yudao.module.system.enums.ApiConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
