@@ -345,13 +345,17 @@ public class MemberUserServiceImpl implements MemberUserService {
     }
 
     @Override
-    public CommonResult updateAuditStatus(MemberUserUpdateAuditReqVO updateReqVO) {
+    public CommonResult updateAuditStatus(MemberUserUpdateDetailReqVO updateReqVO) {
+        if (Objects.isNull(updateReqVO.getAuditStatus())){
+            return CommonResult.error(AUDITSTATUS_NOT_EXISTS);
+        }
         // 校验会员是否存在
         this.validateUserExists(updateReqVO.getId());
 
         // 修改关联表审核状态
         MemberUserDetailUpdateReqVO detailUpdateReqVO = new MemberUserDetailUpdateReqVO();
         detailUpdateReqVO.setId(updateReqVO.getMemberUserDetailId());
+        detailUpdateReqVO.setMemberId(updateReqVO.getId());
         detailUpdateReqVO.setAuditStatus(updateReqVO.getAuditStatus());
         // 审核为驳回时，保存驳回原因
         // 审核状态 0-待审核 1-审核通过 2-已驳回 3-已解绑
@@ -363,15 +367,36 @@ public class MemberUserServiceImpl implements MemberUserService {
     }
 
     @Override
-    public CommonResult unbundling(MemberUserUpdateAuditReqVO updateReqVO) {
+    public CommonResult unbundling(MemberUserUpdateDetailReqVO updateReqVO) {
+        if (Objects.isNull(updateReqVO.getAuditStatus())){
+            return CommonResult.error(AUDITSTATUS_NOT_EXISTS);
+        }
         // 校验会员是否存在
         this.validateUserExists(updateReqVO.getId());
 
         // 修改关联表审核状态
         MemberUserDetailUpdateReqVO detailUpdateReqVO = new MemberUserDetailUpdateReqVO();
         detailUpdateReqVO.setId(updateReqVO.getMemberUserDetailId());
+        detailUpdateReqVO.setMemberId(updateReqVO.getId());
         detailUpdateReqVO.setAuditStatus(updateReqVO.getAuditStatus());
         memberUserDetailService.updateUserDetail(detailUpdateReqVO);
         return CommonResult.success("解绑成功！");
+    }
+
+    @Override
+    public CommonResult updateMemberType(MemberUserUpdateDetailReqVO updateReqVO) {
+        if (Objects.isNull(updateReqVO.getMemberType())){
+            return CommonResult.error(MEMBERTYPE_NOT_EXISTS);
+        }
+        // 校验会员是否存在
+        this.validateUserExists(updateReqVO.getId());
+
+        // 修改关联表会员类型
+        MemberUserDetailUpdateReqVO detailUpdateReqVO = new MemberUserDetailUpdateReqVO();
+        detailUpdateReqVO.setId(updateReqVO.getMemberUserDetailId());
+        detailUpdateReqVO.setMemberId(updateReqVO.getId());
+        detailUpdateReqVO.setMemberType(updateReqVO.getMemberType());
+        memberUserDetailService.updateUserDetail(detailUpdateReqVO);
+        return CommonResult.success("修改会员类型！");
     }
 }

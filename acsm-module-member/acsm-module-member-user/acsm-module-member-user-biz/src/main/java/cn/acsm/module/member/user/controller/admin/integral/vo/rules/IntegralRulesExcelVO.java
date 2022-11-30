@@ -1,6 +1,8 @@
 package cn.acsm.module.member.user.controller.admin.integral.vo.rules;
 
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import io.swagger.annotations.*;
 
@@ -39,7 +41,7 @@ public class IntegralRulesExcelVO {
     private String remark;
 
     @ExcelProperty("创建时间")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ExcelProperty("租户集合")
     private Long source;
