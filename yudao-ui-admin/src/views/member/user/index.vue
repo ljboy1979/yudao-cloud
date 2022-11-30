@@ -3,14 +3,16 @@
     <div class="title">会员管理</div>
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item prop="role">
-        <el-select v-model="queryParams.role" placeholder="请选择会员角色" clearable size="small">
-          <el-option label="数据" value="" />
+      <el-form-item prop="memberRole">
+        <el-select v-model="queryParams.memberRole" placeholder="请选择会员角色" clearable size="small">
+          <el-option label="数据0" value="0" />
+          <el-option label="数据1" value="1" />
         </el-select>
       </el-form-item>
-      <el-form-item prop="type">
-        <el-select v-model="queryParams.type" placeholder="请选择会员类型" clearable size="small">
-          <el-option label="数据" value="" />
+      <el-form-item prop="memberType">
+        <el-select v-model="queryParams.memberType" placeholder="请选择会员类型" clearable size="small">
+          <el-option label="数据0" value="0" />
+          <el-option label="数据1" value="1" />
         </el-select>
       </el-form-item>
       <el-form-item prop="id">
@@ -22,8 +24,8 @@
       <el-form-item prop="mobile">
         <el-input v-model="queryParams.mobile" placeholder="请输入会员手机号" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item prop="merchant">
-        <el-input v-model="queryParams.merchant" placeholder="请输入会员门户" clearable @keyup.enter.native="handleQuery" />
+      <el-form-item prop="source">
+        <el-input v-model="queryParams.source" placeholder="请输入会员门户" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
@@ -37,17 +39,17 @@
       <el-table-column label="会员账号" align="center" prop="id" />
       <el-table-column label="会员名称" align="center" prop="nickname" />
       <el-table-column label="手机号" align="center" prop="mobile" />
-      <el-table-column label="角色" align="center" prop="" />
-      <el-table-column label="所属企业" align="center" prop="" />
-      <el-table-column label="当前等级" align="center" prop="" />
-      <el-table-column label="当前积分" align="center" prop="" />
+      <el-table-column label="角色" align="center" prop="memberRole" />
+      <el-table-column label="所属企业" align="center" prop="enterpriseName" />
+      <el-table-column label="当前等级" align="center" prop="memberLevel" />
+      <el-table-column label="当前积分" align="center" prop="integralRemaining" />
       <el-table-column label="注册时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="小程序门户" align="center" prop="" />
-      <el-table-column label="会员类型" align="center" prop="" />
+      <el-table-column label="小程序门户" align="center" prop="source" />
+      <el-table-column label="会员类型" align="center" prop="memberType" />
       <el-table-column label="状态" align="center" prop="status" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="300">
         <template slot-scope="scope">
@@ -112,12 +114,12 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        role: undefined,
-        type: undefined,
+        memberRole: undefined,
+        memberType: undefined,
         id: undefined,
         nickname: undefined,
         mobile: undefined,
-        merchant: undefined,
+        source: undefined,
       },
       // 表单参数
       form: {},
@@ -150,6 +152,8 @@ export default {
     /** 表单重置 */
     reset() {
       this.form = {
+        romemberRole: undefined,
+        romemberType: undefined,
         id: undefined,
         result: undefined,
         remark: undefined,

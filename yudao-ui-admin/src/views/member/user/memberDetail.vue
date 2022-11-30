@@ -48,8 +48,9 @@
                 <div class="title">会员积分记录</div>
                 <integralRecord :id="userid" v-if="activeName=='integralRecord'"></integralRecord>
             </el-tab-pane>
-            <el-tab-pane label="健康档案" name="healthRecords">
-                <healthRecords :id="userid" v-if="activeName=='healthRecords'"></healthRecords>
+            <el-tab-pane label="健康档案" name="PatientHealth">
+                <div class="title">健康档案</div>
+                <PatientHealth :id="userid" v-if="activeName=='PatientHealth'"></PatientHealth>
             </el-tab-pane>
             <el-tab-pane label="代理商管理" name="agentManagement">
                 <div class="title">代理商管理</div>
@@ -69,7 +70,7 @@ import integralRecord from "../integralRecord/index.vue";
 import agentManagement from "../agentManagement/index.vue";
 import WalletTransactionHistory from "../user/componets/WalletTransactionHistory.vue";
 import passInAndOutRecord from "../user/componets/passInAndOutRecord.vue";
-import healthRecords from "../user/componets/healthRecords.vue";
+import PatientHealth from "../../patient/patientHealth/index.vue";
 import salesTransaction from "../user/componets/salesTransaction.vue"
 import serviceTransaction from "../user/componets/serviceTransaction.vue"
 export default {
@@ -80,7 +81,7 @@ export default {
         WalletTransactionHistory,
         passInAndOutRecord,
         ProfessionalQualification,
-        healthRecords,
+        PatientHealth,
         serviceTransaction,
         salesTransaction
     },

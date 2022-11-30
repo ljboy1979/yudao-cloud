@@ -69,18 +69,18 @@
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="代理商名称" prop="agentName">
           <el-input v-model="form.agentName" placeholder="请输入代理商名称" />
         </el-form-item>
-        <el-form-item label="代理区域" prop="agentAera">
+        <el-form-item label="行政区域" prop="agentAera">
           <el-input v-model="form.agentAera" placeholder="请输入代理区域" />
-        </el-form-item>
-        <el-form-item label="地址" prop="address">
-          <el-input v-model="form.address" placeholder="请输入地址" />
         </el-form-item>
         <el-form-item label="手机号" prop="phone">
           <el-input v-model="form.phone" placeholder="请输入手机号" />
+        </el-form-item>
+        <el-form-item label="地址" prop="address">
+          <el-input v-model="form.address" placeholder="请输入地址" />
         </el-form-item>
         <!-- <el-form-item label="租户集合" prop="source">
           <el-input v-model="form.source" placeholder="请输入租户集合" />

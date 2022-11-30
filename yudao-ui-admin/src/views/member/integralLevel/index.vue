@@ -81,7 +81,7 @@
           <el-input v-model="form.memberLevel" placeholder="请输入会员等级" />
         </el-form-item>
         <el-form-item label="积分阀值" prop="integralThreshold">
-          <el-input v-model="form.integralThreshold" placeholder="请输入积分阀值" />
+          <el-input v-model.number="form.integralThreshold" placeholder="请输入积分阀值" />
         </el-form-item>
         <el-form-item label="等级优惠" prop="levelDiscount">
           <el-select v-model="form.levelDiscount" placeholder="请选择等级优惠" clearable size="small">
@@ -165,7 +165,8 @@ export default {
       rules: {
         enterpriseName: [{ required: true, message: "企业名称不能为空", trigger: "blur" }],
         memberLevel: [{ required: true, message: "会员等级不能为空", trigger: "blur" }],
-        integralThreshold: [{ required: true, message: "积分阀值不能为空", trigger: "blur" }],
+        integralThreshold: [{ required: true, message: "积分阀值不能为空", trigger: "blur" },
+        { type: 'number', message: '积分阀值必须为整数', trigger: "blur" }],
       }
     };
   },
@@ -217,7 +218,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加会员积分等级";
+      this.title = "新增积分等级规则";
     },
     /** 查看按钮操作 */
     handleView(row) {
@@ -226,7 +227,7 @@ export default {
       getIntegralLevel(id).then(response => {
         this.form = response.data;
         this.viewopen = true;
-        this.title = "查看会员积分等级";
+        this.title = "查看积分等级规则";
       });
     },
     /** 修改按钮操作 */
@@ -236,7 +237,7 @@ export default {
       getIntegralLevel(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改会员积分等级";
+        this.title = "修改积分等级规则";
       });
     },
     /** 提交按钮 */

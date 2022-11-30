@@ -98,20 +98,23 @@
         <el-form-item label="数值范围" prop="rangeValues">
           <!-- <el-input v-model="form.rangeValues" placeholder="请输入数值范围" /> -->
           <el-col :span="10">
-            <el-input v-model="form.rangeLower" placeholder="下限" />
+            <el-form-item prop="integralMin">
+              <el-input v-model="form.integralMin" placeholder="下限" />
+            </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="10">
-            <el-input v-model="form.rangeUpper" placeholder="上限" />
+            <el-form-item prop="integralMax">
+              <el-input v-model="form.integralMax" placeholder="上限" />
+            </el-form-item>
           </el-col>
-
         </el-form-item>
         <el-form-item label="积分值" prop="integralValue">
-          <el-input v-model="form.integralValue" placeholder="请输入积分值" />
+          <el-input v-model.number="form.integralValue" placeholder="请输入积分值"
+            oninput="value=value.replace(/[^\d]/g,'')" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
-          <el-input type="textarea" v-model="form.remark" placeholder="请输入备注" maxlength="200"
-            show-word-limit />
+          <el-input type="textarea" v-model="form.remark" placeholder="请输入备注" maxlength="200" show-word-limit />
         </el-form-item>
         <!-- <el-form-item label="租户集合" prop="source">
           <el-input v-model="form.source" placeholder="请输入租户集合" />
@@ -148,6 +151,22 @@ export default {
   components: {
   },
   data() {
+    var compareMin = (rule, value, callback) => {
+      this.$refs.form.clearValidate('integralMax')
+      if (value > Number(this.form.integralMax)) {
+        callback(new Error("下限不能大于上限"));
+      } else {
+        callback();
+      }
+    }
+    var compareMax = (rule, value, callback) => {
+      this.$refs.form.clearValidate('integralMin')
+      if ( Number(this.form.integralMin) > value) {
+        callback(new Error("上限不能小于下限"));
+      } else {
+        callback();
+      }
+    }
     return {
       // 遮罩层
       loading: true,
@@ -173,9 +192,9 @@ export default {
         enterpriseName: null,
         parentLevelProject: null,
         ratingItems: null,
-        // rangeValues: null,
-        rangeUpper: null,
-        rangeLower: null,
+        rangeValues: null,
+        integralMax: null,
+        integralMin: null,
         integralValue: null,
         remark: null,
         createTime: [],
@@ -186,8 +205,13 @@ export default {
       form: {},
       // 表单校验
       rules: {
+        integralMin: [{ validator: compareMin, trigger: "blur" }],
+        integralMax: [{ validator: compareMax, trigger: "blur" }],
       }
+
     };
+
+
   },
   created() {
     this.getList();
@@ -238,7 +262,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加会员积分规则";
+      this.title = "新增积分规则";
     },
     /** 查看按钮操作 */
     handleView(row) {
@@ -247,7 +271,7 @@ export default {
       getIntegralRules(id).then(response => {
         this.form = response.data;
         this.viewopen = true;
-        this.title = "查看会员积分规则";
+        this.title = "查看积分规则";
       });
     },
     /** 修改按钮操作 */
@@ -257,7 +281,7 @@ export default {
       getIntegralRules(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改会员积分规则";
+        this.title = "修改积分规则";
       });
     },
     /** 提交按钮 */
@@ -266,6 +290,7 @@ export default {
         if (!valid) {
           return;
         }
+        this.form.rangeValues = this.form.integralMin + '-' + this.form.integralMax
         // 修改的提交
         if (this.form.id != null) {
           updateIntegralRules(this.form).then(response => {
@@ -311,5 +336,7 @@ export default {
 };
 </script>
 <style>
-.line{text-align: center;}
+.line {
+  text-align: center;
+}
 </style>
