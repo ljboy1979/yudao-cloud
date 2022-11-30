@@ -115,7 +115,7 @@
                 <el-col :span="10">
                     <el-form-item label="行政区域" prop="name">
                         <el-cascader v-model="ruleForm.value" :options="options" @change="handleChange"
-                        :props="{ value: 'id'}"></el-cascader>
+                            :props="{ value: 'id' }" ref="cascaderMallCatergory"></el-cascader>
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
@@ -286,7 +286,8 @@ export default {
                 legalIdCardFrontPhoto: [],//法人身份证正面
                 logo: [],//企业Logo
                 businessLicensePhoto: [],//经营许可证
-                businessCertificatePhoto: []//电子营业执照图片
+                businessCertificatePhoto: [],//电子营业执照图片
+                value: [],//行政区域
             },
             //表单检验规则
             rules: {
@@ -354,6 +355,9 @@ export default {
                 accountBank: [
                     { required: true, message: '请输入开户行', trigger: 'change' }
                 ],
+                value: [
+                    { type: 'array', required: true, message: '请选择行政区域', trigger: 'change' }
+                ]
             },
             dialogVisible: false,//是否开启预览
             dialogImageUrl: '',//当前预览图片地址
@@ -367,7 +371,8 @@ export default {
             businessLicensePhoto: [],//经营许可证
             businessCert: false,//经营许可证是否可继续上传
             businessCertificatePhoto: [],//电子营业执照图片
-            options: []
+            options: [],//行政区域下拉列表
+            Administrative: [],//行政区域文字
         };
     },
     /**计算属性*/
@@ -379,11 +384,11 @@ export default {
         getAllTree() {
             getTree().then(response => {
                 console.log(response.data);
-                this.options=response.data
+                this.options = response.data
             })
         },
         handleChange(value) {
-            console.log(value);
+            this.Administrative = this.$refs['cascaderMallCatergory'].getCheckedNodes()[0].pathLabels
         },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
@@ -417,6 +422,16 @@ export default {
                     obj.businessLicensePhoto = this.ArrayToString(this.businessLicensePhoto);
                     obj.businessCertificatePhoto = this.ArrayToString(this.businessCertificatePhoto);
                     obj.id = this.id;
+                    // console.log(this.ruleForm.value)
+                    obj.villagesAreaId=this.ruleForm.value[0];
+                    obj.areaId=this.ruleForm.value[1];
+                    obj.ruralId=this.ruleForm.value[2]
+                    obj.villagesAreaName=this.Administrative[0]
+                    obj.areaName=this.Administrative[1]
+                    obj.ruralName=this.Administrative[2]
+                    // [obj.villagesAreaId, obj.areaId, obj.ruralId] = this.ruleForm.value
+                    // [obj.villagesAreaName, obj.areaName, obj.ruralName] = this.Administrative
+                    console.log(obj);
                     if (obj.userTagName) {
                         delete obj.userTagName
                     }
@@ -539,6 +554,7 @@ export default {
             const id = this.id
             let loadingInstance = Loading.service({ fullscreen: true });
             getBaseInfo(id).then(response => {
+                console.log(response)
                 //图片反显和是否显示上传按钮
                 response.data.logo = this.ToUpload(response.data.logo);
                 this.logo = response.data.logo
@@ -555,7 +571,11 @@ export default {
                 response.data.businessCertificatePhoto = this.ToUpload(response.data.businessCertificatePhoto)
                 this.businessCertificatePhoto = response.data.businessCertificatePhoto
                 response.data.businessCertificatePhoto.length >= 6 ? this.Licenseimg = true : ''
+                //将省市区字符串转换为数字
+                response.data.value = [response.data.villagesAreaId, response.data.areaId, response.data.ruralId]
+                this.Administrative = [response.data.villagesAreaName, response.data.areaName, response.data.ruralName]
                 this.ruleForm = response.data;
+                console.log(this.ruleForm)
                 //取消接口加载过度动画
                 setTimeout(function () {
                     loadingInstance.close();
