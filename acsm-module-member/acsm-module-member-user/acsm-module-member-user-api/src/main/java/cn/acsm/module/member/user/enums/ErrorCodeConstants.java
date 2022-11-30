@@ -15,6 +15,7 @@ public interface ErrorCodeConstants {
     ErrorCode WECHAT_CONFIGURATION_NOT_EXISTS = new ErrorCode(1010000003, "该租户下未配置微信公众号信息");
     ErrorCode USER_PASSWORD_FAILED = new ErrorCode(1010001004, "密码校验失败");
     ErrorCode MEMBER_ID_NOT_EXISTS = new ErrorCode(1010001005, "会员ID参数缺失");
+    ErrorCode USER_DETAIL_NOT_EXISTS = new ErrorCode(1010001006, "会员信息不存在");
 
     // ========== AUTH 模块 1010001000 ==========
     ErrorCode AUTH_LOGIN_BAD_CREDENTIALS = new ErrorCode(1010001000, "登录失败，账号密码不正确");
@@ -47,8 +48,5 @@ public interface ErrorCodeConstants {
 
     // ========== 专业资质 1010006000 ============
     ErrorCode PROFESSIONAL_QUALIFICATION_NOT_EXISTS = new ErrorCode(1010006000, "专业资质不存在");
-
-
-    ErrorCode ENTERPRISE_ASSOCIATION_NOT_EXISTS = new ErrorCode(1010006000, "会员企业关联不存在");
 
 }

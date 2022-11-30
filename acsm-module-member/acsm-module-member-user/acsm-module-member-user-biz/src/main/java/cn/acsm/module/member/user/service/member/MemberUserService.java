@@ -4,10 +4,7 @@ import java.util.*;
 import javax.validation.*;
 
 import cn.acsm.module.member.user.api.member.dto.MemberUserReqDTO;
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserCreateReqVO;
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserExportReqVO;
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserPageReqVO;
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserUpdateReqVO;
+import cn.acsm.module.member.user.controller.admin.member.vo.*;
 import cn.acsm.module.member.user.controller.admin.patient.vo.patienthealth.PatientHealthCreateReqVO;
 import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
@@ -70,6 +67,14 @@ public interface MemberUserService {
     PageResult<MemberUserDO> getUserPage(MemberUserPageReqVO pageReqVO);
 
     /**
+     * 获得会员分页(关联其他业务表查询)
+     *
+     * @param pageReqVO 分页查询
+     * @return 会员分页
+     */
+    PageResult<MemberUserRespVO> getUserPage4Query(MemberUserPageReqVO pageReqVO);
+
+    /**
      * 获得会员列表, 用于 Excel 导出
      *
      * @param exportReqVO 查询条件
@@ -124,4 +129,23 @@ public interface MemberUserService {
      */
     CommonResult bindPatientHealthInfoNoHis(PatientHealthCreateReqVO patientHealthCreateReqVO);
 
+    /**
+     * @Description:审核
+     * @param updateReqVO
+     * @Date: 2022/11/30
+     * @author: lihongyan
+     * @throws
+     * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
+     */
+    CommonResult updateAuditStatus(MemberUserUpdateAuditReqVO updateReqVO);
+
+    /**
+     * @Description:解绑
+     * @param updateReqVO
+     * @Date: 2022/11/30
+     * @author: lihongyan
+     * @throws
+     * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
+     */
+    CommonResult unbundling(MemberUserUpdateAuditReqVO updateReqVO);
 }

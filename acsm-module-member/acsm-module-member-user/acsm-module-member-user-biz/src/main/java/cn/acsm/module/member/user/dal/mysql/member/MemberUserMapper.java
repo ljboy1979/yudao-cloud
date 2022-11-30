@@ -4,11 +4,13 @@ import java.util.*;
 
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserExportReqVO;
 import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserPageReqVO;
+import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserRespVO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 会员 Mapper
@@ -54,4 +56,7 @@ public interface MemberUserMapper extends BaseMapperX<MemberUserDO> {
         return selectOne(MemberUserDO::getMobile, mobile);
     }
 
+    List<MemberUserRespVO> selectList4Query(@Param("reqVO") MemberUserPageReqVO reqVO);
+
+    Long selectList4QueryTotal(@Param("reqVO") MemberUserPageReqVO reqVO);
 }

@@ -1,10 +1,7 @@
 package cn.acsm.module.member.user.service.member;
 
 import cn.acsm.module.member.user.api.member.dto.MemberUserReqDTO;
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserCreateReqVO;
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserExportReqVO;
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserPageReqVO;
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserUpdateReqVO;
+import cn.acsm.module.member.user.controller.admin.member.vo.*;
 import cn.acsm.module.member.user.controller.admin.patient.vo.patienthealth.PatientHealthCreateReqVO;
 import cn.acsm.module.member.user.convert.member.MemberUserConvert;
 import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
@@ -61,6 +58,9 @@ public class MemberUserServiceImpl implements MemberUserService {
     @Resource
     private LoginLogApi loginLogApi;
 
+    @Resource
+    private MemberUserDetailService memberUserDetailService;
+
     @Override
     public Long createUser(MemberUserCreateReqVO createReqVO) {
         // 插入
@@ -106,6 +106,18 @@ public class MemberUserServiceImpl implements MemberUserService {
     @Override
     public PageResult<MemberUserDO> getUserPage(MemberUserPageReqVO pageReqVO) {
         return userMapper.selectPage(pageReqVO);
+    }
+
+    @Override
+    public PageResult<MemberUserRespVO> getUserPage4Query(MemberUserPageReqVO pageReqVO) {
+        int pageStart = (pageReqVO.getPageNo() - 1) * pageReqVO.getPageSize();
+        pageReqVO.setPageNo(pageStart);
+        List<MemberUserRespVO> memberUserList = userMapper.selectList4Query(pageReqVO);
+        Long total = userMapper.selectList4QueryTotal(pageReqVO);
+        PageResult pageResult = new PageResult();
+        pageResult.setList(memberUserList);
+        pageResult.setTotal(total);
+        return pageResult;
     }
 
     @Override
@@ -330,5 +342,36 @@ public class MemberUserServiceImpl implements MemberUserService {
         this.updateUser(updateReqVO);
 
         return CommonResult.success("绑定成功！");
+    }
+
+    @Override
+    public CommonResult updateAuditStatus(MemberUserUpdateAuditReqVO updateReqVO) {
+        // 校验会员是否存在
+        this.validateUserExists(updateReqVO.getId());
+
+        // 修改关联表审核状态
+        MemberUserDetailUpdateReqVO detailUpdateReqVO = new MemberUserDetailUpdateReqVO();
+        detailUpdateReqVO.setId(updateReqVO.getMemberUserDetailId());
+        detailUpdateReqVO.setAuditStatus(updateReqVO.getAuditStatus());
+        // 审核为驳回时，保存驳回原因
+        // 审核状态 0-待审核 1-审核通过 2-已驳回 3-已解绑
+        if(updateReqVO.getAuditStatus() == 2){
+            detailUpdateReqVO.setRemarks(updateReqVO.getRemarks());
+        }
+        memberUserDetailService.updateUserDetail(detailUpdateReqVO);
+        return CommonResult.success("审核成功！");
+    }
+
+    @Override
+    public CommonResult unbundling(MemberUserUpdateAuditReqVO updateReqVO) {
+        // 校验会员是否存在
+        this.validateUserExists(updateReqVO.getId());
+
+        // 修改关联表审核状态
+        MemberUserDetailUpdateReqVO detailUpdateReqVO = new MemberUserDetailUpdateReqVO();
+        detailUpdateReqVO.setId(updateReqVO.getMemberUserDetailId());
+        detailUpdateReqVO.setAuditStatus(updateReqVO.getAuditStatus());
+        memberUserDetailService.updateUserDetail(detailUpdateReqVO);
+        return CommonResult.success("解绑成功！");
     }
 }

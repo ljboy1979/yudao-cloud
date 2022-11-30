@@ -49,4 +49,13 @@ public class MemberUserPageReqVO extends PageParam {
     @ApiModelProperty(value = "经营主体ID")
     private Long subjectId;
 
+    @ApiModelProperty(value = "会员账号")
+    private String id;
+
+    @ApiModelProperty(value = "会员类型")
+    private Integer memberType;
+
+    @ApiModelProperty(value = "会员角色")
+    private Integer memberRole;
+
 }

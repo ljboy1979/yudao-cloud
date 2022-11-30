@@ -14,4 +14,7 @@ public class MemberUserUpdateReqVO extends MemberUserBaseVO {
     @NotNull(message = "编号不能为空")
     private Long id;
 
+    @ApiModelProperty(value = "会员信息id", required = true)
+    private Long memberUserDetailId;
+
 }

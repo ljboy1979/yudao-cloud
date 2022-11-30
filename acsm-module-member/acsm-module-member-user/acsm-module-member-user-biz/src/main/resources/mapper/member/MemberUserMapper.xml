@@ -9,4 +9,93 @@
         文档可见：https://www.iocoder.cn/MyBatis/x-plugins/
      -->
 
+    <select id="selectList4Query" resultType="cn.acsm.module.member.user.controller.admin.member.vo.MemberUserRespVO">
+        SELECT
+            mu.id AS id,
+            mu.nickname AS nickname,
+            mu.avatar AS avatar,
+            mu.`status` AS STATUS,
+            mu.mobile AS mobile,
+            mu.`password` AS PASSWORD,
+            mu.register_ip AS registerIp,
+            mu.login_ip AS loginIp,
+            mu.login_date AS loginDate,
+            mu.source AS source,
+            mu.subject_id AS subjectId,
+            mu.tenant_id AS tenantId,
+            mu.create_time AS createTime,
+            mud.id AS memberUserDetailId,
+            mud.enterprise_id AS enterpriseId,
+            mud.enterprise_name AS enterpriseName,
+            mud.member_type AS memberType,
+            mud.member_role AS memberRole,
+            mud.integral_level_id AS integralLevelId,
+            mud.audit_status AS auditStatus,
+            mud.integral_remaining as integralRemaining,
+            mil.member_level AS memberLevel
+        FROM
+            member_user mu,
+            member_user_detail mud,
+            member_integral_level mil
+        WHERE
+            mu.id = mud.member_id
+            AND mil.id = mud.integral_level_id
+            AND mu.deleted = 0
+            AND mud.deleted = 0
+            AND mil.deleted = 0
+        <if test="reqVO.nickname != null and reqVO.nickname != ''">
+            and mu.nickname = #{reqVO.nickname}
+        </if>
+        <if test="reqVO.mobile != null and reqVO.mobile != ''">
+            and mu.mobile = #{reqVO.mobile}
+        </if>
+        <if test="reqVO.source != null and reqVO.source != ''">
+            and mu.source = #{reqVO.source}
+        </if>
+        <if test="reqVO.memberType != null and reqVO.memberType != ''">
+            and mud.member_type = #{reqVO.memberType}
+        </if>
+        <if test="reqVO.memberRole != null and reqVO.memberRole != ''">
+            and mud.member_role = #{reqVO.memberRole}
+        </if>
+        <if test="reqVO.id != null and reqVO.id != ''">
+            and mu.id = #{reqVO.id}
+        </if>
+        ORDER BY
+            mu.id DESC
+        limit #{reqVO.pageNo} , #{reqVO.pageSize}
+    </select>
+
+    <select id="selectList4QueryTotal" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            member_user mu,
+            member_user_detail mud,
+            member_integral_level mil
+        WHERE
+            mu.id = mud.member_id
+            AND mil.id = mud.integral_level_id
+            AND mu.deleted = 0
+            AND mud.deleted = 0
+            AND mil.deleted = 0
+        <if test="reqVO.nickname != null and reqVO.nickname != ''">
+            and mu.nickname = #{reqVO.nickname}
+        </if>
+        <if test="reqVO.mobile != null and reqVO.mobile != ''">
+            and mu.mobile = #{reqVO.mobile}
+        </if>
+        <if test="reqVO.source != null and reqVO.source != ''">
+            and mu.source = #{reqVO.source}
+        </if>
+        <if test="reqVO.memberType != null and reqVO.memberType != ''">
+            and mud.member_type = #{reqVO.memberType}
+        </if>
+        <if test="reqVO.memberRole != null and reqVO.memberRole != ''">
+            and mud.member_role = #{reqVO.memberRole}
+        </if>
+        <if test="reqVO.id != null and reqVO.id != ''">
+            and mu.id = #{reqVO.id}
+        </if>
+    </select>
 </mapper>
