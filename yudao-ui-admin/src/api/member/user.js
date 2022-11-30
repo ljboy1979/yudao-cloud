@@ -53,3 +53,30 @@ export function exportUserExcel(query) {
     responseType: 'blob'
   })
 }
+
+// 审核会员
+export function updateAuditStatus(data) {
+  return request({
+    url: '/member/user/updateAuditStatus',
+    method: 'put',
+    data: data
+  })
+}
+
+// 解绑会员
+export function userUnbundling(data) {
+  return request({
+    url: '/member/user/unbundling',
+    method: 'put',
+    data: data
+  })
+}
+
+// 置为集采会员
+export function updateMemberType(data) {
+  return request({
+    url: '/member/user/updateMemberType',
+    method: 'put',
+    data: data
+  })
+}
