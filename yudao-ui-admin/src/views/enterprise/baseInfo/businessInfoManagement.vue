@@ -49,7 +49,7 @@
           <el-form-item>
             <el-col :span="10">
               <el-form-item label="法人身份证照片" prop="legalIdCardFrontPhoto">
-                <img v-if="ruleForm.legalIdCardFrontPhoto" :src="ruleForm.legalIdCardFrontPhoto" alt="企业LOGO" 
+                <img v-if="ruleForm.legalIdCardFrontPhoto" :src="ruleForm.legalIdCardFrontPhoto" alt="企业LOGO"
                   style="width:100px;height: 100px" />
                 <div style="font-size: 14px;color:#AAA">身份证正面</div>
               </el-form-item>
@@ -73,7 +73,7 @@
           <el-form-item>
             <el-col :span="10">
               <el-form-item label="行政区域" prop="status">
-                <dict-tag :type="DICT_TYPE.MANAGE_STATUS" :value="ruleForm.status" />
+                {{ ruleForm.villagesAreaName + ruleForm.areaName + ruleForm.ruralName }}
               </el-form-item>
             </el-col>
             <el-col :span="10">

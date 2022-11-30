@@ -101,10 +101,10 @@
           </el-select>
         </el-form-item>
         <el-form-item label="评分分数" prop="ratingScore">
-          <el-input v-model="form.ratingScore" placeholder="请输入评分分数" />
+          <el-input v-model.number="form.ratingScore" placeholder="请输入评分分数" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" placeholder="请输入备注" />
+          <el-input type="textarea" v-model="form.remark" placeholder="请输入备注" maxlength="200" show-word-limit />
         </el-form-item>
         <!-- <el-form-item label="本次积分变动" prop="integralChange">
           <el-input v-model="form.integralChange" placeholder="请输入本次积分变动" />
@@ -197,9 +197,10 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        memberId: [{ required: true, message: "会员id不能为空", trigger: "blur" }],
+        // memberId: [{ required: true, message: "会员id不能为空", trigger: "blur" }],
         ratingItems: [{ required: true, message: "评分项目不能为空", trigger: "blur" }],
-        ratingScore: [{ required: true, message: "评分分数不能为空", trigger: "blur" }],
+        ratingScore: [{ required: true, message: "评分分数不能为空", trigger: "blur" },
+        { type: 'number', message: '评分分数必须为整数', trigger: "blur" }],
       }
     };
   },
@@ -253,6 +254,9 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
+      this.form = {
+        memberAccount: this.id
+      }
       this.open = true;
       this.title = "添加会员积分记录";
     },
@@ -282,7 +286,7 @@ export default {
         if (!valid) {
           return;
         }
-        this.form.memberId = this.id
+        // this.form.memberId = this.id
         // 修改的提交
         if (this.form.id != null) {
           updateIntegralRecord(this.form).then(response => {
