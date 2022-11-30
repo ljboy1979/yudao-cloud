@@ -68,5 +68,13 @@ export function exportBaseInfoExcel(query) {
     responseType: 'blob'
   })
 }
+export function getTree(){
+  return request({
+    url: '/system/area/tree/all',
+    method: 'get',
+    // params: query,
+    // responseType: 'blob'
+  })
+}
 
 

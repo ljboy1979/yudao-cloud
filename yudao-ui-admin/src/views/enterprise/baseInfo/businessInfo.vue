@@ -114,10 +114,8 @@
             <el-form-item>
                 <el-col :span="10">
                     <el-form-item label="行政区域" prop="name">
-                        <el-select v-model="ruleForm.status" placeholder="请选择行政区域">
-                            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MANAGE_STATUS)" :key="dict.value"
-                                :label="dict.label" :value="parseInt(dict.value)" />
-                        </el-select>
+                        <el-cascader v-model="ruleForm.value" :options="options" @change="handleChange"
+                        :props="{ value: 'id'}"></el-cascader>
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
@@ -245,8 +243,9 @@
 </template>
 <script>
 //import(导入)其他文件（如：组件，工具js，第三方插件js，json文件，图片文件等）
-import { getBaseInfo ,updateBaseInfo} from "@/api/enterprise/baseInfo"
+import { getBaseInfo, updateBaseInfo, getTree } from "@/api/enterprise/baseInfo"
 import { DICT_TYPE } from "../../../utils/dict"
+import { Loading } from 'element-ui';
 export default {
     /**注册组件*/
     components: {},
@@ -269,7 +268,7 @@ export default {
                 manageStatus: false,
                 address: '',
                 legalPerson: '',
-                legalIdCard:'',
+                legalIdCard: '',
                 contactName: '',
                 contactPhone: '',
                 enterpriseScale: '',
@@ -367,8 +366,8 @@ export default {
             logo: [],//企业Logo
             businessLicensePhoto: [],//经营许可证
             businessCert: false,//经营许可证是否可继续上传
-            businessCertificatePhoto: []//电子营业执照图片
-
+            businessCertificatePhoto: [],//电子营业执照图片
+            options: []
         };
     },
     /**计算属性*/
@@ -377,6 +376,15 @@ export default {
     watch: {},
     /**所有方法*/
     methods: {
+        getAllTree() {
+            getTree().then(response => {
+                console.log(response.data);
+                this.options=response.data
+            })
+        },
+        handleChange(value) {
+            console.log(value);
+        },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -408,19 +416,19 @@ export default {
                     obj.logo = this.ArrayToString(this.logo);
                     obj.businessLicensePhoto = this.ArrayToString(this.businessLicensePhoto);
                     obj.businessCertificatePhoto = this.ArrayToString(this.businessCertificatePhoto);
-                    obj.id=this.id;
-                    if(obj.userTagName){
+                    obj.id = this.id;
+                    if (obj.userTagName) {
                         delete obj.userTagName
                     }
-                    if(obj.enterpriseTypeName){
+                    if (obj.enterpriseTypeName) {
                         delete obj.enterpriseTypeName
                     }
-                    updateBaseInfo(obj).then(res =>{
-                        if(res.code==0){
+                    updateBaseInfo(obj).then(res => {
+                        if (res.code == 0) {
                             this.getBaseInfoMessage();
                         }
                     })
-                    
+
                 } else {
                     this.$message.error('您还有未填写的选项');
                     return false;
@@ -428,7 +436,8 @@ export default {
             });
         },
         resetForm(formName) {
-            this.$refs[formName].resetFields();
+            // this.$refs[formName].resetFields();
+            this.getBaseInfoMessage();
         },
         //移除身份证正面照片
         handleRemove(file, fileList) {
@@ -463,17 +472,17 @@ export default {
             this.dialogVisible = true;
         },
         //上传身份证正面照片之后隐藏上传按钮
-        changeIDimg(file,fileList) {
+        changeIDimg(file, fileList) {
             let check = this.beforeAvatarUpload(file);
             if (check) {
-                this.legalIdCardFrontPhoto =fileList;
+                this.legalIdCardFrontPhoto = fileList;
                 this.IDimg = true;
             } else {
                 this.$refs.uploadID.uploadFiles.splice(this.$refs.uploadID.uploadFiles.length - 1, 1)
             }
         },
         //上传身份证反面照片之后隐藏上传按钮
-        changeIDimgReverse(file,fileList) {
+        changeIDimgReverse(file, fileList) {
             let check = this.beforeAvatarUpload(file);
             if (check) {
                 this.legalIdCardBackPhoto = fileList;
@@ -483,7 +492,7 @@ export default {
             }
         },
         //上传企业Logo之后隐藏上传按钮
-        changeLogoimg(file,fileList) {
+        changeLogoimg(file, fileList) {
             let check = this.beforeAvatarUpload(file);
             if (check) {
                 this.Logoimg = true;
@@ -528,45 +537,37 @@ export default {
         //获取表单原有数据
         getBaseInfoMessage() {
             const id = this.id
+            let loadingInstance = Loading.service({ fullscreen: true });
             getBaseInfo(id).then(response => {
-                // response.data.enterpriseType = this.getDictDataLabel(DICT_TYPE.ENTERPRISE_TYPE, response.data.enterpriseType) || '';
-                // response.data.userTag = this.getDictDataLabel(DICT_TYPE.USER_TAG, response.data.userTag) || '';
+                //图片反显和是否显示上传按钮
                 response.data.logo = this.ToUpload(response.data.logo);
                 this.logo = response.data.logo
-                if (response.data.logo.length >= 1) {
-                    this.Logoimg = true
-                }
+                response.data.logo.length >= 1 ? this.Logoimg = true : ''
                 response.data.legalIdCardFrontPhoto = this.ToUpload(response.data.legalIdCardFrontPhoto);
                 this.legalIdCardFrontPhoto = response.data.legalIdCardFrontPhoto
-                if (response.data.legalIdCardFrontPhoto.length >= 1) {
-                    this.IDimg = true
-                }
+                response.data.legalIdCardFrontPhoto.length >= 1 ? this.IDimg = true : ''
                 response.data.legalIdCardBackPhoto = this.ToUpload(response.data.legalIdCardBackPhoto);
                 this.legalIdCardBackPhoto = response.data.legalIdCardBackPhoto
-                if (response.data.legalIdCardBackPhoto) {
-                    this.IDimgReverse = true;
-                }
+                response.data.legalIdCardBackPhoto ? this.IDimgReverse = true : ''
                 response.data.businessLicensePhoto = this.ToUpload(response.data.businessLicensePhoto)
                 this.businessLicensePhoto = response.data.businessLicensePhoto
-                if (response.data.businessLicensePhoto.length >= 6) {
-                    this.businessCert = true
-                }
+                response.data.businessLicensePhoto.length >= 6 ? this.businessCert = true : ''
                 response.data.businessCertificatePhoto = this.ToUpload(response.data.businessCertificatePhoto)
                 this.businessCertificatePhoto = response.data.businessCertificatePhoto
-                if (response.data.businessCertificatePhoto.length >= 6) {
-                    this.Licenseimg = true
-                }
-                this.ruleForm = response.data
+                response.data.businessCertificatePhoto.length >= 6 ? this.Licenseimg = true : ''
+                this.ruleForm = response.data;
+                //取消接口加载过度动画
+                setTimeout(function () {
+                    loadingInstance.close();
+                }, 1000)
+
             });
         },
-        //字符串转换成对应的upload接受类型参数
+        //字符串转换成对应Array接受类型参数
         ToUpload(imgurl) {
             //是否有多张图片
             if (imgurl.indexOf(',') === -1) {
-                if (imgurl instanceof Array) {
-                } else {
-                    imgurl = [imgurl]
-                }
+                imgurl instanceof Array ? '' : imgurl = [imgurl]
             } else {
                 imgurl = imgurl.split(',');
             }
@@ -577,25 +578,23 @@ export default {
                 imgObject.push(obj)
             }
             return imgObject;
-
         },
         //将数组转换为后端需要的图片地址
         ArrayToString(Arr) {
             if (Array.isArray(Arr)) {
                 let Str = '';
                 for (let i = 0; i < Arr.length; i++) {
-                    i == 0 ? Str = Arr[i].url : Str = Str+',' + Arr[i].url;
+                    i == 0 ? Str = Arr[i].url : Str = Str + ',' + Arr[i].url;
 
                 }
                 return Str
-            }else{
             }
-
         }
     },
     /**创建组件时执行(有VM对象this)*/
     created() {
         this.getBaseInfoMessage();
+        this.getAllTree();
     },
     /**加载完组件时执行(主要预处理数据)*/
     mounted() {
