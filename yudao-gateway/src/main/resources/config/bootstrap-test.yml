@@ -12,7 +12,7 @@ spring:
         # 本地启动
         server-addr: http://123.56.19.224:18848 #${spring.cloud.nacos.discovery.server-addr}
         file-extension: yaml
-        namespace: dev
+        namespace: test
         name:
         group: DEFAULT_GROUP
         # 公共配置
