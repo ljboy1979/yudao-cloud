@@ -17,28 +17,22 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.TIME_ZONE_DE
 @Data
 public class MemberUserBaseVO {
 
-    @ApiModelProperty(value = "用户昵称", required = true)
-    @NotNull(message = "用户昵称不能为空")
+    @ApiModelProperty(value = "用户昵称")
     private String nickname;
 
-    @ApiModelProperty(value = "头像", required = true)
-    @NotNull(message = "头像不能为空")
+    @ApiModelProperty(value = "头像")
     private String avatar;
 
-    @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
+    @ApiModelProperty(value = "状态")
     private Integer status;
 
-    @ApiModelProperty(value = "手机号", required = true)
-    @NotNull(message = "手机号不能为空")
+    @ApiModelProperty(value = "手机号")
     private String mobile;
 
-    @ApiModelProperty(value = "密码", required = true)
-    @NotNull(message = "密码不能为空")
+    @ApiModelProperty(value = "密码")
     private String password;
 
-    @ApiModelProperty(value = "注册 IP", required = true)
-    @NotNull(message = "注册 IP不能为空")
+    @ApiModelProperty(value = "注册 IP")
     private String registerIp;
 
     @ApiModelProperty(value = "最后登录IP")

@@ -16,6 +16,9 @@ public interface ErrorCodeConstants {
     ErrorCode USER_PASSWORD_FAILED = new ErrorCode(1010001004, "密码校验失败");
     ErrorCode MEMBER_ID_NOT_EXISTS = new ErrorCode(1010001005, "会员ID参数缺失");
     ErrorCode USER_DETAIL_NOT_EXISTS = new ErrorCode(1010001006, "会员信息不存在");
+    ErrorCode AUDITSTATUS_NOT_EXISTS = new ErrorCode(1010001007, "审核状态参数缺失！");
+    ErrorCode MEMBERTYPE_NOT_EXISTS = new ErrorCode(1010001008, "会员类型参数缺失！");
+    ErrorCode MEMBERROLE_NOT_EXISTS = new ErrorCode(1010001009, "会员角色参数缺失！");
 
     // ========== AUTH 模块 1010001000 ==========
     ErrorCode AUTH_LOGIN_BAD_CREDENTIALS = new ErrorCode(1010001000, "登录失败，账号密码不正确");

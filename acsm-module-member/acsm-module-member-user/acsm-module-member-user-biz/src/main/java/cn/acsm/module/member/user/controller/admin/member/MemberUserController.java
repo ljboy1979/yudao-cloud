@@ -106,21 +106,21 @@ public class MemberUserController {
     @RequestMapping("/updateAuditStatus")
     @ApiOperation("审核")
     @PreAuthorize("@ss.hasPermission('member:user:update')")
-    public CommonResult updateAuditStatus(@RequestBody MemberUserUpdateAuditReqVO updateReqVO) {
+    public CommonResult updateAuditStatus(@Valid @RequestBody MemberUserUpdateDetailReqVO updateReqVO) {
         return success(userService.updateAuditStatus(updateReqVO));
     }
 
     @RequestMapping("/unbundling")
     @ApiOperation("解绑")
     @PreAuthorize("@ss.hasPermission('member:user:update')")
-    public CommonResult unbundling(@RequestBody MemberUserUpdateAuditReqVO updateReqVO) {
+    public CommonResult unbundling(@Valid @RequestBody MemberUserUpdateDetailReqVO updateReqVO) {
         return success(userService.unbundling(updateReqVO));
     }
 
     @RequestMapping("/updateMemberType")
     @ApiOperation("修改会员类型")
     @PreAuthorize("@ss.hasPermission('member:user:update')")
-    public CommonResult updateMemberType(@RequestBody MemberUserUpdateAuditReqVO updateReqVO) {
-        return success(userService.unbundling(updateReqVO));
+    public CommonResult updateMemberType(@Valid @RequestBody MemberUserUpdateDetailReqVO updateReqVO) {
+        return success(userService.updateMemberType(updateReqVO));
     }
 }

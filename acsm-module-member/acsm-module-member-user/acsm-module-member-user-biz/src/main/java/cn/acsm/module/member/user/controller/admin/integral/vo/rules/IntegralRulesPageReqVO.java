@@ -29,6 +29,12 @@ public class IntegralRulesPageReqVO extends PageParam {
     @ApiModelProperty(value = "数值范围")
     private String rangeValues;
 
+    @ApiModelProperty(value = "积分上限")
+    private String integralMax;
+
+    @ApiModelProperty(value = "积分下限")
+    private String integralMin;
+
     @ApiModelProperty(value = "积分值")
     private String integralValue;
 
