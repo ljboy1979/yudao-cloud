@@ -14,41 +14,6 @@ import lombok.Data;
 public class WeChatReqDTO {
 
     /**
-     *  ID
-     */
-    private Long id;
-    /**
-     * 公众号appId
-     */
-    @ApiModelProperty(value = "公众号appId")
-    private String appid;
-    /**
-     * 公众号appSecret
-     */
-    @ApiModelProperty(value = "公众号appSecret")
-    private String appsecret;
-    /**
-     * 商户号
-     */
-    @ApiModelProperty(value = "商户号")
-    private String mchId;
-    /**
-     * 商户密钥key
-     */
-    @ApiModelProperty(value = "商户密钥key")
-    private String mchKey;
-    /**
-     * openId
-     */
-    @ApiModelProperty(value = "openId")
-    private String openId;
-    /**
-     * 手机号码
-     */
-    @ApiModelProperty(value = "手机号码")
-    private String phone;
-
-    /**
      * 微信code
      */
     @ApiModelProperty(value = "微信code")

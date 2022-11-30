@@ -51,7 +51,14 @@ export function stopBaseInfoPage(id) {
     // params: query
   })
 }
-
+//改变经营主体启用停用状态
+export function changeStatusBaseInfoPage(id){
+  return request({
+    url: '/enterprise/base-info/changeStatus?id=' + id,
+    method: 'put',
+    // params: query
+  })
+}
 // 导出经营主体 Excel
 export function exportBaseInfoExcel(query) {
   return request({
@@ -61,3 +68,13 @@ export function exportBaseInfoExcel(query) {
     responseType: 'blob'
   })
 }
+export function getTree(){
+  return request({
+    url: '/system/area/tree/all',
+    method: 'get',
+    // params: query,
+    // responseType: 'blob'
+  })
+}
+
+

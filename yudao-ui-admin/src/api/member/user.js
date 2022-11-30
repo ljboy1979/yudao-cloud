@@ -37,7 +37,8 @@ export function getUser(id) {
 // 获得会员分页
 export function getUserPage(query) {
   return request({
-    url: '/member/user/page',
+    // url: '/member/user/page',
+    url: '/member/user/selectList4Query',
     method: 'get',
     params: query
   })

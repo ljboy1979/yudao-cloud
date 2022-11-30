@@ -7,10 +7,10 @@
         <el-button type="primary" icon="el-icon-plus" @click="handleAdd"
           v-hasPermi="['enterprise:other-certificate-info:create']">新增</el-button>
       </el-form-item>
-      <el-form-item prop="enterpriseId">
+      <!-- <el-form-item prop="enterpriseId">
         <el-input v-model="queryParams.enterpriseId" placeholder="请输入经营主体ID" clearable
           @keyup.enter.native="handleQuery" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item prop="certificateType">
         <el-select v-model="queryParams.certificateType" placeholder="请选择证件类型" clearable size="small">
           <el-option v-for="dict in this.getDictDatas(DICT_TYPE.CERTIFICATE_TYPE)" :key="dict.value" :label="dict.label"
@@ -27,10 +27,10 @@
       </el-form-item>
       <el-form-item prop="certificateEndTime">
         <el-date-picker v-model="queryParams.certificateEndTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
-          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          type="daterange" range-separator="-" start-placeholder="证件截止范围" end-placeholder="证件截止范围"
           :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
-      <el-form-item prop="certificatePhoto">
+      <!-- <el-form-item prop="certificatePhoto">
         <el-input v-model="queryParams.certificatePhoto" placeholder="请输入证件照片" clearable
           @keyup.enter.native="handleQuery" />
       </el-form-item>
@@ -42,15 +42,15 @@
       </el-form-item>
       <el-form-item prop="subjectId">
         <el-input v-model="queryParams.subjectId" placeholder="请输入经营主体ID" clearable @keyup.enter.native="handleQuery" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item prop="createTime">
         <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
-          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          type="daterange" range-separator="-" start-placeholder="创建开始日期" end-placeholder="创建结束日期"
           :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item prop="updateTime">
         <el-date-picker v-model="queryParams.updateTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
-          type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
+          type="daterange" range-separator="-" start-placeholder="更新开始日期" end-placeholder="更新结束日期"
           :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
       <el-form-item>
@@ -115,13 +115,23 @@
           <el-input v-model="form.certificateNo" placeholder="请输入证件号" />
         </el-form-item>
         <el-form-item label="证件截止日期" prop="certificateEndTime">
-          <el-date-picker clearable v-model="form.certificateEndTime" type="date" value-format="timestamp"
+          <el-date-picker clearable v-model="form.certificateEndTime" type="date" 
             placeholder="选择证件截止日期" />
         </el-form-item>
         <el-form-item label="证件照片" prop="certificatePhoto">
-          <el-input v-model="form.certificatePhoto" placeholder="请输入证件照片" />
+          <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemovecertificatePhoto" :on-change="changecertificatePhoto" :class="{ hide: certificate }"
+            ref="certificatePhoto" :file-list="this.certificatePhoto">
+            <i class="el-icon-plus"></i>
+          </el-upload>
+          <div style="font-size: 14px;color:#AAA">最多6张 <span style="font-size: 12px;">仅支持扩展名".jpg/.jpeg/.png"</span>
+          </div>
+          <el-dialog :visible.sync="dialogVisible" append-to-body>
+            <img width="50%" height="50%" :src="dialogImageUrl" alt="">
+          </el-dialog>
+
         </el-form-item>
-        <el-form-item label="租户编号" prop="tenantId">
+        <!-- <el-form-item label="租户编号" prop="tenantId">
           <el-input v-model="form.tenantId" placeholder="请输入租户编号" />
         </el-form-item>
         <el-form-item label="租户集合" prop="source">
@@ -129,7 +139,7 @@
         </el-form-item>
         <el-form-item label="经营主体ID" prop="subjectId">
           <el-input v-model="form.subjectId" placeholder="请输入经营主体ID" />
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -147,11 +157,11 @@ export default {
   components: {
   },
   props: {
-        id: {
-            type: String,
-            required: true
-        }
-    },
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       // 遮罩层
@@ -177,7 +187,6 @@ export default {
         certificateName: null,
         certificateNo: null,
         certificateEndTime: [],
-        certificatePhoto: null,
         tenantId: null,
         source: null,
         subjectId: null,
@@ -188,8 +197,12 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        tenantId: [{ required: true, message: "租户编号不能为空", trigger: "blur" }],
-      }
+        // tenantId: [{ required: true, message: "租户编号不能为空", trigger: "blur" }],
+      },
+      certificatePhoto: [],//经营许可证
+      certificate: false,//经营许可证是否可继续上传
+      dialogVisible: false,//是否开启预览
+      dialogImageUrl: '',//当前预览图片地址
     };
   },
   created() {
@@ -205,6 +218,26 @@ export default {
         this.total = response.data.total;
         this.loading = false;
       });
+    },
+    fileBeforeUpload(file) {
+      console.log("---", file)
+      // let format = '.' + file.name.split(".")[1];
+      // if (format !== this.fileAccept) {
+      //   this.$message.error('请上传指定格式"' + this.fileAccept + '"文件');
+      //   return false;
+      // }
+      let isRightSize = file.size / 1024 / 1024 < 2
+      if (!isRightSize) {
+        this.$message.error('文件大小超过 2MB')
+      }
+      return isRightSize
+    },
+    alipayPublicCertUpload(event) {
+      const readFile = new FileReader()
+      readFile.onload = (e) => {
+        this.form.aliPayConfig.alipayPublicCertContent = e.target.result
+      }
+      readFile.readAsText(event.file);
     },
     /** 取消按钮 */
     cancel() {
@@ -239,6 +272,7 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
+      this.certificatePhoto=[];
       this.open = true;
       this.title = "添加经营主体其他证件";
     },
@@ -248,6 +282,9 @@ export default {
       const id = row.id;
       getOtherCertificateInfo(id).then(response => {
         this.form = response.data;
+        console.log(response)
+        //图片反显
+        this.certificatePhoto=this.ToUpload(response.data.certificatePhoto);
         this.open = true;
         this.title = "修改经营主体其他证件";
       });
@@ -255,11 +292,14 @@ export default {
     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
-        if (!valid) {
+        if (!valid||this.certificatePhoto.length==0||this.certificatePhoto=='') {
+          this.$message.error("信息填写不完整");
           return;
         }
+        console.log("form:", this.form)
         // 修改的提交
         if (this.form.id != null) {
+          this.form.certificatePhoto=this.ArrayToString(this.changecertificatePhoto);
           updateOtherCertificateInfo(this.form).then(response => {
             this.$modal.msgSuccess("修改成功");
             this.open = false;
@@ -268,7 +308,10 @@ export default {
           return;
         }
         // 添加的提交
-        createOtherCertificateInfo(this.form).then(response => {
+        let obj = JSON.parse(JSON.stringify(this.form));
+        obj.certificatePhoto=this.ArrayToString(this.certificatePhoto)
+        console.log(obj)
+        createOtherCertificateInfo(obj).then(response => {
           this.$modal.msgSuccess("新增成功");
           this.open = false;
           this.getList();
@@ -298,7 +341,82 @@ export default {
         this.$download.excel(response, '经营主体其他证件.xls');
         this.exportLoading = false;
       }).catch(() => { });
-    }
+    },
+    //移除企业经营许可证
+    handleRemovecertificatePhoto(file, fileList) {
+      this.certificatePhoto = fileList
+      fileList.length < 6 ? this.certificate = false : ''
+      this.Logoimg = false;
+    },
+    //预览照片
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    //上传经营许可证，等于6张隐藏上传按钮
+    changecertificatePhoto(file, fileList) {
+      console.log(fileList)
+      let check = this.beforeAvatarUpload(file);
+      if (check) {
+        fileList.length == 6 ? this.certificate = true : ''
+        this.certificatePhoto = fileList
+      } else {
+        this.$refs.certificate.uploadFiles.splice(this.$refs.certificate.uploadFiles.length - 1, 1)
+      }
+    },
+    //检验上传图片格式以及大小
+    beforeAvatarUpload(file) {
+      const isJPG = file.raw.type === 'image/jpeg' ? true : file.raw.type === 'image/jpg' ? true : file.raw.type === 'image/png' ? true : false;
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG) {
+        this.$message.error('上传图片只能是 JPG/JPEG/PNG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传图片大小不能超过 2MB!');
+      }
+      return isLt2M && isJPG;
+    },
+    //字符串转换成对应的upload接受类型参数
+    ToUpload(imgurl) {
+            //是否有多张图片
+            if(imgurl==''||imgurl==undefined||imgurl==null){
+              return;
+            }
+            if (imgurl.indexOf(',') === -1) {
+                if (imgurl instanceof Array) {
+                } else {
+                    imgurl = [imgurl]
+                }
+            } else {
+                imgurl = imgurl.split(',');
+            }
+            let imgObject = [];
+            for (let i = 0; i < imgurl.length; i++) {
+                let obj = {};
+                obj.url = imgurl[i];
+                imgObject.push(obj)
+            }
+            return imgObject;
+
+        },
+        //将数组转换为后端需要的图片地址
+        ArrayToString(Arr) {
+            if (Array.isArray(Arr)) {
+                let Str = '';
+                for (let i = 0; i < Arr.length; i++) {
+                    i == 0 ? Str = Arr[i].url : Str = Str+',' + Arr[i].url;
+
+                }
+                return Str
+            }else{
+            }
+
+        }
   }
 };
 </script>
+<style scoped>
+.hide>>>.el-upload--picture-card {
+    display: none;
+}
+</style>

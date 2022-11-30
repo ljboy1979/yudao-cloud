@@ -1,0 +1,99 @@
+package cn.acsm.module.member.user.controller.admin.integral;
+
+import cn.acsm.module.member.user.controller.admin.integral.vo.record.*;
+import cn.acsm.module.member.user.convert.integral.IntegralRecordConvert;
+import cn.acsm.module.member.user.dal.dataobject.integral.IntegralRecordDO;
+import cn.acsm.module.member.user.service.integral.IntegralRecordService;
+import org.springframework.web.bind.annotation.*;
+import javax.annotation.Resource;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.security.access.prepost.PreAuthorize;
+import io.swagger.annotations.*;
+
+import javax.validation.*;
+import javax.servlet.http.*;
+import java.util.*;
+import java.io.IOException;
+
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
+
+import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
+
+import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
+import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.*;
+
+
+@Api(tags = "管理后台 - 会员积分记录")
+@RestController
+@RequestMapping("/member/integral-record")
+@Validated
+public class IntegralRecordController {
+
+    @Resource
+    private IntegralRecordService integralRecordService;
+
+    @PostMapping("/create")
+    @ApiOperation("创建会员积分记录")
+    @PreAuthorize("@ss.hasPermission('member:integral-record:create')")
+    public CommonResult<Long> createIntegralRecord(@Valid @RequestBody IntegralRecordCreateReqVO createReqVO) {
+        return success(integralRecordService.createIntegralRecord(createReqVO));
+    }
+
+    @PutMapping("/update")
+    @ApiOperation("更新会员积分记录")
+    @PreAuthorize("@ss.hasPermission('member:integral-record:update')")
+    public CommonResult<Boolean> updateIntegralRecord(@Valid @RequestBody IntegralRecordUpdateReqVO updateReqVO) {
+        integralRecordService.updateIntegralRecord(updateReqVO);
+        return success(true);
+    }
+
+    @DeleteMapping("/delete")
+    @ApiOperation("删除会员积分记录")
+    @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
+    @PreAuthorize("@ss.hasPermission('member:integral-record:delete')")
+    public CommonResult<Boolean> deleteIntegralRecord(@RequestParam("id") Long id) {
+        integralRecordService.deleteIntegralRecord(id);
+        return success(true);
+    }
+
+    @GetMapping("/get")
+    @ApiOperation("获得会员积分记录")
+    @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
+    @PreAuthorize("@ss.hasPermission('member:integral-record:query')")
+    public CommonResult<IntegralRecordRespVO> getIntegralRecord(@RequestParam("id") Long id) {
+        IntegralRecordDO integralRecord = integralRecordService.getIntegralRecord(id);
+        return success(IntegralRecordConvert.INSTANCE.convert(integralRecord));
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("获得会员积分记录列表")
+    @ApiImplicitParam(name = "ids", value = "编号列表", required = true, example = "1024,2048", dataTypeClass = List.class)
+    @PreAuthorize("@ss.hasPermission('member:integral-record:query')")
+    public CommonResult<List<IntegralRecordRespVO>> getIntegralRecordList(@RequestParam("ids") Collection<Long> ids) {
+        List<IntegralRecordDO> list = integralRecordService.getIntegralRecordList(ids);
+        return success(IntegralRecordConvert.INSTANCE.convertList(list));
+    }
+
+    @GetMapping("/page")
+    @ApiOperation("获得会员积分记录分页")
+    @PreAuthorize("@ss.hasPermission('member:integral-record:query')")
+    public CommonResult<PageResult<IntegralRecordRespVO>> getIntegralRecordPage(@Valid IntegralRecordPageReqVO pageVO) {
+        PageResult<IntegralRecordDO> pageResult = integralRecordService.getIntegralRecordPage(pageVO);
+        return success(IntegralRecordConvert.INSTANCE.convertPage(pageResult));
+    }
+
+    @GetMapping("/export-excel")
+    @ApiOperation("导出会员积分记录 Excel")
+    @PreAuthorize("@ss.hasPermission('member:integral-record:export')")
+    @OperateLog(type = EXPORT)
+    public void exportIntegralRecordExcel(@Valid IntegralRecordExportReqVO exportReqVO,
+              HttpServletResponse response) throws IOException {
+        List<IntegralRecordDO> list = integralRecordService.getIntegralRecordList(exportReqVO);
+        // 导出 Excel
+        List<IntegralRecordExcelVO> datas = IntegralRecordConvert.INSTANCE.convertList02(list);
+        ExcelUtils.write(response, "会员积分记录.xls", "数据", IntegralRecordExcelVO.class, datas);
+    }
+
+}

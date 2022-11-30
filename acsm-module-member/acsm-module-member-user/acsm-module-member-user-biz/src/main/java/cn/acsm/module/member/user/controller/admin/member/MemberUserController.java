@@ -96,4 +96,31 @@ public class MemberUserController {
         ExcelUtils.write(response, "会员.xls", "数据", MemberUserExcelVO.class, datas);
     }
 
+    @GetMapping("/selectList4Query")
+    @ApiOperation("获得会员分页（关联其他业务表数据）")
+    @PreAuthorize("@ss.hasPermission('member:user:query')")
+    public CommonResult<PageResult<MemberUserRespVO>> selectList4Query(@Valid MemberUserPageReqVO pageVO) {
+        return success(userService.getUserPage4Query(pageVO));
+    }
+
+    @RequestMapping("/updateAuditStatus")
+    @ApiOperation("审核")
+    @PreAuthorize("@ss.hasPermission('member:user:update')")
+    public CommonResult updateAuditStatus(@RequestBody MemberUserUpdateAuditReqVO updateReqVO) {
+        return success(userService.updateAuditStatus(updateReqVO));
+    }
+
+    @RequestMapping("/unbundling")
+    @ApiOperation("解绑")
+    @PreAuthorize("@ss.hasPermission('member:user:update')")
+    public CommonResult unbundling(@RequestBody MemberUserUpdateAuditReqVO updateReqVO) {
+        return success(userService.unbundling(updateReqVO));
+    }
+
+    @RequestMapping("/updateMemberType")
+    @ApiOperation("修改会员类型")
+    @PreAuthorize("@ss.hasPermission('member:user:update')")
+    public CommonResult updateMemberType(@RequestBody MemberUserUpdateAuditReqVO updateReqVO) {
+        return success(userService.unbundling(updateReqVO));
+    }
 }

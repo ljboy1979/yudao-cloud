@@ -3,13 +3,15 @@ package cn.acsm.module.member.user.service.member;
 import java.util.*;
 import javax.validation.*;
 
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserCreateReqVO;
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserExportReqVO;
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserPageReqVO;
-import cn.acsm.module.member.user.controller.admin.member.vo.MemberUserUpdateReqVO;
+import cn.acsm.module.member.user.api.member.dto.MemberUserReqDTO;
+import cn.acsm.module.member.user.controller.admin.member.vo.*;
+import cn.acsm.module.member.user.controller.admin.patient.vo.patienthealth.PatientHealthCreateReqVO;
 import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.validation.Mobile;
+import cn.iocoder.yudao.module.system.enums.logger.LoginLogTypeEnum;
+import cn.iocoder.yudao.module.system.enums.logger.LoginResultEnum;
 
 /**
  * 会员 Service 接口
@@ -65,6 +67,14 @@ public interface MemberUserService {
     PageResult<MemberUserDO> getUserPage(MemberUserPageReqVO pageReqVO);
 
     /**
+     * 获得会员分页(关联其他业务表查询)
+     *
+     * @param pageReqVO 分页查询
+     * @return 会员分页
+     */
+    PageResult<MemberUserRespVO> getUserPage4Query(MemberUserPageReqVO pageReqVO);
+
+    /**
      * 获得会员列表, 用于 Excel 导出
      *
      * @param exportReqVO 查询条件
@@ -75,11 +85,9 @@ public interface MemberUserService {
     /**
      * 基于手机号创建用户。
      * 如果用户已经存在，则直接进行返回
-     * @param mobile 手机号
-     * @param registerIp 注册 IP
      * @return 用户对象
      */
-    MemberUserDO createUserIfAbsent(@Mobile String mobile, String registerIp);
+    MemberUserDO createUserIfAbsent(MemberUserReqDTO memberUserReqDTO);
 
     /**
      * 更新用户的最后登陆信息
@@ -88,4 +96,56 @@ public interface MemberUserService {
      */
     void updateUserLogin(Long id, String loginIp);
 
+    /**
+     * @Description:注册插入登陆日志
+     * @param userId
+     * @param mobile
+     * @param logType
+     * @param loginResult
+     * @Date: 2022/11/21
+     * @author: lihongyan
+     * @throws
+     * @return:void
+     */
+    void createLoginLog(Long userId, String mobile, LoginLogTypeEnum logType, LoginResultEnum loginResult);
+
+    /**
+     * @Description:通过His绑定患者信息
+     * @param patientHealthCreateReqVO
+     * @Date: 2022/11/23
+     * @author: lihongyan
+     * @throws
+     * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
+     */
+    CommonResult bindPatientHealthInfoByHis(PatientHealthCreateReqVO patientHealthCreateReqVO);
+
+    /**
+     * @Description:绑定患者信息NoHis
+     * @param patientHealthCreateReqVO
+     * @Date: 2022/11/23
+     * @author: lihongyan
+     * @throws
+     * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
+     */
+    CommonResult bindPatientHealthInfoNoHis(PatientHealthCreateReqVO patientHealthCreateReqVO);
+
+    /**
+     * @Description:审核
+     * @param updateReqVO
+     * @Date: 2022/11/30
+     * @author: lihongyan
+     * @throws
+     * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
+     */
+    CommonResult updateAuditStatus(MemberUserUpdateAuditReqVO updateReqVO);
+
+    /**
+     * @Description:解绑
+     * @param updateReqVO
+     * @Date: 2022/11/30
+     * @author: lihongyan
+     * @throws
+     * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
+     */
+    CommonResult unbundling(MemberUserUpdateAuditReqVO updateReqVO);
 }

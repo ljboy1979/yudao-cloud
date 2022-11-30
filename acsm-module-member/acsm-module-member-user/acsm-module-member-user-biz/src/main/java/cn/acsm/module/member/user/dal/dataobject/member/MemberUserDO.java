@@ -59,7 +59,7 @@ public class MemberUserDO extends TenantBaseDO {
     /**
      * 最后登录时间
      */
-    private LocalDateTime loginDate;
+    private Date loginDate;
     /**
      * 租户集合
      */

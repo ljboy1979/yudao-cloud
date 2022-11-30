@@ -7,6 +7,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration(proxyBeanMethods = false)
-@EnableFeignClients(clients = {LoginLogApi.class, SmsCodeApi.class, SocialUserApi.class})
+@EnableFeignClients(clients = {LoginLogApi.class})
 public class RpcConfiguration {
 }
