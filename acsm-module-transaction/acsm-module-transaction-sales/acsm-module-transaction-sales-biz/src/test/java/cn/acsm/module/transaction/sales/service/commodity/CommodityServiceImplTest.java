@@ -7,6 +7,7 @@ import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityU
 import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityDO;
 import cn.acsm.module.transaction.sales.dal.mysql.commodity.CommodityMapper;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import cn.acsm.module.transaction.sales.service.commodity.CommodityServiceImpl;
 import org.junit.jupiter.api.Disabled;
@@ -45,11 +46,11 @@ public class CommodityServiceImplTest extends BaseDbUnitTest {
         CommodityCreateReqVO reqVO = randomPojo(CommodityCreateReqVO.class);
 
         // 调用
-        String commodityId = commodityService.createCommodity(reqVO);
+        CommonResult<String> result = commodityService.createCommodity(reqVO);
         // 断言
-        assertNotNull(commodityId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        CommodityDO commodity = commodityMapper.selectById(commodityId);
+        CommodityDO commodity = commodityMapper.selectById(result.getData());
         assertPojoEquals(reqVO, commodity);
     }
 
@@ -253,49 +254,8 @@ public class CommodityServiceImplTest extends BaseDbUnitTest {
        // 准备参数
        CommodityPageReqVO reqVO = new CommodityPageReqVO();
        reqVO.setCommodityCode(null);
-       reqVO.setArticleNo(null);
-       reqVO.setCommodityBarCode(null);
        reqVO.setCommodityName(null);
-       reqVO.setType(null);
-       reqVO.setSort(null);
-       reqVO.setKeyWord(null);
-       reqVO.setManufacturer(null);
-       reqVO.setBatch(null);
-       reqVO.setAvailableNum(null);
-       reqVO.setProviderName(null);
-       reqVO.setProviderId(null);
-       reqVO.setOldProviderId(null);
-       reqVO.setSpecNum(null);
-       reqVO.setLableIds(null);
-       reqVO.setWarnStockNum(null);
-       reqVO.setWeightUnit(null);
-       reqVO.setPackageUnit(null);
        reqVO.setCommodityCategoryId(null);
-       reqVO.setManufacturerName(null);
-       reqVO.setWholesalePrice(null);
-       reqVO.setRetailPrice(null);
-       reqVO.setStockNum(null);
-       reqVO.setSaleState(null);
-       reqVO.setIntroduction(null);
-       reqVO.setTraceStatus(null);
-       reqVO.setPlantId(null);
-       reqVO.setCommodityPlantId(null);
-       reqVO.setSellType(null);
-       reqVO.setAddType(null);
-       reqVO.setAddress(null);
-       reqVO.setNum(null);
-       reqVO.setSyncStatus(null);
-       reqVO.setArriveDate((new Date[]{}));
-       reqVO.setCommodityType(null);
-       reqVO.setCommodityImg(null);
-       reqVO.setPublicityPrice(null);
-       reqVO.setProductionAddress(null);
-       reqVO.setOriginPlace(null);
-       reqVO.setAntName(null);
-       reqVO.setCreateId(null);
-       reqVO.setVideoUrl(null);
-       reqVO.setStatus(null);
-
        // 调用
        PageResult<CommodityDO> pageResult = commodityService.getCommodityPage(reqVO);
        // 断言

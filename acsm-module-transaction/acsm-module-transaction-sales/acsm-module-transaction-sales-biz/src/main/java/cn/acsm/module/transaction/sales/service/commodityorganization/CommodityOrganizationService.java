@@ -31,7 +31,7 @@ public interface CommodityOrganizationService {
      *
      * @param updateReqVO 更新信息
      */
-    void updateCommodityOrganization(@Valid CommodityOrganizationUpdateReqVO updateReqVO);
+    CommonResult<String> updateCommodityOrganization(@Valid CommodityOrganizationUpdateReqVO updateReqVO);
 
     /**
      * 删除商品组成

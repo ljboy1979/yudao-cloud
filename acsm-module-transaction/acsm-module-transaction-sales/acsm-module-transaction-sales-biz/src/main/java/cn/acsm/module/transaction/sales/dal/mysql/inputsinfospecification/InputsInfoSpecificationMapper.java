@@ -22,14 +22,23 @@ public interface InputsInfoSpecificationMapper extends BaseMapperX<InputsInfoSpe
     default PageResult<InputsInfoSpecificationDO> selectPage(InputsInfoSpecificationPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<InputsInfoSpecificationDO>()
                 .likeIfPresent(InputsInfoSpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
+                .eqIfPresent(InputsInfoSpecificationDO::getInputsInfoId, reqVO.getInputsInfoId())
                 .betweenIfPresent(InputsInfoSpecificationDO::getCreateTime, reqVO.getCreateTime())
-                .orderByDesc(InputsInfoSpecificationDO::getId));
+                .orderByDesc(InputsInfoSpecificationDO::getCreateTime));
     }
 
     default List<InputsInfoSpecificationDO> selectList(InputsInfoSpecificationExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<InputsInfoSpecificationDO>()
                 .likeIfPresent(InputsInfoSpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
                 .betweenIfPresent(InputsInfoSpecificationDO::getCreateTime, reqVO.getCreateTime())
+                .orderByDesc(InputsInfoSpecificationDO::getId));
+    }
+
+    default Long findSelectCount(InputsInfoSpecificationDO inputsInfoSpecificationDO) {
+        return selectCount(new LambdaQueryWrapperX<InputsInfoSpecificationDO>()
+                .eqIfPresent(InputsInfoSpecificationDO::getSpecificationsName, inputsInfoSpecificationDO.getSpecificationsName())
+                .eqIfPresent(InputsInfoSpecificationDO::getInputsInfoId,inputsInfoSpecificationDO.getInputsInfoId())
+                .notIn(InputsInfoSpecificationDO::getId,inputsInfoSpecificationDO.getId())
                 .orderByDesc(InputsInfoSpecificationDO::getId));
     }
 

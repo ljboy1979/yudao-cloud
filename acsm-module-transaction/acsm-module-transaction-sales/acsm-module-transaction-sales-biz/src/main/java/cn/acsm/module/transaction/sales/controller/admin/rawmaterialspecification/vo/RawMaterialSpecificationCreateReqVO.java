@@ -12,6 +12,7 @@ import javax.validation.constraints.*;
 public class RawMaterialSpecificationCreateReqVO extends RawMaterialSpecificationBaseVO {
 
     @ApiModelProperty(value = "原料id")
+    @NotNull(message = "原料id不能为空")
     private String rawMaterialId;
 
     @ApiModelProperty(value = "经营主体id")

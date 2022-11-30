@@ -14,6 +14,9 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class InputsInfoSpecificationPageReqVO extends PageParam {
 
+    @ApiModelProperty(value = "规格Id")
+    private String inputsInfoId;
+
     @ApiModelProperty(value = "规格名称")
     private String specificationsName;
 

@@ -26,6 +26,7 @@ public class CommodityBaseVO {
     private String commodityBarCode;
 
     @ApiModelProperty(value = "商品名称")
+    @NotNull(message = "商品名称不能为空")
     private String commodityName;
 
     @ApiModelProperty(value = "0 渠道商商品 1农资商城商品")

@@ -36,4 +36,6 @@ public interface RawMaterialClassifyConvert {
 
     List<RawMaterialClassifyExcelVO> convertList02(List<RawMaterialClassifyDO> list);
 
+    RawMaterialClassifyTreeVO convertListToTree(RawMaterialClassifyDO rawMaterialClassifyDO);
+
 }

@@ -4,6 +4,8 @@ import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.Dishe
 import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.DishesCategoryExportReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.DishesCategoryPageReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.DishesCategoryUpdateReqVO;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -99,6 +101,16 @@ public class DishesCategoryController {
         // 导出 Excel
         List<DishesCategoryExcelVO> datas = DishesCategoryConvert.INSTANCE.convertList02(list);
         ExcelUtils.write(response, "菜品分类.xls", "数据", DishesCategoryExcelVO.class, datas);
+    }
+
+    @PostMapping("/treeList")
+    @ApiOperation("树形分类列表")
+    @ApiImplicitParam(dataTypeClass = List.class)
+    @PreAuthorize("@ss.hasPermission('sales:input-classify:query')")
+    @Cacheable(value = "/sales/dishes-category/treeList",key = "#dishesCategoryTreeVO.categoryName")
+    public CommonResult<List<TreeSelect>> treeList(@Valid DishesCategoryTreeVO dishesCategoryTreeVO) {
+        List<TreeSelect> list = dishesCategoryService.findTreeList(dishesCategoryTreeVO);
+        return success(list);
     }
 
 }

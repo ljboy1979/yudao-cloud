@@ -4,16 +4,21 @@ import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.Co
 import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.CommodityCategoryExportReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.CommodityCategoryPageReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.CommodityCategoryUpdateReqVO;
+import cn.acsm.module.transaction.sales.controller.admin.inputclassify.vo.InputClassifyTreeVO;
 import cn.acsm.module.transaction.sales.convert.commoditycategory.CommodityCategoryConvert;
 import cn.acsm.module.transaction.sales.dal.dataobject.commoditycategory.CommodityCategoryDO;
 import cn.acsm.module.transaction.sales.dal.mysql.commoditycategory.CommodityCategoryMapper;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.commoditycategory.CommodityCategoryDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -86,6 +91,14 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
     @Override
     public List<CommodityCategoryDO> getCommodityCategoryList(CommodityCategoryExportReqVO exportReqVO) {
         return commodityCategoryMapper.selectList(exportReqVO);
+    }
+
+    @Override
+    public List<TreeSelect> findTreeList(CommodityCategoryTreeVO commodityCategoryTreeVO) {
+        List<CommodityCategoryDO> commodityCategoryDOS = commodityCategoryMapper.selectListToTree(commodityCategoryTreeVO);
+        List<CommodityCategoryTreeVO> commodityCategoryTreeVOS = commodityCategoryDOS.stream().map(o -> CommodityCategoryConvert.INSTANCE.convertListToTree(o)).collect(Collectors.toList());
+        List<TreeSelect> treeSelects = TreeUtils.buildTreeSelect(commodityCategoryTreeVOS);
+        return treeSelects;
     }
 
 

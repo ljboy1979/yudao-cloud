@@ -43,15 +43,15 @@ public class CommodityController {
     @ApiOperation("创建商品")
     @PreAuthorize("@ss.hasPermission('sales:commodity:create')")
     public CommonResult<String> createCommodity(@Valid @RequestBody CommodityCreateReqVO createReqVO) {
-        return success(commodityService.createCommodity(createReqVO));
+        return commodityService.createCommodity(createReqVO);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新商品")
     @PreAuthorize("@ss.hasPermission('sales:commodity:update')")
-    public CommonResult<Boolean> updateCommodity(@Valid @RequestBody CommodityUpdateReqVO updateReqVO) {
-        commodityService.updateCommodity(updateReqVO);
-        return success(true);
+    public CommonResult<String>  updateCommodity(@Valid @RequestBody CommodityUpdateReqVO updateReqVO) {
+
+        return commodityService.updateCommodity(updateReqVO);
     }
 
     @DeleteMapping("/delete")

@@ -39,15 +39,14 @@ public class InputsInfoSpecificationController {
     @ApiOperation("创建投入品规格")
     @PreAuthorize("@ss.hasPermission('sales:inputs-info-specification:create')")
     public CommonResult<String> createInputsInfoSpecification(@Valid @RequestBody InputsInfoSpecificationCreateReqVO createReqVO) {
-        return success(inputsInfoSpecificationService.createInputsInfoSpecification(createReqVO));
+        return inputsInfoSpecificationService.createInputsInfoSpecification(createReqVO);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新投入品规格")
     @PreAuthorize("@ss.hasPermission('sales:inputs-info-specification:update')")
-    public CommonResult<Boolean> updateInputsInfoSpecification(@Valid @RequestBody InputsInfoSpecificationUpdateReqVO updateReqVO) {
-        inputsInfoSpecificationService.updateInputsInfoSpecification(updateReqVO);
-        return success(true);
+    public CommonResult<String> updateInputsInfoSpecification(@Valid @RequestBody InputsInfoSpecificationUpdateReqVO updateReqVO) {
+        return inputsInfoSpecificationService.updateInputsInfoSpecification(updateReqVO);
     }
 
     @DeleteMapping("/delete")

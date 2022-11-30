@@ -8,9 +8,7 @@ import cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.Co
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
-import cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO;
 import org.apache.ibatis.annotations.Mapper;
-import cn.acsm.module.transaction.sales.controller.admin.commodityspecification.vo.*;
 
 /**
  * 商品规格 Mapper
@@ -18,27 +16,38 @@ import cn.acsm.module.transaction.sales.controller.admin.commodityspecification.
  * @author 芋道源码
  */
 @Mapper
-public interface CommoditySpecificationMapper extends BaseMapperX<cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO> {
+public interface CommoditySpecificationMapper extends BaseMapperX<CommoditySpecificationDO> {
 
-    default PageResult<cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO> selectPage(CommoditySpecificationPageReqVO reqVO) {
-        return selectPage(reqVO, new LambdaQueryWrapperX<cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO>()
-                .eqIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getCommodityId, reqVO.getCommodityId())
-                .likeIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
-                .eqIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getPackagingType, reqVO.getPackagingType())
-                .betweenIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getCreateTime, reqVO.getCreateTime())
-                .eqIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getSubjectId, reqVO.getSubjectId())
-                .eqIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getSource, reqVO.getSource())
-                .orderByDesc(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getId));
+    default PageResult<CommoditySpecificationDO> selectPage(CommoditySpecificationPageReqVO reqVO) {
+        return selectPage(reqVO, new LambdaQueryWrapperX<CommoditySpecificationDO>()
+                .eqIfPresent(CommoditySpecificationDO::getCommodityId, reqVO.getCommodityId())
+                .likeIfPresent(CommoditySpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
+                .eqIfPresent(CommoditySpecificationDO::getPackagingType, reqVO.getPackagingType())
+                .betweenIfPresent(CommoditySpecificationDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(CommoditySpecificationDO::getSubjectId, reqVO.getSubjectId())
+                .eqIfPresent(CommoditySpecificationDO::getSource, reqVO.getSource())
+                .orderByDesc(CommoditySpecificationDO::getCreateTime));
     }
 
-    default List<cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO> selectList(CommoditySpecificationExportReqVO reqVO) {
-        return selectList(new LambdaQueryWrapperX<cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO>()
-                .eqIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getCommodityId, reqVO.getCommodityId())
-                .likeIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
-                .eqIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getPackagingType, reqVO.getPackagingType())
-                .betweenIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getCreateTime, reqVO.getCreateTime())
-                .eqIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getSubjectId, reqVO.getSubjectId())
-                .eqIfPresent(cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO::getSource, reqVO.getSource())
+    default List<CommoditySpecificationDO> selectList(CommoditySpecificationExportReqVO reqVO) {
+        return selectList(new LambdaQueryWrapperX<CommoditySpecificationDO>()
+                .eqIfPresent(CommoditySpecificationDO::getCommodityId, reqVO.getCommodityId())
+                .likeIfPresent(CommoditySpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
+                .eqIfPresent(CommoditySpecificationDO::getPackagingType, reqVO.getPackagingType())
+                .betweenIfPresent(CommoditySpecificationDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(CommoditySpecificationDO::getSubjectId, reqVO.getSubjectId())
+                .eqIfPresent(CommoditySpecificationDO::getSource, reqVO.getSource())
+                .orderByDesc(CommoditySpecificationDO::getId));
+    }
+
+    default Long findSelectCount(CommoditySpecificationDO commoditySpecificationDO) {
+        return selectCount(new LambdaQueryWrapperX<CommoditySpecificationDO>()
+                .eqIfPresent(CommoditySpecificationDO::getCommodityId, commoditySpecificationDO.getCommodityId())
+                .eqIfPresent(CommoditySpecificationDO::getSpecificationsName, commoditySpecificationDO.getSpecificationsName())
+                .eqIfPresent(CommoditySpecificationDO::getPackagingType, commoditySpecificationDO.getPackagingType())
+                .eqIfPresent(CommoditySpecificationDO::getSubjectId, commoditySpecificationDO.getSubjectId())
+                .eqIfPresent(CommoditySpecificationDO::getSource, commoditySpecificationDO.getSource())
+                .notIn(CommoditySpecificationDO::getId, commoditySpecificationDO.getId())
                 .orderByDesc(CommoditySpecificationDO::getId));
     }
 

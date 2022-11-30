@@ -7,6 +7,8 @@ import cn.acsm.module.transaction.sales.controller.admin.inputclassify.vo.InputC
 import cn.acsm.module.transaction.sales.convert.inputclassify.InputClassifyConvert;
 import cn.acsm.module.transaction.sales.dal.dataobject.inputclassify.InputClassifyDO;
 import cn.acsm.module.transaction.sales.service.inputclassify.InputClassifyService;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -29,9 +31,6 @@ import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
 import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.*;
 
 import cn.acsm.module.transaction.sales.controller.admin.inputclassify.vo.*;
-import cn.acsm.module.transaction.sales.dal.dataobject.inputclassify.InputClassifyDO;
-import cn.acsm.module.transaction.sales.convert.inputclassify.InputClassifyConvert;
-import cn.acsm.module.transaction.sales.service.inputclassify.InputClassifyService;
 
 @Api(tags = "管理后台 - 投入品分类")
 @RestController
@@ -104,4 +103,13 @@ public class InputClassifyController {
         ExcelUtils.write(response, "投入品分类.xls", "数据", InputClassifyExcelVO.class, datas);
     }
 
+    @PostMapping("/treeList")
+    @ApiOperation("树形分类列表")
+    @ApiImplicitParam(dataTypeClass = List.class)
+    @PreAuthorize("@ss.hasPermission('sales:input-classify:query')")
+    @Cacheable(value = "/sales/input-classify/treeList",key = "#inputClassifyTreeVO.categoryName")
+    public CommonResult<List<TreeSelect>> treeList(@Valid InputClassifyTreeVO inputClassifyTreeVO) {
+        List<TreeSelect> list = inputClassifyService.findTreeList(inputClassifyTreeVO);
+        return success(list);
+    }
 }

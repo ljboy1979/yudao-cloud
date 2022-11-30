@@ -40,6 +40,7 @@ public class DishesSpecificationServiceImpl implements DishesSpecificationServic
     public String createDishesSpecification(DishesSpecificationCreateReqVO createReqVO) {
         // 插入
         DishesSpecificationDO dishesSpecification = DishesSpecificationConvert.INSTANCE.convert(createReqVO);
+        dishesSpecification.setId(UUID.randomUUID().toString());
         dishesSpecificationMapper.insert(dishesSpecification);
         // 返回
         return dishesSpecification.getId();

@@ -35,4 +35,5 @@ public interface DishesCategoryConvert {
 
     List<DishesCategoryExcelVO> convertList02(List<DishesCategoryDO> list);
 
+    DishesCategoryTreeVO convertListToTree(DishesCategoryDO o);
 }

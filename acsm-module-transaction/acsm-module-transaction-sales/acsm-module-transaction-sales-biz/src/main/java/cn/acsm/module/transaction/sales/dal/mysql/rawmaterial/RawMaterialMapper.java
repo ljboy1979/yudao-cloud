@@ -35,4 +35,13 @@ public interface RawMaterialMapper extends BaseMapperX<RawMaterialDO> {
                 .orderByDesc(RawMaterialDO::getId));
     }
 
+    default Long findSelectCount(RawMaterialDO rawMaterialDO) {
+        return selectCount(new LambdaQueryWrapperX<RawMaterialDO>()
+                .eqIfPresent(RawMaterialDO::getIngredientNumber, rawMaterialDO.getIngredientNumber())
+                .eqIfPresent(RawMaterialDO::getClassify, rawMaterialDO.getClassify())
+                .eqIfPresent(RawMaterialDO::getName, rawMaterialDO.getName())
+                .notIn(RawMaterialDO::getId,rawMaterialDO.getId())
+                .orderByDesc(RawMaterialDO::getId));
+    }
+
 }

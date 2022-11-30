@@ -12,6 +12,7 @@ import javax.validation.constraints.*;
 public class CommoditySpecificationCreateReqVO extends CommoditySpecificationBaseVO {
 
     @ApiModelProperty(value = "商品id")
+    @NotNull(message = "商品id不能为空")
     private String commodityId;
 
     @ApiModelProperty(value = "经营主体id")

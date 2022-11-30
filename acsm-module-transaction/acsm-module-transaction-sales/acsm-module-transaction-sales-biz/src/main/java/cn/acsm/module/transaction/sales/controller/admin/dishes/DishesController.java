@@ -39,15 +39,14 @@ public class DishesController {
     @ApiOperation("创建菜品")
     @PreAuthorize("@ss.hasPermission('sales:dishes:create')")
     public CommonResult<String> createDishes(@Valid @RequestBody DishesCreateReqVO createReqVO) {
-        return success(dishesService.createDishes(createReqVO));
+        return dishesService.createDishes(createReqVO);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新菜品")
     @PreAuthorize("@ss.hasPermission('sales:dishes:update')")
-    public CommonResult<Boolean> updateDishes(@Valid @RequestBody DishesUpdateReqVO updateReqVO) {
-        dishesService.updateDishes(updateReqVO);
-        return success(true);
+    public CommonResult<String> updateDishes(@Valid @RequestBody DishesUpdateReqVO updateReqVO) {
+        return dishesService.updateDishes(updateReqVO);
     }
 
     @DeleteMapping("/delete")
@@ -80,7 +79,7 @@ public class DishesController {
     @GetMapping("/page")
     @ApiOperation("获得菜品分页")
     @PreAuthorize("@ss.hasPermission('sales:dishes:query')")
-    public CommonResult<PageResult<DishesRespVO>> getDishesPage(@Valid DishesPageReqVO pageVO) {
+    public CommonResult<PageResult<DishesRespVO>> getDishesPage(@Valid @RequestBody DishesPageReqVO pageVO) {
         PageResult<DishesDO> pageResult = dishesService.getDishesPage(pageVO);
         return success(DishesConvert.INSTANCE.convertPage(pageResult));
     }

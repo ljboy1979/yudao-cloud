@@ -10,5 +10,6 @@ import javax.validation.constraints.*;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class DishesOrganizationCreateReqVO extends DishesOrganizationBaseVO {
-
+    @ApiModelProperty(value = "tag 0原料 1直接新增")
+    private String tag;
 }

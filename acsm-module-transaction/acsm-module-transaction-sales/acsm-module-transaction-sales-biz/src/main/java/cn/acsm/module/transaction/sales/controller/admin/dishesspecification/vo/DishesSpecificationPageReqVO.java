@@ -11,6 +11,8 @@ import cn.iocoder.yudao.framework.common.pojo.PageParam;
 @ToString(callSuper = true)
 public class DishesSpecificationPageReqVO extends PageParam {
 
+    @ApiModelProperty(value = "菜品id")
+    private String dishesId;
     @ApiModelProperty(value = "规格名称")
     private String specificationsName;
 

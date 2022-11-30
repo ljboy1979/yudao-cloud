@@ -10,10 +10,12 @@ import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterial.RawMaterialDO
 import cn.acsm.module.transaction.sales.dal.mysql.commodityorganization.CommodityOrganizationMapper;
 import cn.acsm.module.transaction.sales.dal.mysql.rawmaterial.RawMaterialMapper;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
+import cn.acsm.module.transaction.sales.util.ConfigNumberUtil;
 import cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterial.RawMaterialDO;
 import cn.acsm.module.transaction.sales.dal.mysql.rawmaterial.RawMaterialMapper;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -42,27 +44,68 @@ public class CommodityOrganizationServiceImpl implements CommodityOrganizationSe
     private CommodityOrganizationMapper commodityOrganizationMapper;
     @Resource
     private RawMaterialMapper rawMaterialMapper;
+    @Resource
+    private ConfigNumberUtil configNumberUtil;
 
+    /**
+     * 新增商品组成
+     * @param createReqVO 创建信息
+     * @return
+     */
     @Override
     public CommonResult<String> createCommodityOrganization(CommodityOrganizationCreateReqVO createReqVO) {
-        RawMaterialDO rawMaterialDO = rawMaterialMapper.selectById(createReqVO.getRawMaterialId());
-        if (rawMaterialDO!=null){
-            return CommonResult.error(ErrorCodeConstants.RAW_MATERIAL_NOT_EXISTS);
+
+        if ("0".equals(createReqVO.getTag())){//原料新增
+            //商品组成验重
+            CommodityOrganizationDO commodityOrganizationDO = new CommodityOrganizationDO();
+            commodityOrganizationDO.setCommodityId(createReqVO.getCommodityId());
+            commodityOrganizationDO.setRawMaterialId(createReqVO.getRawMaterialId());
+            Long num =  commodityOrganizationMapper.findSelectCount(commodityOrganizationDO);
+            if (num!=null && num>0){
+                return CommonResult.error(ErrorCodeConstants.COMMODITY_ORGANIZATION_EXISTENCE);
+            }
+            //判断原料是否存在
+            RawMaterialDO rawMaterialDO = rawMaterialMapper.selectById(createReqVO.getRawMaterialId());
+            if (rawMaterialDO!=null){
+                return CommonResult.error(ErrorCodeConstants.RAW_MATERIAL_NOT_EXISTS);
+            }
+            createReqVO.setOrigin(rawMaterialDO.getOrigin());
+            createReqVO.setClassify(rawMaterialDO.getClassify());
+            createReqVO.setOrganizationName(rawMaterialDO.getName());
         }
+
+        Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
+
+        String number = configNumberUtil.getNumber("sales_commodity_organization"+tenantId);
         // 插入
         CommodityOrganizationDO commodityOrganization = CommodityOrganizationConvert.INSTANCE.convert(createReqVO);
+        commodityOrganization.setOrganizationNumber("ZC"+number);
+        commodityOrganization.setId(UUID.randomUUID().toString());
         commodityOrganizationMapper.insert(commodityOrganization);
         // 返回
         return CommonResult.success(commodityOrganization.getId());
     }
 
     @Override
-    public void updateCommodityOrganization(CommodityOrganizationUpdateReqVO updateReqVO) {
+    public CommonResult<String> updateCommodityOrganization(CommodityOrganizationUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateCommodityOrganizationExists(updateReqVO.getId());
+
+        //商品组成验重
+        CommodityOrganizationDO commodityOrganizationDO = new CommodityOrganizationDO();
+        commodityOrganizationDO.setId(updateReqVO.getId());
+        commodityOrganizationDO.setCommodityId(updateReqVO.getCommodityId());
+        commodityOrganizationDO.setRawMaterialId(updateReqVO.getRawMaterialId());
+        Long num =  commodityOrganizationMapper.findSelectCount(commodityOrganizationDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.COMMODITY_ORGANIZATION_EXISTENCE);
+        }
+
         // 更新
         CommodityOrganizationDO updateObj = CommodityOrganizationConvert.INSTANCE.convert(updateReqVO);
         commodityOrganizationMapper.updateById(updateObj);
+        return CommonResult.success("修改成功");
+
     }
 
     @Override

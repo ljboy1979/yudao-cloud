@@ -42,15 +42,14 @@ public class RawMaterialSpecificationController {
     @ApiOperation("创建原料规格")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-specification:create')")
     public CommonResult<String> createRawMaterialSpecification(@Valid @RequestBody RawMaterialSpecificationCreateReqVO createReqVO) {
-        return success(rawMaterialSpecificationService.createRawMaterialSpecification(createReqVO));
+        return rawMaterialSpecificationService.createRawMaterialSpecification(createReqVO);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新原料规格")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-specification:update')")
-    public CommonResult<Boolean> updateRawMaterialSpecification(@Valid @RequestBody RawMaterialSpecificationUpdateReqVO updateReqVO) {
-        rawMaterialSpecificationService.updateRawMaterialSpecification(updateReqVO);
-        return success(true);
+    public CommonResult<String> updateRawMaterialSpecification(@Valid @RequestBody RawMaterialSpecificationUpdateReqVO updateReqVO) {
+        return rawMaterialSpecificationService.updateRawMaterialSpecification(updateReqVO);
     }
 
     @DeleteMapping("/delete")

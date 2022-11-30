@@ -23,14 +23,23 @@ public interface RawMaterialSpecificationMapper extends BaseMapperX<RawMaterialS
     default PageResult<RawMaterialSpecificationDO> selectPage(RawMaterialSpecificationPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<RawMaterialSpecificationDO>()
                 .likeIfPresent(RawMaterialSpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
+                .eqIfPresent(RawMaterialSpecificationDO::getRawMaterialId, reqVO.getRawMaterialId())
                 .betweenIfPresent(RawMaterialSpecificationDO::getCreateTime, reqVO.getCreateTime())
-                .orderByDesc(RawMaterialSpecificationDO::getId));
+                .orderByDesc(RawMaterialSpecificationDO::getCreateTime));
     }
 
     default List<RawMaterialSpecificationDO> selectList(RawMaterialSpecificationExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<RawMaterialSpecificationDO>()
                 .likeIfPresent(RawMaterialSpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
                 .betweenIfPresent(RawMaterialSpecificationDO::getCreateTime, reqVO.getCreateTime())
+                .orderByDesc(RawMaterialSpecificationDO::getId));
+    }
+
+    default Long findSelectCount(RawMaterialSpecificationDO rawMaterialSpecificationDO) {
+        return selectCount(new LambdaQueryWrapperX<RawMaterialSpecificationDO>()
+                .eqIfPresent(RawMaterialSpecificationDO::getSpecificationsName, rawMaterialSpecificationDO.getSpecificationsName())
+                .eqIfPresent(RawMaterialSpecificationDO::getRawMaterialId,rawMaterialSpecificationDO.getRawMaterialId())
+                .notIn(RawMaterialSpecificationDO::getId,rawMaterialSpecificationDO.getId())
                 .orderByDesc(RawMaterialSpecificationDO::getId));
     }
 

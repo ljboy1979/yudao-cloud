@@ -22,6 +22,7 @@ public interface DishesSpecificationMapper extends BaseMapperX<DishesSpecificati
 
     default PageResult<DishesSpecificationDO> selectPage(DishesSpecificationPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<DishesSpecificationDO>()
+                .eqIfPresent(DishesSpecificationDO::getDishesId,reqVO.getDishesId())
                 .likeIfPresent(DishesSpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
                 .orderByDesc(DishesSpecificationDO::getId));
     }

@@ -1,7 +1,13 @@
 package cn.acsm.module.transaction.sales.service.rawmaterial;
 
+import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
+import cn.acsm.module.transaction.sales.util.ConfigNumberUtil;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.*;
@@ -26,23 +32,46 @@ public class RawMaterialServiceImpl implements RawMaterialService {
 
     @Resource
     private RawMaterialMapper rawMaterialMapper;
+    @Resource
+    private ConfigNumberUtil configNumberUtil;
+
 
     @Override
-    public String createRawMaterial(RawMaterialCreateReqVO createReqVO) {
+    public CommonResult<String> createRawMaterial(RawMaterialCreateReqVO createReqVO) {
+        RawMaterialDO rawMaterialDO = new RawMaterialDO();
+        rawMaterialDO.setClassify(createReqVO.getClassify());
+        rawMaterialDO.setName(createReqVO.getName());
+        Long num = rawMaterialMapper.findSelectCount(rawMaterialDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.RAW_MATERIAL_EXISTENCE);
+        }
+        String number = configNumberUtil.getNumber("sales_raw_material"+SecurityFrameworkUtils.getLoginUser().getTenantId());
         // 插入
         RawMaterialDO rawMaterial = RawMaterialConvert.INSTANCE.convert(createReqVO);
+        rawMaterial.setIngredientNumber(number);
+        rawMaterial.setId(UUID.randomUUID().toString());
         rawMaterialMapper.insert(rawMaterial);
         // 返回
-        return rawMaterial.getId();
+        return CommonResult.success("成功");
     }
 
     @Override
-    public void updateRawMaterial(RawMaterialUpdateReqVO updateReqVO) {
+    public CommonResult<String> updateRawMaterial(RawMaterialUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateRawMaterialExists(updateReqVO.getId());
+        RawMaterialDO rawMaterialDO = new RawMaterialDO();
+        rawMaterialDO.setId(updateReqVO.getId());
+        rawMaterialDO.setClassify(updateReqVO.getClassify());
+        rawMaterialDO.setName(updateReqVO.getName());
+        Long num = rawMaterialMapper.findSelectCount(rawMaterialDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.RAW_MATERIAL_EXISTENCE);
+        }
         // 更新
         RawMaterialDO updateObj = RawMaterialConvert.INSTANCE.convert(updateReqVO);
         rawMaterialMapper.updateById(updateObj);
+        return CommonResult.success("成功");
+
     }
 
     @Override

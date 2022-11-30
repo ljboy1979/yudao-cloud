@@ -1,6 +1,10 @@
 package cn.acsm.module.transaction.sales.service.commodity;
 
+import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.acsm.module.transaction.sales.service.commodity.CommodityService;
+import cn.acsm.module.transaction.sales.util.ConfigNumberUtil;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -27,23 +31,47 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Resource
     private CommodityMapper commodityMapper;
-
+    @Resource
+    private ConfigNumberUtil configNumberUtil;
     @Override
-    public String createCommodity(CommodityCreateReqVO createReqVO) {
+    public CommonResult<String> createCommodity(CommodityCreateReqVO createReqVO) {
+        CommodityDO reqVO = new CommodityDO();
+        reqVO.setCommodityCategoryId(createReqVO.getCommodityCategoryId());
+        reqVO.setCommodityName(createReqVO.getCommodityName());
+        Long num = commodityMapper.findSelectCount(reqVO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.COMMODITY_EXISTENCE);
+        }
+        Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
+        String number = configNumberUtil.getNumber("sales_commodity"+tenantId);
         // 插入
         CommodityDO commodity = CommodityConvert.INSTANCE.convert(createReqVO);
+        commodity.setCommodityCode("SP"+number);
+        commodity.setId(UUID.randomUUID().toString());
+        //commodity.setTenantId(tenantId);
         commodityMapper.insert(commodity);
         // 返回
-        return commodity.getId();
+        return  CommonResult.success(commodity.getId());
     }
 
     @Override
-    public void updateCommodity(CommodityUpdateReqVO updateReqVO) {
+    public CommonResult<String> updateCommodity(CommodityUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateCommodityExists(updateReqVO.getId());
+
+        CommodityDO commodityDO = new CommodityDO();
+        commodityDO.setId(updateReqVO.getId());
+        commodityDO.setCommodityCategoryId(updateReqVO.getCommodityCategoryId());
+        commodityDO.setCommodityName(updateReqVO.getCommodityName());
+        Long num = commodityMapper.findSelectCount(commodityDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.COMMODITY_EXISTENCE);
+        }
         // 更新
         CommodityDO updateObj = CommodityConvert.INSTANCE.convert(updateReqVO);
         commodityMapper.updateById(updateObj);
+        return CommonResult.success("修改成功");
+
     }
 
     @Override

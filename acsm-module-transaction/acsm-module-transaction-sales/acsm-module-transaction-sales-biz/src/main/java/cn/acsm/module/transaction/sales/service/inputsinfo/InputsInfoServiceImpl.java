@@ -1,7 +1,10 @@
 package cn.acsm.module.transaction.sales.service.inputsinfo;
 
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
+import cn.acsm.module.transaction.sales.util.ConfigNumberUtil;
 import cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -28,23 +31,45 @@ public class InputsInfoServiceImpl implements InputsInfoService {
 
     @Resource
     private InputsInfoMapper inputsInfoMapper;
-
+    @Resource
+    private ConfigNumberUtil configNumberUtil;
     @Override
-    public String createInputsInfo(InputsInfoCreateReqVO createReqVO) {
+    public CommonResult<String> createInputsInfo(InputsInfoCreateReqVO createReqVO) {
+        InputsInfoDO inputsInfoDO = new InputsInfoDO();
+        inputsInfoDO.setInputsName(createReqVO.getInputsName());
+        inputsInfoDO.setInputsKind(createReqVO.getInputsKind());
+        Long num = inputsInfoMapper.findSelectCount(inputsInfoDO);
+        if (num!=null && num>0 ){
+            return CommonResult.error(ErrorCodeConstants.INPUTS_INFO_EXISTENCE);
+        }
+        Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
+        String number = configNumberUtil.getNumber("sales_inputs_info"+tenantId);
         // 插入
         InputsInfoDO inputsInfo = InputsInfoConvert.INSTANCE.convert(createReqVO);
+        inputsInfo.setInputsCode("TRP"+number);
+        inputsInfo.setId(UUID.randomUUID().toString());
         inputsInfoMapper.insert(inputsInfo);
         // 返回
-        return inputsInfo.getId();
+        return CommonResult.success(inputsInfo.getId());
     }
 
     @Override
-    public void updateInputsInfo(InputsInfoUpdateReqVO updateReqVO) {
+    public CommonResult<String> updateInputsInfo(InputsInfoUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateInputsInfoExists(updateReqVO.getId());
+
+        InputsInfoDO inputsInfoDO = new InputsInfoDO();
+        inputsInfoDO.setInputsName(updateReqVO.getInputsName());
+        inputsInfoDO.setInputsKind(updateReqVO.getInputsKind());
+        inputsInfoDO.setId(updateReqVO.getId());
+        Long num = inputsInfoMapper.findSelectCount(inputsInfoDO);
+        if (num!=null && num>0 ){
+            return CommonResult.error(ErrorCodeConstants.INPUTS_INFO_EXISTENCE);
+        }
         // 更新
         InputsInfoDO updateObj = InputsInfoConvert.INSTANCE.convert(updateReqVO);
         inputsInfoMapper.updateById(updateObj);
+        return CommonResult.success("成功");
     }
 
     @Override

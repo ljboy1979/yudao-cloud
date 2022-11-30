@@ -18,7 +18,7 @@ public class InputsInfoPageReqVO extends PageParam {
     private String inputsName;
 
     @ApiModelProperty(value = "种类")
-    private String inputsKind;
+        private String inputsKind;
 
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)

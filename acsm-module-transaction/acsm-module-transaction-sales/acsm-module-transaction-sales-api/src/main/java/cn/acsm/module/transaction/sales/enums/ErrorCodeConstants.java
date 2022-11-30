@@ -20,5 +20,16 @@ public interface ErrorCodeConstants {
     ErrorCode DISHES_CATEGORY_NOT_EXISTS = new ErrorCode(2000000012, "菜品分类不存在");
     ErrorCode DISHES_ORGANIZATION_NOT_EXISTS = new ErrorCode(2000000013, "菜品组成不存在");
     ErrorCode DISHES_SPECIFICATION_NOT_EXISTS = new ErrorCode(2000000014, "菜品规格不存在");
+    ErrorCode CONFIG_NUMBER_EXISTS = new ErrorCode(2000000015, "生成编码失败，异常信息");
+    ErrorCode NUMBER_GET_LOCK_EXISTS= new ErrorCode(2000000016, "编码获取锁失败，异常信息");
+    ErrorCode COMMODITY_EXISTENCE = new ErrorCode(2000000017, "商品已存在");
+    ErrorCode COMMODITY_ORGANIZATION_EXISTENCE = new ErrorCode(2000000018, "商品组成已存在");
+    ErrorCode COMMODITY_SPECIFICATION_EXISTENCE = new ErrorCode(2000000019, "商品规格以存在");
+    ErrorCode RAW_MATERIAL_EXISTENCE = new ErrorCode(2000000020, "原料已存在");
+    ErrorCode RAW_MATERIAL_SPECIFICATION_EXISTENCE = new ErrorCode(2000000021, "原料规格已存在");
+    ErrorCode INPUTS_INFO_EXISTENCE = new ErrorCode(2000000022, "投入品已存在");
+    ErrorCode INPUTS_INFO_SPECIFICATION_EXISTENCE= new ErrorCode(2000000023, "投入品规格已存在");
+    ErrorCode DISHES_NOT_EXISTENCE = new ErrorCode(2000000024, "菜品已存在");
+
 
 }

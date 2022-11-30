@@ -10,6 +10,7 @@ import cn.acsm.module.transaction.sales.controller.admin.commodityspecification.
 import cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO;
 import cn.acsm.module.transaction.sales.controller.admin.commodityspecification.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 /**
@@ -25,14 +26,14 @@ public interface CommoditySpecificationService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createCommoditySpecification(@Valid CommoditySpecificationCreateReqVO createReqVO);
+    CommonResult<String> createCommoditySpecification(@Valid CommoditySpecificationCreateReqVO createReqVO);
 
     /**
      * 更新商品规格
      *
      * @param updateReqVO 更新信息
      */
-    void updateCommoditySpecification(@Valid CommoditySpecificationUpdateReqVO updateReqVO);
+    CommonResult<String> updateCommoditySpecification(@Valid CommoditySpecificationUpdateReqVO updateReqVO);
 
     /**
      * 删除商品规格

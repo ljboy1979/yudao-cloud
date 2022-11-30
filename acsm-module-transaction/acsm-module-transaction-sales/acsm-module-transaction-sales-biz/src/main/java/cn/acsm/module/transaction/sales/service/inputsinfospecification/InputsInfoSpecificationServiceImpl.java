@@ -9,6 +9,7 @@ import cn.acsm.module.transaction.sales.dal.dataobject.inputsinfospecification.I
 import cn.acsm.module.transaction.sales.dal.mysql.inputsinfospecification.InputsInfoSpecificationMapper;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -37,21 +38,38 @@ public class InputsInfoSpecificationServiceImpl implements InputsInfoSpecificati
     private InputsInfoSpecificationMapper inputsInfoSpecificationMapper;
 
     @Override
-    public String createInputsInfoSpecification(InputsInfoSpecificationCreateReqVO createReqVO) {
+    public CommonResult<String> createInputsInfoSpecification(InputsInfoSpecificationCreateReqVO createReqVO) {
+        InputsInfoSpecificationDO inputsInfoSpecificationDO = new InputsInfoSpecificationDO();
+        inputsInfoSpecificationDO.setSpecificationsName(createReqVO.getSpecificationsName());
+        inputsInfoSpecificationDO.setInputsInfoId(createReqVO.getInputsInfoId());
+        Long num = inputsInfoSpecificationMapper.findSelectCount(inputsInfoSpecificationDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.INPUTS_INFO_SPECIFICATION_EXISTENCE);
+        }
         // 插入
         InputsInfoSpecificationDO inputsInfoSpecification = InputsInfoSpecificationConvert.INSTANCE.convert(createReqVO);
+        inputsInfoSpecification.setId(UUID.randomUUID().toString());
         inputsInfoSpecificationMapper.insert(inputsInfoSpecification);
         // 返回
-        return inputsInfoSpecification.getId();
+        return CommonResult.success(inputsInfoSpecification.getId());
     }
 
     @Override
-    public void updateInputsInfoSpecification(InputsInfoSpecificationUpdateReqVO updateReqVO) {
+    public CommonResult<String> updateInputsInfoSpecification(InputsInfoSpecificationUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateInputsInfoSpecificationExists(updateReqVO.getId());
+        InputsInfoSpecificationDO inputsInfoSpecificationDO = new InputsInfoSpecificationDO();
+        inputsInfoSpecificationDO.setSpecificationsName(updateReqVO.getSpecificationsName());
+        inputsInfoSpecificationDO.setInputsInfoId(updateReqVO.getInputsInfoId());
+        inputsInfoSpecificationDO.setId(updateReqVO.getId());
+        Long num = inputsInfoSpecificationMapper.findSelectCount(inputsInfoSpecificationDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.INPUTS_INFO_SPECIFICATION_EXISTENCE);
+        }
         // 更新
         InputsInfoSpecificationDO updateObj = InputsInfoSpecificationConvert.INSTANCE.convert(updateReqVO);
         inputsInfoSpecificationMapper.updateById(updateObj);
+        return CommonResult.success("成功");
     }
 
     @Override

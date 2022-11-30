@@ -35,4 +35,5 @@ public interface InputClassifyConvert {
 
     List<InputClassifyExcelVO> convertList02(List<InputClassifyDO> list);
 
+    InputClassifyTreeVO convertListToTree(InputClassifyDO inputClassifyDO);
 }
