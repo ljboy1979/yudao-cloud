@@ -8,6 +8,7 @@ import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
+import cn.iocoder.yudao.framework.tenant.core.aop.TenantIgnore;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -105,4 +107,12 @@ public class BaseInfoController {
         ExcelUtils.write(response, "经营主体.xls", "数据", BaseInfoExcelVO.class, datas);
     }
 
+    @GetMapping("/selectList")
+    @ApiOperation("获得经营主体行下拉列表")
+    @TenantIgnore
+    @PermitAll
+    public CommonResult<List<BaseInfoSelectRespVO>> selectList() {
+        List<BaseInfoDO> list = baseInfoService.getSelectList();
+        return success(BaseInfoConvert.INSTANCE.convertSelectList(list));
+    }
 }

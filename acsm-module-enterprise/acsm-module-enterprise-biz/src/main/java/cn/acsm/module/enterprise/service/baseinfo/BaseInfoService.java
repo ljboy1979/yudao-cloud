@@ -77,5 +77,11 @@ public interface BaseInfoService {
      * @return 经营主体列表
      */
     List<BaseInfoDO> getBaseInfoList(BaseInfoExportReqVO exportReqVO);
+    /**
+     * 获得经营主体下拉列表
+     *
+     * @return 获得经营主体下拉列表
+     */
+    List<BaseInfoDO> getSelectList();
 
 }
