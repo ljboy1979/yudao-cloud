@@ -89,7 +89,10 @@
           </el-form-item>
           <el-form-item>
             <el-col :span="15">
-              <el-form-item label="公司简介" prop="description">{{ ruleForm.description }}</el-form-item>
+              <el-form-item label="公司简介" prop="description">
+                <!-- <editor v-model="ruleForm.description" :min-height="192" /> -->
+                {{ ruleForm.description }}
+              </el-form-item>
             </el-col>
           </el-form-item>
           <el-form-item>
@@ -236,6 +239,7 @@ import { getBaseInfo } from "@/api/enterprise/baseInfo"
 import PolicySubsidiesInfo from '../policySubsidiesInfo/index.vue'
 import otherCertificateInfo from "../../enterprise/otherCertificateInfo"
 import otherAccountInfo from "../../enterprise/otherAccountInfo"
+import Editor from '@/components/Editor';
 const defaultRefundDetail = {
   code: '',
   name: '',
@@ -267,7 +271,7 @@ const defaultRefundDetail = {
 export default {
   name: "User",
   components: {
-    PolicySubsidiesInfo, otherCertificateInfo, otherAccountInfo
+    PolicySubsidiesInfo, otherCertificateInfo, otherAccountInfo,Editor
   },
   data() {
     return {
@@ -319,6 +323,7 @@ export default {
         this.ruleForm = response.data;
         this.ruleForm.businessLicensePhoto = response.data.businessLicensePhoto.split(',')
         this.ruleForm.businessCertificatePhoto = response.data.businessCertificatePhoto.split(',')
+        this.ruleForm.description=this.getSimpleText(this.ruleForm.description)
       });
     },
 
@@ -336,6 +341,12 @@ export default {
     },
     gotoEdit() {
       this.$router.push({ path: "/enterprise/baseInfo/businessEditInfo", query: { id: this.businessid } });
+    },
+    //html剔除富文本标签，留下纯文本
+    getSimpleText(html) {
+      var re1 = new RegExp("<.+?>", "g");//匹配html标签的正则表达式，"g"是搜索匹配多个符合的内容
+      var msg = html.replace(re1, '');//执行替换成空字符
+      return msg;
     }
   }
 };

@@ -40,6 +40,12 @@ public class IntegralRecordExportReqVO {
     @ApiModelProperty(value = "图片")
     private String picture;
 
+    @ApiModelProperty(value = "备注")
+    private String remark;
+
+    @ApiModelProperty(value = "评分分数")
+    private String ratingScore;
+
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] createTime;

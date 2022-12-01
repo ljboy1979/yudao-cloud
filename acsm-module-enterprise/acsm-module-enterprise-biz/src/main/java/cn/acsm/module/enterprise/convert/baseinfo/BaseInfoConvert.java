@@ -1,16 +1,12 @@
 package cn.acsm.module.enterprise.convert.baseinfo;
 
-import java.util.*;
-
-import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoCreateReqVO;
-import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoExcelVO;
-import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoRespVO;
-import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.BaseInfoUpdateReqVO;
+import cn.acsm.module.enterprise.controller.admin.baseinfo.vo.*;
 import cn.acsm.module.enterprise.dal.dataobject.baseinfo.BaseInfoDO;
-
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * 经营主体 Convert
@@ -29,6 +25,8 @@ public interface BaseInfoConvert {
     BaseInfoRespVO convert(BaseInfoDO bean);
 
     List<BaseInfoRespVO> convertList(List<BaseInfoDO> list);
+
+    List< BaseInfoSelectRespVO > convertSelectList(List<BaseInfoDO> list);
 
     PageResult<BaseInfoRespVO> convertPage(PageResult<BaseInfoDO> page);
 

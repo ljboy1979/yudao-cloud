@@ -51,6 +51,12 @@ public class IntegralRecordExcelVO {
     @ExcelProperty("图片")
     private String picture;
 
+    @ExcelProperty("备注")
+    private String remark;
+
+    @ExcelProperty("评分分数")
+    private String ratingScore;
+
     @ExcelProperty("创建时间")
     private LocalDateTime createTime;
 
