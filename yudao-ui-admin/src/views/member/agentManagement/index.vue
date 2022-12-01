@@ -32,7 +32,7 @@
     </el-form>
 
     <!-- 操作工具栏 -->
-    <!-- <el-row :gutter="10" class="mb8">
+    <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
                    v-hasPermi="['member:agent-management:create']">新增</el-button>
@@ -42,7 +42,7 @@
                    v-hasPermi="['member:agent-management:export']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row> -->
+    </el-row>
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
