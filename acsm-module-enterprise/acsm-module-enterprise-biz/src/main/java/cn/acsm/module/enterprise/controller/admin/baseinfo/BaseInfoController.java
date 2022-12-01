@@ -108,7 +108,7 @@ public class BaseInfoController {
     }
 
     @GetMapping("/selectList")
-    @ApiOperation("获得经营主体行下拉列表")
+    @ApiOperation("获得经营主体下拉列表")
     @TenantIgnore
     @PermitAll
     public CommonResult<List<BaseInfoSelectRespVO>> selectList() {
