@@ -93,7 +93,7 @@ public class DishesCategoryServiceImpl implements DishesCategoryService {
     @Override
     public List<TreeSelect> findTreeList(DishesCategoryTreeVO dishesCategoryTreeVO) {
         List<DishesCategoryDO> inputClassifyDOS = dishesCategoryMapper.selectListToTree(dishesCategoryTreeVO);
-        List<DishesCategoryTreeVO> inputClassifyTreeVOS = inputClassifyDOS.stream().map(o -> DishesCategoryConvert.INSTANCE.convertListToTree(o)).collect(Collectors.toList());
+        List<DishesCategoryTreeVO> inputClassifyTreeVOS = inputClassifyDOS.stream().map(o -> DishesCategoryConvert.convertListToTree(o)).collect(Collectors.toList());
         List<TreeSelect> treeSelects = TreeUtils.buildTreeSelect(inputClassifyTreeVOS);
         return treeSelects;
     }

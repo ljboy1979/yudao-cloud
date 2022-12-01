@@ -30,6 +30,21 @@ public interface ErrorCodeConstants {
     ErrorCode INPUTS_INFO_EXISTENCE = new ErrorCode(2000000022, "投入品已存在");
     ErrorCode INPUTS_INFO_SPECIFICATION_EXISTENCE= new ErrorCode(2000000023, "投入品规格已存在");
     ErrorCode DISHES_NOT_EXISTENCE = new ErrorCode(2000000024, "菜品已存在");
+    ErrorCode PACKAGE_NOT_EXISTS = new ErrorCode(2000000025, "套餐不存在");
+    ErrorCode PACKAGE_NOT_EXISTENCE = new ErrorCode(2000000026, "套餐已存在");
+    ErrorCode PACKAGE_SPECIFICATION_NOT_EXISTS = new ErrorCode(2000000027, "套餐规格不存在");
+    ErrorCode PACKAGE_SPECIFICATION_EXISTENCE = new ErrorCode(2000000028, "套餐规格已存在");
+    ErrorCode PACKAGE_ORGANIZATION_NOT_EXISTS = new ErrorCode(2000000029, "套餐组成不存在");
+    ErrorCode PACKAGE_ORGANIZATION_EXISTENCE  = new ErrorCode(2000000030, "套餐组成已存在");
+    ErrorCode NUTRITION_FACTS_NOT_EXISTS  = new ErrorCode(2000000031, "营养成分不存在");
+    ErrorCode PACKAGE_CLASSIFY_NOT_EXISTS = new ErrorCode(2000000032, "套餐分类不存在");
+    ErrorCode SPECIAL_MEDICAL_FOOD_NOT_EXISTS = new ErrorCode(2000000033, "特医食品不存在");
+    ErrorCode SPECIAL_MEDICAL_FOOD_CLASSIFY_NOT_EXISTS = new ErrorCode(2000000034, "特医食品分类不存在");
+    ErrorCode SPECIAL_MEDICAL_FOOD_ORGANIZATION_NOT_EXISTS = new ErrorCode(2000000035, "特医食品组成不存在");
+    ErrorCode SPECIAL_MEDICAL_FOOD_SPECIFICATION_NOT_EXISTS = new ErrorCode(2000000036, "特医食品规格不存在");
+    ErrorCode SPECIAL_MEDICAL_FOOD_EXISTENCE = new ErrorCode(2000000033, "特医食品已存在");
+    ErrorCode SPECIAL_MEDICAL_FOOD_ORGANIZATION_EXISTENCE = new ErrorCode(2000000035, "特医食品组成不存在");
+    ErrorCode SPECIAL_MEDICAL_FOOD_SPECIFICATION_EXISTENCE = new ErrorCode(2000000036, "特医食品规格不存在");
 
 
 }
