@@ -1,13 +1,11 @@
 package cn.acsm.module.enterprise.controller.admin.policysubsidiesinfo.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
-import java.util.*;
-import java.math.BigDecimal;
-import io.swagger.annotations.*;
-import org.springframework.format.annotation.DateTimeFormat;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
-import javax.validation.constraints.*;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
 * 企业政策补贴信息 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -38,8 +36,7 @@ public class PolicySubsidiesInfoBaseVO {
     private String applyPerson;
 
     @ApiModelProperty(value = "申请时间")
-    @DateTimeFormat(pattern = "yyyy-MM")
-    @JsonFormat(pattern = "yyyy-MM")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date applyTime;
 
     @ApiModelProperty(value = "租户集合")
