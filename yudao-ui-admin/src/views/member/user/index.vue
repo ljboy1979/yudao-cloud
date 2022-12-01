@@ -50,13 +50,17 @@
       </el-table-column>
       <el-table-column label="小程序门户" align="center" prop="source" />
       <el-table-column label="会员类型" align="center" prop="memberType" />
-      <el-table-column label="状态" align="center" prop="status" />
+      <el-table-column label="状态" align="center" prop="auditStatus" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="300">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleDetail(scope.row)" v-hasPermi="['']">管理</el-button>
           <el-button size="mini" type="text" @click="handleProcess(scope.row)" v-hasPermi="['']">审核</el-button>
-          <el-button size="mini" type="text" @click="handleDelete(scope.row)" v-hasPermi="['']">解绑</el-button>
-          <el-button size="mini" type="text" @click="handleType(scope.row)" v-hasPermi="['']">置为集采会员</el-button>
+          <el-button size="mini" type="text" v-if="scope.row.auditStatus==3" disabled>已解绑</el-button>
+          <el-button size="mini" type="text" v-else @click="handleDelete(scope.row)" v-hasPermi="['']">解绑</el-button>
+          <el-button size="mini" type="text" @click="handleType(scope.row)" v-hasPermi="['']">
+            <span v-if="scope.row.memberType == 0">置为集采会员</span>
+            <span v-else>置为普通会员</span>
+          </el-button>
         </template>
       </el-table-column>
 
@@ -68,13 +72,13 @@
     <!-- 对话框(审核) -->
     <el-dialog :visible.sync="open" width="400px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules">
-        <el-form-item prop="result" label-width="100px">
-          <el-radio-group v-model="form.result">
-            <el-radio :key="true" :label="true">通过</el-radio>
-            <el-radio :key="false" :label="false">不通过</el-radio>
+        <el-form-item prop="auditStatus" label-width="100px">
+          <el-radio-group v-model="form.auditStatus">
+            <el-radio :key="1" :label="1">通过</el-radio>
+            <el-radio :key="2" :label="2">不通过</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="备注" prop="remark" :rules="form.result == false ? rules.remark : { required: false }"
+        <el-form-item label="备注" prop="remark" :rules="form.auditStatus == 2 ? rules.remark : { required: false }"
           label-width="55px">
           <el-input type="textarea" :rows="3" v-model="form.remark"></el-input>
         </el-form-item>
@@ -88,7 +92,7 @@
 </template>
 
 <script>
-import { getUserPage,  } from "@/api/member/user";
+import { getUserPage, updateAuditStatus, userUnbundling, updateMemberType  } from "@/api/member/user";
 
 export default {
   name: "User",
@@ -125,7 +129,7 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        result: [{ required: true, message: "审核结果不能为空", trigger: "blur" }],
+        auditStatus: [{ required: true, message: "审核结果不能为空", trigger: "blur" }],
         remark: [{ required: true, message: "备注不能为空", trigger: "blur" }],
       },
     };
@@ -155,7 +159,7 @@ export default {
         romemberRole: undefined,
         romemberType: undefined,
         id: undefined,
-        result: undefined,
+        auditStatus: undefined,
         remark: undefined,
       };
       this.resetForm("form");
@@ -177,9 +181,11 @@ export default {
     /** 审核按钮操作 */
     handleProcess(row) {
       this.reset();
-      this.form.id = row.id;
+      this.form = {
+        id: row.id,
+        memberUserDetailId: row.memberUserDetailId,
+      };
       this.open = true;
-
     },
     /** 提交按钮 */
     submitForm() {
@@ -189,22 +195,25 @@ export default {
         }
         console.log("this.form", this.form)
         // 审核提交
-        // if (this.form.id != null) {
-        //   XXXX(this.form).then(response => {
-        //     this.$modal.msgSuccess("审核成功");
-        //     this.open = false;
-        //     this.getList();
-        //   });
-        //   return;
-        // }
+        if (this.form.id != null) {
+          updateAuditStatus(this.form).then(response => {
+            this.$modal.msgSuccess("审核成功");
+            this.open = false;
+            this.getList();
+          });
+          return;
+        }
       });
     },
     /** 解绑按钮操作 */
     handleDelete(row) {
-      const id = row.id;
-      this.$modal.confirm('是否确认将"' + id + '"解绑?').then(function () {
-        console.log("解绑", id)
-        // return delete(id); //解绑接口
+      const form = {
+        id: row.id,
+        memberUserDetailId: row.memberUserDetailId,
+        auditStatus: 3
+      };
+      this.$modal.confirm('是否确认将"' + row.id + '"解绑?').then(function () {
+        return userUnbundling(form); 
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("解绑成功");
@@ -212,7 +221,18 @@ export default {
     },
     /** 置为集采会员按钮操作 */
     handleType(row) {
-
+      const form = {
+        id: row.id,
+        memberUserDetailId: row.memberUserDetailId,
+        memberType: row.memberType == 0 ? 1 : 0
+      };
+      let type = row.memberType == 0 ? '集采' : '普通';
+      this.$modal.confirm((`是否确认将${row.id}置为${type}会员？`)).then(function () {
+        return updateMemberType(form); 
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess(`会员类型已变为${type}会员`);
+      }).catch(() => { });
     }
   }
 };
