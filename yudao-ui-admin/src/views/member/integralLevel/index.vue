@@ -47,7 +47,11 @@
       <el-table-column label="企业名称" align="center" prop="enterpriseName" />
       <el-table-column label="会员等级" align="center" prop="memberLevel" />
       <el-table-column label="积分阀值" align="center" prop="integralThreshold" />
-      <el-table-column label="等级优惠" align="center" prop="levelDiscount" />
+      <el-table-column label="等级优惠" align="center" prop="levelDiscount" >
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.MEMBER_LEVEL_DISCOUNT" :value="scope.row.levelDiscount" />
+        </template>
+      </el-table-column>
       <el-table-column label="等级描述" align="center" prop="levelDescription" />
       <!-- <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="租户集合" align="center" prop="source" />
@@ -78,16 +82,15 @@
           </el-select>
         </el-form-item>
         <el-form-item label="会员等级" prop="memberLevel">
-          <el-input v-model="form.memberLevel" placeholder="请输入会员等级" />
+          <el-input v-model="form.memberLevel" placeholder="请输入会员等级名称" />
         </el-form-item>
         <el-form-item label="积分阀值" prop="integralThreshold">
           <el-input v-model.number="form.integralThreshold" placeholder="请输入积分阀值" />
         </el-form-item>
         <el-form-item label="等级优惠" prop="levelDiscount">
           <el-select v-model="form.levelDiscount" placeholder="请选择等级优惠" clearable size="small">
-            <!-- <el-option v-for="dict in this.getDictDatas()" :key="dict.value" :label="dict.label"
-            :value="dict.value" /> -->
-            <el-option label="字典" value="1" />
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MEMBER_LEVEL_DISCOUNT)" :key="dict.value" :label="dict.label"
+            :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="等级描述">
