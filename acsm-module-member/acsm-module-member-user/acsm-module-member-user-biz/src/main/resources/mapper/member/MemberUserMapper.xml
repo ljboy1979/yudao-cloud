@@ -49,13 +49,13 @@
         <if test="reqVO.mobile != null and reqVO.mobile != ''">
             and mu.mobile = #{reqVO.mobile}
         </if>
-        <if test="reqVO.source != null and reqVO.source != ''">
+        <if test="reqVO.source != null">
             and mu.source = #{reqVO.source}
         </if>
-        <if test="reqVO.memberType != null and reqVO.memberType != ''">
+        <if test="reqVO.memberType != null ">
             and mud.member_type = #{reqVO.memberType}
         </if>
-        <if test="reqVO.memberRole != null and reqVO.memberRole != ''">
+        <if test="reqVO.memberRole != null">
             and mud.member_role = #{reqVO.memberRole}
         </if>
         <if test="reqVO.id != null and reqVO.id != ''">
@@ -85,13 +85,13 @@
         <if test="reqVO.mobile != null and reqVO.mobile != ''">
             and mu.mobile = #{reqVO.mobile}
         </if>
-        <if test="reqVO.source != null and reqVO.source != ''">
+        <if test="reqVO.source != null">
             and mu.source = #{reqVO.source}
         </if>
-        <if test="reqVO.memberType != null and reqVO.memberType != ''">
+        <if test="reqVO.memberType != null">
             and mud.member_type = #{reqVO.memberType}
         </if>
-        <if test="reqVO.memberRole != null and reqVO.memberRole != ''">
+        <if test="reqVO.memberRole != null">
             and mud.member_role = #{reqVO.memberRole}
         </if>
         <if test="reqVO.id != null and reqVO.id != ''">
