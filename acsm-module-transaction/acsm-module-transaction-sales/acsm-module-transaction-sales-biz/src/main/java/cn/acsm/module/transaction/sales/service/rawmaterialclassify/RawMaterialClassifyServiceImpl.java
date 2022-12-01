@@ -4,11 +4,15 @@ import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterialclassify.RawMa
 import cn.acsm.module.transaction.sales.dal.mysql.rawmaterialclassify.RawMaterialClassifyMapper;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import cn.acsm.module.transaction.sales.controller.admin.rawmaterialclassify.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterialclassify.RawMaterialClassifyDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -35,6 +39,7 @@ public class RawMaterialClassifyServiceImpl implements RawMaterialClassifyServic
     public String createRawMaterialClassify(RawMaterialClassifyCreateReqVO createReqVO) {
         // 插入
         RawMaterialClassifyDO rawMaterialClassify = RawMaterialClassifyConvert.INSTANCE.convert(createReqVO);
+        rawMaterialClassify.setId(UUID.randomUUID().toString());
         rawMaterialClassifyMapper.insert(rawMaterialClassify);
         // 返回
         return rawMaterialClassify.getId();
@@ -81,6 +86,14 @@ public class RawMaterialClassifyServiceImpl implements RawMaterialClassifyServic
     @Override
     public List<RawMaterialClassifyDO> getRawMaterialClassifyList(RawMaterialClassifyExportReqVO exportReqVO) {
         return rawMaterialClassifyMapper.selectList(exportReqVO);
+    }
+
+    @Override
+    public List<TreeSelect> findTreeList(RawMaterialClassifyTreeVO rawMaterialClassifyTreeVO) {
+        List<RawMaterialClassifyDO> rawMaterialClassifyDOS =  rawMaterialClassifyMapper.selectListToTree(rawMaterialClassifyTreeVO);
+        List< RawMaterialClassifyTreeVO > areaTreeVos = rawMaterialClassifyDOS.stream().map(o -> RawMaterialClassifyConvert.INSTANCE.convertListToTree(o)).collect(Collectors.toList());
+        List<TreeSelect> treeSelects = TreeUtils.buildTreeSelect(areaTreeVos);
+        return treeSelects;
     }
 
 }

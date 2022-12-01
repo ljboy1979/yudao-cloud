@@ -9,6 +9,7 @@ import cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.Co
 import cn.acsm.module.transaction.sales.dal.mysql.commodityspecification.CommoditySpecificationMapper;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -37,21 +38,39 @@ public class CommoditySpecificationServiceImpl implements CommoditySpecification
     private CommoditySpecificationMapper commoditySpecificationMapper;
 
     @Override
-    public String createCommoditySpecification(CommoditySpecificationCreateReqVO createReqVO) {
+    public CommonResult<String> createCommoditySpecification(CommoditySpecificationCreateReqVO createReqVO) {
+        CommoditySpecificationDO commoditySpecificationDO = new CommoditySpecificationDO();
+        commoditySpecificationDO.setCommodityId(createReqVO.getCommodityId());
+        commoditySpecificationDO.setSpecificationsName(createReqVO.getPackagingTypeName());
+        Long num = commoditySpecificationMapper.findSelectCount(commoditySpecificationDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.COMMODITY_SPECIFICATION_EXISTENCE);
+        }
         // 插入
         CommoditySpecificationDO commoditySpecification = CommoditySpecificationConvert.INSTANCE.convert(createReqVO);
+        commoditySpecification.setId(UUID.randomUUID().toString());
         commoditySpecificationMapper.insert(commoditySpecification);
         // 返回
-        return commoditySpecification.getId();
+        return CommonResult.success(commoditySpecification.getId());
     }
 
     @Override
-    public void updateCommoditySpecification(CommoditySpecificationUpdateReqVO updateReqVO) {
+    public CommonResult<String> updateCommoditySpecification(CommoditySpecificationUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateCommoditySpecificationExists(updateReqVO.getId());
+
+        CommoditySpecificationDO commoditySpecificationDO = new CommoditySpecificationDO();
+        commoditySpecificationDO.setId(updateReqVO.getId());
+        commoditySpecificationDO.setCommodityId(updateReqVO.getCommodityId());
+        commoditySpecificationDO.setSpecificationsName(updateReqVO.getPackagingTypeName());
+        Long num = commoditySpecificationMapper.findSelectCount(commoditySpecificationDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.COMMODITY_SPECIFICATION_EXISTENCE);
+        }
         // 更新
         CommoditySpecificationDO updateObj = CommoditySpecificationConvert.INSTANCE.convert(updateReqVO);
         commoditySpecificationMapper.updateById(updateObj);
+        return CommonResult.success("修改成功");
     }
 
     @Override

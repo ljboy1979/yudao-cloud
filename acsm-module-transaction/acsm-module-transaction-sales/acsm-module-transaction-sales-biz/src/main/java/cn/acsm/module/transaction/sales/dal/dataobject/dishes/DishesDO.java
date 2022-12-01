@@ -21,7 +21,7 @@ import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 public class DishesDO extends BaseDO {
 
     /**
-     * 商品id
+     * 菜品id
      */
     @TableId(type = IdType.INPUT)
     private String id;

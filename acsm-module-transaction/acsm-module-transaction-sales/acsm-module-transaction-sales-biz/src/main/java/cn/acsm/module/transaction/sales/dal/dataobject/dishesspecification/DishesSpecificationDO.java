@@ -79,5 +79,16 @@ public class DishesSpecificationDO extends BaseDO {
      * source
      */
     private String source;
+    //包装类型名称
+    private String packagingTypeName;
+
+    //单位名称
+    private String unitName;
+
+    //包装单位名称
+    private String packagingName;
+
+    //计量单位名称
+    private String measurementUnitName;
 
 }

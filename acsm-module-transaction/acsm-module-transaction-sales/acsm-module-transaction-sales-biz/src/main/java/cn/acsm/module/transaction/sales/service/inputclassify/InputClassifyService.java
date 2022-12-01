@@ -6,6 +6,7 @@ import cn.acsm.module.transaction.sales.controller.admin.inputclassify.vo.*;
 import cn.acsm.module.transaction.sales.controller.admin.inputclassify.vo.InputClassifyCreateReqVO;
 import cn.acsm.module.transaction.sales.dal.dataobject.inputclassify.InputClassifyDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 
 /**
  * 投入品分类 Service 接口
@@ -68,4 +69,5 @@ public interface InputClassifyService {
      */
     List<InputClassifyDO> getInputClassifyList(InputClassifyExportReqVO exportReqVO);
 
+    List<TreeSelect> findTreeList(InputClassifyTreeVO inputClassifyTreeVO);
 }

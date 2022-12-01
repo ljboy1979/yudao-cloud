@@ -29,4 +29,9 @@ public interface RawMaterialClassifyMapper extends BaseMapperX<RawMaterialClassi
                 .orderByDesc(RawMaterialClassifyDO::getId));
     }
 
+    default List<RawMaterialClassifyDO> selectListToTree(RawMaterialClassifyTreeVO rawMaterialClassifyTreeVO) {
+        return selectList(new LambdaQueryWrapperX<RawMaterialClassifyDO>()
+                .likeIfPresent(RawMaterialClassifyDO::getCategoryName, rawMaterialClassifyTreeVO.getCategoryName())
+                .orderByAsc(RawMaterialClassifyDO::getId));
+    }
 }

@@ -4,6 +4,7 @@ import java.util.*;
 import javax.validation.*;
 import cn.acsm.module.transaction.sales.controller.admin.dishes.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.dishes.DishesDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 /**
@@ -19,14 +20,14 @@ public interface DishesService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createDishes(@Valid DishesCreateReqVO createReqVO);
+    CommonResult<String> createDishes(@Valid DishesCreateReqVO createReqVO);
 
     /**
      * 更新菜品
      *
      * @param updateReqVO 更新信息
      */
-    void updateDishes(@Valid DishesUpdateReqVO updateReqVO);
+    CommonResult<String> updateDishes(@Valid DishesUpdateReqVO updateReqVO);
 
     /**
      * 删除菜品

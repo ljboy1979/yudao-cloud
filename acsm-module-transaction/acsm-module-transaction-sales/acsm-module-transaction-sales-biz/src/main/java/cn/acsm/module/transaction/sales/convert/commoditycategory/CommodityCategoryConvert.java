@@ -2,10 +2,7 @@ package cn.acsm.module.transaction.sales.convert.commoditycategory;
 
 import java.util.*;
 
-import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.CommodityCategoryCreateReqVO;
-import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.CommodityCategoryExcelVO;
-import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.CommodityCategoryRespVO;
-import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.CommodityCategoryUpdateReqVO;
+import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.*;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 import org.mapstruct.Mapper;
@@ -33,5 +30,9 @@ public interface CommodityCategoryConvert {
     PageResult<CommodityCategoryRespVO> convertPage(PageResult<CommodityCategoryDO> page);
 
     List<CommodityCategoryExcelVO> convertList02(List<CommodityCategoryDO> list);
+
+    CommodityCategoryTreeVO convertListToTree(CommodityCategoryDO o);
+
+
 
 }

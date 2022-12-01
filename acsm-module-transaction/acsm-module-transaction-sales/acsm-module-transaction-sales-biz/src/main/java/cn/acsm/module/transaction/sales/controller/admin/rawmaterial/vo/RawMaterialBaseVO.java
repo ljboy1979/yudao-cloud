@@ -16,9 +16,11 @@ public class RawMaterialBaseVO {
     private String ingredientNumber;
 
     @ApiModelProperty(value = "分类id")
+    @NotNull(message = "分类不能为空")
     private String classify;
 
     @ApiModelProperty(value = "原料名称")
+    @NotNull(message = "原料名称不能为空")
     private String name;
 
     @ApiModelProperty(value = "产地(字典值)")

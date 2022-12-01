@@ -47,6 +47,14 @@ public class IntegralRulesDO extends TenantBaseDO {
      */
     private String rangeValues;
     /**
+     * 积分上限
+     */
+    private String integralMax;
+    /**
+     * 积分下限
+     */
+    private String integralMin;
+    /**
      * 积分值
      */
     private String integralValue;

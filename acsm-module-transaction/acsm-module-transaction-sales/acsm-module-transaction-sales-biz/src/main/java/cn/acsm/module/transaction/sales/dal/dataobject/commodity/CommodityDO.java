@@ -205,4 +205,9 @@ public class CommodityDO extends BaseDO {
      */
     private Integer status;
 
+    /**
+     * 租户编号
+     */
+    private Long tenantId;
+
 }

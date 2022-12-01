@@ -1,5 +1,9 @@
 package cn.acsm.module.transaction.sales.service.dishes;
 
+import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
+import cn.acsm.module.transaction.sales.util.ConfigNumberUtil;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -26,23 +30,45 @@ public class DishesServiceImpl implements DishesService {
 
     @Resource
     private DishesMapper dishesMapper;
-
+    @Resource
+    private ConfigNumberUtil configNumberUtil;
     @Override
-    public String createDishes(DishesCreateReqVO createReqVO) {
+    public CommonResult<String> createDishes(DishesCreateReqVO createReqVO) {
+        DishesDO dishesDO = new DishesDO();
+        dishesDO.setDishesName(createReqVO.getDishesName());
+        dishesDO.setMenuClassification(createReqVO.getMenuClassification());
+        Long num = dishesMapper.findSelectCount(dishesDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.DISHES_NOT_EXISTENCE);
+        }
         // 插入
+        Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
+        String number = configNumberUtil.getNumber("sales_dishes"+tenantId);
         DishesDO dishes = DishesConvert.INSTANCE.convert(createReqVO);
+        dishes.setId(UUID.randomUUID().toString());
+        dishes.setIngredientNumber("CP"+number);
         dishesMapper.insert(dishes);
         // 返回
-        return dishes.getId();
+        return CommonResult.success(dishes.getId());
     }
 
     @Override
-    public void updateDishes(DishesUpdateReqVO updateReqVO) {
+    public CommonResult<String> updateDishes(DishesUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateDishesExists(updateReqVO.getId());
+        DishesDO dishesDO = new DishesDO();
+        dishesDO.setDishesName(updateReqVO.getDishesName());
+        dishesDO.setMenuClassification(updateReqVO.getMenuClassification());
+        dishesDO.setId(updateReqVO.getId());
+        Long num = dishesMapper.findSelectCount(dishesDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.DISHES_NOT_EXISTENCE);
+        }
         // 更新
         DishesDO updateObj = DishesConvert.INSTANCE.convert(updateReqVO);
         dishesMapper.updateById(updateObj);
+        return CommonResult.success("成功");
+
     }
 
     @Override

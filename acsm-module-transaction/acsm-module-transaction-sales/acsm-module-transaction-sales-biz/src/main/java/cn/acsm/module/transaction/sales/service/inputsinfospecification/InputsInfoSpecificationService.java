@@ -8,6 +8,7 @@ import cn.acsm.module.transaction.sales.controller.admin.inputsinfospecification
 import cn.acsm.module.transaction.sales.controller.admin.inputsinfospecification.vo.InputsInfoSpecificationPageReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.inputsinfospecification.vo.InputsInfoSpecificationUpdateReqVO;
 import cn.acsm.module.transaction.sales.dal.dataobject.inputsinfospecification.InputsInfoSpecificationDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 /**
@@ -23,14 +24,14 @@ public interface InputsInfoSpecificationService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createInputsInfoSpecification(@Valid InputsInfoSpecificationCreateReqVO createReqVO);
+    CommonResult<String> createInputsInfoSpecification(@Valid InputsInfoSpecificationCreateReqVO createReqVO);
 
     /**
      * 更新投入品规格
      *
      * @param updateReqVO 更新信息
      */
-    void updateInputsInfoSpecification(@Valid InputsInfoSpecificationUpdateReqVO updateReqVO);
+    CommonResult<String> updateInputsInfoSpecification(@Valid InputsInfoSpecificationUpdateReqVO updateReqVO);
 
     /**
      * 删除投入品规格

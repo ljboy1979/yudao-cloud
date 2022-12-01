@@ -16,6 +16,7 @@ public class CommodityOrganizationBaseVO {
     private String rawMaterialId;
 
     @ApiModelProperty(value = "商品id")
+    @NotNull(message = "商品id不能为空")
     private String commodityId;
 
     @ApiModelProperty(value = "组成编号")
@@ -25,13 +26,13 @@ public class CommodityOrganizationBaseVO {
     private String organizationName;
 
     @ApiModelProperty(value = "分类")
+    @NotNull(message = "分类不能为空")
     private String classify;
 
     @ApiModelProperty(value = "产地")
     private String origin;
 
     @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
     private Integer status;
 
 }

@@ -20,6 +20,8 @@ public class DishesPageReqVO extends PageParam {
     @ApiModelProperty(value = "菜品名称")
     private String dishesName;
 
+    @ApiModelProperty(value = "菜品分类")
+    private String menuClassification;
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] createTime;

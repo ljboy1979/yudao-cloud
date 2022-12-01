@@ -10,6 +10,7 @@ import cn.acsm.module.transaction.sales.controller.admin.rawmaterialspecificatio
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterialspecification.RawMaterialSpecificationDO;
 import cn.acsm.module.transaction.sales.controller.admin.rawmaterialspecification.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterialspecification.RawMaterialSpecificationDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 /**
@@ -25,14 +26,14 @@ public interface RawMaterialSpecificationService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createRawMaterialSpecification(@Valid RawMaterialSpecificationCreateReqVO createReqVO);
+    CommonResult<String> createRawMaterialSpecification(@Valid RawMaterialSpecificationCreateReqVO createReqVO);
 
     /**
      * 更新原料规格
      *
      * @param updateReqVO 更新信息
      */
-    void updateRawMaterialSpecification(@Valid RawMaterialSpecificationUpdateReqVO updateReqVO);
+    CommonResult<String> updateRawMaterialSpecification(@Valid RawMaterialSpecificationUpdateReqVO updateReqVO);
 
     /**
      * 删除原料规格

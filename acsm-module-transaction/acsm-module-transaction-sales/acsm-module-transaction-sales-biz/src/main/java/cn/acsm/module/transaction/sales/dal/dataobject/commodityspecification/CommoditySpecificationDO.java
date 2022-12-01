@@ -1,11 +1,14 @@
 package cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import java.util.*;
 import java.math.BigDecimal;
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 商品规格 DO
@@ -79,5 +82,17 @@ public class CommoditySpecificationDO extends BaseDO {
      * source
      */
     private String source;
+
+    //包装类型名称
+    private String packagingTypeName;
+
+   //单位名称
+    private String unitName;
+
+    //包装单位名称
+    private String packagingName;
+
+    //计量单位名称
+    private String measurementUnitName;
 
 }

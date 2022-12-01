@@ -1,5 +1,8 @@
 package cn.acsm.module.transaction.sales.service.inputclassify;
 
+import cn.acsm.module.transaction.sales.convert.rawmaterialclassify.RawMaterialClassifyConvert;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
 import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.apache.catalina.startup.UserConfig;
 import org.springframework.security.core.userdetails.User;
@@ -8,6 +11,8 @@ import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import cn.acsm.module.transaction.sales.controller.admin.inputclassify.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.inputclassify.InputClassifyDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -80,6 +85,14 @@ public class InputClassifyServiceImpl implements InputClassifyService {
     @Override
     public List<InputClassifyDO> getInputClassifyList(InputClassifyExportReqVO exportReqVO) {
         return inputClassifyMapper.selectList(exportReqVO);
+    }
+
+    @Override
+    public List<TreeSelect> findTreeList(InputClassifyTreeVO inputClassifyTreeVO) {
+        List<InputClassifyDO> inputClassifyDOS = inputClassifyMapper.selectListToTree(inputClassifyTreeVO);
+        List<InputClassifyTreeVO> inputClassifyTreeVOS = inputClassifyDOS.stream().map(o -> InputClassifyConvert.INSTANCE.convertListToTree(o)).collect(Collectors.toList());
+        List<TreeSelect> treeSelects = TreeUtils.buildTreeSelect(inputClassifyTreeVOS);
+        return treeSelects;
     }
 
 }

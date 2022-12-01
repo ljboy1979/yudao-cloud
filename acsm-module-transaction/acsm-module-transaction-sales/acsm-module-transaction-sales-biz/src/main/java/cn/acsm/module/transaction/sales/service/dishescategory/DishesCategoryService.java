@@ -10,6 +10,7 @@ import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.Dishe
 import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.dishescategory.DishesCategoryDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 
 /**
  * 菜品分类 Service 接口
@@ -72,4 +73,5 @@ public interface DishesCategoryService {
      */
     List<DishesCategoryDO> getDishesCategoryList(DishesCategoryExportReqVO exportReqVO);
 
+    List<TreeSelect> findTreeList(DishesCategoryTreeVO dishesCategoryTreeVO);
 }

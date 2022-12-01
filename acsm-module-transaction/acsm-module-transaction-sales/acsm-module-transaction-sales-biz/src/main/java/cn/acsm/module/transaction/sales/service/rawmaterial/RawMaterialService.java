@@ -4,6 +4,7 @@ import java.util.*;
 import javax.validation.*;
 import cn.acsm.module.transaction.sales.controller.admin.rawmaterial.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterial.RawMaterialDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 /**
@@ -19,14 +20,14 @@ public interface RawMaterialService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createRawMaterial(@Valid RawMaterialCreateReqVO createReqVO);
+    CommonResult<String> createRawMaterial(@Valid RawMaterialCreateReqVO createReqVO);
 
     /**
      * 更新原料
      *
      * @param updateReqVO 更新信息
      */
-    void updateRawMaterial(@Valid RawMaterialUpdateReqVO updateReqVO);
+    CommonResult<String> updateRawMaterial(@Valid RawMaterialUpdateReqVO updateReqVO);
 
     /**
      * 删除原料

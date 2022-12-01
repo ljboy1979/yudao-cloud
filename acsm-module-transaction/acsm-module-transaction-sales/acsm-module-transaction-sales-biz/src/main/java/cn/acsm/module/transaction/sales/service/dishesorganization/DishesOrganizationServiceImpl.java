@@ -1,8 +1,10 @@
 package cn.acsm.module.transaction.sales.service.dishesorganization;
 
+import cn.acsm.module.transaction.sales.util.ConfigNumberUtil;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterial.RawMaterialDO;
 import cn.acsm.module.transaction.sales.dal.mysql.rawmaterial.RawMaterialMapper;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -32,14 +34,25 @@ public class DishesOrganizationServiceImpl implements DishesOrganizationService 
 
     @Resource
     private RawMaterialMapper rawMaterialMapper;
+    @Resource
+    private ConfigNumberUtil configNumberUtil;
     @Override
     public CommonResult<String> createDishesOrganization(DishesOrganizationCreateReqVO createReqVO) {
-        RawMaterialDO rawMaterialDO = rawMaterialMapper.selectById(createReqVO.getRawMaterialId());
-        if (rawMaterialDO!=null){
-            return CommonResult.error(RAW_MATERIAL_NOT_EXISTS);
+        if ("0".equals(createReqVO.getTag())) {
+            RawMaterialDO rawMaterialDO = rawMaterialMapper.selectById(createReqVO.getRawMaterialId());
+            if (rawMaterialDO != null) {
+                return CommonResult.error(RAW_MATERIAL_NOT_EXISTS);
+            }
+            createReqVO.setOrigin(rawMaterialDO.getOrigin());
+            createReqVO.setClassify(rawMaterialDO.getClassify());
+            createReqVO.setOrganizationName(rawMaterialDO.getName());
         }
+        Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
+        String number = configNumberUtil.getNumber("sales_dishes"+tenantId);
         // 插入
         DishesOrganizationDO dishesOrganization = DishesOrganizationConvert.INSTANCE.convert(createReqVO);
+        dishesOrganization.setId(UUID.randomUUID().toString());
+        dishesOrganization.setOrganizationNumber("ZC"+number);
         dishesOrganizationMapper.insert(dishesOrganization);
         // 返回
         return CommonResult.success(dishesOrganization.getId());

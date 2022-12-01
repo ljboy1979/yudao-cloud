@@ -19,9 +19,10 @@ public interface DishesMapper extends BaseMapperX<DishesDO> {
 
     default PageResult<DishesDO> selectPage(DishesPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<DishesDO>()
-                .eqIfPresent(DishesDO::getIngredientNumber, reqVO.getIngredientNumber())
+                .likeIfPresent(DishesDO::getIngredientNumber, reqVO.getIngredientNumber())
                 .likeIfPresent(DishesDO::getDishesName, reqVO.getDishesName())
                 .betweenIfPresent(DishesDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(DishesDO::getMenuClassification, reqVO.getMenuClassification())
                 .orderByDesc(DishesDO::getId));
     }
 
@@ -30,6 +31,15 @@ public interface DishesMapper extends BaseMapperX<DishesDO> {
                 .eqIfPresent(DishesDO::getIngredientNumber, reqVO.getIngredientNumber())
                 .likeIfPresent(DishesDO::getDishesName, reqVO.getDishesName())
                 .betweenIfPresent(DishesDO::getCreateTime, reqVO.getCreateTime())
+                .orderByDesc(DishesDO::getId));
+    }
+
+    default Long findSelectCount(DishesDO dishesDO) {
+        return selectCount(new LambdaQueryWrapperX<DishesDO>()
+                .eqIfPresent(DishesDO::getIngredientNumber, dishesDO.getIngredientNumber())
+                .eqIfPresent(DishesDO::getDishesName, dishesDO.getDishesName())
+                .eqIfPresent(DishesDO::getMenuClassification, dishesDO.getMenuClassification())
+                .notIn(DishesDO::getId,dishesDO.getId())
                 .orderByDesc(DishesDO::getId));
     }
 

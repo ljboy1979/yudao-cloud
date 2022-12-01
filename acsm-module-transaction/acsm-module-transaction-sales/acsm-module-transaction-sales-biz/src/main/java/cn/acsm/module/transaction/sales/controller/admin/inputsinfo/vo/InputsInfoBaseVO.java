@@ -17,9 +17,11 @@ public class InputsInfoBaseVO {
     private String inputsType;
 
     @ApiModelProperty(value = "投入品名称")
+    @NotNull(message = "状态不能为空")
     private String inputsName;
 
     @ApiModelProperty(value = "种类")
+    @NotNull(message = "种类不能为空")
     private String inputsKind;
 
     @ApiModelProperty(value = "生产厂家")
@@ -68,6 +70,7 @@ public class InputsInfoBaseVO {
     private String supplier;
 
     @ApiModelProperty(value = "安全期")
+    @NotNull(message = "安全期不能为空")
     private Integer secureDays;
 
     @ApiModelProperty(value = "项目类型")
@@ -95,7 +98,7 @@ public class InputsInfoBaseVO {
     private String remark;
 
     @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
+
     private Integer status;
 
     @ApiModelProperty(value = "经营主体id")

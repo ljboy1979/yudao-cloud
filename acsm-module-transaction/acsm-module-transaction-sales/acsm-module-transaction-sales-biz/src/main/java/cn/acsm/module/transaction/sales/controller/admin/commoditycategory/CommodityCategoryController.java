@@ -3,6 +3,7 @@ package cn.acsm.module.transaction.sales.controller.admin.commoditycategory;
 import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -98,5 +99,15 @@ public class CommodityCategoryController {
         ExcelUtils.write(response, "商品分类.xls", "数据", CommodityCategoryExcelVO.class, datas);
     }
 
+
+    @PostMapping("/treeList")
+    @ApiOperation("树形分类列表")
+    @ApiImplicitParam(dataTypeClass = List.class)
+    @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:query')")
+    @Cacheable(value = "/sales/commodity-category/treeList",key = "#commodityCategoryTreeVO.commodityCategoryName")
+    public CommonResult<List<TreeSelect>> treeList(@Valid CommodityCategoryTreeVO commodityCategoryTreeVO) {
+        List<TreeSelect> list = commodityCategoryService.findTreeList(commodityCategoryTreeVO);
+        return success(list);
+    }
 
 }

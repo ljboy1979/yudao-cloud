@@ -8,6 +8,7 @@ import cn.acsm.module.transaction.sales.convert.rawmaterialspecification.RawMate
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterialspecification.RawMaterialSpecificationDO;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -36,21 +37,41 @@ public class RawMaterialSpecificationServiceImpl implements RawMaterialSpecifica
     private RawMaterialSpecificationMapper rawMaterialSpecificationMapper;
 
     @Override
-    public String createRawMaterialSpecification(RawMaterialSpecificationCreateReqVO createReqVO) {
+    public CommonResult<String> createRawMaterialSpecification(RawMaterialSpecificationCreateReqVO createReqVO) {
+        RawMaterialSpecificationDO rawMaterialSpecificationDO = new RawMaterialSpecificationDO();
+        rawMaterialSpecificationDO.setSpecificationsName(createReqVO.getSpecificationsName());
+        rawMaterialSpecificationDO.setRawMaterialId(createReqVO.getRawMaterialId());
+        Long num = rawMaterialSpecificationMapper.findSelectCount(rawMaterialSpecificationDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.RAW_MATERIAL_SPECIFICATION_EXISTENCE);
+        }
         // 插入
         RawMaterialSpecificationDO rawMaterialSpecification = RawMaterialSpecificationConvert.INSTANCE.convert(createReqVO);
+        rawMaterialSpecification.setId(UUID.randomUUID().toString());
         rawMaterialSpecificationMapper.insert(rawMaterialSpecification);
         // 返回
-        return rawMaterialSpecification.getId();
+        return CommonResult.success(rawMaterialSpecification.getId());
     }
 
     @Override
-    public void updateRawMaterialSpecification(RawMaterialSpecificationUpdateReqVO updateReqVO) {
+    public CommonResult<String> updateRawMaterialSpecification(RawMaterialSpecificationUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateRawMaterialSpecificationExists(updateReqVO.getId());
+
+        RawMaterialSpecificationDO rawMaterialSpecificationDO = new RawMaterialSpecificationDO();
+        rawMaterialSpecificationDO.setId(updateReqVO.getId());
+        rawMaterialSpecificationDO.setSpecificationsName(updateReqVO.getSpecificationsName());
+        rawMaterialSpecificationDO.setRawMaterialId(updateReqVO.getRawMaterialId());
+        Long num = rawMaterialSpecificationMapper.findSelectCount(rawMaterialSpecificationDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.RAW_MATERIAL_SPECIFICATION_EXISTENCE);
+        }
+
         // 更新
         RawMaterialSpecificationDO updateObj = RawMaterialSpecificationConvert.INSTANCE.convert(updateReqVO);
         rawMaterialSpecificationMapper.updateById(updateObj);
+        return CommonResult.success("成功");
+
     }
 
     @Override

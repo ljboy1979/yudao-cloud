@@ -137,7 +137,7 @@ public interface MemberUserService {
      * @throws
      * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
      */
-    CommonResult updateAuditStatus(MemberUserUpdateAuditReqVO updateReqVO);
+    CommonResult updateAuditStatus(MemberUserUpdateDetailReqVO updateReqVO);
 
     /**
      * @Description:解绑
@@ -147,5 +147,15 @@ public interface MemberUserService {
      * @throws
      * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
      */
-    CommonResult unbundling(MemberUserUpdateAuditReqVO updateReqVO);
+    CommonResult unbundling(MemberUserUpdateDetailReqVO updateReqVO);
+
+    /**
+     * @Description:修改会员类型
+     * @param updateReqVO
+     * @Date: 2022/11/30
+     * @author: lihongyan
+     * @throws
+     * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
+     */
+    CommonResult updateMemberType(MemberUserUpdateDetailReqVO updateReqVO);
 }

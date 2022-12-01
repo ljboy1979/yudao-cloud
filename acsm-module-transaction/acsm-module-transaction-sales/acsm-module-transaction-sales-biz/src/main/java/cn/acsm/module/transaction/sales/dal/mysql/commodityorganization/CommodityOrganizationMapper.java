@@ -35,4 +35,13 @@ public interface CommodityOrganizationMapper extends BaseMapperX<CommodityOrgani
                 .orderByDesc(CommodityOrganizationDO::getId));
     }
 
+    default Long findSelectCount(CommodityOrganizationDO commodityOrganizationDO) {
+        return selectCount(new LambdaQueryWrapperX<CommodityOrganizationDO>()
+                .eqIfPresent(CommodityOrganizationDO::getCommodityId, commodityOrganizationDO.getCommodityId())
+                .eqIfPresent(CommodityOrganizationDO::getRawMaterialId, commodityOrganizationDO.getRawMaterialId())
+                .eqIfPresent(CommodityOrganizationDO::getOrganizationName, commodityOrganizationDO.getOrganizationName())
+                .notIn(CommodityOrganizationDO::getId,commodityOrganizationDO.getId())
+                .orderByDesc(CommodityOrganizationDO::getId));
+    }
+
 }

@@ -5,6 +5,7 @@ import javax.validation.*;
 
 import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityDO;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.*;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 /**
@@ -20,14 +21,14 @@ public interface CommodityService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createCommodity(@Valid CommodityCreateReqVO createReqVO);
+    CommonResult<String> createCommodity(@Valid CommodityCreateReqVO createReqVO);
 
     /**
      * 更新商品
      *
      * @param updateReqVO 更新信息
      */
-    void updateCommodity(@Valid CommodityUpdateReqVO updateReqVO);
+    CommonResult<String>  updateCommodity(@Valid CommodityUpdateReqVO updateReqVO);
 
     /**
      * 删除商品

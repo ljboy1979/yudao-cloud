@@ -7,11 +7,15 @@ import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.Dishe
 import cn.acsm.module.transaction.sales.convert.dishescategory.DishesCategoryConvert;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.dishescategory.DishesCategoryDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -84,6 +88,14 @@ public class DishesCategoryServiceImpl implements DishesCategoryService {
     @Override
     public List<DishesCategoryDO> getDishesCategoryList(DishesCategoryExportReqVO exportReqVO) {
         return dishesCategoryMapper.selectList(exportReqVO);
+    }
+
+    @Override
+    public List<TreeSelect> findTreeList(DishesCategoryTreeVO dishesCategoryTreeVO) {
+        List<DishesCategoryDO> inputClassifyDOS = dishesCategoryMapper.selectListToTree(dishesCategoryTreeVO);
+        List<DishesCategoryTreeVO> inputClassifyTreeVOS = inputClassifyDOS.stream().map(o -> DishesCategoryConvert.INSTANCE.convertListToTree(o)).collect(Collectors.toList());
+        List<TreeSelect> treeSelects = TreeUtils.buildTreeSelect(inputClassifyTreeVOS);
+        return treeSelects;
     }
 
 }

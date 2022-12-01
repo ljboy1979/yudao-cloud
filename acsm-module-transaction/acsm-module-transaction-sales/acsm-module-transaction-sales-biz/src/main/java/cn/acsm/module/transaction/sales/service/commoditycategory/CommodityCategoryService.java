@@ -3,12 +3,10 @@ package cn.acsm.module.transaction.sales.service.commoditycategory;
 import java.util.*;
 import javax.validation.*;
 
-import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.CommodityCategoryCreateReqVO;
-import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.CommodityCategoryExportReqVO;
-import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.CommodityCategoryPageReqVO;
-import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.CommodityCategoryUpdateReqVO;
+import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.commoditycategory.CommodityCategoryDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 
 /**
  * 商品分类 Service 接口
@@ -71,4 +69,5 @@ public interface CommodityCategoryService {
      */
     List<CommodityCategoryDO> getCommodityCategoryList(CommodityCategoryExportReqVO exportReqVO);
 
+    List<TreeSelect> findTreeList(CommodityCategoryTreeVO commodityCategoryTreeVO);
 }

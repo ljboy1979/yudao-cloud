@@ -7,7 +7,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.annotations.*;
 
-import javax.validation.constraints.*;
 import javax.validation.*;
 import javax.servlet.http.*;
 import java.util.*;
@@ -45,9 +44,8 @@ public class CommodityOrganizationController {
     @PutMapping("/update")
     @ApiOperation("更新商品组成")
     @PreAuthorize("@ss.hasPermission('sales:commodity-organization:update')")
-    public CommonResult<Boolean> updateCommodityOrganization(@Valid @RequestBody CommodityOrganizationUpdateReqVO updateReqVO) {
-        commodityOrganizationService.updateCommodityOrganization(updateReqVO);
-        return success(true);
+    public CommonResult<String> updateCommodityOrganization(@Valid @RequestBody CommodityOrganizationUpdateReqVO updateReqVO) {
+        return commodityOrganizationService.updateCommodityOrganization(updateReqVO);
     }
 
     @DeleteMapping("/delete")

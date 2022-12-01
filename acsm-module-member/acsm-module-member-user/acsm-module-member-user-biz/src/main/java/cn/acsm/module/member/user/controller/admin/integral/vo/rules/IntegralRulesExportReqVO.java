@@ -24,6 +24,12 @@ public class IntegralRulesExportReqVO {
     @ApiModelProperty(value = "评分项目")
     private Long ratingItems;
 
+    @ApiModelProperty(value = "积分上限")
+    private String integralMax;
+
+    @ApiModelProperty(value = "积分下限")
+    private String integralMin;
+
     @ApiModelProperty(value = "数值范围")
     private String rangeValues;
 

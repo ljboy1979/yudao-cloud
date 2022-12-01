@@ -4,6 +4,7 @@ import java.util.*;
 import javax.validation.*;
 import cn.acsm.module.transaction.sales.controller.admin.inputsinfo.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.inputsinfo.InputsInfoDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 /**
@@ -19,14 +20,14 @@ public interface InputsInfoService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createInputsInfo(@Valid InputsInfoCreateReqVO createReqVO);
+    CommonResult<String> createInputsInfo(@Valid InputsInfoCreateReqVO createReqVO);
 
     /**
      * 更新投入品
      *
      * @param updateReqVO 更新信息
      */
-    void updateInputsInfo(@Valid InputsInfoUpdateReqVO updateReqVO);
+    CommonResult<String> updateInputsInfo(@Valid InputsInfoUpdateReqVO updateReqVO);
 
     /**
      * 删除投入品

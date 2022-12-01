@@ -33,4 +33,11 @@ public interface InputsInfoMapper extends BaseMapperX<InputsInfoDO> {
                 .orderByDesc(InputsInfoDO::getId));
     }
 
+    default Long findSelectCount(InputsInfoDO inputsInfoDO) {
+        return selectCount(new LambdaQueryWrapperX<InputsInfoDO>()
+                .eqIfPresent(InputsInfoDO::getInputsName, inputsInfoDO.getInputsName())
+                .eqIfPresent(InputsInfoDO::getInputsKind, inputsInfoDO.getInputsKind())
+                .notIn(InputsInfoDO::getId,inputsInfoDO.getId())
+                .orderByDesc(InputsInfoDO::getId));
+    }
 }

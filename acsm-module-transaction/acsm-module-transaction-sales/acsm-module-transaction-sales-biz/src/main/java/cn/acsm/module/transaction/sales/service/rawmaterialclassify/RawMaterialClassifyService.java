@@ -5,9 +5,8 @@ import javax.validation.*;
 
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterialclassify.RawMaterialClassifyDO;
 import cn.acsm.module.transaction.sales.controller.admin.rawmaterialclassify.vo.*;
-import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterialclassify.RawMaterialClassifyDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 /**
  * 原料分类 Service 接口
  *
@@ -69,4 +68,5 @@ public interface RawMaterialClassifyService {
      */
     List<RawMaterialClassifyDO> getRawMaterialClassifyList(RawMaterialClassifyExportReqVO exportReqVO);
 
+    List<TreeSelect> findTreeList(RawMaterialClassifyTreeVO rawMaterialClassifyTreeVO);
 }

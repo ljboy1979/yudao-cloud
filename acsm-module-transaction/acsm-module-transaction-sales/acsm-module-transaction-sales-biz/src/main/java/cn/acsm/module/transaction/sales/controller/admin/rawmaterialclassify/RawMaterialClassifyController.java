@@ -2,6 +2,9 @@ package cn.acsm.module.transaction.sales.controller.admin.rawmaterialclassify;
 
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterialclassify.RawMaterialClassifyDO;
 import cn.acsm.module.transaction.sales.service.rawmaterialclassify.RawMaterialClassifyService;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -40,12 +43,14 @@ public class RawMaterialClassifyController {
     @PostMapping("/create")
     @ApiOperation("创建原料分类")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:create')")
+    @CacheEvict(value = "/sales/raw-material-classify/treeList")
     public CommonResult<String> createRawMaterialClassify(@Valid @RequestBody RawMaterialClassifyCreateReqVO createReqVO) {
         return success(rawMaterialClassifyService.createRawMaterialClassify(createReqVO));
     }
 
     @PutMapping("/update")
     @ApiOperation("更新原料分类")
+    @CacheEvict(value = "/sales/raw-material-classify/treeList")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:update')")
     public CommonResult<Boolean> updateRawMaterialClassify(@Valid @RequestBody RawMaterialClassifyUpdateReqVO updateReqVO) {
         rawMaterialClassifyService.updateRawMaterialClassify(updateReqVO);
@@ -99,4 +104,13 @@ public class RawMaterialClassifyController {
         ExcelUtils.write(response, "原料分类.xls", "数据", RawMaterialClassifyExcelVO.class, datas);
     }
 
+    @PostMapping("/treeList")
+    @ApiOperation("树形分类列表")
+    @ApiImplicitParam(dataTypeClass = List.class)
+    @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:query')")
+    @Cacheable(value = "/sales/raw-material-classify/treeList",key = "#rawMaterialClassifyTreeVO.categoryName")
+    public CommonResult<List<TreeSelect>> treeList(@Valid RawMaterialClassifyTreeVO rawMaterialClassifyTreeVO) {
+        List<TreeSelect> list = rawMaterialClassifyService.findTreeList(rawMaterialClassifyTreeVO);
+        return success(list);
+    }
 }
