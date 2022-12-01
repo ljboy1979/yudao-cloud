@@ -11,8 +11,8 @@
       </el-form-item>
       <el-form-item prop="memberType">
         <el-select v-model="queryParams.memberType" placeholder="请选择会员类型" clearable size="small">
-          <el-option label="数据0" value="0" />
-          <el-option label="数据1" value="1" />
+          <el-option label="普通会员" value="0" />
+          <el-option label="集采会员" value="1" />
         </el-select>
       </el-form-item>
       <el-form-item prop="id">
@@ -49,8 +49,8 @@
         </template>
       </el-table-column>
       <el-table-column label="小程序门户" align="center" prop="source" />
-      <el-table-column label="会员类型" align="center" prop="memberType" />
-      <el-table-column label="状态" align="center" prop="auditStatus" />
+      <el-table-column label="会员类型" align="center" prop="memberType" :formatter="formatterType" />
+      <el-table-column label="状态" align="center" prop="auditStatus" :formatter="formatterStatus" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="300">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleDetail(scope.row)" v-hasPermi="['']">管理</el-button>
@@ -147,6 +147,12 @@ export default {
         this.total = response.data.total;
         this.loading = false;
       });
+    },
+    formatterType(row){
+      return row.memberType == 0 ? '普通会员' : '集采会员'
+    },
+    formatterStatus(row){
+      return row.auditStatus == 0 ? '待审核' : row.auditStatus == 1 ? '审核通过' : row.auditStatus == 2 ? '已驳回' : '已解绑'
     },
     /** 取消按钮 */
     cancel() {
