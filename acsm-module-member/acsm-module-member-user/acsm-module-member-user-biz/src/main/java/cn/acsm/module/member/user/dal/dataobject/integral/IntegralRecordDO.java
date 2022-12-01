@@ -63,6 +63,14 @@ public class IntegralRecordDO extends TenantBaseDO {
      */
     private String picture;
     /**
+     * 备注
+     */
+    private String remark;
+    /**
+     * 评分分数
+     */
+    private  String ratingScore;
+    /**
      * 租户集合
      */
     private Long source;

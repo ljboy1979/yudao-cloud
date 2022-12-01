@@ -45,6 +45,12 @@ public class IntegralRecordBaseVO {
     @ApiModelProperty(value = "图片")
     private String picture;
 
+    @ApiModelProperty(value = "备注")
+    private String remark;
+
+    @ApiModelProperty(value = "评分分数")
+    private String ratingScore;
+
     @ApiModelProperty(value = "租户集合")
     private Long source;
 
