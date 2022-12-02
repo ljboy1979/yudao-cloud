@@ -17,7 +17,15 @@
         <el-input v-model="queryParams.parentLevelProject" placeholder="请输入上级项目" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item> -->
       <el-form-item prop="ratingItems">
-        <el-input v-model="queryParams.ratingItems" placeholder="请输入评分项目" clearable @keyup.enter.native="handleQuery" />
+        <el-select v-model="form.ratingItems" placeholder="请选择评分项目" clearable>
+          <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MEMBER_RATING_ITEMS)" :key="dict.value" :label="dict.label"
+            :value="dict.value" />
+        </el-select>
+      </el-form-item>
+      <el-form-item prop="enterpriseName">
+        <el-select v-model="form.enterpriseName" placeholder="请选择企业名称" clearable>
+            <el-option v-for="item in enterpriseNameData" :key="item.id" :label="item.name" :value="item.id" />
+        </el-select>
       </el-form-item>
       <!-- <el-form-item label="数值范围" prop="rangeValues">
         <el-input v-model="queryParams.rangeValues" placeholder="请输入数值范围" clearable @keyup.enter.native="handleQuery"/>
@@ -48,13 +56,21 @@
 
 
     <!-- 列表 -->
-    <el-table v-loading="loading" :data="list">
+    <el-table v-loading="loading" :data="list" tooltip-effect="light" >
       <el-table-column label="企业名称" align="center" prop="enterpriseName" />
-      <el-table-column label="上级项目" align="center" prop="parentLevelProject" />
-      <el-table-column label="评分项目" align="center" prop="ratingItems" />
+      <el-table-column label="上级项目" align="center" prop="parentLevelProject" >
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.MEMBER_PARENT_PROJECT" :value="scope.row.parentLevelProject" />
+        </template>
+      </el-table-column>
+      <el-table-column label="评分项目" align="center" prop="ratingItems" >
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.MEMBER_RATING_ITEMS" :value="scope.row.ratingItems" />
+        </template>
+      </el-table-column>
       <el-table-column label="数值范围" align="center" prop="rangeValues" />
       <el-table-column label="积分值" align="center" prop="integralValue" />
-      <el-table-column label="备注" align="center" prop="remark" />
+      <el-table-column label="备注" align="center" prop="remark" show-overflow-tooltip/>
       <!-- <el-table-column label="主键ID" align="center" prop="id" />
       <el-table-column label="企业id" align="center" prop="enterpriseId" />
       <el-table-column label="创建时间" align="center" prop="createTime" />
@@ -81,37 +97,37 @@
           <el-input v-model="form.enterpriseId" placeholder="请输入企业id" />
         </el-form-item> -->
         <el-form-item label="企业名称" prop="enterpriseName">
-          <el-select v-model="form.enterpriseName" placeholder="请选择企业名称">
-            <el-option label="数据" value="1" />
+          <el-select v-model="form.enterpriseNameData" placeholder="请选择企业名称">
+            <el-option v-for="item in enterpriseNameData" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="上级项目" prop="parentLevelProject">
           <el-select v-model="form.parentLevelProject" placeholder="请选择上级项目">
-            <el-option label="模块维护" value="1" />
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MEMBER_PARENT_PROJECT)" :key="dict.value" :label="dict.label"
+            :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="评分项目" prop="ratingItems">
           <el-select v-model="form.ratingItems" placeholder="请选择评分项目">
-            <el-option label="模块维护" value="1" />
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MEMBER_RATING_ITEMS)" :key="dict.value" :label="dict.label"
+            :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="数值范围" prop="rangeValues">
-          <!-- <el-input v-model="form.rangeValues" placeholder="请输入数值范围" /> -->
           <el-col :span="10">
             <el-form-item prop="integralMin">
-              <el-input v-model="form.integralMin" placeholder="下限" />
+              <el-input v-model="form.integralMin" placeholder="请输入数值下限" maxlength="9"/>
             </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="10">
             <el-form-item prop="integralMax">
-              <el-input v-model="form.integralMax" placeholder="上限" />
+              <el-input v-model="form.integralMax" placeholder="请输入数值上限" maxlength="9"/>
             </el-form-item>
           </el-col>
         </el-form-item>
         <el-form-item label="积分值" prop="integralValue">
-          <el-input v-model.number="form.integralValue" placeholder="请输入积分值"
-            oninput="value=value.replace(/[^\d]/g,'')" />
+          <el-input v-model="form.integralValue" placeholder="请输入积分值" oninput="value=value.replace(/[^1-9]/g,'')" maxlength="9"/>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input type="textarea" v-model="form.remark" placeholder="请输入备注" maxlength="200" show-word-limit />
@@ -144,7 +160,7 @@
 </template>
 
 <script>
-import { createIntegralRules, updateIntegralRules, deleteIntegralRules, getIntegralRules, getIntegralRulesPage, exportIntegralRulesExcel } from "@/api/member/integralRules";
+import { createIntegralRules, updateIntegralRules, deleteIntegralRules, getIntegralRules, getIntegralRulesPage, exportIntegralRulesExcel,getBaseInfo } from "@/api/member/integralRules";
 
 export default {
   name: "IntegralRules",
@@ -161,7 +177,7 @@ export default {
     }
     var compareMax = (rule, value, callback) => {
       this.$refs.form.clearValidate('integralMin')
-      if ( Number(this.form.integralMin) > value) {
+      if (Number(this.form.integralMin) > value) {
         callback(new Error("上限不能小于下限"));
       } else {
         callback();
@@ -205,9 +221,13 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        integralMin: [{ validator: compareMin, trigger: "blur" }],
-        integralMax: [{ validator: compareMax, trigger: "blur" }],
-      }
+        ratingItems: [{ required: true, message: "评分项目不能为空", trigger: "blur" }],
+        rangeValues: [{  required: true, message: " "}],
+        integralMin: [{ required: true, message: "数值下限不能为空", trigger: "blur" },{ validator: compareMin, trigger: "blur" }],
+        integralMax: [{ required: true, message: "数值上限不能为空", trigger: "blur" },{ validator: compareMax, trigger: "blur" }],
+        integralValue: [{ required: true, message: "积分值不能为空", trigger: "blur" }],
+      },
+      enterpriseNameData: [], //获取企业（经营主体）
 
     };
 
@@ -215,6 +235,7 @@ export default {
   },
   created() {
     this.getList();
+    this.getEnterpriseName();
   },
   methods: {
     /** 查询列表 */
@@ -225,6 +246,12 @@ export default {
         this.list = response.data.list;
         this.total = response.data.total;
         this.loading = false;
+      });
+    },
+    /** 获取企业 */
+    getEnterpriseName() {
+      getBaseInfo().then(response => {
+        this.enterpriseNameData = response.data;
       });
     },
     /** 取消按钮 */
