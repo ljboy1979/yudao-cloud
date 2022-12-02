@@ -58,6 +58,9 @@
         <if test="reqVO.id != null and reqVO.id != ''">
             and mu.id = #{reqVO.id}
         </if>
+        <if test="reqVO.memberAccount != null and reqVO.memberAccount != ''">
+            and mud.member_account = #{reqVO.memberAccount}
+        </if>
         ORDER BY
             mu.id DESC
         limit #{reqVO.pageNo} , #{reqVO.pageSize}

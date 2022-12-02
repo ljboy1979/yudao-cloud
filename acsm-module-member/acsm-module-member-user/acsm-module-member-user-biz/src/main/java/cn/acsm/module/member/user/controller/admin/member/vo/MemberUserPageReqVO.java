@@ -58,4 +58,7 @@ public class MemberUserPageReqVO extends PageParam {
     @ApiModelProperty(value = "会员角色")
     private Integer memberRole;
 
+    @ApiModelProperty(value = "会员账号")
+    private String memberAccount;
+
 }
