@@ -99,4 +99,9 @@ public class BaseInfoServiceImpl implements BaseInfoService {
         return baseInfoMapper.selectList(exportReqVO);
     }
 
+	@Override
+	public List< BaseInfoDO > getSelectList() {
+        return baseInfoMapper.findSelectList();
+	}
+
 }

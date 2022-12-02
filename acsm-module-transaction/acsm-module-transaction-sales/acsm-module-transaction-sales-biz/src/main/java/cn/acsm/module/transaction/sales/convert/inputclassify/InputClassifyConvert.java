@@ -35,5 +35,12 @@ public interface InputClassifyConvert {
 
     List<InputClassifyExcelVO> convertList02(List<InputClassifyDO> list);
 
-    InputClassifyTreeVO convertListToTree(InputClassifyDO inputClassifyDO);
+    static InputClassifyTreeVO convertListToTree(InputClassifyDO bean) {
+        InputClassifyTreeVO inputClassifyTreeVO = new InputClassifyTreeVO();
+        inputClassifyTreeVO.setId(Long.valueOf(bean.getId()));
+        inputClassifyTreeVO.setName(bean.getCategoryName());
+        inputClassifyTreeVO.setParentId(Long.valueOf(bean.getParentCode()));
+        inputClassifyTreeVO.setSort(bean.getTreeSort().intValue());
+        return inputClassifyTreeVO;
+    };
 }

@@ -7,6 +7,7 @@ import cn.acsm.module.transaction.sales.controller.admin.commodityspecification.
 import cn.acsm.module.transaction.sales.dal.dataobject.commodityspecification.CommoditySpecificationDO;
 import cn.acsm.module.transaction.sales.dal.mysql.commodityspecification.CommoditySpecificationMapper;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -48,11 +49,11 @@ public class CommoditySpecificationServiceImplTest extends BaseDbUnitTest {
         CommoditySpecificationCreateReqVO reqVO = randomPojo(CommoditySpecificationCreateReqVO.class);
 
         // 调用
-        String commoditySpecificationId = commoditySpecificationService.createCommoditySpecification(reqVO);
+        CommonResult<String> result = commoditySpecificationService.createCommoditySpecification(reqVO);
         // 断言
-        assertNotNull(commoditySpecificationId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        CommoditySpecificationDO commoditySpecification = commoditySpecificationMapper.selectById(commoditySpecificationId);
+        CommoditySpecificationDO commoditySpecification = commoditySpecificationMapper.selectById(result.getData());
         assertPojoEquals(reqVO, commoditySpecification);
     }
 

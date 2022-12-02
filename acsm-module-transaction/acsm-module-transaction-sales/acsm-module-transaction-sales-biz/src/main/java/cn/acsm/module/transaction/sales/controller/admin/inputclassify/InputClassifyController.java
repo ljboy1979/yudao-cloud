@@ -105,7 +105,6 @@ public class InputClassifyController {
 
     @PostMapping("/treeList")
     @ApiOperation("树形分类列表")
-    @ApiImplicitParam(dataTypeClass = List.class)
     @PreAuthorize("@ss.hasPermission('sales:input-classify:query')")
     @Cacheable(value = "/sales/input-classify/treeList",key = "#inputClassifyTreeVO.categoryName")
     public CommonResult<List<TreeSelect>> treeList(@Valid InputClassifyTreeVO inputClassifyTreeVO) {

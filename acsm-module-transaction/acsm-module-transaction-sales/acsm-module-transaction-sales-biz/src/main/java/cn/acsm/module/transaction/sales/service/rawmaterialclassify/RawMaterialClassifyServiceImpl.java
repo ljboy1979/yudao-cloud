@@ -91,7 +91,7 @@ public class RawMaterialClassifyServiceImpl implements RawMaterialClassifyServic
     @Override
     public List<TreeSelect> findTreeList(RawMaterialClassifyTreeVO rawMaterialClassifyTreeVO) {
         List<RawMaterialClassifyDO> rawMaterialClassifyDOS =  rawMaterialClassifyMapper.selectListToTree(rawMaterialClassifyTreeVO);
-        List< RawMaterialClassifyTreeVO > areaTreeVos = rawMaterialClassifyDOS.stream().map(o -> RawMaterialClassifyConvert.INSTANCE.convertListToTree(o)).collect(Collectors.toList());
+        List< RawMaterialClassifyTreeVO > areaTreeVos = rawMaterialClassifyDOS.stream().map(o -> RawMaterialClassifyConvert.convertListToTree(o)).collect(Collectors.toList());
         List<TreeSelect> treeSelects = TreeUtils.buildTreeSelect(areaTreeVos);
         return treeSelects;
     }

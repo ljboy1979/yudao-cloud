@@ -1,6 +1,7 @@
 package cn.acsm.module.transaction.sales.service.inputsinfo;
 
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -48,11 +49,11 @@ public class InputsInfoServiceImplTest extends BaseDbUnitTest {
         InputsInfoCreateReqVO reqVO = randomPojo(InputsInfoCreateReqVO.class);
 
         // 调用
-        String inputsInfoId = inputsInfoService.createInputsInfo(reqVO);
+        CommonResult<String> result = inputsInfoService.createInputsInfo(reqVO);
         // 断言
-        assertNotNull(inputsInfoId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        InputsInfoDO inputsInfo = inputsInfoMapper.selectById(inputsInfoId);
+        InputsInfoDO inputsInfo = inputsInfoMapper.selectById(result.getData());
         assertPojoEquals(reqVO, inputsInfo);
     }
 

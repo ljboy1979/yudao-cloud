@@ -7,6 +7,7 @@ import cn.acsm.module.transaction.sales.controller.admin.inputsinfospecification
 import cn.acsm.module.transaction.sales.dal.dataobject.inputsinfospecification.InputsInfoSpecificationDO;
 import cn.acsm.module.transaction.sales.dal.mysql.inputsinfospecification.InputsInfoSpecificationMapper;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -50,11 +51,11 @@ public class InputsInfoSpecificationServiceImplTest extends BaseDbUnitTest {
         InputsInfoSpecificationCreateReqVO reqVO = randomPojo(InputsInfoSpecificationCreateReqVO.class);
 
         // 调用
-        String inputsInfoSpecificationId = inputsInfoSpecificationService.createInputsInfoSpecification(reqVO);
+        CommonResult<String> result = inputsInfoSpecificationService.createInputsInfoSpecification(reqVO);
         // 断言
-        assertNotNull(inputsInfoSpecificationId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        InputsInfoSpecificationDO inputsInfoSpecification = inputsInfoSpecificationMapper.selectById(inputsInfoSpecificationId);
+        InputsInfoSpecificationDO inputsInfoSpecification = inputsInfoSpecificationMapper.selectById(result.getData());
         assertPojoEquals(reqVO, inputsInfoSpecification);
     }
 

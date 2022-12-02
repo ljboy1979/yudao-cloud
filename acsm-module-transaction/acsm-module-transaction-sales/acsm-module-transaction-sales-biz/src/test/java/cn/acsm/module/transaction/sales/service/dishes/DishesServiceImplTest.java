@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.sales.service.dishes;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -48,11 +49,11 @@ public class DishesServiceImplTest extends BaseDbUnitTest {
         DishesCreateReqVO reqVO = randomPojo(DishesCreateReqVO.class);
 
         // 调用
-        String dishesId = dishesService.createDishes(reqVO);
+        CommonResult<String> result = dishesService.createDishes(reqVO);
         // 断言
-        assertNotNull(dishesId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        DishesDO dishes = dishesMapper.selectById(dishesId);
+        DishesDO dishes = dishesMapper.selectById(result.getData());
         assertPojoEquals(reqVO, dishes);
     }
 

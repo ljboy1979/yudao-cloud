@@ -24,6 +24,8 @@ public interface RawMaterialClassifyConvert {
 
     RawMaterialClassifyConvert INSTANCE = Mappers.getMapper(RawMaterialClassifyConvert.class);
 
+
+
     RawMaterialClassifyDO convert(RawMaterialClassifyCreateReqVO bean);
 
     RawMaterialClassifyDO convert(RawMaterialClassifyUpdateReqVO bean);
@@ -36,6 +38,13 @@ public interface RawMaterialClassifyConvert {
 
     List<RawMaterialClassifyExcelVO> convertList02(List<RawMaterialClassifyDO> list);
 
-    RawMaterialClassifyTreeVO convertListToTree(RawMaterialClassifyDO rawMaterialClassifyDO);
 
+    static RawMaterialClassifyTreeVO convertListToTree(RawMaterialClassifyDO bean) {
+        RawMaterialClassifyTreeVO rawMaterialClassifyTreeVO = new RawMaterialClassifyTreeVO();
+        rawMaterialClassifyTreeVO.setId(Long.valueOf(bean.getId()));
+        rawMaterialClassifyTreeVO.setName(bean.getCategoryName());
+        rawMaterialClassifyTreeVO.setParentId(Long.valueOf(bean.getParentCode()));
+        rawMaterialClassifyTreeVO.setSort(bean.getTreeSort().intValue());
+        return rawMaterialClassifyTreeVO;
+    };
 }
