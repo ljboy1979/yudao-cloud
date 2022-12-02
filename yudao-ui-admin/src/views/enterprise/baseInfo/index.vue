@@ -3,10 +3,10 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item>
+      <!-- <el-form-item>
         <el-button type="primary" icon="el-icon-plus" @click="handleAdd" v-hasPermi="['enterprise:base-info:create']">新增
         </el-button>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item prop="name">
         <el-input v-model="queryParams.name" placeholder="请输入主体名称" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
@@ -66,10 +66,10 @@
             <span v-if="scope.row.stauts==1">停用</span>
             <span v-else>启用</span>
           </el-button>
-          <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
+          <!-- <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
             v-hasPermi="['enterprise:base-info:update']">修改</el-button>
           <el-button size="mini" type="text" @click="handleDelete(scope.row)"
-            v-hasPermi="['enterprise:base-info:delete']">删除</el-button>
+            v-hasPermi="['enterprise:base-info:delete']">删除</el-button> -->
         </template>
       </el-table-column>
     </el-table>
