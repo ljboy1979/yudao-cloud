@@ -52,3 +52,11 @@ export function exportIntegralLevelExcel(query) {
     responseType: 'blob'
   })
 }
+
+// 企业名称（经营主体）
+export function getBaseInfo() {
+  return request({
+    url: '/enterprise/base-info/selectList',
+    method: 'get',
+  })
+}
