@@ -22,11 +22,13 @@ public class MemberUserDetailExcelVO {
     @ExcelProperty("会员id")
     private Long memberId;
 
+    @ExcelProperty("企业账号")
+    private String memberAccount;
+
     @ExcelProperty("企业id")
     private Long enterpriseId;
 
     @ExcelProperty("企业名称")
-
     private String enterpriseName;
 
     @ExcelProperty("会员类型")
@@ -41,7 +43,7 @@ public class MemberUserDetailExcelVO {
     private Long integralLevelId;
 
     @ExcelProperty("审核状态")
-    @DictFormat(DictTypeConstants.AUDIT_STATUS)
+    @DictFormat(DictTypeConstants.MEMBER_AUDIT_STATUS)
     private Integer auditStatus;
 
     @ExcelProperty("创建时间")
