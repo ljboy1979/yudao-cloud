@@ -52,3 +52,11 @@ export function exportAgentManagementExcel(query) {
     responseType: 'blob'
   })
 }
+
+// 行政区域
+export function getAreaTree(){
+  return request({
+    url: '/system/area/tree/all',
+    method: 'get',
+  })
+}

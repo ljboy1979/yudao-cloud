@@ -4,7 +4,7 @@
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item prop="agentName">
-        <el-input v-model="queryParams.agentName" placeholder="请输入代理商名称" clearable @keyup.enter.native="handleQuery"/>
+        <el-input v-model="queryParams.agentName" placeholder="请输入代理商名称" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <!-- <el-form-item label="代理区域" prop="agentAera">
         <el-input v-model="queryParams.agentAera" placeholder="请输入代理区域" clearable @keyup.enter.native="handleQuery"/>
@@ -35,11 +35,11 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
-                   v-hasPermi="['member:agent-management:create']">新增</el-button>
+          v-hasPermi="['member:agent-management:create']">新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
-                   v-hasPermi="['member:agent-management:export']">导出</el-button>
+        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport"
+          :loading="exportLoading" v-hasPermi="['member:agent-management:export']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -54,18 +54,18 @@
       <!-- <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" /> -->
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <!-- <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
-                     v-hasPermi="['member:agent-management:update']">修改</el-button>
+            v-hasPermi="['member:agent-management:update']">修改</el-button>
           <el-button size="mini" type="text" @click="handleDelete(scope.row)"
-                     v-hasPermi="['member:agent-management:delete']">删除</el-button>
+            v-hasPermi="['member:agent-management:delete']">删除</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
@@ -73,8 +73,10 @@
         <el-form-item label="代理商名称" prop="agentName">
           <el-input v-model="form.agentName" placeholder="请输入代理商名称" />
         </el-form-item>
-        <el-form-item label="行政区域" prop="agentAera">
+        <el-form-item label="行政区域" prop="agentAera" width="100%">
           <el-input v-model="form.agentAera" placeholder="请输入代理区域" />
+          <!-- <el-cascader v-model="form.value" :options="areaData" @change="handleChange" :props="{ value: 'id' }"
+            ref="cascaderMallCatergory"></el-cascader> -->
         </el-form-item>
         <el-form-item label="手机号" prop="phone">
           <el-input v-model="form.phone" placeholder="请输入手机号" />
@@ -98,17 +100,17 @@
 </template>
 
 <script>
-import { createAgentManagement, updateAgentManagement, deleteAgentManagement, getAgentManagement, getAgentManagementPage, exportAgentManagementExcel } from "@/api/member/agentManagement";
+import { createAgentManagement, updateAgentManagement, deleteAgentManagement, getAgentManagement, getAgentManagementPage, exportAgentManagementExcel, getAreaTree } from "@/api/member/agentManagement";
 
 export default {
   name: "AgentManagement",
   components: {
   },
   props: {
-        id: {
-            type: String,
-            required: true
-        }
+    id: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
@@ -142,11 +144,14 @@ export default {
       form: {},
       // 表单校验
       rules: {
-      }
+      },
+      areaData: [], //行政区域下拉列表
+      Administrative: [],//行政区域文字
     };
   },
   created() {
     this.getList();
+    this.getAreaTree();
   },
   methods: {
     /** 查询列表 */
@@ -158,6 +163,16 @@ export default {
         this.total = response.data.total;
         this.loading = false;
       });
+    },
+    /** 行政区域 */
+    getAreaTree() {
+      getAreaTree().then(response => {
+        console.log(response.data);
+        this.areaData = response.data
+      })
+    },
+    handleChange(value) {
+      // this.Administrative = this.$refs['cascaderMallCatergory'].getCheckedNodes()[0].pathLabels
     },
     /** 取消按钮 */
     cancel() {
@@ -229,26 +244,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除代理商管理编号为"' + id + '"的数据项?').then(function() {
-          return deleteAgentManagement(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除代理商管理编号为"' + id + '"的数据项?').then(function () {
+        return deleteAgentManagement(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有代理商管理数据项?').then(() => {
-          this.exportLoading = true;
-          return exportAgentManagementExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '代理商管理.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportAgentManagementExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '代理商管理.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };
