@@ -38,8 +38,7 @@ public class PolicySubsidiesInfoBaseVO {
     private String applyPerson;
 
     @ApiModelProperty(value = "申请时间")
-    @DateTimeFormat(pattern = "yyyy-MM")
-    @JsonFormat(pattern = "yyyy-MM")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date applyTime;
 
     @ApiModelProperty(value = "租户集合")
