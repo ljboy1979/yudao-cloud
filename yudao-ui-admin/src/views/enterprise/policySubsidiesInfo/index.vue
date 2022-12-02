@@ -170,24 +170,24 @@ export default {
         applyTime: [
           { required: true, message: '请选择申请时间', trigger: 'change' },
         ],
-        subsidiesCategory: [
-          { required: true, message: '请选择补贴种类', trigger: 'change' },
-        ],
+        // subsidiesCategory: [
+        //   { required: true, message: '请选择补贴种类', trigger: 'change' },
+        // ],
         subsidiesName: [
           { required: true, message: '请输入补贴名称', trigger: 'blur' },
         ],
         subsidiesAmount: [
           { required: true, message: '请输入补贴金额', trigger: 'blur' },
         ],
-        subsidiesType: [
-          { required: true, message: '请选择补贴方式', trigger: 'change' },
-        ],
-        subsidiesStatus: [
-          { required: true, message: '请选择补贴状态', trigger: 'change' },
-        ],
-        applyPerson: [
-          { required: true, message: '请输入申请人', trigger: 'blur' },
-        ],
+        // subsidiesType: [
+        //   { required: true, message: '请选择补贴方式', trigger: 'change' },
+        // ],
+        // subsidiesStatus: [
+        //   { required: true, message: '请选择补贴状态', trigger: 'change' },
+        // ],
+        // applyPerson: [
+        //   { required: true, message: '请输入申请人', trigger: 'blur' },
+        // ],
       }
     };
   },
