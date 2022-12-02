@@ -35,5 +35,12 @@ public interface DishesCategoryConvert {
 
     List<DishesCategoryExcelVO> convertList02(List<DishesCategoryDO> list);
 
-    DishesCategoryTreeVO convertListToTree(DishesCategoryDO o);
+    static DishesCategoryTreeVO convertListToTree(DishesCategoryDO bean) {
+        DishesCategoryTreeVO dishesCategoryTreeVO = new DishesCategoryTreeVO();
+        dishesCategoryTreeVO.setId(Long.valueOf(bean.getId()));
+        dishesCategoryTreeVO.setName(bean.getCategoryName());
+        dishesCategoryTreeVO.setParentId(Long.valueOf(bean.getParentCode()));
+        dishesCategoryTreeVO.setSort(bean.getTreeSort().intValue());
+        return dishesCategoryTreeVO;
+    };
 }

@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.sales.service.rawmaterial;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -48,11 +49,11 @@ public class RawMaterialServiceImplTest extends BaseDbUnitTest {
         RawMaterialCreateReqVO reqVO = randomPojo(RawMaterialCreateReqVO.class);
 
         // 调用
-        String rawMaterialId = rawMaterialService.createRawMaterial(reqVO);
+        CommonResult<String> result  = rawMaterialService.createRawMaterial(reqVO);
         // 断言
-        assertNotNull(rawMaterialId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        RawMaterialDO rawMaterial = rawMaterialMapper.selectById(rawMaterialId);
+        RawMaterialDO rawMaterial = rawMaterialMapper.selectById(result.getData());
         assertPojoEquals(reqVO, rawMaterial);
     }
 

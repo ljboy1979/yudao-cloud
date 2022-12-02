@@ -90,7 +90,7 @@ public class InputClassifyServiceImpl implements InputClassifyService {
     @Override
     public List<TreeSelect> findTreeList(InputClassifyTreeVO inputClassifyTreeVO) {
         List<InputClassifyDO> inputClassifyDOS = inputClassifyMapper.selectListToTree(inputClassifyTreeVO);
-        List<InputClassifyTreeVO> inputClassifyTreeVOS = inputClassifyDOS.stream().map(o -> InputClassifyConvert.INSTANCE.convertListToTree(o)).collect(Collectors.toList());
+        List<InputClassifyTreeVO> inputClassifyTreeVOS = inputClassifyDOS.stream().map(o -> InputClassifyConvert.convertListToTree(o)).collect(Collectors.toList());
         List<TreeSelect> treeSelects = TreeUtils.buildTreeSelect(inputClassifyTreeVOS);
         return treeSelects;
     }

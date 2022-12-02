@@ -31,8 +31,13 @@ public interface CommodityCategoryConvert {
 
     List<CommodityCategoryExcelVO> convertList02(List<CommodityCategoryDO> list);
 
-    CommodityCategoryTreeVO convertListToTree(CommodityCategoryDO o);
-
-
+    static CommodityCategoryTreeVO convertListToTree(CommodityCategoryDO bean) {
+        CommodityCategoryTreeVO commodityCategoryTreeVO = new CommodityCategoryTreeVO();
+        commodityCategoryTreeVO.setId(Long.valueOf(bean.getId()));
+        commodityCategoryTreeVO.setName(bean.getCommodityCategoryName());
+        commodityCategoryTreeVO.setParentId(Long.valueOf(bean.getParentCode()));
+        commodityCategoryTreeVO.setSort(bean.getTreeSort().intValue());
+        return commodityCategoryTreeVO;
+    };
 
 }

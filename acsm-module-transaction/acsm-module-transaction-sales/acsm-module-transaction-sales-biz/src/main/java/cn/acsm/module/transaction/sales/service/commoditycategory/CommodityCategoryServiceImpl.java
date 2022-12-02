@@ -96,7 +96,7 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
     @Override
     public List<TreeSelect> findTreeList(CommodityCategoryTreeVO commodityCategoryTreeVO) {
         List<CommodityCategoryDO> commodityCategoryDOS = commodityCategoryMapper.selectListToTree(commodityCategoryTreeVO);
-        List<CommodityCategoryTreeVO> commodityCategoryTreeVOS = commodityCategoryDOS.stream().map(o -> CommodityCategoryConvert.INSTANCE.convertListToTree(o)).collect(Collectors.toList());
+        List<CommodityCategoryTreeVO> commodityCategoryTreeVOS = commodityCategoryDOS.stream().map(o -> CommodityCategoryConvert.convertListToTree(o)).collect(Collectors.toList());
         List<TreeSelect> treeSelects = TreeUtils.buildTreeSelect(commodityCategoryTreeVOS);
         return treeSelects;
     }

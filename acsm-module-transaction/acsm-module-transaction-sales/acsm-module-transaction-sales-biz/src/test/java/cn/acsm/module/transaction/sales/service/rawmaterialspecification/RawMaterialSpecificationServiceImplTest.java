@@ -7,6 +7,7 @@ import cn.acsm.module.transaction.sales.controller.admin.rawmaterialspecificatio
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterialspecification.RawMaterialSpecificationDO;
 import cn.acsm.module.transaction.sales.dal.mysql.rawmaterialspecification.RawMaterialSpecificationMapper;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -55,11 +56,11 @@ public class RawMaterialSpecificationServiceImplTest extends BaseDbUnitTest {
         RawMaterialSpecificationCreateReqVO reqVO = randomPojo(RawMaterialSpecificationCreateReqVO.class);
 
         // 调用
-        String rawMaterialSpecificationId = rawMaterialSpecificationService.createRawMaterialSpecification(reqVO);
+        CommonResult<String> result = rawMaterialSpecificationService.createRawMaterialSpecification(reqVO);
         // 断言
-        assertNotNull(rawMaterialSpecificationId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        RawMaterialSpecificationDO rawMaterialSpecification = rawMaterialSpecificationMapper.selectById(rawMaterialSpecificationId);
+        RawMaterialSpecificationDO rawMaterialSpecification = rawMaterialSpecificationMapper.selectById(result.getData());
         assertPojoEquals(reqVO, rawMaterialSpecification);
     }
 
