@@ -1,7 +1,5 @@
 package cn.acsm.module.member.user.controller.admin.integral.vo.record;
 
-import cn.acsm.module.member.user.enums.DictTypeConstants;
-import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -35,7 +33,6 @@ public class IntegralRecordExcelVO {
     private String memberName;
 
     @ExcelProperty("评分项目")
-    @DictFormat(DictTypeConstants.MEMBER_RATING_ITEMS)
     private Long ratingItems;
 
     @ExcelProperty("本次积分变动")

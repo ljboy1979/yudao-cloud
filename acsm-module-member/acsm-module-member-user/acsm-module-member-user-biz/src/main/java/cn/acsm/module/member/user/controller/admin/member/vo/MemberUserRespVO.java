@@ -26,9 +26,6 @@ public class MemberUserRespVO extends MemberUserBaseVO {
     @ApiModelProperty(value = "企业id")
     private Long enterpriseId;
 
-    @ApiModelProperty(value = "会员账号")
-    private String memberAccount;
-
     @ApiModelProperty(value = "企业名称")
     private String enterpriseName;
 

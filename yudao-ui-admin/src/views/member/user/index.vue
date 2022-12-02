@@ -39,11 +39,7 @@
       <el-table-column label="会员账号" align="center" prop="id" />
       <el-table-column label="会员名称" align="center" prop="nickname" />
       <el-table-column label="手机号" align="center" prop="mobile" />
-      <el-table-column label="角色" align="center" prop="memberRole" >
-        <template v-slot="scope">
-          <dict-tag :type="DICT_TYPE.MEMBER_ROLE" :value="scope.row.memberRole" />
-        </template>
-      </el-table-column>
+      <el-table-column label="角色" align="center" prop="memberRole" />
       <el-table-column label="所属企业" align="center" prop="enterpriseName" />
       <el-table-column label="当前等级" align="center" prop="memberLevel" />
       <el-table-column label="当前积分" align="center" prop="integralRemaining" />
@@ -53,16 +49,8 @@
         </template>
       </el-table-column>
       <el-table-column label="小程序门户" align="center" prop="source" />
-      <el-table-column label="会员类型" align="center" prop="memberType" >
-        <template v-slot="scope">
-          <dict-tag :type="DICT_TYPE.MEMBER_TYPE" :value="scope.row.memberType" />
-        </template>
-      </el-table-column>
-      <el-table-column label="状态" align="center" prop="auditStatus" >
-        <template v-slot="scope">
-          <dict-tag :type="DICT_TYPE.MEMBER_AUDIT_STATUS" :value="scope.row.auditStatus" />
-        </template>
-      </el-table-column>
+      <el-table-column label="会员类型" align="center" prop="memberType" :formatter="formatterType" />
+      <el-table-column label="状态" align="center" prop="auditStatus" :formatter="formatterStatus" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="300">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleDetail(scope.row)" v-hasPermi="['']">管理</el-button>
@@ -159,6 +147,12 @@ export default {
         this.total = response.data.total;
         this.loading = false;
       });
+    },
+    formatterType(row){
+      return row.memberType == 0 ? '普通会员' : '集采会员'
+    },
+    formatterStatus(row){
+      return row.auditStatus == 0 ? '待审核' : row.auditStatus == 1 ? '审核通过' : row.auditStatus == 2 ? '已驳回' : '已解绑'
     },
     /** 取消按钮 */
     cancel() {

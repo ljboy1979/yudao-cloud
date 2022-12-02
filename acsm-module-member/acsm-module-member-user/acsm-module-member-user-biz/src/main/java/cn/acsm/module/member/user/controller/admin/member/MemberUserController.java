@@ -1,29 +1,29 @@
 package cn.acsm.module.member.user.controller.admin.member;
 
 import cn.acsm.module.member.user.controller.admin.member.vo.*;
-import cn.acsm.module.member.user.convert.member.MemberUserConvert;
 import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
-import cn.acsm.module.member.user.service.member.MemberUserService;
-import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
-import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.security.access.prepost.PreAuthorize;
+import io.swagger.annotations.*;
 
+import javax.validation.*;
+import javax.servlet.http.*;
+import java.util.*;
+import java.io.IOException;
+
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
-import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
+
+import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
+
+import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
+import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.*;
+
+import cn.acsm.module.member.user.convert.member.MemberUserConvert;
+import cn.acsm.module.member.user.service.member.MemberUserService;
 
 @Api(tags = "管理后台 - 会员")
 @RestController
@@ -122,11 +122,5 @@ public class MemberUserController {
     @PreAuthorize("@ss.hasPermission('member:user:update')")
     public CommonResult updateMemberType(@Valid @RequestBody MemberUserUpdateDetailReqVO updateReqVO) {
         return success(userService.updateMemberType(updateReqVO));
-    }
-
-    @RequestMapping("/getEnterpriseList")
-    @ApiOperation("获取企业列表")
-    public CommonResult getEnterpriseList() {
-        return success(userService.getEnterpriseList());
     }
 }

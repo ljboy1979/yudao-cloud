@@ -68,14 +68,6 @@ export const DICT_TYPE = {
   SUBSIDIES_STATUS: 'subsidies_status', // 补贴状态
   SUBSIDIES_CATEGORY: 'subsidies_category', // 补贴种类
   SUBSIDIES_TYPE: 'subsidies_type', // 补贴方式
-
-  // ========== ENTERPRISE 模块 ==========
-  MEMBER_ROLE: 'member_role', //会员角色
-  MEMBER_AUDIT_STATUS: 'member_audit_status', //审核状态
-  MEMBER_TYPE: 'member_type', //会员类型
-  MEMBER_LEVEL_DISCOUNT: 'member_level_discount', //等级优惠
-  MEMBER_PARENT_PROJECT: 'member_parent_project', //上级项目
-  MEMBER_RATING_ITEMS: 'member_rating_items', //评分项目
 }
 
 /**

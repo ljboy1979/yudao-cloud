@@ -174,7 +174,7 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        memberId: this.id,
+        memberId: null,
         recordType: null,
         recordName: null,
         permitNo: null,

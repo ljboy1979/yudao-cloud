@@ -9,7 +9,6 @@ import cn.acsm.module.member.user.dal.dataobject.patienthealth.PatientHealthDO;
 import cn.acsm.module.member.user.dal.mysql.member.MemberUserMapper;
 import cn.acsm.module.member.user.dal.mysql.patienthealth.PatientHealthMapper;
 import cn.acsm.module.member.user.service.patienthealth.PatientHealthService;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
 import cn.iocoder.yudao.framework.common.enums.UserTypeEnum;
@@ -148,27 +147,7 @@ public class MemberUserServiceImpl implements MemberUserService {
         user.setRegisterIp(memberUserReqDTO.getRegisterIp());
         user.setSource(memberUserReqDTO.getSource());
         userMapper.insert(user);
-
-        // 插入会员信息数据
-        String format = DateUtil.format(new Date(System.currentTimeMillis()),"yyyyMMddHHmmss");
-        MemberUserDetailCreateReqVO createDetailReqVO = new MemberUserDetailCreateReqVO();
-        createDetailReqVO.setMemberId(user.getId());
-        createDetailReqVO.setMemberType(0);
-        createDetailReqVO.setAuditStatus(0);
-        createDetailReqVO.setMemberRole(0);
-        String random = ""+ Math.random();
-        createDetailReqVO.setMemberAccount("HY-"+format+(random.substring(random.length()-4)));
-        memberUserDetailService.createUserDetail(createDetailReqVO);
-
         return user;
-    }
-
-    public static void main(String[] args) {
-        for(int i = 0 ; i <= 20 ; i ++){
-            String format = DateUtil.format(new Date(System.currentTimeMillis()),"yyyyMMddHHmmss");
-            String random = ""+ Math.random();
-            System.out.println("HY-"+format+(random.substring(random.length()-4)));
-        }
     }
 
     /**
@@ -419,10 +398,5 @@ public class MemberUserServiceImpl implements MemberUserService {
         detailUpdateReqVO.setMemberType(updateReqVO.getMemberType());
         memberUserDetailService.updateUserDetail(detailUpdateReqVO);
         return CommonResult.success("修改会员类型！");
-    }
-
-    @Override
-    public CommonResult getEnterpriseList() {
-        return null;
     }
 }

@@ -30,10 +30,6 @@ public class MemberUserDetailDO extends BaseDO {
      */
     private Long memberId;
     /**
-     * 会员账号
-     */
-    private String memberAccount;
-    /**
      * 企业id
      */
     private Long enterpriseId;

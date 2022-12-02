@@ -32,7 +32,7 @@ public class IntegralLevelExcelVO {
     private Integer integralThreshold;
 
     @ExcelProperty("等级优惠")
-    @DictFormat(DictTypeConstants.MEMBER_LEVEL_DISCOUNT)
+    @DictFormat(DictTypeConstants.LEVEL_DISCOUNT)
     private String levelDiscount;
 
     @ExcelProperty("等级描述")

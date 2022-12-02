@@ -138,8 +138,10 @@
             <el-form-item>
                 <el-col :span="15">
                     <el-form-item label="公司简介" prop="description">
-                        <el-input type="textarea" v-model="ruleForm.description" placeholder="请输入公司简介" :rows="2">
-                        </el-input>
+                        <!-- <el-input type="textarea" v-model="ruleForm.description" placeholder="请输入公司简介" :rows="2">
+                        </el-input> -->
+                        
+                        <editor v-model="ruleForm.description" :min-height="192" />
                     </el-form-item>
                 </el-col>
             </el-form-item>
@@ -246,9 +248,10 @@
 import { getBaseInfo, updateBaseInfo, getTree } from "@/api/enterprise/baseInfo"
 import { DICT_TYPE } from "../../../utils/dict"
 import { Loading } from 'element-ui';
+import Editor from '@/components/Editor';
 export default {
     /**注册组件*/
-    components: {},
+    components: {Editor},
     /**接受父组件传值*/
     props: {
         id: {

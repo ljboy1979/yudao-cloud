@@ -60,11 +60,7 @@
       <el-table-column label="会员id" align="center" prop="memberId" /> -->
       <el-table-column label="会员账号" align="center" prop="memberAccount" />
       <el-table-column label="会员名称" align="center" prop="memberName" />
-      <el-table-column label="评分项目" align="center" prop="ratingItems" >
-        <template v-slot="scope">
-          <dict-tag :type="DICT_TYPE.MEMBER_RATING_ITEMS" :value="scope.row.ratingItems" />
-        </template>
-      </el-table-column>
+      <el-table-column label="评分项目" align="center" prop="ratingItems" />
       <el-table-column label="本次积分变动" align="center" prop="integralChange" />
       <el-table-column label="当前剩余积分" align="center" prop="integralRemaining" />
       <!-- <el-table-column label="积分使用明细" align="center" prop="integralUseDetails" /> -->
@@ -101,8 +97,7 @@
         </el-form-item>
         <el-form-item label="评分项目" prop="ratingItems">
           <el-select v-model="form.ratingItems" placeholder="请选择评分项目">
-            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MEMBER_RATING_ITEMS)" :key="dict.value" :label="dict.label"
-            :value="dict.value" />
+            <el-option label="数据" value="" />
           </el-select>
         </el-form-item>
         <el-form-item label="评分分数" prop="ratingScore">
@@ -162,10 +157,6 @@ export default {
     id: {
       type: String,
       required: true
-    },
-    name: {
-      type: String,
-      required: true
     }
   },
   data() {
@@ -189,7 +180,7 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        memberId: this.id,
+        memberId: null,
         memberAccount: null,
         memberName: null,
         ratingItems: null,
@@ -215,7 +206,6 @@ export default {
   },
   created() {
     this.getList();
-    console.log("name",this.name)
   },
   methods: {
     /** 查询列表 */
@@ -237,7 +227,7 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        memberId: this.id,
+        memberId: undefined,
         memberAccount: undefined,
         memberName: undefined,
         ratingItems: undefined,
@@ -265,9 +255,7 @@ export default {
     handleAdd() {
       this.reset();
       this.form = {
-        memberId: this.id,
-        memberAccount: this.id,
-        memberName: this.name
+        memberAccount: this.id
       }
       this.open = true;
       this.title = "添加会员积分记录";
@@ -286,7 +274,6 @@ export default {
     handleUpdate(row) {
       this.reset();
       const id = row.id;
-      this.form.memberId = this.id;
       getIntegralRecord(id).then(response => {
         this.form = response.data;
         this.open = true;

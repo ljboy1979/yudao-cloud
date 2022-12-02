@@ -158,13 +158,4 @@ public interface MemberUserService {
      * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
      */
     CommonResult updateMemberType(MemberUserUpdateDetailReqVO updateReqVO);
-
-    /**
-     * @Description:获取企业列表
-     * @Date: 2022/12/1
-     * @author: lihongyan
-     * @throws
-     * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
-     */
-    CommonResult getEnterpriseList();
 }
