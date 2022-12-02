@@ -159,6 +159,13 @@
             </el-form-item>
             <el-form-item>
                 <el-col :span="15">
+                    <el-form-item label="" >
+                        <div style="color:#81D3F8" @click="ToMap">数字地图</div>
+                    </el-form-item>
+                </el-col>
+            </el-form-item>
+            <el-form-item>
+                <el-col :span="15">
                     <el-form-item label="备注" prop="remarks">
                         <el-input type="textarea" v-model="ruleForm.remarks" placeholder="请输入备注" :rows="2"></el-input>
                     </el-form-item>
@@ -612,6 +619,10 @@ export default {
                 }
                 return Str
             }
+        },
+        //前往数字地图模块
+        ToMap(){
+            this.$message.error('目前暂无数字地图模块');
         }
     },
     /**创建组件时执行(有VM对象this)*/
