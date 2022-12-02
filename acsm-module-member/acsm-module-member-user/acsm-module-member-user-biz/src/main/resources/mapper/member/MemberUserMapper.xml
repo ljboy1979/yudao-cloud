@@ -24,6 +24,7 @@
             mu.subject_id AS subjectId,
             mu.tenant_id AS tenantId,
             mu.create_time AS createTime,
+            mud.member_account as memberAccount,
             mud.id AS memberUserDetailId,
             mud.enterprise_id AS enterpriseId,
             mud.enterprise_name AS enterpriseName,
@@ -34,15 +35,11 @@
             mud.integral_remaining as integralRemaining,
             mil.member_level AS memberLevel
         FROM
-            member_user mu,
-            member_user_detail mud,
-            member_integral_level mil
+            member_user mu
+            LEFT JOIN  member_user_detail mud on mu.id = mud.member_id AND mud.deleted = 0
+            LEFT JOIN member_integral_level mil on  mil.id = mud.integral_level_id  AND mil.deleted = 0
         WHERE
-            mu.id = mud.member_id
-            AND mil.id = mud.integral_level_id
-            AND mu.deleted = 0
-            AND mud.deleted = 0
-            AND mil.deleted = 0
+            mu.deleted = 0
         <if test="reqVO.nickname != null and reqVO.nickname != ''">
             and mu.nickname = #{reqVO.nickname}
         </if>
@@ -73,15 +70,11 @@
         SELECT
             count(1)
         FROM
-            member_user mu,
-            member_user_detail mud,
-            member_integral_level mil
+            member_user mu
+            LEFT JOIN  member_user_detail mud on mu.id = mud.member_id AND mud.deleted = 0
+            LEFT JOIN member_integral_level mil on  mil.id = mud.integral_level_id  AND mil.deleted = 0
         WHERE
-            mu.id = mud.member_id
-            AND mil.id = mud.integral_level_id
-            AND mu.deleted = 0
-            AND mud.deleted = 0
-            AND mil.deleted = 0
+            mu.deleted = 0
         <if test="reqVO.nickname != null and reqVO.nickname != ''">
             and mu.nickname = #{reqVO.nickname}
         </if>
@@ -99,6 +92,9 @@
         </if>
         <if test="reqVO.id != null and reqVO.id != ''">
             and mu.id = #{reqVO.id}
+        </if>
+        <if test="reqVO.memberAccount != null and reqVO.memberAccount != ''">
+            and mud.member_account = #{reqVO.memberAccount}
         </if>
     </select>
 </mapper>

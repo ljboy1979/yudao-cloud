@@ -15,6 +15,9 @@ public class MemberUserDetailExportReqVO {
     @ApiModelProperty(value = "会员id")
     private Long memberId;
 
+    @ApiModelProperty(value = "企业账号")
+    private String memberAccount;
+
     @ApiModelProperty(value = "企业id")
     private Long enterpriseId;
 
