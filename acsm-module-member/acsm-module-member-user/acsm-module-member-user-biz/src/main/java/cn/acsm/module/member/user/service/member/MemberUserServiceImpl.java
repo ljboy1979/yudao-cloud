@@ -5,6 +5,7 @@ import cn.acsm.module.member.user.controller.admin.member.vo.*;
 import cn.acsm.module.member.user.controller.admin.patient.vo.patienthealth.PatientHealthCreateReqVO;
 import cn.acsm.module.member.user.convert.member.MemberUserConvert;
 import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDO;
+import cn.acsm.module.member.user.dal.dataobject.member.MemberUserDetailDO;
 import cn.acsm.module.member.user.dal.dataobject.patienthealth.PatientHealthDO;
 import cn.acsm.module.member.user.dal.mysql.member.MemberUserMapper;
 import cn.acsm.module.member.user.dal.mysql.patienthealth.PatientHealthMapper;
@@ -423,6 +424,10 @@ public class MemberUserServiceImpl implements MemberUserService {
 
     @Override
     public MemberUserRespVO getUserDetail(Long id) {
-        return null;
+        MemberUserDO user =  userMapper.selectById(id);
+        MemberUserDetailDO detail =  memberUserDetailService.selectByMemberId(id);
+        MemberUserRespVO respVO = MemberUserConvert.INSTANCE.convert(user);
+        respVO.setMemberAccount(detail.getMemberAccount());
+        return respVO;
     }
 }
