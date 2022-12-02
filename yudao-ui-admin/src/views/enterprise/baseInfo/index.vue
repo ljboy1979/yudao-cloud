@@ -226,7 +226,7 @@ export default {
     return {
       // 遮罩层
       // loading: true,
-      loading: false,
+      loading: true,
       // 导出遮罩层
       exportLoading: false,
       // 显示搜索条件
@@ -361,6 +361,7 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
+      
       const id = row.id;
       this.$modal.confirm('是否确认删除经营主体编号为"' + id + '"的数据项?').then(function () {
         return deleteBaseInfo(id);
@@ -384,9 +385,11 @@ export default {
       this.$router.push({ path: "/enterprise/baseInfo/businessInfoManagement", query: { id: row.id } });
     },
     handleStop(row) {
-      const id = row.id;
+      console.log(row)
+      const code = row.code;
+      const id =row.id
       let stauts = row.stauts == 1 ? '停用' : '启用';
-      this.$modal.confirm(`是否确认${stauts}编号为${id}的经营主体`).then(function () {
+      this.$modal.confirm(`是否确认${stauts}主体编号为${code}的经营主体`).then(function () {
         // return stopBaseInfoPage(id);
         return changeStatusBaseInfoPage(id);
       }).then(() => {
