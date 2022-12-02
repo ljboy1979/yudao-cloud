@@ -2,7 +2,7 @@
   <div class="app-container">
 
     <!-- 搜索工作栏 -->
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+    <!-- <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="健康档案id" prop="patientHealthId">
         <el-input v-model="queryParams.patientHealthId" placeholder="请输入健康档案id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
@@ -36,10 +36,10 @@
         <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
-    </el-form>
+    </el-form> -->
 
     <!-- 操作工具栏 -->
-    <el-row :gutter="10" class="mb8">
+    <!-- <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
                    v-hasPermi="['member:prescription-record:create']">新增</el-button>
@@ -47,6 +47,17 @@
       <el-col :span="1.5">
         <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
                    v-hasPermi="['member:prescription-record:export']">导出</el-button>
+      </el-col>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+    </el-row> -->
+    <el-row :gutter="10" class="mb8">
+      <el-col :span="1.5">
+        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
+                   v-hasPermi="['']">新增</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
+                   v-hasPermi="['']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -125,6 +136,12 @@ export default {
   components: {
     Editor,
   },
+  props: {
+        id: {
+            type: String,
+            required: true
+        }
+  },
   data() {
     return {
       // 遮罩层
@@ -145,6 +162,7 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
+        memberId: this.id,
         patientHealthId: null,
         hospital: null,
         department: null,

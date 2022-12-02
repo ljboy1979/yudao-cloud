@@ -16,6 +16,9 @@ public class MemberUserDetailBaseVO {
     @NotNull(message = "会员id不能为空")
     private Long memberId;
 
+    @ApiModelProperty(value = "企业账号")
+    private String memberAccount;
+
     @ApiModelProperty(value = "企业id")
     private Long enterpriseId;
 

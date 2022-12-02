@@ -2,7 +2,7 @@
   <div class="app-container">
 
     <!-- 搜索工作栏 -->
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+    <!-- <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="健康档案id" prop="patientHealthId">
         <el-input v-model="queryParams.patientHealthId" placeholder="请输入健康档案id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
@@ -40,10 +40,10 @@
         <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
-    </el-form>
+    </el-form> -->
 
     <!-- 操作工具栏 -->
-    <el-row :gutter="10" class="mb8">
+    <!-- <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
                    v-hasPermi="['member:hospital-admission-record:create']">新增</el-button>
@@ -51,6 +51,17 @@
       <el-col :span="1.5">
         <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
                    v-hasPermi="['member:hospital-admission-record:export']">导出</el-button>
+      </el-col>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+    </el-row> -->
+    <el-row :gutter="10" class="mb8">
+      <el-col :span="1.5">
+        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd" v-hasPermi="['']">新增
+        </el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport"
+          :loading="exportLoading" v-hasPermi="['']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -72,15 +83,15 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
-                     v-hasPermi="['member:hospital-admission-record:update']">修改</el-button>
+            v-hasPermi="['member:hospital-admission-record:update']">修改</el-button>
           <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
-                     v-hasPermi="['member:hospital-admission-record:delete']">删除</el-button>
+            v-hasPermi="['member:hospital-admission-record:delete']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
@@ -98,16 +109,18 @@
           <el-input v-model="form.doctor" placeholder="请输入主治医生" />
         </el-form-item>
         <el-form-item label="住院日期" prop="hospitalizationDate">
-          <el-date-picker clearable v-model="form.hospitalizationDate" type="date" value-format="timestamp" placeholder="选择住院日期" />
+          <el-date-picker clearable v-model="form.hospitalizationDate" type="date" value-format="timestamp"
+            placeholder="选择住院日期" />
         </el-form-item>
         <el-form-item label="出院日期" prop="dischargeDate">
-          <el-date-picker clearable v-model="form.dischargeDate" type="date" value-format="timestamp" placeholder="选择出院日期" />
+          <el-date-picker clearable v-model="form.dischargeDate" type="date" value-format="timestamp"
+            placeholder="选择出院日期" />
         </el-form-item>
         <el-form-item label="住院类别" prop="hospitalizationCategories">
           <el-input v-model="form.hospitalizationCategories" placeholder="请输入住院类别" />
         </el-form-item>
         <el-form-item label="治疗内容">
-          <editor v-model="form.treatmentContent" :min-height="192"/>
+          <editor v-model="form.treatmentContent" :min-height="192" />
         </el-form-item>
         <el-form-item label="租户集合" prop="source">
           <el-input v-model="form.source" placeholder="请输入租户集合" />
@@ -133,6 +146,12 @@ export default {
   components: {
     Editor,
   },
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       // 遮罩层
@@ -153,6 +172,7 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
+        memberId: this.id,
         patientHealthId: null,
         hospital: null,
         department: null,
@@ -261,26 +281,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除住院记录编号为"' + id + '"的数据项?').then(function() {
-          return deleteHospitalAdmissionRecord(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除住院记录编号为"' + id + '"的数据项?').then(function () {
+        return deleteHospitalAdmissionRecord(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有住院记录数据项?').then(() => {
-          this.exportLoading = true;
-          return exportHospitalAdmissionRecordExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '住院记录.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportHospitalAdmissionRecordExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '住院记录.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };

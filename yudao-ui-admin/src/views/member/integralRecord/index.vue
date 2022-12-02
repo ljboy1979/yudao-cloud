@@ -106,7 +106,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="评分分数" prop="ratingScore">
-          <el-input v-model.number="form.ratingScore" placeholder="请输入评分分数" />
+          <el-input v-model.number="form.ratingScore" placeholder="请输入评分分数" maxlength="9"/>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input type="textarea" v-model="form.remark" placeholder="请输入备注" maxlength="200" show-word-limit />
@@ -275,7 +275,7 @@ export default {
         memberName: this.userInfo.memberName,
       }
       this.open = true;
-      this.title = "添加会员积分记录";
+      this.title = "添加积分记录";
     },
     /** 查看按钮操作 */
     handleView(row) {
@@ -284,7 +284,7 @@ export default {
       getIntegralRecord(id).then(response => {
         this.form = response.data;
         this.viewopen = true;
-        this.title = "查看会员积分记录";
+        this.title = "查看积分记录";
       });
     },
     /** 修改按钮操作 */
@@ -295,7 +295,7 @@ export default {
       getIntegralRecord(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改会员积分记录";
+        this.title = "修改积分记录";
       });
     },
     /** 提交按钮 */

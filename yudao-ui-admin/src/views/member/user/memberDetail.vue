@@ -52,7 +52,8 @@
             </el-tab-pane>
             <el-tab-pane label="健康档案" name="PatientHealth">
                 <div class="title">健康档案</div>
-                <el-select v-model="options" placeholder="请选择会员角色" clearable size="small">
+                <el-select v-model="options" placeholder="请选择会员角色" clearable size="small"
+                style="margin: 20px 20px 0;">
                     <el-option label="常规信息" value="0" />
                     <el-option label="住院记录" value="1" />
                     <el-option label="营养检查记录" value="2" />
@@ -83,7 +84,7 @@
 </template>
   
 <script>
-import { getUser,  } from "@/api/member/user";
+import { getUser, } from "@/api/member/user";
 import ProfessionalQualification from "../professionalQualification/index.vue"; //专业资质
 import integralRecord from "../integralRecord/index.vue"; //会员积分记录
 import agentManagement from "../agentManagement/index.vue"; //代理商管理
@@ -111,7 +112,7 @@ export default {
         MedicalRecord,
         SpecialMedicalFoodRecords,
         MedicalHistoryRecord,
-        
+
         WalletTransactionHistory,
         passInAndOutRecord,
         serviceTransaction,
