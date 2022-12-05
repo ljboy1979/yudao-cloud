@@ -39,18 +39,8 @@
     </el-form> -->
 
     <!-- 操作工具栏 -->
+    <!-- 新增member:special-medical-food-records:create;导出member:special-medical-food-records:export -->
     <!-- <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
-                   v-hasPermi="['member:special-medical-food-records:create']">新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
-                   v-hasPermi="['member:special-medical-food-records:export']">导出</el-button>
-      </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row> -->
-    <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
                    v-hasPermi="['']">新增</el-button>
@@ -60,12 +50,12 @@
                    v-hasPermi="['']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row>
+    </el-row> -->
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="主键ID" align="center" prop="id" />
-      <el-table-column label="健康档案id" align="center" prop="patientHealthId" />
+      <!-- <el-table-column label="主键ID" align="center" prop="id" />
+      <el-table-column label="健康档案id" align="center" prop="patientHealthId" /> -->
       <el-table-column label="医院" align="center" prop="hospital" />
       <el-table-column label="科室" align="center" prop="department" />
       <el-table-column label="营养师名称" align="center" prop="doctor" />
@@ -73,7 +63,7 @@
       <el-table-column label="特医食品类别" align="center" prop="specialMedicalCategory" />
       <el-table-column label="特医食品内容" align="center" prop="specialMedicalContent" />
       <el-table-column label="创建时间" align="center" prop="createTime" />
-      <el-table-column label="租户集合" align="center" prop="source" />
+      <!-- <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
@@ -82,7 +72,7 @@
           <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
                      v-hasPermi="['member:special-medical-food-records:delete']">删除</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
