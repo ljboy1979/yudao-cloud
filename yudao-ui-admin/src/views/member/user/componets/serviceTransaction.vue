@@ -1,6 +1,5 @@
 <template>
     <div class="app-container">
-        <div class="title">服务交易记录</div>
         <el-table v-loading="loading" :data="list" stripe>
             <el-table-column label="订单编号" align="center" prop="id" />
             <el-table-column label="订单总额" align="center" prop="nickname" />
@@ -58,9 +57,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-.title {
-    font-size: 24px;
-    margin: 10px 0 20px 15px;
-}
-</style>

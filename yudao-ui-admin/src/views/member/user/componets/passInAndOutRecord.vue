@@ -1,6 +1,5 @@
 <template>
     <div class="app-container">
-        <div class="title">进出记录</div>
         <el-table v-loading="loading" :data="list" stripe>
             <el-table-column label="会员名称" align="center" prop="id" />
             <el-table-column label="设备号" align="center" prop="nickname" />

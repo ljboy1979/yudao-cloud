@@ -1,6 +1,5 @@
 <template>
     <div class="app-container">
-        <div class="title">售品交易记录</div>
         <el-table v-loading="loading" :data="list" stripe>
             <el-table-column label="订单编号" align="center" prop="id" />
             <el-table-column label="下单时间" align="center" prop="nickname" />
