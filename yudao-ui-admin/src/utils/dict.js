@@ -79,7 +79,7 @@ export const DICT_TYPE = {
   // ---------- 钱包交易记录 ----------
   WALLET_TRANSACTION_TYPE: 'wallet_transaction_type', //交易类型
   WALLET_PAY_TYPE: 'wallet_pay_type', //交易方式
-  WALLET_TRANSACTION_STATUS: 'wallet_pay_type', //交易状态
+  WALLET_TRANSACTION_STATUS: 'wallet_transaction_status', //交易状态
 }
 
 /**

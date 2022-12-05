@@ -58,8 +58,8 @@
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <!-- <el-table-column label="主键ID" align="center" prop="id" /> -->
-      <el-table-column label="健康档案id" align="center" prop="patientHealthId" />
+      <!-- <el-table-column label="主键ID" align="center" prop="id" />
+      <el-table-column label="健康档案id" align="center" prop="patientHealthId" /> -->
       <el-table-column label="医院" align="center" prop="hospital" />
       <el-table-column label="科室" align="center" prop="department" />
       <el-table-column label="主治医生" align="center" prop="doctor" />

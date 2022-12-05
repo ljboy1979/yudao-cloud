@@ -40,7 +40,6 @@ export default {
         }
     },
     created() {
-        console.log("5:", this.id)
         this.getList();
     },
     methods: {

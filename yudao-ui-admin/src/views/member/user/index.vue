@@ -210,7 +210,6 @@
           if (!valid) {
             return;
           }
-          console.log("this.form", this.form)
           // 审核提交
           if (this.form.id != null) {
             updateAuditStatus(this.form).then(response => {

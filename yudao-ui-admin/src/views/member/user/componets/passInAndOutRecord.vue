@@ -37,7 +37,6 @@ export default {
         }
     },
     created() {
-        console.log("6:", this.id)
         this.getList();
     },
     methods: {
