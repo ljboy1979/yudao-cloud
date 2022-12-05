@@ -66,21 +66,23 @@ public class BaseInfoExcelVO {
 //    @ExcelProperty("省id")
 //    private String villagesAreaId;
 //
-//    @ExcelProperty("省名称")
-//    private String villagesAreaName;
+    @ExcelProperty("省名称")
+    private String villagesAreaName;
 //
 //    @ExcelProperty("市id")
 //    private String areaId;
 //
-//    @ExcelProperty("市名称")
-//    private String areaName;
+    @ExcelProperty("市名称")
+    private String areaName;
 //
 //    @ExcelProperty("区id")
 //    private String ruralId;
 //
-//    @ExcelProperty("区名称")
-//    private String ruralName;
+    @ExcelProperty("区名称")
+    private String ruralName;
     @ExcelProperty("创建时间")
     private LocalDateTime createTime;
+    @ExcelProperty("更新时间")
+    private LocalDateTime updateTime;
 
 }
