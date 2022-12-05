@@ -115,8 +115,7 @@
           <el-input v-model="form.certificateNo" placeholder="请输入证件号" />
         </el-form-item>
         <el-form-item label="证件截止日期" prop="certificateEndTime">
-          <el-date-picker clearable v-model="form.certificateEndTime" type="date" 
-            placeholder="选择证件截止日期" />
+          <el-date-picker clearable v-model="form.certificateEndTime" type="date" placeholder="选择证件截止日期" />
         </el-form-item>
         <el-form-item label="证件照片" prop="certificatePhoto">
           <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-preview="handlePictureCardPreview"
@@ -197,7 +196,19 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        // tenantId: [{ required: true, message: "租户编号不能为空", trigger: "blur" }],
+        certificateType: [
+          { required: true, message: '请选择证件类型', trigger: 'change' },
+        ],
+        certificateName: [
+          { required: true, message: '请输入证件名称', trigger: 'blur' },
+          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }
+        ],
+        certificateNo: [
+          { required: true, message: '请输入证件号', trigger: 'blur' },
+          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }
+        ],
+        certificateEndTime: [
+          { required: true, message: '证件截止日期', trigger: 'change' },],
       },
       certificatePhoto: [],//经营许可证
       certificate: false,//经营许可证是否可继续上传
@@ -272,7 +283,7 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
-      this.certificatePhoto=[];
+      this.certificatePhoto = [];
       this.open = true;
       this.title = "添加经营主体其他证件";
     },
@@ -284,7 +295,7 @@ export default {
         this.form = response.data;
         console.log(response)
         //图片反显
-        this.certificatePhoto=this.ToUpload(response.data.certificatePhoto);
+        this.certificatePhoto = this.ToUpload(response.data.certificatePhoto);
         this.open = true;
         this.title = "修改经营主体其他证件";
       });
@@ -292,14 +303,14 @@ export default {
     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
-        if (!valid||this.certificatePhoto.length==0||this.certificatePhoto=='') {
+        if (!valid || this.certificatePhoto.length == 0 || this.certificatePhoto == '') {
           this.$message.error("信息填写不完整");
           return;
         }
         console.log("form:", this.form)
         // 修改的提交
         if (this.form.id != null) {
-          this.form.certificatePhoto=this.ArrayToString(this.changecertificatePhoto);
+          this.form.certificatePhoto = this.ArrayToString(this.changecertificatePhoto);
           updateOtherCertificateInfo(this.form).then(response => {
             this.$modal.msgSuccess("修改成功");
             this.open = false;
@@ -309,7 +320,7 @@ export default {
         }
         // 添加的提交
         let obj = JSON.parse(JSON.stringify(this.form));
-        obj.certificatePhoto=this.ArrayToString(this.certificatePhoto)
+        obj.certificatePhoto = this.ArrayToString(this.certificatePhoto)
         console.log(obj)
         createOtherCertificateInfo(obj).then(response => {
           this.$modal.msgSuccess("新增成功");
@@ -378,45 +389,45 @@ export default {
     },
     //字符串转换成对应的upload接受类型参数
     ToUpload(imgurl) {
-            //是否有多张图片
-            if(imgurl==''||imgurl==undefined||imgurl==null){
-              return;
-            }
-            if (imgurl.indexOf(',') === -1) {
-                if (imgurl instanceof Array) {
-                } else {
-                    imgurl = [imgurl]
-                }
-            } else {
-                imgurl = imgurl.split(',');
-            }
-            let imgObject = [];
-            for (let i = 0; i < imgurl.length; i++) {
-                let obj = {};
-                obj.url = imgurl[i];
-                imgObject.push(obj)
-            }
-            return imgObject;
+      //是否有多张图片
+      if (imgurl == '' || imgurl == undefined || imgurl == null) {
+        return;
+      }
+      if (imgurl.indexOf(',') === -1) {
+        if (imgurl instanceof Array) {
+        } else {
+          imgurl = [imgurl]
+        }
+      } else {
+        imgurl = imgurl.split(',');
+      }
+      let imgObject = [];
+      for (let i = 0; i < imgurl.length; i++) {
+        let obj = {};
+        obj.url = imgurl[i];
+        imgObject.push(obj)
+      }
+      return imgObject;
 
-        },
-        //将数组转换为后端需要的图片地址
-        ArrayToString(Arr) {
-            if (Array.isArray(Arr)) {
-                let Str = '';
-                for (let i = 0; i < Arr.length; i++) {
-                    i == 0 ? Str = Arr[i].url : Str = Str+',' + Arr[i].url;
-
-                }
-                return Str
-            }else{
-            }
+    },
+    //将数组转换为后端需要的图片地址
+    ArrayToString(Arr) {
+      if (Array.isArray(Arr)) {
+        let Str = '';
+        for (let i = 0; i < Arr.length; i++) {
+          i == 0 ? Str = Arr[i].url : Str = Str + ',' + Arr[i].url;
 
         }
+        return Str
+      } else {
+      }
+
+    }
   }
 };
 </script>
 <style scoped>
 .hide>>>.el-upload--picture-card {
-    display: none;
+  display: none;
 }
 </style>
