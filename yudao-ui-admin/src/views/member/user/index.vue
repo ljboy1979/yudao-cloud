@@ -51,11 +51,12 @@
         <el-table-column label="所属企业" align="center" prop="enterpriseName" />
         <el-table-column label="当前等级" align="center" prop="memberLevel" />
         <el-table-column label="当前积分" align="center" prop="integralRemaining" />
-        <el-table-column label="注册时间" align="center" prop="createTime" width="180">
+        <el-table-column label="注册时间" align="center" prop="createTime" width="180"/>
+        <!-- <el-table-column label="注册时间" align="center" prop="createTime" width="180">
           <template slot-scope="scope">
             <span>{{ parseTime(scope.row.createTime) }}</span>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column label="小程序门户" align="center" prop="source" />
         <el-table-column label="会员类型" align="center" prop="memberType" >
           <template v-slot="scope">
