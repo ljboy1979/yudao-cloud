@@ -244,7 +244,7 @@ export default {
         id: undefined,
         memberId: this.id,
         memberAccount: this.userInfo.memberAccount,
-        memberName: this.userInfo.memberName,
+        memberName: this.userInfo.nickname,
         ratingItems: undefined,
         integralChange: undefined,
         integralRemaining: undefined,
@@ -272,7 +272,7 @@ export default {
       this.form = {
         memberId: this.id,
         memberAccount: this.userInfo.memberAccount,
-        memberName: this.userInfo.memberName,
+        memberName: this.userInfo.nickname,
       }
       this.open = true;
       this.title = "添加积分记录";

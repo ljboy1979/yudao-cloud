@@ -90,7 +90,7 @@
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
@@ -116,7 +116,8 @@
           <el-input v-model="form.phone" placeholder="请输入手机号" />
         </el-form-item>
         <el-form-item label="备案日期" prop="recordDate">
-          <el-date-picker clearable v-model="form.recordDate" type="date" value-format="timestamp" placeholder="选择备案日期" />
+          <el-date-picker clearable v-model="form.recordDate" type="date" value-format="timestamp"
+            placeholder="选择备案日期" />
         </el-form-item>
         <el-form-item label="证照" prop="idPhoto">
           <el-input v-model="form.idPhoto" placeholder="请输入证照" />
@@ -149,11 +150,11 @@ export default {
   components: {
   },
   props: {
-        id: {
-            type: String,
-            required: true
-        }
-    },
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       // 遮罩层
@@ -196,7 +197,7 @@ export default {
     };
   },
   created() {
-    
+
     console.log(this.id)
     this.getList();
   },
@@ -286,26 +287,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除专业资质编号为"' + id + '"的数据项?').then(function() {
-          return deleteProfessionalQualification(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除专业资质编号为"' + id + '"的数据项?').then(function () {
+        return deleteProfessionalQualification(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有专业资质数据项?').then(() => {
-          this.exportLoading = true;
-          return exportProfessionalQualificationExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '专业资质.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportProfessionalQualificationExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '专业资质.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };
