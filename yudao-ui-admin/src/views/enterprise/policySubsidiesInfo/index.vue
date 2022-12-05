@@ -175,9 +175,11 @@ export default {
         // ],
         subsidiesName: [
           { required: true, message: '请输入补贴名称', trigger: 'blur' },
+          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }
         ],
         subsidiesAmount: [
           { required: true, message: '请输入补贴金额', trigger: 'blur' },
+          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }
         ],
         // subsidiesType: [
         //   { required: true, message: '请选择补贴方式', trigger: 'change' },
