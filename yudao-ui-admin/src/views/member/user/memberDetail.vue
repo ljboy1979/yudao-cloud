@@ -4,31 +4,35 @@
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick" lazy="true">
             <el-tab-pane label="基本信息" name="first">
                 <div class="title">基本信息</div>
-                <el-form :model="userInfo" label-width="200px" ref="ruleForm" class="info" label-position="left">
-                    <el-form-item label="会员账号" prop="">{{ userInfo.memberAccount }}</el-form-item>
-                    <el-form-item label="会员名称" prop="">{{ userInfo.nickname }}</el-form-item>
-                    <el-form-item label="微信号" prop="">{{ }}</el-form-item>
-                    <el-form-item label="手机号" prop="">{{ userInfo.mobile }}</el-form-item>
-                    <el-form-item label="住院号/员工卡号" prop="">{{ }}</el-form-item>
+                <el-form :model="userInfo" label-width="200px" ref="userInfo" class="info" label-position="left">
+                    <el-form-item label="会员账号" >{{ userInfo.memberAccount }}</el-form-item>
+                    <el-form-item label="会员名称" >{{ userInfo.nickname }}</el-form-item>
+                    <el-form-item label="微信号" >{{ }}</el-form-item>
+                    <el-form-item label="手机号" >{{ userInfo.mobile }}</el-form-item>
+                    <el-form-item label="住院号/员工卡号" >{{ }}</el-form-item>
                 </el-form>
             </el-tab-pane>
             <el-tab-pane label="企业资料" name="second">
                 <div class="title">企业基本信息</div>
-                <el-form :model="form" label-width="200px" ref="ruleForm" class="info" label-position="left">
-                    <el-form-item label="企业名称" prop="">11111</el-form-item>
-                    <el-form-item label="经营模式" prop=""></el-form-item>
-                    <el-form-item label="证件编号" prop=""></el-form-item>
-                    <el-form-item label="产业角色" prop=""></el-form-item>
-                    <el-form-item label="地址" prop=""></el-form-item>
-                    <el-form-item label="证件照片" prop=""></el-form-item>
-                    <el-form-item label="经营合格证号" prop=""></el-form-item>
-                    <el-form-item label="社会信用代码" prop=""></el-form-item>
+                <el-form :model="baseInfo" label-width="200px" ref="baseInfo" class="info" label-position="left">
+                    <el-form-item label="企业名称" >{{ baseInfo.name }}</el-form-item>
+                    <el-form-item label="经营模式" >{{ baseInfo.enterpriseType }}</el-form-item>
+                    <el-form-item label="产业角色" >{{ baseInfo.userTagName }}</el-form-item>
+                    <el-form-item label="地址" >{{ baseInfo.address }}</el-form-item>
+                    <el-form-item label="证件照片" >
+                        <div v-for="(item, index) in baseInfo.businessLicensePhoto" :key="index"
+                            style="display: inline; margin: 0 10px;">
+                            <img :src="item" alt="证件照片" style="height: 100px" />
+                        </div>
+                    </el-form-item>
+                    <el-form-item label="经营合格证号" >{{ baseInfo.businessLicenseNo }}</el-form-item>
+                    <el-form-item label="社会信用代码" >{{ baseInfo.socialCreditCode }}</el-form-item>
                 </el-form>
                 <div class="title">企业其他信息</div>
-                <el-form :model="form" label-width="200px" ref="ruleForm" class="info" label-position="left">
-                    <el-form-item label="主营业务" prop="">11111</el-form-item>
-                    <el-form-item label="企业规模" prop=""></el-form-item>
-                    <el-form-item label="企业介绍" prop=""></el-form-item>
+                <el-form :model="baseInfo" label-width="200px" ref="ruleForm" class="info" label-position="left" >
+                    <el-form-item label="主营业务" >{{ baseInfo.serviceRange }}</el-form-item>
+                    <el-form-item label="企业规模" >{{ baseInfo.enterpriseScale }}</el-form-item>
+                    <el-form-item label="企业介绍">{{ baseInfo.description }}</el-form-item>
                 </el-form>
             </el-tab-pane>
             <el-tab-pane label="专业资质" name="ProfessionalQualification">
@@ -37,12 +41,15 @@
                 </ProfessionalQualification>
             </el-tab-pane>
             <el-tab-pane label="售品交易记录" name="salesTransaction">
+                <div class="title">售品交易记录</div>
                 <salesTransaction :id="userid" v-if="activeName == 'salesTransaction'"></salesTransaction>
             </el-tab-pane>
             <el-tab-pane label="服务交易记录" name="serviceTransaction">
+                <div class="title">服务交易记录</div>
                 <serviceTransaction :id="userid" v-if="activeName == 'serviceTransaction'"></serviceTransaction>
             </el-tab-pane>
             <el-tab-pane label="进出记录" name="passInAndOutRecord">
+                <div class="title">进出记录</div>
                 <passInAndOutRecord :id="userid" v-if="activeName == 'passInAndOutRecord'"></passInAndOutRecord>
             </el-tab-pane>
             <el-tab-pane label="会员积分记录" name="integralRecord">
@@ -52,8 +59,7 @@
             </el-tab-pane>
             <el-tab-pane label="健康档案" name="PatientHealth">
                 <div class="title">健康档案</div>
-                <el-select v-model="options" placeholder="请选择会员角色" clearable size="small"
-                style="margin: 20px 20px 0;">
+                <el-select v-model="options" placeholder="请选择会员角色" size="small" style="margin: 20px 20px 0;">
                     <el-option label="常规信息" value="0" />
                     <el-option label="住院记录" value="1" />
                     <el-option label="营养检查记录" value="2" />
@@ -76,6 +82,7 @@
                 <agentManagement :id="userid" v-if="activeName == 'agentManagement'"></agentManagement>
             </el-tab-pane>
             <el-tab-pane label="钱包交易记录" name="WalletTransactionHistory">
+                <div class="title">钱包交易记录</div>
                 <WalletTransactionHistory :id="userid" v-if="activeName == 'WalletTransactionHistory'">
                 </WalletTransactionHistory>
             </el-tab-pane>
@@ -85,6 +92,7 @@
   
 <script>
 import { getUser, } from "@/api/member/user";
+import { getBaseInfo, } from "@/api/enterprise/baseInfo";
 import ProfessionalQualification from "../professionalQualification/index.vue"; //专业资质
 import integralRecord from "../integralRecord/index.vue"; //会员积分记录
 import agentManagement from "../agentManagement/index.vue"; //代理商管理
@@ -95,7 +103,7 @@ import PrescriptionRecord from "../../patient/prescriptionRecord/index.vue"; //�
 import MedicalRecord from "../../patient/medicalRecord/index.vue"; //医嘱记录
 import SpecialMedicalFoodRecords from "../../patient/specialMedicalFoodRecords/index.vue"; //特医食品使用记录
 import MedicalHistoryRecord from "../../patient/medicalHistoryRecord/index.vue"; //病史记录
-import WalletTransactionHistory from "../user/componets/WalletTransactionHistory.vue";
+import WalletTransactionHistory from "../user/componets/WalletTransactionHistory.vue"; //钱包交易记录
 import passInAndOutRecord from "../user/componets/passInAndOutRecord.vue";
 import salesTransaction from "../user/componets/salesTransaction.vue"
 import serviceTransaction from "../user/componets/serviceTransaction.vue"
@@ -112,9 +120,9 @@ export default {
         MedicalRecord,
         SpecialMedicalFoodRecords,
         MedicalHistoryRecord,
-
         WalletTransactionHistory,
         passInAndOutRecord,
+
         serviceTransaction,
         salesTransaction
     },
@@ -122,27 +130,39 @@ export default {
         return {
             //默认tab显示
             activeName: 'first',
+            // userid: '',
             userid: '',
+            enterpriseId: '',
             userInfo: {},
+            baseInfo: {},
             form: {},
-            options: '',
+            options: '0',
         };
     },
     created() {
         this.userid = this.$route.query.id
-        this.getInfo()
         //调接口获取会员信息
+        this.getUserInfo()
     },
     methods: {
         //切换tab
         handleClick(tab, event) {
-            console.log(tab.index, event);
+            // console.log(tab.index, event);
         },
-        /** 查询列表 */
-        getInfo() {
+        /** 基本信息 */
+        getUserInfo() {
             const id = this.userid
             getUser(id).then(response => {
                 this.userInfo = response.data;
+                if (this.userInfo.enterpriseId != null) {
+                    this.getBase(this.userInfo.enterpriseId)
+                }
+            });
+        },
+        getBase(id) {
+            getBaseInfo(id).then(response => {
+                this.baseInfo = response.data;
+                this.baseInfo.businessLicensePhoto = response.data.businessLicensePhoto.split(',')
             });
         },
     }
@@ -157,6 +177,7 @@ export default {
 .info {
     font-size: 14px;
     margin: 15px 0 15px 15px;
+    width: 60%;
 }
 </style>
   

@@ -68,17 +68,7 @@
     </el-form> -->
 
     <!-- 操作工具栏 -->
-    <!-- <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
-                   v-hasPermi="['member:patient-health:create']">新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
-                   v-hasPermi="['member:patient-health:export']">导出</el-button>
-      </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row> -->
+    <!-- 新增member:patient-health:create;导出member:patient-health:export -->
     <!-- <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
@@ -93,8 +83,8 @@
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="主键ID" align="center" prop="id" />
-      <el-table-column label="会员id" align="center" prop="memberId" />
+      <!-- <el-table-column label="主键ID" align="center" prop="id" />
+      <el-table-column label="会员id" align="center" prop="memberId" /> -->
       <el-table-column label="姓名" align="center" prop="name" />
       <el-table-column label="年龄" align="center" prop="age" />
       <el-table-column label="性别" align="center" prop="sex" />
@@ -110,7 +100,7 @@
       <el-table-column label="床位号" align="center" prop="bedNo" />
       <el-table-column label="入院日期" align="center" prop="admissionDate" />
       <el-table-column label="创建时间" align="center" prop="createTime" />
-      <el-table-column label="租户集合" align="center" prop="source" />
+      <!-- <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
@@ -119,7 +109,7 @@
           <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
                      v-hasPermi="['member:patient-health:delete']">删除</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"

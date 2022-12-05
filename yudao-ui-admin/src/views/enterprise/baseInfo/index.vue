@@ -35,7 +35,7 @@
     </el-form>
 
     <!-- 列表 -->
-    <el-table v-loading="loading" :data="list">
+    <el-table v-loading="loading" :data="list" :fit="true">
       <el-table-column label="主体编号" align="center" prop="code" />
       <el-table-column label="主体名称" align="center" prop="name" />
       <el-table-column label="主体类型" align="center" prop="enterpriseType">
@@ -418,3 +418,10 @@ export default {
   }
 };
 </script>
+<style>
+.el-table .cell, .el-table th > .cell {
+  display: inline-block;
+  white-space: nowrap;
+  width: auto;
+  overflow: auto;
+}</style>

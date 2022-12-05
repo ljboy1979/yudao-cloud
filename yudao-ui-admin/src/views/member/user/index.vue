@@ -40,7 +40,7 @@
       <!-- 列表 -->
       <el-table v-loading="loading" :data="list">
         <!-- <el-table-column label="会员id" align="center" prop="id" /> -->
-        <el-table-column label="会员账号" align="center" prop="memberAccount" />
+        <el-table-column label="会员账号" align="center" prop="memberAccount"  width="180"/>
         <el-table-column label="会员名称" align="center" prop="nickname" />
         <el-table-column label="手机号" align="center" prop="mobile" />
         <el-table-column label="角色" align="center" prop="memberRole" >
@@ -210,7 +210,6 @@
           if (!valid) {
             return;
           }
-          console.log("this.form", this.form)
           // 审核提交
           if (this.form.id != null) {
             updateAuditStatus(this.form).then(response => {

@@ -97,8 +97,8 @@
           <el-input v-model="form.enterpriseId" placeholder="请输入企业id" />
         </el-form-item> -->
         <el-form-item label="企业名称" prop="enterpriseName">
-          <el-select v-model="form.enterpriseId" placeholder="请选择企业名称">
-            <el-option v-for="item in enterpriseNameData" :key="item.id" :label="item.name" :value="item.id" />
+          <el-select v-model="form.enterpriseName" placeholder="请选择企业名称" @change="(item) =>{this.getEnterpriseName(item)}">
+            <el-option v-for="item in enterpriseNameData" :key="item.id" :label="item.name" :value="item" />
           </el-select>
         </el-form-item>
         <!-- <el-form-item label="企业名称" prop="enterpriseName">
@@ -242,7 +242,7 @@ export default {
   },
   created() {
     this.getList();
-    this.getEnterpriseName();
+    this.getEnterprise();
   },
   methods: {
     /** 查询列表 */
@@ -256,10 +256,14 @@ export default {
       });
     },
     /** 获取企业 */
-    getEnterpriseName() {
+    getEnterprise() {
       getBaseInfo().then(response => {
         this.enterpriseNameData = response.data;
       });
+    },
+    getEnterpriseName(item){
+      this.form.enterpriseId = item.id
+      this.form.enterpriseName = item.name
     },
     /** 取消按钮 */
     cancel() {

@@ -304,9 +304,11 @@ export default {
                 code: [
                     { required: true, message: '请输入主体编号', trigger: 'blur' },
                     // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                    { min: 1, max: 25, message: '最多输入25个字', trigger: 'blur' }
                 ],
                 name: [
                     { required: true, message: '请输入主体名称', trigger: 'blur' },
+                    { min: 1, max: 32, message: '最多输入32个字', trigger: 'blur' }
                 ],
                 enterpriseType: [
                     { required: true, message: '请选择主体类型', trigger: 'change' }
@@ -318,52 +320,66 @@ export default {
                     { required: true, message: '请选择经营状态', trigger: 'change' }
                 ],
                 address: [
-                    { required: true, message: '请输入注册地址', trigger: 'change' }
+                    { required: true, message: '请输入注册地址', trigger: 'blur' },
+                    { min: 1, max: 100, message: '最多输入100个字', trigger: 'blur' }
                 ],
                 legalPerson: [
-                    { required: true, message: '请输入法定代表人', trigger: 'change' }
+                    { required: true, message: '请输入法定代表人', trigger: 'blur' },
+                    { min: 1, max: 32, message: '最多输入32个字', trigger: 'blur' }
                 ],
                 legalIdCard: [
-                    { required: true, message: '请输入法定代表人身份证号码', trigger: 'change' }
+                    { required: true, message: '请输入法定代表人身份证号码', trigger: 'blur' },
+                    { min: 1, max: 32, message: '最多输入32个字', trigger: 'blur' }
                 ],
                 contactName: [
-                    { required: true, message: '请输入联系人', trigger: 'change' }
+                    { required: true, message: '请输入联系人', trigger: 'blur' },
+                    { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }
                 ],
                 contactPhone: [
-                    { required: true, message: '请输入联系人电话号码', trigger: 'change' }
+                    { required: true, message: '请输入联系人电话号码', trigger: 'blur' },
+                    { min: 1, max: 11, message: '最多输入11位数字', trigger: 'blur' }
                 ],
                 enterpriseScale: [
                     { required: true, message: '请选择企业规模', trigger: 'change' }
                 ],
                 serviceRange: [
-                    { required: true, message: '请输入主营业务', trigger: 'change' }
+                    { required: true, message: '请输入主营业务', trigger: 'blur' },
+                    { min: 1, max: 120, message: '最多输入120个字', trigger: 'blur' }
                 ],
                 description: [
-                    { required: true, message: '请输入公司简介', trigger: 'change' }
+                    { required: true, message: '请输入公司简介', trigger: 'blur' },
+                    { min: 1, max:3000, message: '最多输入3000个字', trigger: 'blur' }
                 ],
                 remarks: [
-                    { required: true, message: '请输入备注', trigger: 'change' }
+                    { required: true, message: '请输入备注', trigger: 'blur' },
+                    { min: 1, max: 250, message: '最多输入250个字', trigger: 'blur' }
                 ],
                 socialCreditCode: [
-                    { required: true, message: '请输入统一社会信用代码或注册号', trigger: 'change' }
+                    { required: true, message: '请输入统一社会信用代码或注册号', trigger: 'blur' },
+                    { min: 1, max: 32, message: '最多输入32个字', trigger: 'blur' }
                 ],
                 businessLicenseNo: [
-                    { required: true, message: '请输入经营许可证号码', trigger: 'change' }
+                    { required: true, message: '请输入经营许可证号码', trigger: 'blur' },
+                    { min: 1, max: 120, message: '最多输入120个字', trigger: 'blur' }
                 ],
                 businessLicenseEndTime: [
                     { required: true, message: '请选择经营许可证有效日期', trigger: 'change' }
                 ],
                 accountName: [
-                    { required: true, message: '请输入账户名', trigger: 'change' }
+                    { required: true, message: '请输入账户名', trigger: 'blur' },
+                    { min: 1, max:64, message: '最多输入64个字', trigger: 'blur' }
                 ],
                 accountIdCard: [
-                    { required: true, message: '请输入身份证号', trigger: 'change' }
+                    { required: true, message: '请输入身份证号', trigger: 'blur' },
+                    { min: 1, max:64, message: '最多输入64个字', trigger: 'blur' }
                 ],
                 accountNo: [
-                    { required: true, message: '请输入银行卡号', trigger: 'change' }
+                    { required: true, message: '请输入银行卡号', trigger: 'blur' },
+                    { min: 1, max:64, message: '最多输入64个字', trigger: 'blur' }
                 ],
                 accountBank: [
-                    { required: true, message: '请输入开户行', trigger: 'change' }
+                    { required: true, message: '请输入开户行', trigger: 'blur' },
+                    { min: 1, max:64, message: '最多输入64个字', trigger: 'blur' }
                 ],
                 value: [
                     { type: 'array', required: true, message: '请选择行政区域', trigger: 'change' }

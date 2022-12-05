@@ -29,7 +29,8 @@ export function deleteUser(id) {
 // 获得会员
 export function getUser(id) {
   return request({
-    url: '/member/user/get?id=' + id,
+    // url: '/member/user/get?id=' + id,
+    url: '/member/user/getUserDetail?id=' + id,
     method: 'get'
   })
 }
@@ -78,5 +79,23 @@ export function updateMemberType(data) {
     url: '/member/user/updateMemberType',
     method: 'put',
     data: data
+  })
+}
+
+// 获得钱包分页
+export function getWalletPage(query) {
+  return request({
+    url: '/wallet/transaction-history/page',
+    method: 'get',
+    params: query
+  })
+}
+// 导出钱包 Excel
+export function exportWalletExcel(query) {
+  return request({
+    url: '/wallet/transaction-history/export-excel',
+    method: 'get',
+    params: query,
+    responseType: 'blob'
   })
 }
