@@ -245,7 +245,7 @@ export default {
         pageSize: 10,
         name: null,
         enterpriseType: null,
-        registerTime: [],
+        createTime: [],
       },
       // 表单参数
       form: {},
