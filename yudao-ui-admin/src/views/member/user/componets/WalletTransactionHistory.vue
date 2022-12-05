@@ -16,8 +16,16 @@
         </el-form>
         <el-table v-loading="loading" :data="list" stripe>
             <el-table-column label="交易单号" align="center" prop="transactionNumber" />
-            <el-table-column label="交易类型" align="center" prop="transactionType" />
-            <el-table-column label="交易方式" align="center" prop="payType" />
+            <el-table-column label="交易类型" align="center" prop="transactionType">
+                <template v-slot="scope">
+                    <dict-tag :type="DICT_TYPE.WALLET_TRANSACTION_TYPE" :value="scope.row.transactionType" />
+                </template>
+            </el-table-column>
+            <el-table-column label="交易方式" align="center" prop="payType">
+                <template v-slot="scope">
+                    <dict-tag :type="DICT_TYPE.WALLET_PAY_TYPE" :value="scope.row.payType" />
+                </template>
+            </el-table-column>
             <el-table-column label="创建时间" align="center" prop="transactionTime" width="180">
                 <template slot-scope="scope">
                     <span>{{ parseTime(scope.row.transactionTime) }}</span>
@@ -28,7 +36,11 @@
             <el-table-column label="支付账户" align="center" prop="paymentAccountNumber" />
             <el-table-column label="收款账户" align="center" prop="payoutAccount" />
             <el-table-column label="交易对象名称" align="center" prop="recipient" />
-            <el-table-column label="交易状态" align="center" prop="transactionStatus" />
+            <el-table-column label="交易状态" align="center" prop="transactionStatus">
+                <template v-slot="scope">
+                    <dict-tag :type="DICT_TYPE.WALLET_TRANSACTION_STATUS" :value="scope.row.transactionStatus" />
+                </template>
+            </el-table-column>
         </el-table>
         <!-- 分页组件 -->
         <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"

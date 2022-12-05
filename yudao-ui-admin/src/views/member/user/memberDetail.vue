@@ -5,34 +5,34 @@
             <el-tab-pane label="基本信息" name="first">
                 <div class="title">基本信息</div>
                 <el-form :model="userInfo" label-width="200px" ref="userInfo" class="info" label-position="left">
-                    <el-form-item label="会员账号" prop="">{{ userInfo.memberAccount }}</el-form-item>
-                    <el-form-item label="会员名称" prop="">{{ userInfo.nickname }}</el-form-item>
-                    <el-form-item label="微信号" prop="">{{ }}</el-form-item>
-                    <el-form-item label="手机号" prop="">{{ userInfo.mobile }}</el-form-item>
-                    <el-form-item label="住院号/员工卡号" prop="">{{ }}</el-form-item>
+                    <el-form-item label="会员账号" >{{ userInfo.memberAccount }}</el-form-item>
+                    <el-form-item label="会员名称" >{{ userInfo.nickname }}</el-form-item>
+                    <el-form-item label="微信号" >{{ }}</el-form-item>
+                    <el-form-item label="手机号" >{{ userInfo.mobile }}</el-form-item>
+                    <el-form-item label="住院号/员工卡号" >{{ }}</el-form-item>
                 </el-form>
             </el-tab-pane>
             <el-tab-pane label="企业资料" name="second">
                 <div class="title">企业基本信息</div>
                 <el-form :model="baseInfo" label-width="200px" ref="baseInfo" class="info" label-position="left">
-                    <el-form-item label="企业名称" prop="">{{ baseInfo.name }}</el-form-item>
-                    <el-form-item label="经营模式" prop="">{{ baseInfo.enterpriseType }}</el-form-item>
-                    <el-form-item label="产业角色" prop="">{{ baseInfo.userTagName }}</el-form-item>
-                    <el-form-item label="地址" prop="">{{ baseInfo.address }}</el-form-item>
-                    <el-form-item label="证件照片" prop="">
+                    <el-form-item label="企业名称" >{{ baseInfo.name }}</el-form-item>
+                    <el-form-item label="经营模式" >{{ baseInfo.enterpriseType }}</el-form-item>
+                    <el-form-item label="产业角色" >{{ baseInfo.userTagName }}</el-form-item>
+                    <el-form-item label="地址" >{{ baseInfo.address }}</el-form-item>
+                    <el-form-item label="证件照片" >
                         <div v-for="(item, index) in baseInfo.businessLicensePhoto" :key="index"
                             style="display: inline; margin: 0 10px;">
                             <img :src="item" alt="证件照片" style="height: 100px" />
                         </div>
                     </el-form-item>
-                    <el-form-item label="经营合格证号" prop="">{{ baseInfo.businessLicenseNo }}</el-form-item>
-                    <el-form-item label="社会信用代码" prop="">{{ baseInfo.socialCreditCode }}</el-form-item>
+                    <el-form-item label="经营合格证号" >{{ baseInfo.businessLicenseNo }}</el-form-item>
+                    <el-form-item label="社会信用代码" >{{ baseInfo.socialCreditCode }}</el-form-item>
                 </el-form>
                 <div class="title">企业其他信息</div>
-                <el-form :model="baseInfo" label-width="200px" ref="ruleForm" class="info" label-position="left">
-                    <el-form-item label="主营业务" prop="">{{ baseInfo.serviceRange }}</el-form-item>
-                    <el-form-item label="企业规模" prop="">{{ baseInfo.enterpriseScale }}</el-form-item>
-                    <el-form-item label="企业介绍" prop="">{{ baseInfo.description }}</el-form-item>
+                <el-form :model="baseInfo" label-width="200px" ref="ruleForm" class="info" label-position="left" >
+                    <el-form-item label="主营业务" >{{ baseInfo.serviceRange }}</el-form-item>
+                    <el-form-item label="企业规模" >{{ baseInfo.enterpriseScale }}</el-form-item>
+                    <el-form-item label="企业介绍">{{ baseInfo.description }}</el-form-item>
                 </el-form>
             </el-tab-pane>
             <el-tab-pane label="专业资质" name="ProfessionalQualification">
@@ -103,7 +103,7 @@ import PrescriptionRecord from "../../patient/prescriptionRecord/index.vue"; //�
 import MedicalRecord from "../../patient/medicalRecord/index.vue"; //医嘱记录
 import SpecialMedicalFoodRecords from "../../patient/specialMedicalFoodRecords/index.vue"; //特医食品使用记录
 import MedicalHistoryRecord from "../../patient/medicalHistoryRecord/index.vue"; //病史记录
-import WalletTransactionHistory from "../user/componets/WalletTransactionHistory.vue";
+import WalletTransactionHistory from "../user/componets/WalletTransactionHistory.vue"; //钱包交易记录
 import passInAndOutRecord from "../user/componets/passInAndOutRecord.vue";
 import salesTransaction from "../user/componets/salesTransaction.vue"
 import serviceTransaction from "../user/componets/serviceTransaction.vue"
@@ -120,9 +120,9 @@ export default {
         MedicalRecord,
         SpecialMedicalFoodRecords,
         MedicalHistoryRecord,
-
         WalletTransactionHistory,
         passInAndOutRecord,
+
         serviceTransaction,
         salesTransaction
     },
@@ -130,6 +130,7 @@ export default {
         return {
             //默认tab显示
             activeName: 'first',
+            // userid: '',
             userid: '',
             enterpriseId: '',
             userInfo: {},
@@ -154,11 +155,14 @@ export default {
             getUser(id).then(response => {
                 this.userInfo = response.data;
                 if (this.userInfo.enterpriseId != null) {
-                    getBaseInfo(this.userInfo.enterpriseId).then(response => {
-                        this.baseInfo = response.data;
-                        this.baseInfo.businessLicensePhoto = response.data.businessLicensePhoto.split(',')
-                    });
+                    this.getBase(this.userInfo.enterpriseId)
                 }
+            });
+        },
+        getBase(id) {
+            getBaseInfo(id).then(response => {
+                this.baseInfo = response.data;
+                this.baseInfo.businessLicensePhoto = response.data.businessLicensePhoto.split(',')
             });
         },
     }
@@ -173,6 +177,7 @@ export default {
 .info {
     font-size: 14px;
     margin: 15px 0 15px 15px;
+    width: 60%;
 }
 </style>
   
