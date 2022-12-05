@@ -1,16 +1,17 @@
 package cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo;
 
+import cn.acsm.module.enterprise.convert.othercertificateinfo.DateConverter;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
+import com.alibaba.excel.annotation.write.style.ContentStyle;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Date;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
 import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
-
-
 /**
  * 经营主体其他证件 Excel VO
  *
@@ -35,8 +36,7 @@ public class OtherCertificateInfoExcelVO {
     @ExcelProperty("证件号")
     private String certificateNo;
 
-    @ExcelProperty("证件截止日期")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @ExcelProperty(value = "证件截止日期",converter = DateConverter.class)
     private Date certificateEndTime;
 
 //    @ExcelProperty("租户集合")
