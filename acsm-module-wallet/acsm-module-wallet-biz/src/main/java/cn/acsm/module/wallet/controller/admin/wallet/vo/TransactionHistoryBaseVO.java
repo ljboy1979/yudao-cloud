@@ -1,5 +1,6 @@
 package cn.acsm.module.wallet.controller.admin.wallet.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
 import java.math.BigDecimal;
@@ -8,6 +9,7 @@ import javax.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.TIME_ZONE_DEFAULT;
 
 /**
 * 钱包交易记录子 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -41,7 +43,7 @@ public class TransactionHistoryBaseVO {
     private BigDecimal amount;
 
     @ApiModelProperty(value = "交易时间")
-    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = TIME_ZONE_DEFAULT)
     private Date transactionTime;
 
     @ApiModelProperty(value = "付款方")
@@ -61,10 +63,6 @@ public class TransactionHistoryBaseVO {
 
     @ApiModelProperty(value = "备注信息")
     private String remark;
-
-    @ApiModelProperty(value = "状态（0正常 1停用）", required = true)
-    @NotNull(message = "状态（0正常 1停用）不能为空")
-    private Integer status;
 
     @ApiModelProperty(value = "租户集合")
     private Long source;

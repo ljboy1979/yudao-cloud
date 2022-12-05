@@ -2,6 +2,7 @@ package cn.acsm.module.member.user.controller.admin.integral.vo.level;
 
 import cn.acsm.module.member.user.enums.DictTypeConstants;
 import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
+import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 
@@ -31,7 +32,7 @@ public class IntegralLevelExcelVO {
     @ExcelProperty("积分阀值")
     private Integer integralThreshold;
 
-    @ExcelProperty("等级优惠")
+    @ExcelProperty(value = "等级优惠", converter = DictConvert.class)
     @DictFormat(DictTypeConstants.MEMBER_LEVEL_DISCOUNT)
     private String levelDiscount;
 

@@ -1,6 +1,8 @@
 package cn.acsm.module.wallet.controller.admin.wallet.vo;
 
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import io.swagger.annotations.*;
 
@@ -14,6 +16,6 @@ public class TransactionHistoryRespVO extends TransactionHistoryBaseVO {
     private Long id;
 
     @ApiModelProperty(value = "创建时间", required = true)
-    private Date createTime;
+    private LocalDateTime createTime;
 
 }

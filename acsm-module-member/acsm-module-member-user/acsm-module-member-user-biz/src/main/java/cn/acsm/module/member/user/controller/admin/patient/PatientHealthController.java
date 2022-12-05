@@ -81,7 +81,8 @@ public class PatientHealthController {
     @PreAuthorize("@ss.hasPermission('member:patient-health:query')")
     public CommonResult<PageResult<PatientHealthRespVO>> getPatientHealthPage(@Valid PatientHealthPageReqVO pageVO) {
         PageResult<PatientHealthDO> pageResult = patientHealthService.getPatientHealthPage(pageVO);
-        return success(PatientHealthConvert.INSTANCE.convertPage(pageResult));
+        PageResult<PatientHealthRespVO> a = PatientHealthConvert.INSTANCE.convertPage(pageResult);
+        return success(a);
     }
 
     @GetMapping("/export-excel")

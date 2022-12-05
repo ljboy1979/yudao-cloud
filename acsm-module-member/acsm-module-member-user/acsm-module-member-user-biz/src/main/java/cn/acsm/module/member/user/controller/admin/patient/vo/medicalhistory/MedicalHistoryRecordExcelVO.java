@@ -1,9 +1,15 @@
 package cn.acsm.module.member.user.controller.admin.patient.vo.medicalhistory;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.TIME_ZONE_DEFAULT;
 
 /**
  * 病史记录 Excel VO
@@ -29,6 +35,7 @@ public class MedicalHistoryRecordExcelVO {
     private String doctor;
 
     @ExcelProperty("治疗时间")
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = TIME_ZONE_DEFAULT)
     private Date treatmentDate;
 
     @ExcelProperty("检查分类")
@@ -44,7 +51,7 @@ public class MedicalHistoryRecordExcelVO {
     private String treatmentOutcome;
 
     @ExcelProperty("创建时间")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ExcelProperty("租户集合")
     private Long source;

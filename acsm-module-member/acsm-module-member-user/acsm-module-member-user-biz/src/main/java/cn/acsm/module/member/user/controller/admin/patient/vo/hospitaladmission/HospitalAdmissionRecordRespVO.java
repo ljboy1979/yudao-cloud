@@ -1,6 +1,8 @@
 package cn.acsm.module.member.user.controller.admin.patient.vo.hospitaladmission;
 
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import io.swagger.annotations.*;
 
@@ -14,6 +16,6 @@ public class HospitalAdmissionRecordRespVO extends HospitalAdmissionRecordBaseVO
     private Long id;
 
     @ApiModelProperty(value = "创建时间", required = true)
-    private Date createTime;
+    private LocalDateTime createTime;
 
 }
