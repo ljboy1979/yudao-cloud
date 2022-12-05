@@ -61,7 +61,9 @@ export default {
     data() {
         return {
             //加载
-            loading: false,
+            loading: true,
+            // 导出遮罩层
+            exportLoading: false,
             // 显示搜索条件
             showSearch: true,
             // 总条数
