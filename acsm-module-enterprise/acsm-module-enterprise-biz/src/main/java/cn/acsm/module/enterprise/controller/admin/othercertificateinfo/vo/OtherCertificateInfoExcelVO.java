@@ -36,7 +36,9 @@ public class OtherCertificateInfoExcelVO {
     @ExcelProperty("证件号")
     private String certificateNo;
 
-    @ExcelProperty(value = "证件截止日期",converter = DateConverter.class)
+    @ExcelProperty(value = "证件截止日期")
+//    @ExcelProperty(value = "证件截止日期",converter = DateConverter.class)
+    @DateTimeFormat("yyyy-MM-dd")
     private Date certificateEndTime;
 
 //    @ExcelProperty("租户集合")
