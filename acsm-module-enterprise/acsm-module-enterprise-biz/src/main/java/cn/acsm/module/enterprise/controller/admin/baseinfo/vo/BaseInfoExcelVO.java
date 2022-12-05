@@ -38,10 +38,6 @@ public class BaseInfoExcelVO {
 //    @ExcelProperty("主体类型名称")
 //    private String enterpriseTypeName;
 
-    @ExcelProperty(value = "状态", converter = DictConvert.class)
-    @DictFormat(DictTypeConstants.ENTERPRISE_STATUS)
-    private String stauts;
-
     @ExcelProperty(value = "产业角色", converter = DictConvert.class)
     @DictFormat(DictTypeConstants.USER_TAG)
     private String userTag;
@@ -66,20 +62,25 @@ public class BaseInfoExcelVO {
 //    @ExcelProperty("省id")
 //    private String villagesAreaId;
 //
-    @ExcelProperty("省名称")
+    @ExcelProperty("省")
     private String villagesAreaName;
 //
 //    @ExcelProperty("市id")
 //    private String areaId;
 //
-    @ExcelProperty("市名称")
+    @ExcelProperty("市")
     private String areaName;
 //
 //    @ExcelProperty("区id")
 //    private String ruralId;
 //
-    @ExcelProperty("区名称")
+    @ExcelProperty("区/县")
     private String ruralName;
+
+    @ExcelProperty(value = "状态", converter = DictConvert.class)
+    @DictFormat(DictTypeConstants.ENTERPRISE_STATUS)
+    private String stauts;
+
     @ExcelProperty("创建时间")
     private LocalDateTime createTime;
     @ExcelProperty("更新时间")

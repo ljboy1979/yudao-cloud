@@ -30,7 +30,6 @@ public class OtherCertificateInfoBaseVO {
     private String certificatePhoto;
 
     @ApiModelProperty(value = "证件截止日期")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date certificateEndTime;
 

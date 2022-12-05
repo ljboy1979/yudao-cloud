@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import io.swagger.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -51,10 +52,6 @@ public class BaseInfoRespVO extends BaseInfoBaseVO {
 ////    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 //    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = "GMT+8")
 //    private Date registerTime;
-    @ApiModelProperty(value = "创建时间", required = true)
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    private Date createTime;
-
     @ApiModelProperty(value = "联系人")
     private String contactName;
 
@@ -146,4 +143,11 @@ public class BaseInfoRespVO extends BaseInfoBaseVO {
 
     @ApiModelProperty(value = "经营主体ID")
     private Long subjectId;
+
+    @ExcelProperty("创建时间")
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date createTime;
+    @ExcelProperty("更新时间")
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date updateTime;
 }

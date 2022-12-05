@@ -1,5 +1,6 @@
 package cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -35,6 +36,7 @@ public class OtherCertificateInfoExcelVO {
     private String certificateNo;
 
     @ExcelProperty("证件截止日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date certificateEndTime;
 
 //    @ExcelProperty("租户集合")
