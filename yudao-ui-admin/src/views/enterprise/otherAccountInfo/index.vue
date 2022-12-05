@@ -134,17 +134,17 @@ export default {
       rules: {
         accountName: [
           { required: true, message: '请输入账户名', trigger: 'blur' },
-          { min: 1, max: 50, message: '最多输入50个字符', trigger: 'blur' }
+          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }
         ],
         accountNo: [
           { required: true, message: '请输入账户银行卡号', trigger: 'blur' },
-          { min: 1, max: 50, message: '最多输入50个字符', trigger: 'blur' }],
+          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }],
         accountIdCard: [
           { required: true, message: '请输入账户身份证号', trigger: 'blur' },
-          { min: 18, max: 50, message: '最多输入50个字符', trigger: 'blur' }],
+          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }],
         accountBank: [
           { required: true, message: '请输入账户开户行', trigger: 'blur' },
-          { min: 1, max: 50, message: '最多输入50个字符', trigger: 'blur' }],
+          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }],
       }
     };
   },
