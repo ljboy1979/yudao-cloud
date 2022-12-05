@@ -93,29 +93,22 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <!-- <el-form-item label="企业id" prop="enterpriseId">
-          <el-input v-model="form.enterpriseId" placeholder="请输入企业id" />
-        </el-form-item> -->
         <el-form-item label="企业名称" prop="enterpriseName">
-          <el-select v-model="form.enterpriseName" placeholder="请选择企业名称" @change="(item) =>{this.getEnterpriseName(item)}">
+          <el-select v-model="form.enterpriseName" placeholder="请选择企业名称"
+            @change="(item) => { this.getEnterpriseName(item) }">
             <el-option v-for="item in enterpriseNameData" :key="item.id" :label="item.name" :value="item" />
           </el-select>
         </el-form-item>
-        <!-- <el-form-item label="企业名称" prop="enterpriseName">
-          <el-select v-model="form.enterpriseNameData" placeholder="请选择企业名称">
-            <el-option v-for="item in enterpriseNameData" :key="item.id" :label="item.name" :value="item.id" />
-          </el-select>
-        </el-form-item> -->
         <el-form-item label="上级项目" prop="parentLevelProject">
           <el-select v-model="form.parentLevelProject" placeholder="请选择上级项目">
             <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MEMBER_PARENT_PROJECT)" :key="dict.value"
-              :label="dict.label" :value="dict.value" />
+              :label="dict.label" :value="parseInt(dict.value)" />
           </el-select>
         </el-form-item>
         <el-form-item label="评分项目" prop="ratingItems">
           <el-select v-model="form.ratingItems" placeholder="请选择评分项目">
             <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MEMBER_RATING_ITEMS)" :key="dict.value"
-              :label="dict.label" :value="dict.value" />
+              :label="dict.label" :value="parseInt(dict.value)" />
           </el-select>
         </el-form-item>
         <el-form-item label="数值范围" prop="rangeValues">
@@ -154,8 +147,12 @@
     <el-dialog :title="title" :visible.sync="viewopen" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="企业名称">{{ form.enterpriseName }}</el-form-item>
-        <el-form-item label="上级项目">{{ form.parentLevelProject }}</el-form-item>
-        <el-form-item label="评分项目">{{ form.ratingItems }}</el-form-item>
+        <el-form-item label="上级项目">
+          <dict-tag :type="DICT_TYPE.MEMBER_PARENT_PROJECT" :value="form.parentLevelProject" />
+        </el-form-item>
+        <el-form-item label="评分项目">
+          <dict-tag :type="DICT_TYPE.MEMBER_RATING_ITEMS" :value="form.ratingItems" />
+        </el-form-item>
         <el-form-item label="数值范围">{{ form.rangeValues }}</el-form-item>
         <el-form-item label="积分值">{{ form.integralValue }}</el-form-item>
         <el-form-item label="备注">{{ form.remark }} </el-form-item>
@@ -174,11 +171,11 @@ export default {
   },
   data() {
     var rangeValues = (rule, value, callback) => {
-        callback();
+      callback();
     }
     var compareMin = (rule, value, callback) => {
       this.$refs.form.clearValidate('integralMax')
-      if (this.form.integralMax!=null && value > Number(this.form.integralMax)) {
+      if (this.form.integralMax != null && value > Number(this.form.integralMax)) {
         callback(new Error("下限不能大于上限"));
       } else {
         callback();
@@ -261,7 +258,7 @@ export default {
         this.enterpriseNameData = response.data;
       });
     },
-    getEnterpriseName(item){
+    getEnterpriseName(item) {
       this.form.enterpriseId = item.id
       this.form.enterpriseName = item.name
     },

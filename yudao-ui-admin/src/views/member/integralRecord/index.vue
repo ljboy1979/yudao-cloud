@@ -102,7 +102,7 @@
         <el-form-item label="评分项目" prop="ratingItems">
           <el-select v-model="form.ratingItems" placeholder="请选择评分项目">
             <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MEMBER_RATING_ITEMS)" :key="dict.value"
-              :label="dict.label" :value="dict.value" />
+              :label="dict.label" :value="parseInt(dict.value)" />
           </el-select>
         </el-form-item>
         <el-form-item label="评分分数" prop="ratingScore">
@@ -143,8 +143,10 @@
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="会员账号" prop="memberAccount">{{ form.memberAccount }}</el-form-item>
         <el-form-item label="会员名称" prop="memberName">{{ form.memberName }}</el-form-item>
-        <el-form-item label="评分项目" prop="ratingItems">{{ form.ratingItems }}</el-form-item>
-        <el-form-item label="评分分数" prop="ratingItratingScoreems">{{ form.ratingScore }}</el-form-item>
+        <el-form-item label="评分项目" prop="ratingItems">
+          <dict-tag :type="DICT_TYPE.MEMBER_RATING_ITEMS" :value="form.ratingItems" />
+        </el-form-item>
+        <el-form-item label="评分分数" prop="ratingScore">{{ form.ratingScore }}</el-form-item>
         <el-form-item label="备注" prop="remark">{{ form.remark }}</el-form-item>
       </el-form>
     </el-dialog>
@@ -294,6 +296,7 @@ export default {
       this.form.memberId = this.id;
       getIntegralRecord(id).then(response => {
         this.form = response.data;
+        this.form.ratingScore = Number(response.data.ratingScore) ;
         this.open = true;
         this.title = "修改积分记录";
       });
