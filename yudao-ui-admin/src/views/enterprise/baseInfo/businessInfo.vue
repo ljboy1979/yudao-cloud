@@ -334,8 +334,6 @@ export default {
         contactPhone: [
           { required: true, message: '请输入联系人电话号码', trigger: 'blur' },
           {
-            min: 1,
-            max: 11,
             pattern: /^1\d{10}$/,
             message: '请输入11位电话号码',
             trigger: ['blur'],
