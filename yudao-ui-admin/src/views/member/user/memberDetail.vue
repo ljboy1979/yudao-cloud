@@ -16,7 +16,7 @@
                 <div class="title">企业基本信息</div>
                 <el-form :model="baseInfo" label-width="200px" ref="baseInfo" class="info" label-position="left">
                     <el-form-item label="企业名称">{{ baseInfo.name }}</el-form-item>
-                    <el-form-item label="经营模式">
+                    <el-form-item label="主体类型">
                         <dict-tag :type="DICT_TYPE.ENTERPRISE_TYPE" :value="baseInfo.enterpriseType" />
                     </el-form-item>
                     <el-form-item label="产业角色">{{ baseInfo.userTagName }}</el-form-item>
