@@ -87,7 +87,11 @@
       <el-table-column label="会员id" align="center" prop="memberId" /> -->
       <el-table-column label="姓名" align="center" prop="name" />
       <el-table-column label="年龄" align="center" prop="age" />
-      <el-table-column label="性别" align="center" prop="sex" />
+      <el-table-column label="性别" align="center" prop="sex" >
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.SYSTEM_USER_SEX" :value="scope.row.sex" />
+        </template>
+      </el-table-column>
       <el-table-column label="身高" align="center" prop="height" />
       <el-table-column label="体重" align="center" prop="weight" />
       <el-table-column label="住院号" align="center" prop="inpatientNo" />

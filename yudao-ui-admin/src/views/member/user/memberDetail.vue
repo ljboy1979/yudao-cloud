@@ -5,34 +5,40 @@
             <el-tab-pane label="基本信息" name="first">
                 <div class="title">基本信息</div>
                 <el-form :model="userInfo" label-width="200px" ref="userInfo" class="info" label-position="left">
-                    <el-form-item label="会员账号" >{{ userInfo.memberAccount }}</el-form-item>
-                    <el-form-item label="会员名称" >{{ userInfo.nickname }}</el-form-item>
-                    <el-form-item label="微信号" >{{ }}</el-form-item>
-                    <el-form-item label="手机号" >{{ userInfo.mobile }}</el-form-item>
-                    <el-form-item label="住院号/员工卡号" >{{ }}</el-form-item>
+                    <el-form-item label="会员账号">{{ userInfo.memberAccount }}</el-form-item>
+                    <el-form-item label="会员名称">{{ userInfo.nickname }}</el-form-item>
+                    <el-form-item label="微信号">{{ }}</el-form-item>
+                    <el-form-item label="手机号">{{ userInfo.mobile }}</el-form-item>
+                    <el-form-item label="住院号/员工卡号">{{ }}</el-form-item>
                 </el-form>
             </el-tab-pane>
             <el-tab-pane label="企业资料" name="second">
                 <div class="title">企业基本信息</div>
                 <el-form :model="baseInfo" label-width="200px" ref="baseInfo" class="info" label-position="left">
-                    <el-form-item label="企业名称" >{{ baseInfo.name }}</el-form-item>
-                    <el-form-item label="经营模式" >{{ baseInfo.enterpriseType }}</el-form-item>
-                    <el-form-item label="产业角色" >{{ baseInfo.userTagName }}</el-form-item>
-                    <el-form-item label="地址" >{{ baseInfo.address }}</el-form-item>
-                    <el-form-item label="证件照片" >
+                    <el-form-item label="企业名称">{{ baseInfo.name }}</el-form-item>
+                    <el-form-item label="经营模式">
+                        <dict-tag :type="DICT_TYPE.ENTERPRISE_TYPE" :value="baseInfo.enterpriseType" />
+                    </el-form-item>
+                    <el-form-item label="产业角色">{{ baseInfo.userTagName }}</el-form-item>
+                    <el-form-item label="地址">{{ baseInfo.address }}</el-form-item>
+                    <el-form-item label="证件照片">
                         <div v-for="(item, index) in baseInfo.businessLicensePhoto" :key="index"
                             style="display: inline; margin: 0 10px;">
                             <img :src="item" alt="证件照片" style="height: 100px" />
                         </div>
                     </el-form-item>
-                    <el-form-item label="经营合格证号" >{{ baseInfo.businessLicenseNo }}</el-form-item>
-                    <el-form-item label="社会信用代码" >{{ baseInfo.socialCreditCode }}</el-form-item>
+                    <el-form-item label="经营许可证号码">{{ baseInfo.businessLicenseNo }}</el-form-item>
+                    <el-form-item label="统一社会信用代码或注册号">{{ baseInfo.socialCreditCode }}</el-form-item>
                 </el-form>
                 <div class="title">企业其他信息</div>
-                <el-form :model="baseInfo" label-width="200px" ref="ruleForm" class="info" label-position="left" >
-                    <el-form-item label="主营业务" >{{ baseInfo.serviceRange }}</el-form-item>
-                    <el-form-item label="企业规模" >{{ baseInfo.enterpriseScale }}</el-form-item>
-                    <el-form-item label="企业介绍">{{ baseInfo.description }}</el-form-item>
+                <el-form :model="baseInfo" label-width="200px" ref="ruleForm" class="info" label-position="left">
+                    <el-form-item label="主营业务">{{ baseInfo.serviceRange }}</el-form-item>
+                    <el-form-item label="企业规模">
+                        <dict-tag :type="DICT_TYPE.ENTERPRISE_SCALE" :value="baseInfo.enterpriseScale" />
+                    </el-form-item>
+                    <el-form-item label="企业介绍">
+                        <div class="editor"></div>
+                    </el-form-item>
                 </el-form>
             </el-tab-pane>
             <el-tab-pane label="专业资质" name="ProfessionalQualification">
@@ -162,7 +168,8 @@ export default {
         getBase(id) {
             getBaseInfo(id).then(response => {
                 this.baseInfo = response.data;
-                this.baseInfo.businessLicensePhoto = response.data.businessLicensePhoto.split(',')
+                this.baseInfo.businessLicensePhoto = response.data.businessLicensePhoto.split(',');
+                document.getElementsByClassName('editor')[0].innerHTML = this.baseInfo.description
             });
         },
     }

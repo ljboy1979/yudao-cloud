@@ -68,14 +68,26 @@
     <el-table v-loading="loading" :data="list">
       <!-- <el-table-column label="主键ID" align="center" prop="id" />
       <el-table-column label="会员id" align="center" prop="memberId" /> -->
-      <el-table-column label="备案类型" align="center" prop="recordType" />
+      <el-table-column label="备案类型" align="center" prop="recordType" >
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.MEMBER_RECORD_TYPE" :value="scope.row.recordType" />
+        </template>
+      </el-table-column>
       <el-table-column label="备案名称" align="center" prop="recordName" />
       <el-table-column label="许可证号码" align="center" prop="permitNo" />
       <el-table-column label="姓名" align="center" prop="name" />
       <el-table-column label="手机号" align="center" prop="phone" />
       <el-table-column label="备案日期" align="center" prop="recordDate" />
-      <el-table-column label="证照" align="center" prop="idPhoto" />
-      <el-table-column label="审核状态" align="center" prop="auditStatus" />
+      <el-table-column label="证照" align="center" prop="idPhoto">
+        <template v-slot="scope">
+          <img :src="scope.row.idPhoto" alt="证照" style="height: 100px" />
+        </template>
+      </el-table-column>
+      <el-table-column label="审核状态" align="center" prop="auditStatus">
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.MEMBER_AUDIT_STATUS" :value="scope.row.auditStatus" />
+        </template>
+      </el-table-column>
       <!-- <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" /> -->
