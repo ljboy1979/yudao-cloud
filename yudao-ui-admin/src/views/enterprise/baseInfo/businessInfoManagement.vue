@@ -273,11 +273,11 @@ const defaultRefundDetail = {
 export default {
   name: "User",
   components: {
-    PolicySubsidiesInfo, otherCertificateInfo, otherAccountInfo,Editor
+    PolicySubsidiesInfo, otherCertificateInfo, otherAccountInfo, Editor
   },
   data() {
     return {
-      loading:true,
+      loading: true,
       //默认tab显示
       activeName: 'first',
       businessid: '',
@@ -327,7 +327,7 @@ export default {
         this.ruleForm = response.data;
         this.ruleForm.businessLicensePhoto = response.data.businessLicensePhoto.split(',')
         this.ruleForm.businessCertificatePhoto = response.data.businessCertificatePhoto.split(',')
-        document.getElementsByClassName('editor')[0].innerHTML=this.ruleForm.description
+        document.getElementsByClassName('editor')[0].innerHTML = this.ruleForm.description
         // this.ruleForm.description=this.getSimpleText(this.ruleForm.description)
         loadingInstance.close();
       });
@@ -369,5 +369,26 @@ export default {
   padding: 0 20px;
   background-color: rgb(215, 215, 215);
   border-radius: 4px;
+}
+
+.editor {
+  word-wrap: break-word;
+  white-space: normal
+}
+
+* html pre {
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+  whitewhite-space: normal;
+  /* Internet Explorer 5.5+ */
+}
+
+>>>pre{
+  overflow: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 </style>
