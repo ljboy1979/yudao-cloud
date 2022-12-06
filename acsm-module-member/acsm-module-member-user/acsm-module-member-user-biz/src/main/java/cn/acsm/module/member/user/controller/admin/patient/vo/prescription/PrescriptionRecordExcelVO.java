@@ -25,6 +25,9 @@ public class PrescriptionRecordExcelVO {
     @ExcelProperty("健康档案id")
     private Long patientHealthId;
 
+    @ExcelProperty("会员id")
+    private Long memberId;
+
     @ExcelProperty("医院")
     private String hospital;
 
