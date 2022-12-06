@@ -6,6 +6,7 @@ import java.util.*;
 import io.swagger.annotations.*;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.TIME_ZONE_DEFAULT;
 
 /**
 * 健康档案 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -60,7 +61,7 @@ public class PatientHealthBaseVO {
     private String bedNo;
 
     @ApiModelProperty(value = "入院日期")
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = TIME_ZONE_DEFAULT)
     private Date admissionDate;
 
     @ApiModelProperty(value = "租户集合")

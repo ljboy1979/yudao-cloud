@@ -41,14 +41,18 @@
     </el-form>
 
     <!-- 列表 -->
-    <el-table v-loading="loading" :data="list">
+    <el-table v-loading="loading" :data="list" tooltip-effect="light">
       <!-- <el-table-column label="主键ID" align="center" prop="id" />
       <el-table-column label="企业id" align="center" prop="enterpriseId" /> -->
       <el-table-column label="企业名称" align="center" prop="enterpriseName" />
-      <el-table-column label="会员等级" align="center" prop="memberLevel" />
+      <el-table-column label="会员等级" align="center" prop="memberLevel" show-overflow-tooltip/>
       <el-table-column label="积分阀值" align="center" prop="integralThreshold" />
-      <el-table-column label="等级优惠" align="center" prop="levelDiscount" />
-      <el-table-column label="等级描述" align="center" prop="levelDescription" />
+      <el-table-column label="等级优惠" align="center" prop="levelDiscount">
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.MEMBER_LEVEL_DISCOUNT" :value="scope.row.levelDiscount" />
+        </template>
+      </el-table-column>
+      <el-table-column label="等级描述" align="center" prop="levelDescription" show-overflow-tooltip />
       <!-- <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" /> -->
@@ -73,21 +77,20 @@
           <el-input v-model="form.enterpriseId" placeholder="请输入企业id" />
         </el-form-item> -->
         <el-form-item label="企业名称" prop="enterpriseName">
-          <el-select v-model="form.enterpriseName" placeholder="请选择企业名称">
-            <el-option label="数据" value="1" />
+          <el-select v-model="form.enterpriseName" placeholder="请选择企业名称" @change="(item) =>{this.getEnterpriseName(item)}">
+            <el-option v-for="item in enterpriseNameData" :key="item.id" :label="item.name" :value="item" />
           </el-select>
         </el-form-item>
         <el-form-item label="会员等级" prop="memberLevel">
-          <el-input v-model="form.memberLevel" placeholder="请输入会员等级" />
+          <el-input v-model="form.memberLevel" placeholder="请输入会员等级名称" />
         </el-form-item>
         <el-form-item label="积分阀值" prop="integralThreshold">
-          <el-input v-model.number="form.integralThreshold" placeholder="请输入积分阀值" />
+          <el-input v-model.number="form.integralThreshold" placeholder="请输入积分阀值"  maxlength="9"/>
         </el-form-item>
         <el-form-item label="等级优惠" prop="levelDiscount">
           <el-select v-model="form.levelDiscount" placeholder="请选择等级优惠" clearable size="small">
-            <!-- <el-option v-for="dict in this.getDictDatas()" :key="dict.value" :label="dict.label"
-            :value="dict.value" /> -->
-            <el-option label="字典" value="1" />
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MEMBER_LEVEL_DISCOUNT)" :key="dict.value"
+              :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="等级描述">
@@ -112,7 +115,9 @@
         <el-form-item label="企业名称" prop="enterpriseName">{{ form.enterpriseName }}</el-form-item>
         <el-form-item label="会员等级" prop="memberLevel">{{ form.memberLevel }}</el-form-item>
         <el-form-item label="积分阀值" prop="integralThreshold">{{ form.integralThreshold }}</el-form-item>
-        <el-form-item label="等级优惠" prop="levelDiscount">{{ form.levelDiscount }}</el-form-item>
+        <el-form-item label="等级优惠" prop="levelDiscount">
+          <dict-tag :type="DICT_TYPE.MEMBER_LEVEL_DISCOUNT" :value="form.levelDiscount" />
+        </el-form-item>
         <el-form-item label="等级描述" prop="levelDescription">{{ form.levelDescription }}</el-form-item>
       </el-form>
     </el-dialog>
@@ -120,7 +125,7 @@
 </template>
 
 <script>
-import { createIntegralLevel, updateIntegralLevel, deleteIntegralLevel, getIntegralLevel, getIntegralLevelPage, exportIntegralLevelExcel } from "@/api/member/integralLevel";
+import { createIntegralLevel, updateIntegralLevel, deleteIntegralLevel, getIntegralLevel, getIntegralLevelPage, exportIntegralLevelExcel, getBaseInfo } from "@/api/member/integralLevel";
 import Editor from '@/components/Editor';
 
 export default {
@@ -167,11 +172,13 @@ export default {
         memberLevel: [{ required: true, message: "会员等级不能为空", trigger: "blur" }],
         integralThreshold: [{ required: true, message: "积分阀值不能为空", trigger: "blur" },
         { type: 'number', message: '积分阀值必须为整数', trigger: "blur" }],
-      }
+      },
+      enterpriseNameData: [], //获取企业（经营主体）
     };
   },
   created() {
     this.getList();
+    this.getEnterprise();
   },
   methods: {
     /** 查询列表 */
@@ -183,6 +190,16 @@ export default {
         this.total = response.data.total;
         this.loading = false;
       });
+    },
+    /** 获取企业 */
+    getEnterprise() {
+      getBaseInfo().then(response => {
+        this.enterpriseNameData = response.data;
+      });
+    },
+    getEnterpriseName(item){
+      this.form.enterpriseId = item.id
+      this.form.enterpriseName = item.name
     },
     /** 取消按钮 */
     cancel() {

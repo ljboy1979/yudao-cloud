@@ -1,9 +1,15 @@
 package cn.acsm.module.member.user.controller.admin.patient.vo.prescription;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.TIME_ZONE_DEFAULT;
 
 /**
  * 处方记录表 Excel VO
@@ -19,6 +25,9 @@ public class PrescriptionRecordExcelVO {
     @ExcelProperty("健康档案id")
     private Long patientHealthId;
 
+    @ExcelProperty("会员id")
+    private Long memberId;
+
     @ExcelProperty("医院")
     private String hospital;
 
@@ -29,6 +38,7 @@ public class PrescriptionRecordExcelVO {
     private String doctor;
 
     @ExcelProperty("下处方日期")
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = TIME_ZONE_DEFAULT)
     private Date prescriptionDate;
 
     @ExcelProperty("处方类别")
@@ -38,7 +48,7 @@ public class PrescriptionRecordExcelVO {
     private String prescriptionContent;
 
     @ExcelProperty("创建时间")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ExcelProperty("租户集合")
     private Long source;

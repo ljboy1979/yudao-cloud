@@ -40,7 +40,7 @@
     <el-table v-loading="loading" :data="list">
       <!-- <el-table-column label="编号" align="center" prop="id" /> -->
       <el-table-column label="申请时间" align="center" prop="applyTime" />
-        <!-- <template slot-scope="scope">
+      <!-- <template slot-scope="scope">
           <span>{{ parseTime(scope.row.applyTime),'{y}-{m}-{d} {h}:{i}:{s}' }}</span>
         </template>
       </el-table-column> -->
@@ -102,7 +102,7 @@
             <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SUBSIDIES_STATUS)" :key="dict.value"
               :label="dict.label" :value="parseInt(dict.value)" />
           </el-select>
-          
+
         </el-form-item>
         <el-form-item label="申请人" prop="applyPerson">
           <el-input v-model="form.applyPerson" placeholder="请输入申请人" />
@@ -167,10 +167,40 @@ export default {
       form: {},
       // 表单校验
       rules: {
+        applyTime: [
+          { required: true, message: '请选择申请时间', trigger: 'change' },
+        ],
+        // subsidiesCategory: [
+        //   { required: true, message: '请选择补贴种类', trigger: 'change' },
+        // ],
+        subsidiesName: [
+          { required: true, message: '请输入补贴名称', trigger: 'blur' },
+          { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }
+        ],
+        subsidiesAmount: [
+          { required: true, message: '请输入补贴金额', trigger: 'blur' },
+          { min: 1, max: 10, message: '最大长度为10的整数或者2位小数', trigger: 'blur' },
+          {
+            pattern: /^[0-9]+(.[0-9]{1,2})?$/,
+            message: '最大长度为10的整数或者2位小数',
+            trigger: ['blur'],
+
+          }
+        ],
+        // subsidiesType: [
+        //   { required: true, message: '请选择补贴方式', trigger: 'change' },
+        // ],
+        // subsidiesStatus: [
+        //   { required: true, message: '请选择补贴状态', trigger: 'change' },
+        // ],
+        // applyPerson: [
+        //   { required: true, message: '请输入申请人', trigger: 'blur' },
+        // ],
       }
     };
   },
   created() {
+    this.queryParams.enterpriseId = this.id
     this.getList();
   },
   methods: {
@@ -178,6 +208,9 @@ export default {
     getList() {
       this.loading = true;
       // 执行查询
+
+      this.queryParams.enterpriseId = this.id
+      console.log(this.queryParams)
       getPolicySubsidiesInfoPage(this.queryParams).then(response => {
         console.log(response)
         this.list = response.data.list;
@@ -250,6 +283,7 @@ export default {
           return;
         }
         // 添加的提交
+        this.form.enterpriseId = this.id
         createPolicySubsidiesInfo(this.form).then(response => {
           this.$modal.msgSuccess("新增成功");
           this.open = false;

@@ -101,6 +101,13 @@ export default {
   name: "OtherAccountInfo",
   components: {
   },
+  /**接受父组件传值*/
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       // 遮罩层
@@ -132,19 +139,30 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        accountName:[{ required: true, message: '请输入账户名', trigger: 'blur' }],
-        accountNo:[{ required: true, message: '请输入账户银行卡号', trigger: 'blur' }],
-        accountIdCard:[{ required: true, message: '请输入账户身份证号', trigger: 'blur' }],
-        accountBank:[{ required: true, message: '请输入账户开户行', trigger: 'blur' }],
-      }
+        accountName: [
+          { required: true, message: '请输入账户名', trigger: 'blur' },
+          { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }
+        ],
+        accountNo: [
+          { required: true, message: '请输入账户银行卡号', trigger: 'blur' },
+          { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }],
+        accountIdCard: [
+          { required: true, message: '请输入账户身份证号', trigger: 'blur' },
+          { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }],
+        accountBank: [
+          { required: true, message: '请输入账户开户行', trigger: 'blur' },
+          { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }],
+      },
     };
   },
   created() {
+    this.queryParams.enterpriseId =this.id
     this.getList();
   },
   methods: {
     /** 查询列表 */
     getList() {
+      this.queryParams.enterpriseId =this.id
       this.loading = true;
       // 执行查询
       getOtherAccountInfoPage(this.queryParams).then(response => {
@@ -211,6 +229,7 @@ export default {
           return;
         }
         // 添加的提交
+        this.form.enterpriseId=this.id
         createOtherAccountInfo(this.form).then(response => {
           this.$modal.msgSuccess("新增成功");
           this.open = false;

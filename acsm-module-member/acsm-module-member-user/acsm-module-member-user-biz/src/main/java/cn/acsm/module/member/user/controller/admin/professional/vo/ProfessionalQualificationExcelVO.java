@@ -1,5 +1,8 @@
 package cn.acsm.module.member.user.controller.admin.professional.vo;
 
+import cn.acsm.module.member.user.enums.DictTypeConstants;
+import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
+import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,7 +25,8 @@ public class ProfessionalQualificationExcelVO {
     @ExcelProperty("会员id")
     private Long memberId;
 
-    @ExcelProperty("备案类型")
+    @ExcelProperty(value = "备案类型", converter = DictConvert.class)
+    @DictFormat(DictTypeConstants.MEMBER_RECORD_TYPE)
     private String recordType;
 
     @ExcelProperty("备案名称")
@@ -43,7 +47,8 @@ public class ProfessionalQualificationExcelVO {
     @ExcelProperty("证照")
     private String idPhoto;
 
-    @ExcelProperty("审核状态")
+    @ExcelProperty(value = "审核状态", converter = DictConvert.class)
+    @DictFormat(DictTypeConstants.MEMBER_AUDIT_STATUS)
     private Integer auditStatus;
 
     @ExcelProperty("创建时间")

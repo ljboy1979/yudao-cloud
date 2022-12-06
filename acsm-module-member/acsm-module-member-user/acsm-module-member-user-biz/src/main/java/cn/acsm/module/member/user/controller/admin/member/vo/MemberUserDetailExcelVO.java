@@ -2,6 +2,7 @@ package cn.acsm.module.member.user.controller.admin.member.vo;
 
 import cn.acsm.module.member.user.enums.DictTypeConstants;
 import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
+import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
@@ -22,6 +23,9 @@ public class MemberUserDetailExcelVO {
     @ExcelProperty("会员id")
     private Long memberId;
 
+    @ApiModelProperty(value = "企业账号")
+    private String memberAccount;
+
     @ExcelProperty("企业id")
     private Long enterpriseId;
 
@@ -29,19 +33,19 @@ public class MemberUserDetailExcelVO {
 
     private String enterpriseName;
 
-    @ExcelProperty("会员类型")
+    @ExcelProperty(value = "会员类型", converter = DictConvert.class)
     @DictFormat(DictTypeConstants.MEMBER_TYPE)
     private Integer memberType;
 
-    @ExcelProperty("会员角色")
+    @ExcelProperty(value = "会员角色", converter = DictConvert.class)
     @DictFormat(DictTypeConstants.MEMBER_ROLE)
     private Integer memberRole;
 
     @ExcelProperty("会员等级id")
     private Long integralLevelId;
 
-    @ExcelProperty("审核状态")
-    @DictFormat(DictTypeConstants.AUDIT_STATUS)
+    @ExcelProperty(value = "审核状态", converter = DictConvert.class)
+    @DictFormat(DictTypeConstants.MEMBER_AUDIT_STATUS)
     private Integer auditStatus;
 
     @ExcelProperty("创建时间")

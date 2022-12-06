@@ -60,7 +60,11 @@
       <el-table-column label="会员id" align="center" prop="memberId" /> -->
       <el-table-column label="会员账号" align="center" prop="memberAccount" />
       <el-table-column label="会员名称" align="center" prop="memberName" />
-      <el-table-column label="评分项目" align="center" prop="ratingItems" />
+      <el-table-column label="评分项目" align="center" prop="ratingItems">
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.MEMBER_RATING_ITEMS" :value="scope.row.ratingItems" />
+        </template>
+      </el-table-column>
       <el-table-column label="本次积分变动" align="center" prop="integralChange" />
       <el-table-column label="当前剩余积分" align="center" prop="integralRemaining" />
       <!-- <el-table-column label="积分使用明细" align="center" prop="integralUseDetails" /> -->
@@ -97,11 +101,12 @@
         </el-form-item>
         <el-form-item label="评分项目" prop="ratingItems">
           <el-select v-model="form.ratingItems" placeholder="请选择评分项目">
-            <el-option label="数据" value="" />
+            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MEMBER_RATING_ITEMS)" :key="dict.value"
+              :label="dict.label" :value="parseInt(dict.value)" />
           </el-select>
         </el-form-item>
         <el-form-item label="评分分数" prop="ratingScore">
-          <el-input v-model.number="form.ratingScore" placeholder="请输入评分分数" />
+          <el-input v-model.number="form.ratingScore" placeholder="请输入评分分数" maxlength="9"/>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input type="textarea" v-model="form.remark" placeholder="请输入备注" maxlength="200" show-word-limit />
@@ -138,8 +143,10 @@
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="会员账号" prop="memberAccount">{{ form.memberAccount }}</el-form-item>
         <el-form-item label="会员名称" prop="memberName">{{ form.memberName }}</el-form-item>
-        <el-form-item label="评分项目" prop="ratingItems">{{ form.ratingItems }}</el-form-item>
-        <el-form-item label="评分分数" prop="ratingItratingScoreems">{{ form.ratingScore }}</el-form-item>
+        <el-form-item label="评分项目" prop="ratingItems">
+          <dict-tag :type="DICT_TYPE.MEMBER_RATING_ITEMS" :value="form.ratingItems" />
+        </el-form-item>
+        <el-form-item label="评分分数" prop="ratingScore">{{ form.ratingScore }}</el-form-item>
         <el-form-item label="备注" prop="remark">{{ form.remark }}</el-form-item>
       </el-form>
     </el-dialog>
@@ -148,6 +155,7 @@
 
 <script>
 import { createIntegralRecord, updateIntegralRecord, deleteIntegralRecord, getIntegralRecord, getIntegralRecordPage, exportIntegralRecordExcel } from "@/api/member/integralRecord";
+import { getUser, } from "@/api/member/user";
 
 export default {
   name: "IntegralRecord",
@@ -157,7 +165,7 @@ export default {
     id: {
       type: String,
       required: true
-    }
+    },
   },
   data() {
     return {
@@ -180,7 +188,7 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        memberId: null,
+        memberId: this.id,
         memberAccount: null,
         memberName: null,
         ratingItems: null,
@@ -201,11 +209,13 @@ export default {
         ratingItems: [{ required: true, message: "评分项目不能为空", trigger: "blur" }],
         ratingScore: [{ required: true, message: "评分分数不能为空", trigger: "blur" },
         { type: 'number', message: '评分分数必须为整数', trigger: "blur" }],
-      }
+      },
+      userInfo: {},
     };
   },
   created() {
     this.getList();
+    this.getInfo();
   },
   methods: {
     /** 查询列表 */
@@ -218,6 +228,13 @@ export default {
         this.loading = false;
       });
     },
+    /** 获取用户信息 */
+    getInfo() {
+      const id = this.id
+      getUser(id).then(response => {
+        this.userInfo = response.data;
+      });
+    },
     /** 取消按钮 */
     cancel() {
       this.open = false;
@@ -227,9 +244,9 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        memberId: undefined,
-        memberAccount: undefined,
-        memberName: undefined,
+        memberId: this.id,
+        memberAccount: this.userInfo.memberAccount,
+        memberName: this.userInfo.nickname,
         ratingItems: undefined,
         integralChange: undefined,
         integralRemaining: undefined,
@@ -255,10 +272,12 @@ export default {
     handleAdd() {
       this.reset();
       this.form = {
-        memberAccount: this.id
+        memberId: this.id,
+        memberAccount: this.userInfo.memberAccount,
+        memberName: this.userInfo.nickname,
       }
       this.open = true;
-      this.title = "添加会员积分记录";
+      this.title = "添加积分记录";
     },
     /** 查看按钮操作 */
     handleView(row) {
@@ -267,17 +286,19 @@ export default {
       getIntegralRecord(id).then(response => {
         this.form = response.data;
         this.viewopen = true;
-        this.title = "查看会员积分记录";
+        this.title = "查看积分记录";
       });
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const id = row.id;
+      this.form.memberId = this.id;
       getIntegralRecord(id).then(response => {
         this.form = response.data;
+        this.form.ratingScore = Number(response.data.ratingScore) ;
         this.open = true;
-        this.title = "修改会员积分记录";
+        this.title = "修改积分记录";
       });
     },
     /** 提交按钮 */

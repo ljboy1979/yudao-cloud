@@ -2,7 +2,7 @@
   <div class="app-container">
 
     <!-- 搜索工作栏 -->
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+    <!-- <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="会员id" prop="memberId">
         <el-input v-model="queryParams.memberId" placeholder="请输入会员id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
@@ -65,28 +65,33 @@
         <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
-    </el-form>
+    </el-form> -->
 
     <!-- 操作工具栏 -->
-    <el-row :gutter="10" class="mb8">
+    <!-- 新增member:patient-health:create;导出member:patient-health:export -->
+    <!-- <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
-                   v-hasPermi="['member:patient-health:create']">新增</el-button>
+                   v-hasPermi="['']">新增</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
-                   v-hasPermi="['member:patient-health:export']">导出</el-button>
+                   v-hasPermi="['']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row>
+    </el-row> -->
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="主键ID" align="center" prop="id" />
-      <el-table-column label="会员id" align="center" prop="memberId" />
+      <!-- <el-table-column label="主键ID" align="center" prop="id" />
+      <el-table-column label="会员id" align="center" prop="memberId" /> -->
       <el-table-column label="姓名" align="center" prop="name" />
       <el-table-column label="年龄" align="center" prop="age" />
-      <el-table-column label="性别" align="center" prop="sex" />
+      <el-table-column label="性别" align="center" prop="sex">
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.SYSTEM_USER_SEX" :value="scope.row.sex" />
+        </template>
+      </el-table-column>
       <el-table-column label="身高" align="center" prop="height" />
       <el-table-column label="体重" align="center" prop="weight" />
       <el-table-column label="住院号" align="center" prop="inpatientNo" />
@@ -97,9 +102,9 @@
       <el-table-column label="楼层号" align="center" prop="floorNo" />
       <el-table-column label="房间号" align="center" prop="roomNo" />
       <el-table-column label="床位号" align="center" prop="bedNo" />
-      <el-table-column label="入院日期" align="center" prop="admissionDate" />
-      <el-table-column label="创建时间" align="center" prop="createTime" />
-      <el-table-column label="租户集合" align="center" prop="source" />
+      <el-table-column label="入院日期" align="center" prop="admissionDate" width="180" />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" />
+      <!-- <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
@@ -108,11 +113,11 @@
           <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
                      v-hasPermi="['member:patient-health:delete']">删除</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
@@ -162,7 +167,8 @@
           <el-input v-model="form.bedNo" placeholder="请输入床位号" />
         </el-form-item>
         <el-form-item label="入院日期" prop="admissionDate">
-          <el-date-picker clearable v-model="form.admissionDate" type="date" value-format="timestamp" placeholder="选择入院日期" />
+          <el-date-picker clearable v-model="form.admissionDate" type="date" value-format="timestamp"
+            placeholder="选择入院日期" />
         </el-form-item>
         <el-form-item label="租户集合" prop="source">
           <el-input v-model="form.source" placeholder="请输入租户集合" />
@@ -186,6 +192,12 @@ export default {
   name: "PatientHealth",
   components: {
   },
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       // 遮罩层
@@ -206,7 +218,7 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        memberId: null,
+        memberId: this.id,
         name: null,
         age: null,
         sex: null,
@@ -244,8 +256,10 @@ export default {
         this.list = response.data.list;
         this.total = response.data.total;
         this.loading = false;
+        this.$emit("givePatientHealthId", this.list[0].id);
       });
     },
+
     /** 取消按钮 */
     cancel() {
       this.open = false;
@@ -327,26 +341,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除健康档案编号为"' + id + '"的数据项?').then(function() {
-          return deletePatientHealth(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除健康档案编号为"' + id + '"的数据项?').then(function () {
+        return deletePatientHealth(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有健康档案数据项?').then(() => {
-          this.exportLoading = true;
-          return exportPatientHealthExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '健康档案.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportPatientHealthExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '健康档案.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };

@@ -21,6 +21,7 @@ public interface HospitalAdmissionRecordMapper extends BaseMapperX<HospitalAdmis
     default PageResult<HospitalAdmissionRecordDO> selectPage(HospitalAdmissionRecordPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<HospitalAdmissionRecordDO>()
                 .eqIfPresent(HospitalAdmissionRecordDO::getPatientHealthId, reqVO.getPatientHealthId())
+                .eqIfPresent(HospitalAdmissionRecordDO::getMemberId, reqVO.getMemberId())
                 .eqIfPresent(HospitalAdmissionRecordDO::getHospital, reqVO.getHospital())
                 .eqIfPresent(HospitalAdmissionRecordDO::getDepartment, reqVO.getDepartment())
                 .eqIfPresent(HospitalAdmissionRecordDO::getDoctor, reqVO.getDoctor())
@@ -37,6 +38,7 @@ public interface HospitalAdmissionRecordMapper extends BaseMapperX<HospitalAdmis
     default List<HospitalAdmissionRecordDO> selectList(HospitalAdmissionRecordExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<HospitalAdmissionRecordDO>()
                 .eqIfPresent(HospitalAdmissionRecordDO::getPatientHealthId, reqVO.getPatientHealthId())
+                .eqIfPresent(HospitalAdmissionRecordDO::getMemberId, reqVO.getMemberId())
                 .eqIfPresent(HospitalAdmissionRecordDO::getHospital, reqVO.getHospital())
                 .eqIfPresent(HospitalAdmissionRecordDO::getDepartment, reqVO.getDepartment())
                 .eqIfPresent(HospitalAdmissionRecordDO::getDoctor, reqVO.getDoctor())

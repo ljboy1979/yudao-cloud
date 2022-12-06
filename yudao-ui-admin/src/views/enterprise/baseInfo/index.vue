@@ -1,12 +1,12 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" style="padding: 10px 20px;">
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item>
+      <!-- <el-form-item>
         <el-button type="primary" icon="el-icon-plus" @click="handleAdd" v-hasPermi="['enterprise:base-info:create']">新增
         </el-button>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item prop="name">
         <el-input v-model="queryParams.name" placeholder="请输入主体名称" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
@@ -35,7 +35,7 @@
     </el-form>
 
     <!-- 列表 -->
-    <el-table v-loading="loading" :data="list">
+    <el-table v-loading="loading" :data="list" :fit="true">
       <el-table-column label="主体编号" align="center" prop="code" />
       <el-table-column label="主体名称" align="center" prop="name" />
       <el-table-column label="主体类型" align="center" prop="enterpriseType">
@@ -43,6 +43,7 @@
           <dict-tag :type="DICT_TYPE.ENTERPRISE_TYPE" :value="scope.row.enterpriseType" />
         </template>
       </el-table-column>
+      
       <el-table-column label="产业角色" align="center" prop="userTag">
         <template v-slot="scope">
           <dict-tag :type="DICT_TYPE.USER_TAG" :value="scope.row.userTag" />
@@ -50,15 +51,17 @@
       </el-table-column>
       <el-table-column label="联系人电话" align="center" prop="contactPhone" />
       <!-- <el-table-column label="注册时间" align="center" prop="registerTime" /> -->
-      <el-table-column label="创建时间" align="center" prop="createTime" />
-      <el-table-column label="省名称" align="center" prop="villagesAreaName" />
-      <el-table-column label="市名称" align="center" prop="areaName" />
-      <el-table-column label="区名称" align="center" prop="ruralName" />
+      
+      <el-table-column label="省" align="center" prop="villagesAreaName" />
+      <el-table-column label="市" align="center" prop="areaName" />
+      <el-table-column label="区/县" align="center" prop="ruralName" />
       <el-table-column label="状态" align="center" prop="stauts">
         <template v-slot="scope">
           <dict-tag :type="DICT_TYPE.ENTERPRISE_STATUS" :value="scope.row.stauts" />
         </template>
       </el-table-column>
+      <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="更新时间" align="center" prop="updateTime" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" @click="handleDetail(scope.row)" v-hasPermi="['']">管理</el-button>
@@ -66,10 +69,10 @@
             <span v-if="scope.row.stauts==1">停用</span>
             <span v-else>启用</span>
           </el-button>
-          <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
+          <!-- <el-button size="mini" type="text" @click="handleUpdate(scope.row)"
             v-hasPermi="['enterprise:base-info:update']">修改</el-button>
           <el-button size="mini" type="text" @click="handleDelete(scope.row)"
-            v-hasPermi="['enterprise:base-info:delete']">删除</el-button>
+            v-hasPermi="['enterprise:base-info:delete']">删除</el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -226,7 +229,7 @@ export default {
     return {
       // 遮罩层
       // loading: true,
-      loading: false,
+      loading: true,
       // 导出遮罩层
       exportLoading: false,
       // 显示搜索条件
@@ -245,7 +248,7 @@ export default {
         pageSize: 10,
         name: null,
         enterpriseType: null,
-        registerTime: [],
+        createTime: [],
       },
       // 表单参数
       form: {},
@@ -264,6 +267,7 @@ export default {
       this.loading = true;
       // 执行查询
       getBaseInfoPage(this.queryParams).then(response => {
+        console.log(response)
         this.list = response.data.list;
         this.total = response.data.total;
         this.loading = false;
@@ -361,6 +365,7 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
+      
       const id = row.id;
       this.$modal.confirm('是否确认删除经营主体编号为"' + id + '"的数据项?').then(function () {
         return deleteBaseInfo(id);
@@ -384,9 +389,11 @@ export default {
       this.$router.push({ path: "/enterprise/baseInfo/businessInfoManagement", query: { id: row.id } });
     },
     handleStop(row) {
-      const id = row.id;
+      console.log(row)
+      const code = row.code;
+      const id =row.id
       let stauts = row.stauts == 1 ? '停用' : '启用';
-      this.$modal.confirm(`是否确认${stauts}编号为${id}的经营主体`).then(function () {
+      this.$modal.confirm(`是否确认${stauts}主体编号为${code}的经营主体`).then(function () {
         // return stopBaseInfoPage(id);
         return changeStatusBaseInfoPage(id);
       }).then(() => {
@@ -411,3 +418,10 @@ export default {
   }
 };
 </script>
+<style scoped>
+>>>.el-table .cell, .el-table th > .cell {
+  display: inline-block;
+  white-space: nowrap;
+  width: auto;
+  overflow: auto;
+}</style>

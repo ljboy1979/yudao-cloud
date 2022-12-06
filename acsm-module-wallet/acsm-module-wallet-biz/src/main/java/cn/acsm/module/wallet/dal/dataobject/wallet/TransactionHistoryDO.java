@@ -88,10 +88,6 @@ public class TransactionHistoryDO extends TenantBaseDO {
      */
     private String remark;
     /**
-     * 状态（0正常 1停用）
-     */
-    private Integer status;
-    /**
      * 租户集合
      */
     private Long source;

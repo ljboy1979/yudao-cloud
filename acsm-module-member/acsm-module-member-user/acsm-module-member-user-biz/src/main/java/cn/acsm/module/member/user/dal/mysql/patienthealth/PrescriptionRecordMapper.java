@@ -1,14 +1,14 @@
 package cn.acsm.module.member.user.dal.mysql.patienthealth;
 
-import java.util.*;
-
 import cn.acsm.module.member.user.controller.admin.patient.vo.prescription.PrescriptionRecordExportReqVO;
 import cn.acsm.module.member.user.controller.admin.patient.vo.prescription.PrescriptionRecordPageReqVO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
-import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.acsm.module.member.user.dal.dataobject.patienthealth.PrescriptionRecordDO;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
+import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * 处方记录表 Mapper
@@ -21,6 +21,7 @@ public interface PrescriptionRecordMapper extends BaseMapperX<PrescriptionRecord
     default PageResult<PrescriptionRecordDO> selectPage(PrescriptionRecordPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<PrescriptionRecordDO>()
                 .eqIfPresent(PrescriptionRecordDO::getPatientHealthId, reqVO.getPatientHealthId())
+                .eqIfPresent(PrescriptionRecordDO::getMemberId, reqVO.getMemberId())
                 .eqIfPresent(PrescriptionRecordDO::getHospital, reqVO.getHospital())
                 .eqIfPresent(PrescriptionRecordDO::getDepartment, reqVO.getDepartment())
                 .eqIfPresent(PrescriptionRecordDO::getDoctor, reqVO.getDoctor())
@@ -36,6 +37,7 @@ public interface PrescriptionRecordMapper extends BaseMapperX<PrescriptionRecord
     default List<PrescriptionRecordDO> selectList(PrescriptionRecordExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<PrescriptionRecordDO>()
                 .eqIfPresent(PrescriptionRecordDO::getPatientHealthId, reqVO.getPatientHealthId())
+                .eqIfPresent(PrescriptionRecordDO::getMemberId, reqVO.getMemberId())
                 .eqIfPresent(PrescriptionRecordDO::getHospital, reqVO.getHospital())
                 .eqIfPresent(PrescriptionRecordDO::getDepartment, reqVO.getDepartment())
                 .eqIfPresent(PrescriptionRecordDO::getDoctor, reqVO.getDoctor())

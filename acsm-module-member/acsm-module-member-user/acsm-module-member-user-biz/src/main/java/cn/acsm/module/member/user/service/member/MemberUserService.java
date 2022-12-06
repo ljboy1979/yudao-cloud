@@ -158,4 +158,15 @@ public interface MemberUserService {
      * @return:cn.iocoder.yudao.framework.common.pojo.CommonResult
      */
     CommonResult updateMemberType(MemberUserUpdateDetailReqVO updateReqVO);
+
+
+    /**
+     * @Description:获取会员及关联表数据
+     * @param id
+     * @Date: 2022/12/2
+     * @author: lihongyan
+     * @throws
+     * @return:cn.acsm.module.member.user.controller.admin.member.vo.MemberUserRespVO
+     */
+    MemberUserRespVO getUserDetail(Long id);
 }
