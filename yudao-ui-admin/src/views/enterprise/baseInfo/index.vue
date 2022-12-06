@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" style="padding: 10px 20px;">
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">

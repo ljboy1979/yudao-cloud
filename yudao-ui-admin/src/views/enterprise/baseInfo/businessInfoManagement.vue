@@ -91,7 +91,8 @@
             <el-col :span="15">
               <el-form-item label="公司简介" prop="description">
                 <!-- <editor v-model="ruleForm.description" :min-height="192" /> -->
-                {{ ruleForm.description }}
+                <!-- {{ ruleForm.description }} -->
+                <div class="editor"></div>
               </el-form-item>
             </el-col>
           </el-form-item>
@@ -323,7 +324,8 @@ export default {
         this.ruleForm = response.data;
         this.ruleForm.businessLicensePhoto = response.data.businessLicensePhoto.split(',')
         this.ruleForm.businessCertificatePhoto = response.data.businessCertificatePhoto.split(',')
-        this.ruleForm.description=this.getSimpleText(this.ruleForm.description)
+        document.getElementsByClassName('editor')[0].innerHTML=this.ruleForm.description
+        // this.ruleForm.description=this.getSimpleText(this.ruleForm.description)
       });
     },
 
