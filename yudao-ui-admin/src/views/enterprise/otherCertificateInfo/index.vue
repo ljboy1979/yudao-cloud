@@ -201,11 +201,11 @@ export default {
         ],
         certificateName: [
           { required: true, message: '请输入证件名称', trigger: 'blur' },
-          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }
+          { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }
         ],
         certificateNo: [
           { required: true, message: '请输入证件号', trigger: 'blur' },
-          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }
+          { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }
         ],
         certificateEndTime: [
           { required: true, message: '证件截止日期', trigger: 'change' },],
@@ -217,6 +217,7 @@ export default {
     };
   },
   created() {
+    this.queryParams.enterpriseId =this.id
     this.getList();
   },
   methods: {
@@ -224,7 +225,9 @@ export default {
     getList() {
       this.loading = true;
       // 执行查询
+      this.queryParams.enterpriseId =this.id
       getOtherCertificateInfoPage(this.queryParams).then(response => {
+        console.log(response)
         this.list = response.data.list;
         this.total = response.data.total;
         this.loading = false;
@@ -320,6 +323,7 @@ export default {
         }
         // 添加的提交
         let obj = JSON.parse(JSON.stringify(this.form));
+        obj.enterpriseId=this.id
         obj.certificatePhoto = this.ArrayToString(this.certificatePhoto)
         console.log(obj)
         createOtherCertificateInfo(obj).then(response => {

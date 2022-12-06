@@ -175,11 +175,18 @@ export default {
         // ],
         subsidiesName: [
           { required: true, message: '请输入补贴名称', trigger: 'blur' },
-          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }
+          { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }
         ],
         subsidiesAmount: [
           { required: true, message: '请输入补贴金额', trigger: 'blur' },
-          { min: 1, max: 50, message: '最多输入50个字', trigger: 'blur' }
+          {
+            min: 1,
+            max: 50,
+            pattern: /^[0-9]+(.[0-9]{1,2})?$/,
+            message: '最大长度为18的整数或者2位小数',
+            trigger: ['blur'],
+
+          }
         ],
         // subsidiesType: [
         //   { required: true, message: '请选择补贴方式', trigger: 'change' },
@@ -194,6 +201,7 @@ export default {
     };
   },
   created() {
+    this.queryParams.enterpriseId = this.id
     this.getList();
   },
   methods: {
@@ -201,6 +209,9 @@ export default {
     getList() {
       this.loading = true;
       // 执行查询
+
+      this.queryParams.enterpriseId = this.id
+      console.log(this.queryParams)
       getPolicySubsidiesInfoPage(this.queryParams).then(response => {
         console.log(response)
         this.list = response.data.list;
@@ -273,6 +284,7 @@ export default {
           return;
         }
         // 添加的提交
+        this.form.enterpriseId = this.id
         createPolicySubsidiesInfo(this.form).then(response => {
           this.$modal.msgSuccess("新增成功");
           this.open = false;
