@@ -13,5 +13,6 @@ public interface DictTypeConstants {
     String MEMBER_LEVEL_DISCOUNT = "member_level_discount"; // 等级优惠
     String MEMBER_PARENT_PROJECT = "member_parent_project"; // 上级项目
     String MEMBER_RATING_ITEMS = "member_rating_items"; // 评分项目
+    String MEMBER_RECORD_TYPE = "member_record_type"; // 备案类型
 
 }
