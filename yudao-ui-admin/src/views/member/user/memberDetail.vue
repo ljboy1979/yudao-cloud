@@ -191,7 +191,7 @@ export default {
     width: 60%;
 }
 
->>>pre{
+.editor >>>pre{
   overflow: auto;
   white-space: pre-wrap;
   white-space: -moz-pre-wrap;
