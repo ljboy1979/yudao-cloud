@@ -418,7 +418,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .el-table .cell, .el-table th > .cell {
   display: inline-block;
   white-space: nowrap;

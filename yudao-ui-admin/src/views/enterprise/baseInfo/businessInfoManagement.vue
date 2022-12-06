@@ -241,6 +241,7 @@ import PolicySubsidiesInfo from '../policySubsidiesInfo/index.vue'
 import otherCertificateInfo from "../../enterprise/otherCertificateInfo"
 import otherAccountInfo from "../../enterprise/otherAccountInfo"
 import Editor from '@/components/Editor';
+import { Loading } from 'element-ui';
 const defaultRefundDetail = {
   code: '',
   name: '',
@@ -320,6 +321,7 @@ export default {
 
     //获取表单原有数据
     getBaseInfoMessage() {
+      let loadingInstance = Loading.service({ fullscreen: true });
       const id = this.businessid
       getBaseInfo(id).then(response => {
         this.ruleForm = response.data;
@@ -327,6 +329,7 @@ export default {
         this.ruleForm.businessCertificatePhoto = response.data.businessCertificatePhoto.split(',')
         document.getElementsByClassName('editor')[0].innerHTML=this.ruleForm.description
         // this.ruleForm.description=this.getSimpleText(this.ruleForm.description)
+        loadingInstance.close();
       });
     },
 
