@@ -154,7 +154,6 @@ export default {
     methods: {
         getPatientHealthId(id){
             this.patientHealthId = id
-            console.log("---",this.patientHealthId)
         },
         //切换tab
         handleClick(tab, event) {

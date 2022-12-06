@@ -76,7 +76,7 @@
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
@@ -94,13 +94,14 @@
           <el-input v-model="form.doctor" placeholder="请输入检查医生" />
         </el-form-item>
         <el-form-item label="检查日期" prop="checkDate">
-          <el-date-picker clearable v-model="form.checkDate" type="date" value-format="timestamp" placeholder="选择检查日期" />
+          <el-date-picker clearable v-model="form.checkDate" type="date" value-format="timestamp"
+            placeholder="选择检查日期" />
         </el-form-item>
         <el-form-item label="检查类别" prop="checkCategory">
           <el-input v-model="form.checkCategory" placeholder="请输入检查类别" />
         </el-form-item>
         <el-form-item label="检查内容">
-          <editor v-model="form.checkContent" :min-height="192"/>
+          <editor v-model="form.checkContent" :min-height="192" />
         </el-form-item>
         <el-form-item label="租户集合" prop="source">
           <el-input v-model="form.source" placeholder="请输入租户集合" />
@@ -127,10 +128,11 @@ export default {
     Editor,
   },
   props: {
-        id: {
-            type: String,
-            required: true
-        }
+    id: {
+      // type: String,
+      type: Number,
+      required: true
+    }
   },
   data() {
     return {
@@ -260,26 +262,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除营养检查记录编号为"' + id + '"的数据项?').then(function() {
-          return deleteNutritionExaminationRecord(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除营养检查记录编号为"' + id + '"的数据项?').then(function () {
+        return deleteNutritionExaminationRecord(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有营养检查记录数据项?').then(() => {
-          this.exportLoading = true;
-          return exportNutritionExaminationRecordExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '营养检查记录.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportNutritionExaminationRecordExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '营养检查记录.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };

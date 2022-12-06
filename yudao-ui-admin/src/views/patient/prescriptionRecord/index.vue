@@ -76,7 +76,7 @@
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
@@ -94,13 +94,14 @@
           <el-input v-model="form.doctor" placeholder="请输入处方医生" />
         </el-form-item>
         <el-form-item label="下处方日期" prop="prescriptionDate">
-          <el-date-picker clearable v-model="form.prescriptionDate" type="date" value-format="timestamp" placeholder="选择下处方日期" />
+          <el-date-picker clearable v-model="form.prescriptionDate" type="date" value-format="timestamp"
+            placeholder="选择下处方日期" />
         </el-form-item>
         <el-form-item label="处方类别" prop="prescriptionCategory">
           <el-input v-model="form.prescriptionCategory" placeholder="请输入处方类别" />
         </el-form-item>
         <el-form-item label="处方内容">
-          <editor v-model="form.prescriptionContent" :min-height="192"/>
+          <editor v-model="form.prescriptionContent" :min-height="192" />
         </el-form-item>
         <el-form-item label="租户集合" prop="source">
           <el-input v-model="form.source" placeholder="请输入租户集合" />
@@ -127,10 +128,11 @@ export default {
     Editor,
   },
   props: {
-        id: {
-            type: String,
-            required: true
-        }
+    id: {
+      // type: String,
+      type: Number,
+      required: true
+    }
   },
   data() {
     return {
@@ -260,26 +262,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除处方记录表编号为"' + id + '"的数据项?').then(function() {
-          return deletePrescriptionRecord(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除处方记录表编号为"' + id + '"的数据项?').then(function () {
+        return deletePrescriptionRecord(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有处方记录表数据项?').then(() => {
-          this.exportLoading = true;
-          return exportPrescriptionRecordExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '处方记录表.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportPrescriptionRecordExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '处方记录表.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };
