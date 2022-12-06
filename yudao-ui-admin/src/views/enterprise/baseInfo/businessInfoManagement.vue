@@ -220,7 +220,7 @@
       </el-tab-pane>
       <el-tab-pane label="政策补贴记录" name="policySubsidyRecord">
         <div class="title">政策补贴记录</div>
-        <PolicySubsidiesInfo :id="id"></PolicySubsidiesInfo>
+        <PolicySubsidiesInfo :id="businessid"></PolicySubsidiesInfo>
       </el-tab-pane>
       <!-- <el-tab-pane label="其他证件" name="otherCertificateInfo">
         <div class="title">其他证件</div>
@@ -277,7 +277,7 @@ export default {
     return {
       //默认tab显示
       activeName: 'first',
-      id: '',
+      businessid: '',
       // 遮罩层
       // loading: true,
       loading: false,
