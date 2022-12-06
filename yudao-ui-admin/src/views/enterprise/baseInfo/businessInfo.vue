@@ -120,8 +120,8 @@
         <el-col :span="10">
           <el-form-item label="企业规模" prop="enterpriseScale">
             <el-select v-model="ruleForm.enterpriseScale" placeholder="请选择企业规模">
-              <el-option v-for="dict in this.getDictDatas(DICT_TYPE.MANAGE_STATUS)" :key="dict.value"
-                :label="dict.label" :value="parseInt(dict.value)" />
+              <el-option v-for="dict in this.getDictDatas(DICT_TYPE.ENTERPRISE_SCALE)" :key="dict.value"
+                :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
         </el-col>

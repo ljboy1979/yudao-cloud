@@ -76,6 +76,7 @@ export const DICT_TYPE = {
   MEMBER_LEVEL_DISCOUNT: 'member_level_discount', //等级优惠
   MEMBER_PARENT_PROJECT: 'member_parent_project', //上级项目
   MEMBER_RATING_ITEMS: 'member_rating_items', //评分项目
+  ENTERPRISE_SCALE:'enterprise_scale',//企业规模
   // ---------- 钱包交易记录 ----------
   WALLET_TRANSACTION_TYPE: 'wallet_transaction_type', //交易类型
   WALLET_PAY_TYPE: 'wallet_pay_type', //交易方式
