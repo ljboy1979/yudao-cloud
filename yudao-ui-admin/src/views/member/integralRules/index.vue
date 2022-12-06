@@ -125,7 +125,7 @@
           </el-col>
         </el-form-item>
         <el-form-item label="积分值" prop="integralValue">
-          <el-input v-model="form.integralValue" placeholder="请输入积分值" oninput="value=value.replace(/[^1-9]/g,'')"
+          <el-input v-model="form.integralValue" placeholder="请输入积分值" oninput="value=value.replace(/[^0-9]/g,'')"
             maxlength="9" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">

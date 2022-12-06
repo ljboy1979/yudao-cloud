@@ -87,7 +87,11 @@
       <el-table-column label="会员id" align="center" prop="memberId" /> -->
       <el-table-column label="姓名" align="center" prop="name" />
       <el-table-column label="年龄" align="center" prop="age" />
-      <el-table-column label="性别" align="center" prop="sex" />
+      <el-table-column label="性别" align="center" prop="sex" >
+        <template v-slot="scope">
+          <dict-tag :type="DICT_TYPE.SYSTEM_USER_SEX" :value="scope.row.sex" />
+        </template>
+      </el-table-column>
       <el-table-column label="身高" align="center" prop="height" />
       <el-table-column label="体重" align="center" prop="weight" />
       <el-table-column label="住院号" align="center" prop="inpatientNo" />
@@ -98,8 +102,8 @@
       <el-table-column label="楼层号" align="center" prop="floorNo" />
       <el-table-column label="房间号" align="center" prop="roomNo" />
       <el-table-column label="床位号" align="center" prop="bedNo" />
-      <el-table-column label="入院日期" align="center" prop="admissionDate" />
-      <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="入院日期" align="center" prop="admissionDate" width="180" />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" />
       <!-- <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">

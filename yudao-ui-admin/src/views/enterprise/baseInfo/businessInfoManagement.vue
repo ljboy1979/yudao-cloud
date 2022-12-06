@@ -78,7 +78,7 @@
             </el-col>
             <el-col :span="10">
               <el-form-item label="企业规模" prop="enterpriseScale">
-                <dict-tag :type="DICT_TYPE.MANAGE_STATUS" :value="ruleForm.enterpriseScale" />
+                <dict-tag :type="DICT_TYPE.ENTERPRISE_SCALE" :value="ruleForm.enterpriseScale" />
               </el-form-item>
             </el-col>
           </el-form-item>
@@ -276,6 +276,7 @@ export default {
   },
   data() {
     return {
+      loading:true,
       //默认tab显示
       activeName: 'first',
       businessid: '',

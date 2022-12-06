@@ -59,10 +59,10 @@
       <el-table-column label="医院" align="center" prop="hospital" />
       <el-table-column label="科室" align="center" prop="department" />
       <el-table-column label="营养师名称" align="center" prop="doctor" />
-      <el-table-column label="使用时间" align="center" prop="specialMedicalDate" />
+      <el-table-column label="使用时间" align="center" prop="specialMedicalDate" width="180" />
       <el-table-column label="特医食品类别" align="center" prop="specialMedicalCategory" />
       <el-table-column label="特医食品内容" align="center" prop="specialMedicalContent" />
-      <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" />
       <!-- <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">

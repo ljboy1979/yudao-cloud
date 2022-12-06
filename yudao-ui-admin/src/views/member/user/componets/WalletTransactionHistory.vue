@@ -15,7 +15,7 @@
             </el-form-item>
         </el-form>
         <el-table v-loading="loading" :data="list" stripe>
-            <el-table-column label="交易单号" align="center" prop="transactionNumber" />
+            <el-table-column label="交易单号" align="center" prop="transactionNumber" width="180" />
             <el-table-column label="交易类型" align="center" prop="transactionType">
                 <template v-slot="scope">
                     <dict-tag :type="DICT_TYPE.WALLET_TRANSACTION_TYPE" :value="scope.row.transactionType" />
@@ -26,11 +26,7 @@
                     <dict-tag :type="DICT_TYPE.WALLET_PAY_TYPE" :value="scope.row.payType" />
                 </template>
             </el-table-column>
-            <el-table-column label="创建时间" align="center" prop="transactionTime" width="180">
-                <template slot-scope="scope">
-                    <span>{{ parseTime(scope.row.transactionTime) }}</span>
-                </template>
-            </el-table-column>
+            <el-table-column label="交易时间" align="center" prop="transactionTime" width="180" />
             <el-table-column label="售品名称" align="center" prop="transactionContent" />
             <el-table-column label="交易金额" align="center" prop="amount" />
             <el-table-column label="支付账户" align="center" prop="paymentAccountNumber" />
