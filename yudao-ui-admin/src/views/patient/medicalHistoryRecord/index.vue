@@ -65,12 +65,12 @@
       <el-table-column label="医院" align="center" prop="hospital" />
       <el-table-column label="科室" align="center" prop="department" />
       <el-table-column label="医生" align="center" prop="doctor" />
-      <el-table-column label="治疗时间" align="center" prop="treatmentDate" />
+      <el-table-column label="治疗时间" align="center" prop="treatmentDate" width="180" />
       <el-table-column label="检查分类" align="center" prop="checkCategory" />
       <el-table-column label="检查内容" align="center" prop="checkContent" />
       <el-table-column label="治疗方案" align="center" prop="treatmentOptions" />
       <el-table-column label="治疗结果" align="center" prop="treatmentOutcome" />
-      <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" />
       <!-- <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">

@@ -59,10 +59,10 @@
       <el-table-column label="医院" align="center" prop="hospital" />
       <el-table-column label="科室" align="center" prop="department" />
       <el-table-column label="处方医生" align="center" prop="doctor" />
-      <el-table-column label="下处方日期" align="center" prop="prescriptionDate" />
+      <el-table-column label="下处方日期" align="center" prop="prescriptionDate" width="180" />
       <el-table-column label="处方类别" align="center" prop="prescriptionCategory" />
       <el-table-column label="处方内容" align="center" prop="prescriptionContent" />
-      <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" />
       <!-- <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
