@@ -419,7 +419,7 @@ export default {
 };
 </script>
 <style scoped>
-.el-table .cell, .el-table th > .cell {
+>>>.el-table .cell, .el-table th > .cell {
   display: inline-block;
   white-space: nowrap;
   width: auto;
