@@ -11,7 +11,7 @@
           <el-form-item>
               <el-col :span="10">
                   <el-form-item label="主体编号" prop="code">
-                      <el-input v-model="ruleForm.code" class="inputSize"></el-input>
+                      <el-input v-model="ruleForm.code" class="inputSize" disabled></el-input>
                   </el-form-item>
               </el-col>
               <el-col :span="10">
