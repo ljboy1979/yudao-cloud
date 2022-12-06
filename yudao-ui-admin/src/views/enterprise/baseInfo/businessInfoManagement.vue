@@ -49,14 +49,14 @@
           <el-form-item>
             <el-col :span="10">
               <el-form-item label="法人身份证照片" prop="legalIdCardFrontPhoto">
-                <img v-if="ruleForm.legalIdCardFrontPhoto" :src="ruleForm.legalIdCardFrontPhoto" alt="企业LOGO"
+                <img v-if="ruleForm.legalIdCardFrontPhoto" :src="ruleForm.legalIdCardFrontPhoto" alt="身份证正面"
                   style="width:100px;height: 100px" />
                 <div style="font-size: 14px;color:#AAA">身份证正面</div>
               </el-form-item>
             </el-col>
             <el-col :span="10">
               <el-form-item label="" prop="legalIdCardBackPhoto">
-                <img v-if="ruleForm.legalIdCardBackPhoto" :src="ruleForm.legalIdCardBackPhoto" alt="企业LOGO"
+                <img v-if="ruleForm.legalIdCardBackPhoto" :src="ruleForm.legalIdCardBackPhoto" alt="身份证反面"
                   style="height: 100px" />
                 <div style="font-size: 14px;color:#AAA">身份证反面</div>
               </el-form-item>
@@ -137,7 +137,7 @@
               <el-form-item label="经营许可证照片" prop="businessCertfront">
                 <div v-for="(item, index) in ruleForm.businessCertificatePhoto" :key="index"
                   style="display: inline; margin: 0 10px;">
-                  <img :src="item" alt="电子营业执照" style="height: 100px" />
+                  <img :src="item" alt="经营许可证照片" style="height: 100px" />
                 </div>
               </el-form-item>
             </el-col>
