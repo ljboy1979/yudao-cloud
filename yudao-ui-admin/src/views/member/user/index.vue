@@ -72,7 +72,7 @@
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleDetail(scope.row)" v-hasPermi="['']">管理</el-button>
             <el-button size="mini" type="text" @click="handleProcess(scope.row)" v-hasPermi="['']">审核</el-button>
-            <el-button size="mini" type="text" v-if="scope.row.auditStatus==3" disabled>已解绑</el-button>
+            <el-button size="mini" type="text" v-if="scope.row.auditStatus==3" :disabled="true" key="disabled" >已解绑</el-button>
             <el-button size="mini" type="text" v-else @click="handleDelete(scope.row)" v-hasPermi="['']">解绑</el-button>
             <el-button size="mini" type="text" @click="handleType(scope.row)" v-hasPermi="['']">
               <span v-if="scope.row.memberType == 0">置为集采会员</span>
