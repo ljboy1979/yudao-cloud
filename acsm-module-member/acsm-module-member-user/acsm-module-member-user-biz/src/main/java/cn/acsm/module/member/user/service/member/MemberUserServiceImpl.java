@@ -428,6 +428,8 @@ public class MemberUserServiceImpl implements MemberUserService {
         MemberUserDetailDO detail =  memberUserDetailService.selectByMemberId(id);
         MemberUserRespVO respVO = MemberUserConvert.INSTANCE.convert(user);
         respVO.setMemberAccount(detail.getMemberAccount());
+        respVO.setEnterpriseId(detail.getEnterpriseId());
+        respVO.setEnterpriseName(detail.getEnterpriseName());
         return respVO;
     }
 }

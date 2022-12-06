@@ -7,6 +7,7 @@ import io.swagger.annotations.*;
 import javax.validation.constraints.*;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.TIME_ZONE_DEFAULT;
 
 /**
 * 住院记录 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -29,11 +30,11 @@ public class HospitalAdmissionRecordBaseVO {
     private String doctor;
 
     @ApiModelProperty(value = "住院日期")
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = TIME_ZONE_DEFAULT)
     private Date hospitalizationDate;
 
     @ApiModelProperty(value = "出院日期")
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = TIME_ZONE_DEFAULT)
     private Date dischargeDate;
 
     @ApiModelProperty(value = "住院类别")

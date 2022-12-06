@@ -60,9 +60,6 @@ public class TransactionHistoryExportReqVO {
     @ApiModelProperty(value = "备注信息")
     private String remark;
 
-    @ApiModelProperty(value = "状态（0正常 1停用）")
-    private Integer status;
-
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] createTime;

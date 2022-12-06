@@ -1,9 +1,13 @@
 package cn.acsm.module.member.user.controller.admin.patient.vo.medicalhistory;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
 import javax.validation.constraints.*;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.TIME_ZONE_DEFAULT;
 
 /**
 * 病史记录 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -26,6 +30,7 @@ public class MedicalHistoryRecordBaseVO {
     private String doctor;
 
     @ApiModelProperty(value = "治疗时间")
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = TIME_ZONE_DEFAULT)
     private Date treatmentDate;
 
     @ApiModelProperty(value = "检查分类")

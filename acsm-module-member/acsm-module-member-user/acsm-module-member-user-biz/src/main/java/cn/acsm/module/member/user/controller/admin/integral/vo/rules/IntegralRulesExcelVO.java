@@ -2,6 +2,7 @@ package cn.acsm.module.member.user.controller.admin.integral.vo.rules;
 
 import cn.acsm.module.member.user.enums.DictTypeConstants;
 import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
+import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -27,11 +28,11 @@ public class IntegralRulesExcelVO {
     @ExcelProperty("企业名称")
     private String enterpriseName;
 
-    @ExcelProperty("上级项目")
+    @ExcelProperty(value = "上级项目", converter = DictConvert.class)
     @DictFormat(DictTypeConstants.MEMBER_PARENT_PROJECT)
     private Long parentLevelProject;
 
-    @ExcelProperty("评分项目")
+    @ExcelProperty(value = "评分项目", converter = DictConvert.class)
     @DictFormat(DictTypeConstants.MEMBER_RATING_ITEMS)
     private Long ratingItems;
 

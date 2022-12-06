@@ -115,7 +115,9 @@
         <el-form-item label="企业名称" prop="enterpriseName">{{ form.enterpriseName }}</el-form-item>
         <el-form-item label="会员等级" prop="memberLevel">{{ form.memberLevel }}</el-form-item>
         <el-form-item label="积分阀值" prop="integralThreshold">{{ form.integralThreshold }}</el-form-item>
-        <el-form-item label="等级优惠" prop="levelDiscount">{{ form.levelDiscount }}</el-form-item>
+        <el-form-item label="等级优惠" prop="levelDiscount">
+          <dict-tag :type="DICT_TYPE.MEMBER_LEVEL_DISCOUNT" :value="form.levelDiscount" />
+        </el-form-item>
         <el-form-item label="等级描述" prop="levelDescription">{{ form.levelDescription }}</el-form-item>
       </el-form>
     </el-dialog>
