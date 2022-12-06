@@ -98,8 +98,8 @@
       <el-table-column label="楼层号" align="center" prop="floorNo" />
       <el-table-column label="房间号" align="center" prop="roomNo" />
       <el-table-column label="床位号" align="center" prop="bedNo" />
-      <el-table-column label="入院日期" align="center" prop="admissionDate" />
-      <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="入院日期" align="center" prop="admissionDate" width="180" />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" />
       <!-- <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
