@@ -62,6 +62,7 @@ export const DICT_TYPE = {
   ENTERPRISE_STATUS: 'enterprise_status', // 主体状态
   USER_TAG: 'user_tag', // 产业角色
   MANAGE_STATUS: 'manage_status', //经营状态
+  ENTERPRISE_SCALE:'enterprise_scale',//企业规模
   // ---------- 经营主体其他 ----------
   CERTIFICATE_TYPE: 'certificate_type', //证件类型
   // ---------- 政策补贴记录 ----------
@@ -69,14 +70,14 @@ export const DICT_TYPE = {
   SUBSIDIES_CATEGORY: 'subsidies_category', // 补贴种类
   SUBSIDIES_TYPE: 'subsidies_type', // 补贴方式
 
-  // ========== ENTERPRISE 模块 ==========
+  // ========== MEMBER 模块 ==========
   MEMBER_ROLE: 'member_role', //会员角色
   MEMBER_AUDIT_STATUS: 'member_audit_status', //审核状态
   MEMBER_TYPE: 'member_type', //会员类型
   MEMBER_LEVEL_DISCOUNT: 'member_level_discount', //等级优惠
   MEMBER_PARENT_PROJECT: 'member_parent_project', //上级项目
   MEMBER_RATING_ITEMS: 'member_rating_items', //评分项目
-  ENTERPRISE_SCALE:'enterprise_scale',//企业规模
+  MEMBER_RECORD_TYPE: 'member_record_type', //评分项目
   // ---------- 钱包交易记录 ----------
   WALLET_TRANSACTION_TYPE: 'wallet_transaction_type', //交易类型
   WALLET_PAY_TYPE: 'wallet_pay_type', //交易方式
