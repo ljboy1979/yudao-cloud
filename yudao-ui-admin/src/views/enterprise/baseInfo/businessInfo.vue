@@ -165,7 +165,7 @@
       <el-form-item>
         <el-col :span="15">
           <el-form-item label="备注" prop="remarks">
-            <el-input type="textarea" v-model="ruleForm.remarks" placeholder="请输入备注" :rows="2"></el-input>
+            <el-input type="textarea" v-model="ruleForm.remarks" placeholder="请输入备注" :rows="8" ></el-input>
           </el-form-item>
         </el-col>
       </el-form-item>
@@ -334,8 +334,6 @@ export default {
         contactPhone: [
           { required: true, message: '请输入联系人电话号码', trigger: 'blur' },
           {
-            min: 1,
-            max: 11,
             pattern: /^1\d{10}$/,
             message: '请输入11位电话号码',
             trigger: ['blur'],

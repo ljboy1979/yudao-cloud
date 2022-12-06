@@ -49,14 +49,14 @@
           <el-form-item>
             <el-col :span="10">
               <el-form-item label="法人身份证照片" prop="legalIdCardFrontPhoto">
-                <img v-if="ruleForm.legalIdCardFrontPhoto" :src="ruleForm.legalIdCardFrontPhoto" alt="企业LOGO"
+                <img v-if="ruleForm.legalIdCardFrontPhoto" :src="ruleForm.legalIdCardFrontPhoto" alt="身份证正面"
                   style="width:100px;height: 100px" />
                 <div style="font-size: 14px;color:#AAA">身份证正面</div>
               </el-form-item>
             </el-col>
             <el-col :span="10">
               <el-form-item label="" prop="legalIdCardBackPhoto">
-                <img v-if="ruleForm.legalIdCardBackPhoto" :src="ruleForm.legalIdCardBackPhoto" alt="企业LOGO"
+                <img v-if="ruleForm.legalIdCardBackPhoto" :src="ruleForm.legalIdCardBackPhoto" alt="身份证反面"
                   style="height: 100px" />
                 <div style="font-size: 14px;color:#AAA">身份证反面</div>
               </el-form-item>
@@ -137,7 +137,7 @@
               <el-form-item label="经营许可证照片" prop="businessCertfront">
                 <div v-for="(item, index) in ruleForm.businessCertificatePhoto" :key="index"
                   style="display: inline; margin: 0 10px;">
-                  <img :src="item" alt="电子营业执照" style="height: 100px" />
+                  <img :src="item" alt="经营许可证照片" style="height: 100px" />
                 </div>
               </el-form-item>
             </el-col>
@@ -241,6 +241,7 @@ import PolicySubsidiesInfo from '../policySubsidiesInfo/index.vue'
 import otherCertificateInfo from "../../enterprise/otherCertificateInfo"
 import otherAccountInfo from "../../enterprise/otherAccountInfo"
 import Editor from '@/components/Editor';
+import { Loading } from 'element-ui';
 const defaultRefundDetail = {
   code: '',
   name: '',
@@ -272,11 +273,11 @@ const defaultRefundDetail = {
 export default {
   name: "User",
   components: {
-    PolicySubsidiesInfo, otherCertificateInfo, otherAccountInfo,Editor
+    PolicySubsidiesInfo, otherCertificateInfo, otherAccountInfo, Editor
   },
   data() {
     return {
-      loading:true,
+      loading: true,
       //默认tab显示
       activeName: 'first',
       businessid: '',
@@ -320,13 +321,15 @@ export default {
 
     //获取表单原有数据
     getBaseInfoMessage() {
+      let loadingInstance = Loading.service({ fullscreen: true });
       const id = this.businessid
       getBaseInfo(id).then(response => {
         this.ruleForm = response.data;
         this.ruleForm.businessLicensePhoto = response.data.businessLicensePhoto.split(',')
         this.ruleForm.businessCertificatePhoto = response.data.businessCertificatePhoto.split(',')
-        document.getElementsByClassName('editor')[0].innerHTML=this.ruleForm.description
+        document.getElementsByClassName('editor')[0].innerHTML = this.ruleForm.description
         // this.ruleForm.description=this.getSimpleText(this.ruleForm.description)
+        loadingInstance.close();
       });
     },
 
@@ -366,5 +369,26 @@ export default {
   padding: 0 20px;
   background-color: rgb(215, 215, 215);
   border-radius: 4px;
+}
+
+.editor {
+  word-wrap: break-word;
+  white-space: normal
+}
+
+* html pre {
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+  whitewhite-space: normal;
+  /* Internet Explorer 5.5+ */
+}
+
+>>>pre{
+  overflow: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 </style>

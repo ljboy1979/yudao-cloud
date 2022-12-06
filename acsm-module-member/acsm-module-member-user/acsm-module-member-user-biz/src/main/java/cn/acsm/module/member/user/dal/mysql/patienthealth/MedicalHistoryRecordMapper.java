@@ -21,6 +21,7 @@ public interface MedicalHistoryRecordMapper extends BaseMapperX<MedicalHistoryRe
     default PageResult<MedicalHistoryRecordDO> selectPage(MedicalHistoryRecordPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<MedicalHistoryRecordDO>()
                 .eqIfPresent(MedicalHistoryRecordDO::getPatientHealthId, reqVO.getPatientHealthId())
+                .eqIfPresent(MedicalHistoryRecordDO::getMemberId, reqVO.getMemberId())
                 .eqIfPresent(MedicalHistoryRecordDO::getHospital, reqVO.getHospital())
                 .eqIfPresent(MedicalHistoryRecordDO::getDepartment, reqVO.getDepartment())
                 .eqIfPresent(MedicalHistoryRecordDO::getDoctor, reqVO.getDoctor())
@@ -38,6 +39,7 @@ public interface MedicalHistoryRecordMapper extends BaseMapperX<MedicalHistoryRe
     default List<MedicalHistoryRecordDO> selectList(MedicalHistoryRecordExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<MedicalHistoryRecordDO>()
                 .eqIfPresent(MedicalHistoryRecordDO::getPatientHealthId, reqVO.getPatientHealthId())
+                .eqIfPresent(MedicalHistoryRecordDO::getMemberId, reqVO.getMemberId())
                 .eqIfPresent(MedicalHistoryRecordDO::getHospital, reqVO.getHospital())
                 .eqIfPresent(MedicalHistoryRecordDO::getDepartment, reqVO.getDepartment())
                 .eqIfPresent(MedicalHistoryRecordDO::getDoctor, reqVO.getDoctor())

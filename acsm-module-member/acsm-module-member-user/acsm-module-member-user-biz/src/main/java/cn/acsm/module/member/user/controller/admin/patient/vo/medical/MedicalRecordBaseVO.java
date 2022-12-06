@@ -20,6 +20,9 @@ public class MedicalRecordBaseVO {
     @NotNull(message = "健康档案id不能为空")
     private Long patientHealthId;
 
+    @ApiModelProperty(value = "会员id")
+    private Long memberId;
+
     @ApiModelProperty(value = "医院")
     private String hospital;
 

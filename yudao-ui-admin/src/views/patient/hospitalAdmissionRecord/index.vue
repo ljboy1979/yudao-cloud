@@ -138,7 +138,8 @@ export default {
   },
   props: {
     id: {
-      type: String,
+      // type: String,
+      type: Number,
       required: true
     }
   },
@@ -162,8 +163,9 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        memberId: this.id,
-        patientHealthId: null,
+        // memberId: this.id,
+        // patientHealthId: null,
+        patientHealthId: this.id,
         hospital: null,
         department: null,
         doctor: null,

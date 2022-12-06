@@ -1,5 +1,6 @@
 package cn.acsm.module.member.user.dal.dataobject.patienthealth;
 
+import cn.iocoder.yudao.framework.tenant.core.db.TenantBaseDO;
 import lombok.*;
 import java.util.*;
 import com.baomidou.mybatisplus.annotation.*;
@@ -18,7 +19,7 @@ import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PrescriptionRecordDO extends BaseDO {
+public class PrescriptionRecordDO extends TenantBaseDO {
 
     /**
      * 主键ID
@@ -29,6 +30,10 @@ public class PrescriptionRecordDO extends BaseDO {
      * 健康档案id
      */
     private Long patientHealthId;
+    /**
+     * 会员id
+     */
+    private Long memberId;
     /**
      * 医院
      */

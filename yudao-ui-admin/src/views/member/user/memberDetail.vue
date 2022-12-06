@@ -16,7 +16,7 @@
                 <div class="title">企业基本信息</div>
                 <el-form :model="baseInfo" label-width="200px" ref="baseInfo" class="info" label-position="left">
                     <el-form-item label="企业名称">{{ baseInfo.name }}</el-form-item>
-                    <el-form-item label="经营模式">
+                    <el-form-item label="主体类型">
                         <dict-tag :type="DICT_TYPE.ENTERPRISE_TYPE" :value="baseInfo.enterpriseType" />
                     </el-form-item>
                     <el-form-item label="产业角色">{{ baseInfo.userTagName }}</el-form-item>
@@ -75,13 +75,13 @@
                     <el-option label="病史记录" value="6" />
                     <el-option label="其它" value="7" />
                 </el-select>
-                <PatientHealth :id="userid" v-if="options == 0"></PatientHealth>
-                <HospitalAdmissionRecord :id="userid" v-if="options == 1"></HospitalAdmissionRecord>
-                <NutritionExaminationRecord :id="userid" v-if="options == 2"></NutritionExaminationRecord>
-                <PrescriptionRecord :id="userid" v-if="options == 3"></PrescriptionRecord>
-                <MedicalRecord :id="userid" v-if="options == 4"></MedicalRecord>
-                <SpecialMedicalFoodRecords :id="userid" v-if="options == 5"></SpecialMedicalFoodRecords>
-                <MedicalHistoryRecord :id="userid" v-if="options == 6"></MedicalHistoryRecord>
+                <PatientHealth :id="userid" v-if="options == 0" @givePatientHealthId="getPatientHealthId" ></PatientHealth>
+                <HospitalAdmissionRecord :id="patientHealthId" v-if="options == 1"></HospitalAdmissionRecord>
+                <NutritionExaminationRecord :id="patientHealthId" v-if="options == 2"></NutritionExaminationRecord>
+                <PrescriptionRecord :id="patientHealthId" v-if="options == 3"></PrescriptionRecord>
+                <MedicalRecord :id="patientHealthId" v-if="options == 4"></MedicalRecord>
+                <SpecialMedicalFoodRecords :id="patientHealthId" v-if="options == 5"></SpecialMedicalFoodRecords>
+                <MedicalHistoryRecord :id="patientHealthId" v-if="options == 6"></MedicalHistoryRecord>
             </el-tab-pane>
             <el-tab-pane label="代理商管理" name="agentManagement">
                 <div class="title">代理商管理</div>
@@ -138,6 +138,7 @@ export default {
             activeName: 'first',
             // userid: '',
             userid: '',
+            patientHealthId: '',
             enterpriseId: '',
             userInfo: {},
             baseInfo: {},
@@ -151,6 +152,9 @@ export default {
         this.getUserInfo()
     },
     methods: {
+        getPatientHealthId(id){
+            this.patientHealthId = id
+        },
         //切换tab
         handleClick(tab, event) {
             // console.log(tab.index, event);
@@ -185,6 +189,15 @@ export default {
     font-size: 14px;
     margin: 15px 0 15px 15px;
     width: 60%;
+}
+
+.editor >>>pre{
+  overflow: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 </style>
   
