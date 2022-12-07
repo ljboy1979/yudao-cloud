@@ -38,7 +38,7 @@ module.exports = {
       ['/proxy-api']: {
         // target: `http://192.168.2.88:48080`,
         // target:`http://123.56.19.224:49087`,
-        target:`http://192.168.2.55:48080`,
+        target:`http://localhost:48080`,
 
         // target: `http://api-dashboard.yudao.iocoder.cn`,
         changeOrigin: true,

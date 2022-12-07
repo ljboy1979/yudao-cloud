@@ -94,7 +94,7 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="企业名称" prop="enterpriseName">
-          <el-select v-model="form.enterpriseName" placeholder="请选择企业名称"
+          <el-select v-model="form.enterpriseName" placeholder="请选择企业名称" value-key="id"
             @change="(item) => { this.getEnterpriseName(item) }">
             <el-option v-for="item in enterpriseNameData" :key="item.id" :label="item.name" :value="item" />
           </el-select>

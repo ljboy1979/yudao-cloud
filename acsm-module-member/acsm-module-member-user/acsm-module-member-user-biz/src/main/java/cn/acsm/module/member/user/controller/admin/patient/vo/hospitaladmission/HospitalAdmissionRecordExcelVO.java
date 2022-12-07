@@ -1,12 +1,11 @@
 package cn.acsm.module.member.user.controller.admin.patient.vo.hospitaladmission;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.*;
-
-import com.alibaba.excel.annotation.ExcelProperty;
+import java.util.Date;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.TIME_ZONE_DEFAULT;
@@ -24,6 +23,9 @@ public class HospitalAdmissionRecordExcelVO {
 
     @ExcelProperty("健康档案id")
     private Long patientHealthId;
+
+    @ExcelProperty("会员id")
+    private Long memberId;
 
     @ExcelProperty("医院")
     private String hospital;

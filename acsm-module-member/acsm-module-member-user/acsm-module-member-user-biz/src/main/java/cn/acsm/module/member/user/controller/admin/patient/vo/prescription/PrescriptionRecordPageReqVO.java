@@ -17,6 +17,9 @@ public class PrescriptionRecordPageReqVO extends PageParam {
     @ApiModelProperty(value = "健康档案id")
     private Long patientHealthId;
 
+    @ApiModelProperty(value = "会员id")
+    private Long memberId;
+
     @ApiModelProperty(value = "医院")
     private String hospital;
 

@@ -84,7 +84,7 @@
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
@@ -102,13 +102,14 @@
           <el-input v-model="form.doctor" placeholder="请输入医生" />
         </el-form-item>
         <el-form-item label="治疗时间" prop="treatmentDate">
-          <el-date-picker clearable v-model="form.treatmentDate" type="date" value-format="timestamp" placeholder="选择治疗时间" />
+          <el-date-picker clearable v-model="form.treatmentDate" type="date" value-format="timestamp"
+            placeholder="选择治疗时间" />
         </el-form-item>
         <el-form-item label="检查分类" prop="checkCategory">
           <el-input v-model="form.checkCategory" placeholder="请输入检查分类" />
         </el-form-item>
         <el-form-item label="检查内容">
-          <editor v-model="form.checkContent" :min-height="192"/>
+          <editor v-model="form.checkContent" :min-height="192" />
         </el-form-item>
         <el-form-item label="治疗方案" prop="treatmentOptions">
           <el-input v-model="form.treatmentOptions" placeholder="请输入治疗方案" />
@@ -141,10 +142,11 @@ export default {
     Editor,
   },
   props: {
-        id: {
-            type: String,
-            required: true
-        }
+    id: {
+      // type: String,
+      type: Number,
+      required: true
+    }
   },
   data() {
     return {
@@ -166,8 +168,9 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        memberId: this.id,
-        patientHealthId: null,
+        // memberId: this.id,
+        // patientHealthId: null,
+        patientHealthId: this.id,
         hospital: null,
         department: null,
         doctor: null,
@@ -277,26 +280,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除病史记录编号为"' + id + '"的数据项?').then(function() {
-          return deleteMedicalHistoryRecord(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除病史记录编号为"' + id + '"的数据项?').then(function () {
+        return deleteMedicalHistoryRecord(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有病史记录数据项?').then(() => {
-          this.exportLoading = true;
-          return exportMedicalHistoryRecordExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '病史记录.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportMedicalHistoryRecordExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '病史记录.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };

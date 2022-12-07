@@ -1,9 +1,11 @@
 package cn.acsm.module.member.user.controller.admin.patient.vo.hospitaladmission;
 
-import lombok.*;
-import java.util.*;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
@@ -13,6 +15,9 @@ public class HospitalAdmissionRecordExportReqVO {
 
     @ApiModelProperty(value = "健康档案id")
     private Long patientHealthId;
+
+    @ApiModelProperty(value = "会员id")
+    private Long memberId;
 
     @ApiModelProperty(value = "医院")
     private String hospital;

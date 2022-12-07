@@ -71,7 +71,7 @@
         <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="220">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleDetail(scope.row)" v-hasPermi="['']">管理</el-button>
-            <el-button size="mini" type="text" @click="handleProcess(scope.row)" v-hasPermi="['']">审核</el-button>
+            <el-button size="mini" type="text" @click="handleProcess(scope.row)" :disabled="(scope.row.auditStatus==0 ? false : true)" v-hasPermi="['']">审核</el-button>
             <el-button size="mini" type="text" v-if="scope.row.auditStatus==3" :disabled="true" key="disabled" >已解绑</el-button>
             <el-button size="mini" type="text" v-else @click="handleDelete(scope.row)" v-hasPermi="['']">解绑</el-button>
             <el-button size="mini" type="text" @click="handleType(scope.row)" v-hasPermi="['']">
@@ -95,9 +95,9 @@
               <el-radio :key="2" :label="2">不通过</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="备注" prop="remark" :rules="form.auditStatus == 2 ? rules.remark : { required: false }"
+          <el-form-item label="备注" prop="remarks" :rules="form.auditStatus == 2 ? rules.remarks : { required: false }"
             label-width="55px">
-            <el-input type="textarea" :rows="3" v-model="form.remark"></el-input>
+            <el-input type="textarea" :rows="3" v-model="form.remarks"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer" align="center">
@@ -148,7 +148,7 @@
         // 表单校验
         rules: {
           auditStatus: [{ required: true, message: "审核结果不能为空", trigger: "blur" }],
-          remark: [{ required: true, message: "备注不能为空", trigger: "blur" }],
+          remarks: [{ required: true, message: "备注不能为空", trigger: "blur" }],
         },
       };
     },
@@ -178,7 +178,7 @@
           romemberType: undefined,
           id: undefined,
           auditStatus: undefined,
-          remark: undefined,
+          remarks: undefined,
         };
         this.resetForm("form");
       },

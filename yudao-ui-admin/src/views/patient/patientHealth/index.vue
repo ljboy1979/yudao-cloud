@@ -87,7 +87,7 @@
       <el-table-column label="会员id" align="center" prop="memberId" /> -->
       <el-table-column label="姓名" align="center" prop="name" />
       <el-table-column label="年龄" align="center" prop="age" />
-      <el-table-column label="性别" align="center" prop="sex" >
+      <el-table-column label="性别" align="center" prop="sex">
         <template v-slot="scope">
           <dict-tag :type="DICT_TYPE.SYSTEM_USER_SEX" :value="scope.row.sex" />
         </template>
@@ -117,7 +117,7 @@
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
@@ -167,7 +167,8 @@
           <el-input v-model="form.bedNo" placeholder="请输入床位号" />
         </el-form-item>
         <el-form-item label="入院日期" prop="admissionDate">
-          <el-date-picker clearable v-model="form.admissionDate" type="date" value-format="timestamp" placeholder="选择入院日期" />
+          <el-date-picker clearable v-model="form.admissionDate" type="date" value-format="timestamp"
+            placeholder="选择入院日期" />
         </el-form-item>
         <el-form-item label="租户集合" prop="source">
           <el-input v-model="form.source" placeholder="请输入租户集合" />
@@ -192,10 +193,10 @@ export default {
   components: {
   },
   props: {
-        id: {
-            type: String,
-            required: true
-        }
+    id: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
@@ -255,8 +256,10 @@ export default {
         this.list = response.data.list;
         this.total = response.data.total;
         this.loading = false;
+        this.$emit("givePatientHealthId", this.list[0].id);
       });
     },
+
     /** 取消按钮 */
     cancel() {
       this.open = false;
@@ -338,26 +341,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除健康档案编号为"' + id + '"的数据项?').then(function() {
-          return deletePatientHealth(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除健康档案编号为"' + id + '"的数据项?').then(function () {
+        return deletePatientHealth(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有健康档案数据项?').then(() => {
-          this.exportLoading = true;
-          return exportPatientHealthExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '健康档案.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportPatientHealthExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '健康档案.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };

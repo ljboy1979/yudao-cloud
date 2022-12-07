@@ -179,11 +179,10 @@ export default {
         ],
         subsidiesAmount: [
           { required: true, message: '请输入补贴金额', trigger: 'blur' },
+          { min: 1, max: 10, message: '最大长度为10的整数或者2位小数', trigger: 'blur' },
           {
-            min: 1,
-            max: 50,
             pattern: /^[0-9]+(.[0-9]{1,2})?$/,
-            message: '最大长度为18的整数或者2位小数',
+            message: '最大长度为10的整数或者2位小数',
             trigger: ['blur'],
 
           }

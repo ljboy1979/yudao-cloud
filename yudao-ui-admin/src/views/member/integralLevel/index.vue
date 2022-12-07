@@ -45,7 +45,7 @@
       <!-- <el-table-column label="主键ID" align="center" prop="id" />
       <el-table-column label="企业id" align="center" prop="enterpriseId" /> -->
       <el-table-column label="企业名称" align="center" prop="enterpriseName" />
-      <el-table-column label="会员等级" align="center" prop="memberLevel" show-overflow-tooltip/>
+      <el-table-column label="会员等级" align="center" prop="memberLevel" show-overflow-tooltip />
       <el-table-column label="积分阀值" align="center" prop="integralThreshold" />
       <el-table-column label="等级优惠" align="center" prop="levelDiscount">
         <template v-slot="scope">
@@ -77,7 +77,8 @@
           <el-input v-model="form.enterpriseId" placeholder="请输入企业id" />
         </el-form-item> -->
         <el-form-item label="企业名称" prop="enterpriseName">
-          <el-select v-model="form.enterpriseName" placeholder="请选择企业名称" @change="(item) =>{this.getEnterpriseName(item)}">
+          <el-select v-model="form.enterpriseName" placeholder="请选择企业名称" value-key="id"
+            @change="(item) => { this.getEnterpriseName(item) }">
             <el-option v-for="item in enterpriseNameData" :key="item.id" :label="item.name" :value="item" />
           </el-select>
         </el-form-item>
@@ -85,7 +86,7 @@
           <el-input v-model="form.memberLevel" placeholder="请输入会员等级名称" />
         </el-form-item>
         <el-form-item label="积分阀值" prop="integralThreshold">
-          <el-input v-model.number="form.integralThreshold" placeholder="请输入积分阀值"  maxlength="9"/>
+          <el-input v-model.number="form.integralThreshold" placeholder="请输入积分阀值" maxlength="9" />
         </el-form-item>
         <el-form-item label="等级优惠" prop="levelDiscount">
           <el-select v-model="form.levelDiscount" placeholder="请选择等级优惠" clearable size="small">
@@ -197,7 +198,7 @@ export default {
         this.enterpriseNameData = response.data;
       });
     },
-    getEnterpriseName(item){
+    getEnterpriseName(item) {
       this.form.enterpriseId = item.id
       this.form.enterpriseName = item.name
     },

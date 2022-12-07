@@ -76,7 +76,7 @@
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
+      @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
@@ -94,13 +94,14 @@
           <el-input v-model="form.doctor" placeholder="请输入营养师名称" />
         </el-form-item>
         <el-form-item label="使用时间" prop="specialMedicalDate">
-          <el-date-picker clearable v-model="form.specialMedicalDate" type="date" value-format="timestamp" placeholder="选择使用时间" />
+          <el-date-picker clearable v-model="form.specialMedicalDate" type="date" value-format="timestamp"
+            placeholder="选择使用时间" />
         </el-form-item>
         <el-form-item label="特医食品类别" prop="specialMedicalCategory">
           <el-input v-model="form.specialMedicalCategory" placeholder="请输入特医食品类别" />
         </el-form-item>
         <el-form-item label="特医食品内容">
-          <editor v-model="form.specialMedicalContent" :min-height="192"/>
+          <editor v-model="form.specialMedicalContent" :min-height="192" />
         </el-form-item>
         <el-form-item label="租户集合" prop="source">
           <el-input v-model="form.source" placeholder="请输入租户集合" />
@@ -127,10 +128,11 @@ export default {
     Editor,
   },
   props: {
-        id: {
-            type: String,
-            required: true
-        }
+    id: {
+      // type: String,
+      type: Number,
+      required: true
+    }
   },
   data() {
     return {
@@ -152,8 +154,9 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        memberId: this.id,
-        patientHealthId: null,
+        // memberId: this.id,
+        // patientHealthId: null,
+        patientHealthId: this.id,
         hospital: null,
         department: null,
         doctor: null,
@@ -259,26 +262,26 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除特医食品使用记录表编号为"' + id + '"的数据项?').then(function() {
-          return deleteSpecialMedicalFoodRecords(id);
-        }).then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      this.$modal.confirm('是否确认删除特医食品使用记录表编号为"' + id + '"的数据项?').then(function () {
+        return deleteSpecialMedicalFoodRecords(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {
       // 处理查询参数
-      let params = {...this.queryParams};
+      let params = { ...this.queryParams };
       params.pageNo = undefined;
       params.pageSize = undefined;
       this.$modal.confirm('是否确认导出所有特医食品使用记录表数据项?').then(() => {
-          this.exportLoading = true;
-          return exportSpecialMedicalFoodRecordsExcel(params);
-        }).then(response => {
-          this.$download.excel(response, '特医食品使用记录表.xls');
-          this.exportLoading = false;
-        }).catch(() => {});
+        this.exportLoading = true;
+        return exportSpecialMedicalFoodRecordsExcel(params);
+      }).then(response => {
+        this.$download.excel(response, '特医食品使用记录表.xls');
+        this.exportLoading = false;
+      }).catch(() => { });
     }
   }
 };
