@@ -80,7 +80,8 @@
       <el-table-column label="备案日期" align="center" prop="recordDate" />
       <el-table-column label="证照" align="center" prop="idPhoto">
         <template v-slot="scope">
-          <img :src="scope.row.idPhoto" alt="证照" style="height: 100px" />
+          <!-- <img :src="scope.row.idPhoto" alt="证照" style="height: 100px" /> -->
+          <el-image :src="scope.row.idPhoto" alt="证照" style="height: 100px" :preview-src-list="scope.row.idPhoto.split(',')"/>
         </template>
       </el-table-column>
       <el-table-column label="审核状态" align="center" prop="auditStatus">
