@@ -189,7 +189,7 @@ export default {
 .info {
     font-size: 14px;
     margin: 15px 0 15px 15px;
-    width: 60%;
+    width: 1000px;
 }
 
 .editor >>>pre{
