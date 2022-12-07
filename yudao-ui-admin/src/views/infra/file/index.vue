@@ -179,6 +179,7 @@ export default {
     /** 文件上传成功处理 */
     handleFileSuccess(response, file, fileList) {
       // 清理
+      console.log(response)
       this.upload.open = false;
       this.upload.isUploading = false;
       this.$refs.upload.clearFiles();
