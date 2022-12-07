@@ -1,0 +1,280 @@
+<template>
+  <div class="app-container">
+
+    <!-- 搜索工作栏 -->
+    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+      <el-form-item label="分类名称" prop="categoryName">
+        <el-input v-model="queryParams.categoryName" placeholder="请输入分类名称" clearable @keyup.enter.native="handleQuery"/>
+      </el-form-item>
+      <el-form-item label="创建时间" prop="createTime">
+        <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
+                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
+      </el-form-item>
+    </el-form>
+
+    <!-- 操作工具栏 -->
+    <el-row :gutter="10" class="mb8">
+      <el-col :span="1.5">
+        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
+                   v-hasPermi="['pricetag:market-classify:create']">新增</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
+                   v-hasPermi="['pricetag:market-classify:export']">导出</el-button>
+      </el-col>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+    </el-row>
+
+    <!-- 列表 -->
+    <el-table v-loading="loading" :data="list">
+      <el-table-column label="id" align="center" prop="id" />
+      <el-table-column label="分类名称" align="center" prop="categoryName" />
+      <el-table-column label="父级编号" align="center" prop="parentCode" />
+      <el-table-column label="所有父级编号" align="center" prop="parentCodes" />
+      <el-table-column label="本级排序号（升序）" align="center" prop="treeSort" />
+      <el-table-column label="所有级别排序号" align="center" prop="treeSorts" />
+      <el-table-column label="是否最末级" align="center" prop="treeLeaf" />
+      <el-table-column label="层次级别" align="center" prop="treeLevel" />
+      <el-table-column label="全节点名" align="center" prop="treeNames" />
+      <el-table-column label="0单条新增1批量新增" align="center" prop="state" />
+      <el-table-column label="图片路径" align="center" prop="imgUrl" />
+      <el-table-column label="排序序号" align="center" prop="order" />
+      <el-table-column label="状态" align="center" prop="status" />
+      <el-table-column label="创建时间" align="center" prop="createTime" />
+      <el-table-column label="经营主体id" align="center" prop="subjectId" />
+      <el-table-column label="source" align="center" prop="source" />
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+        <template v-slot="scope">
+          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
+                     v-hasPermi="['pricetag:market-classify:update']">修改</el-button>
+          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
+                     v-hasPermi="['pricetag:market-classify:delete']">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!-- 分页组件 -->
+    <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
+                @pagination="getList"/>
+
+    <!-- 对话框(添加 / 修改) -->
+    <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="分类名称" prop="categoryName">
+          <el-input v-model="form.categoryName" placeholder="请输入分类名称" />
+        </el-form-item>
+        <el-form-item label="父级编号" prop="parentCode">
+          <el-input v-model="form.parentCode" placeholder="请输入父级编号" />
+        </el-form-item>
+        <el-form-item label="所有父级编号" prop="parentCodes">
+          <el-input v-model="form.parentCodes" placeholder="请输入所有父级编号" />
+        </el-form-item>
+        <el-form-item label="本级排序号（升序）" prop="treeSort">
+          <el-input v-model="form.treeSort" placeholder="请输入本级排序号（升序）" />
+        </el-form-item>
+        <el-form-item label="所有级别排序号" prop="treeSorts">
+          <el-input v-model="form.treeSorts" placeholder="请输入所有级别排序号" />
+        </el-form-item>
+        <el-form-item label="是否最末级" prop="treeLeaf">
+          <el-input v-model="form.treeLeaf" placeholder="请输入是否最末级" />
+        </el-form-item>
+        <el-form-item label="层次级别" prop="treeLevel">
+          <el-input v-model="form.treeLevel" placeholder="请输入层次级别" />
+        </el-form-item>
+        <el-form-item label="全节点名" prop="treeNames">
+          <el-input v-model="form.treeNames" placeholder="请输入全节点名" />
+        </el-form-item>
+        <el-form-item label="0单条新增1批量新增" prop="state">
+          <el-input v-model="form.state" placeholder="请输入0单条新增1批量新增" />
+        </el-form-item>
+        <el-form-item label="图片路径" prop="imgUrl">
+          <el-input v-model="form.imgUrl" placeholder="请输入图片路径" />
+        </el-form-item>
+        <el-form-item label="排序序号" prop="order">
+          <el-input v-model="form.order" placeholder="请输入排序序号" />
+        </el-form-item>
+        <el-form-item label="状态" prop="status">
+          <el-radio-group v-model="form.status">
+            <el-radio label="1">请选择字典生成</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="经营主体id" prop="subjectId">
+          <el-input v-model="form.subjectId" placeholder="请输入经营主体id" />
+        </el-form-item>
+        <el-form-item label="source" prop="source">
+          <el-input v-model="form.source" placeholder="请输入source" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { createMarketClassify, updateMarketClassify, deleteMarketClassify, getMarketClassify, getMarketClassifyPage, exportMarketClassifyExcel } from "@/api/pricetag/marketClassify";
+
+export default {
+  name: "MarketClassify",
+  components: {
+  },
+  data() {
+    return {
+      // 遮罩层
+      loading: true,
+      // 导出遮罩层
+      exportLoading: false,
+      // 显示搜索条件
+      showSearch: true,
+      // 总条数
+      total: 0,
+      // 市场分类列表
+      list: [],
+      // 弹出层标题
+      title: "",
+      // 是否显示弹出层
+      open: false,
+      // 查询参数
+      queryParams: {
+        pageNo: 1,
+        pageSize: 10,
+        categoryName: null,
+        createTime: [],
+      },
+      // 表单参数
+      form: {},
+      // 表单校验
+      rules: {
+        categoryName: [{ required: true, message: "分类名称不能为空", trigger: "blur" }],
+        parentCode: [{ required: true, message: "父级编号不能为空", trigger: "blur" }],
+        parentCodes: [{ required: true, message: "所有父级编号不能为空", trigger: "blur" }],
+        treeSort: [{ required: true, message: "本级排序号（升序）不能为空", trigger: "blur" }],
+        treeSorts: [{ required: true, message: "所有级别排序号不能为空", trigger: "blur" }],
+        treeLeaf: [{ required: true, message: "是否最末级不能为空", trigger: "blur" }],
+        treeLevel: [{ required: true, message: "层次级别不能为空", trigger: "blur" }],
+        treeNames: [{ required: true, message: "全节点名不能为空", trigger: "blur" }],
+        status: [{ required: true, message: "状态不能为空", trigger: "blur" }],
+      }
+    };
+  },
+  created() {
+    this.getList();
+  },
+  methods: {
+    /** 查询列表 */
+    getList() {
+      this.loading = true;
+      // 执行查询
+      getMarketClassifyPage(this.queryParams).then(response => {
+        this.list = response.data.list;
+        this.total = response.data.total;
+        this.loading = false;
+      });
+    },
+    /** 取消按钮 */
+    cancel() {
+      this.open = false;
+      this.reset();
+    },
+    /** 表单重置 */
+    reset() {
+      this.form = {
+        id: undefined,
+        categoryName: undefined,
+        parentCode: undefined,
+        parentCodes: undefined,
+        treeSort: undefined,
+        treeSorts: undefined,
+        treeLeaf: undefined,
+        treeLevel: undefined,
+        treeNames: undefined,
+        state: undefined,
+        imgUrl: undefined,
+        order: undefined,
+        status: undefined,
+        subjectId: undefined,
+        source: undefined,
+      };
+      this.resetForm("form");
+    },
+    /** 搜索按钮操作 */
+    handleQuery() {
+      this.queryParams.pageNo = 1;
+      this.getList();
+    },
+    /** 重置按钮操作 */
+    resetQuery() {
+      this.resetForm("queryForm");
+      this.handleQuery();
+    },
+    /** 新增按钮操作 */
+    handleAdd() {
+      this.reset();
+      this.open = true;
+      this.title = "添加市场分类";
+    },
+    /** 修改按钮操作 */
+    handleUpdate(row) {
+      this.reset();
+      const id = row.id;
+      getMarketClassify(id).then(response => {
+        this.form = response.data;
+        this.open = true;
+        this.title = "修改市场分类";
+      });
+    },
+    /** 提交按钮 */
+    submitForm() {
+      this.$refs["form"].validate(valid => {
+        if (!valid) {
+          return;
+        }
+        // 修改的提交
+        if (this.form.id != null) {
+          updateMarketClassify(this.form).then(response => {
+            this.$modal.msgSuccess("修改成功");
+            this.open = false;
+            this.getList();
+          });
+          return;
+        }
+        // 添加的提交
+        createMarketClassify(this.form).then(response => {
+          this.$modal.msgSuccess("新增成功");
+          this.open = false;
+          this.getList();
+        });
+      });
+    },
+    /** 删除按钮操作 */
+    handleDelete(row) {
+      const id = row.id;
+      this.$modal.confirm('是否确认删除市场分类编号为"' + id + '"的数据项?').then(function() {
+          return deleteMarketClassify(id);
+        }).then(() => {
+          this.getList();
+          this.$modal.msgSuccess("删除成功");
+        }).catch(() => {});
+    },
+    /** 导出按钮操作 */
+    handleExport() {
+      // 处理查询参数
+      let params = {...this.queryParams};
+      params.pageNo = undefined;
+      params.pageSize = undefined;
+      this.$modal.confirm('是否确认导出所有市场分类数据项?').then(() => {
+          this.exportLoading = true;
+          return exportMarketClassifyExcel(params);
+        }).then(response => {
+          this.$download.excel(response, '市场分类.xls');
+          this.exportLoading = false;
+        }).catch(() => {});
+    }
+  }
+};
+</script>

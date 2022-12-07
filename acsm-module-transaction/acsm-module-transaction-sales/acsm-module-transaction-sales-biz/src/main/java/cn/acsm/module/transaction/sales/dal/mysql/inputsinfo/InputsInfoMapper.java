@@ -2,6 +2,8 @@ package cn.acsm.module.transaction.sales.dal.mysql.inputsinfo;
 
 import java.util.*;
 
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
+import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
@@ -40,4 +42,8 @@ public interface InputsInfoMapper extends BaseMapperX<InputsInfoDO> {
                 .notIn(InputsInfoDO::getId,inputsInfoDO.getId())
                 .orderByDesc(InputsInfoDO::getId));
     }
+
+    List<ShelvesSalesRespDo> findSales(ShelvesSalesReqDto shelvesSalesReqDto);
+
+    List<ShelvesSalesRespDo> findSpecifications(ShelvesSalesReqDto shelvesSalesReqDto);
 }

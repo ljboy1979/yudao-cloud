@@ -2,6 +2,8 @@ package cn.acsm.module.transaction.sales.dal.mysql.rawmaterial;
 
 import java.util.*;
 
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
+import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
@@ -44,4 +46,7 @@ public interface RawMaterialMapper extends BaseMapperX<RawMaterialDO> {
                 .orderByDesc(RawMaterialDO::getId));
     }
 
+    List<ShelvesSalesRespDo> findSales(ShelvesSalesReqDto shelvesSalesReqDto);
+
+    List<ShelvesSalesRespDo> findSpecifications(ShelvesSalesReqDto shelvesSalesReqDto);
 }

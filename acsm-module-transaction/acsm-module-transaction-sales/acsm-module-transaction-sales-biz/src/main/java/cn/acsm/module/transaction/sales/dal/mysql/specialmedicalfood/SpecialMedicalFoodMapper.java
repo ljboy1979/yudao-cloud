@@ -2,6 +2,8 @@ package cn.acsm.module.transaction.sales.dal.mysql.specialmedicalfood;
 
 import java.util.*;
 
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
+import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
@@ -42,5 +44,9 @@ public interface SpecialMedicalFoodMapper extends BaseMapperX<SpecialMedicalFood
                 .notIn(SpecialMedicalFoodDO::getId,specialMedicalFoodDO.getId())
                 .orderByDesc(SpecialMedicalFoodDO::getId));
     }
+
+    List<ShelvesSalesRespDo> findSales(ShelvesSalesReqDto shelvesSalesReqDto);
+
+    List<ShelvesSalesRespDo> findSpecifications(ShelvesSalesReqDto shelvesSalesReqDto);
 
 }

@@ -43,8 +43,8 @@ public interface ErrorCodeConstants {
     ErrorCode SPECIAL_MEDICAL_FOOD_ORGANIZATION_NOT_EXISTS = new ErrorCode(2000000035, "特医食品组成不存在");
     ErrorCode SPECIAL_MEDICAL_FOOD_SPECIFICATION_NOT_EXISTS = new ErrorCode(2000000036, "特医食品规格不存在");
     ErrorCode SPECIAL_MEDICAL_FOOD_EXISTENCE = new ErrorCode(2000000033, "特医食品已存在");
-    ErrorCode SPECIAL_MEDICAL_FOOD_ORGANIZATION_EXISTENCE = new ErrorCode(2000000035, "特医食品组成不存在");
     ErrorCode SPECIAL_MEDICAL_FOOD_SPECIFICATION_EXISTENCE = new ErrorCode(2000000036, "特医食品规格不存在");
+    ErrorCode STRATEGY_NOT_DEFINED =  new ErrorCode (2000000037, "未定义策略,未找到通知接口对应的处理实现类");
 
 
 }

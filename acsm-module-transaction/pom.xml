@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>acsm-module-transaction-sales</module>
+        <module>acsm-module-transaction-shelves</module>
+        <module>acsm-module-transaction-pricetag</module>
     </modules>
 
     <name>${project.artifactId}</name> <!-- 3. 新增 name 为 ${project.artifactId} -->
@@ -20,6 +22,8 @@
         transaction 模块:
             sales:售品
             order：订单
+            shelves：货架
+            pricetag：价格牌
     </description>
 
 </project>

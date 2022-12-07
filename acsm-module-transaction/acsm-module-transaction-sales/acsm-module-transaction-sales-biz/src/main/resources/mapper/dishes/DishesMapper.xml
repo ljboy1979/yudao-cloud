@@ -9,4 +9,34 @@
         文档可见：https://www.iocoder.cn/MyBatis/x-plugins/
      -->
 
+    <select id="findSales" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
+        select
+        id ,
+        dishes_name as name
+        FROM sales_dishes
+        where deleted = 0
+        and tenant_id =#{tenantId}
+    </select>
+
+    <select id="findSpecifications" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
+        select
+        id ,
+        specifications_name AS name,
+        packaging_type AS packagingType,
+        packaging_type_name AS packagingTypeName,
+        number,
+        unit,
+        unit_name AS unitName,
+        packaging,
+        packaging_name AS packagingName,
+        measurement_unit AS measurementUnit,
+        measurement_unit_name AS measurementUnitName,
+        purchase_price AS purchasePrice,
+        selling_price AS sellingPrice,
+        CONCAT(number,unit_name,"/",packaging_name) AS specifications
+        FROM sales_dishes_specification
+        where deleted = 0
+        AND dishes_id=#{salesId}
+        AND tenant_id =#{tenantId}
+    </select>
 </mapper>

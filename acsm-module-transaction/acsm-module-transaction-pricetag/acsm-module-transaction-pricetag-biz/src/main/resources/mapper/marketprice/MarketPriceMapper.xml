@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.acsm.module.transaction.pricetag.dal.mysql.marketprice.MarketPriceMapper">
+
+    <!--
+        一般情况下，尽可能使用 Mapper 进行 CRUD 增删改查即可。
+        无法满足的场景，例如说多表关联查询，才使用 XML 编写 SQL。
+        代码生成器暂时只生成 Mapper XML 文件本身，更多推荐 MybatisX 快速开发插件来生成查询。
+        文档可见：https://www.iocoder.cn/MyBatis/x-plugins/
+     -->
+
+    <select id="getMarketPriceInfo" resultType="cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.MarketPriceInfoDO">
+        SELECT
+        mp.id,
+        mp.code,
+        mc.commodity_name as commodityName,
+        mcc.tree_names as  categoryName,
+        mc.specifications_name as specificationsName,
+        mp.max_price as maxPrice,
+        mp.min_price as minPrice,
+        mp.middle_price as middlePrice,
+        mc.measurement_unit_name as measurementUnitName,
+        mi.market_name as marketName,
+        mp.update_time as  updateTime
+        FROM
+        pricetag_market_price mp
+        LEFT JOIN pricetag_market_commodity mc ON mp.market_commodity_id = mc.id
+        LEFT JOIN pricetag_market_classify mcc ON mc.classify_id = mcc.id
+        LEFT JOIN pricetag_market_info mi ON mi.id = mp.market_id
+        WHERE mp.id =#{id}
+
+    </select>
+
+    <select id="findPriceTrend" resultType="cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.PriceTrendDO">
+        SELECT
+        z.time,
+        ROUND(IFNULL(y.maxPrice,0),2) AS maxPrice,
+        ROUND(IFNULL(y.minPrice,0),2) AS minPrice ,
+        ROUND(IFNULL(y.middlePrice,0),2) AS middlePrice
+        FROM
+        (SELECT
+        DATE_FORMAT(create_time,'%Y-%m-%d') as time,
+        MAX(price) as maxPrice,
+        MIN(price) as minPrice ,
+        SUM(price)/COUNT(id) as middlePrice
+        FROM
+        pricetag_market_price_details
+        WHERE
+        market_price_id =#{id}
+        AND DATE_FORMAT(create_time,'%Y-%m') = DATE_FORMAT(NOW(),'%Y-%m')
+        GROUP BY DATE_FORMAT(create_time,'%Y-%m-%d'))y
+        RIGHT JOIN
+        (SELECT DATE_FORMAT( DATE_ADD(CONCAT(DATE_FORMAT(NOW(), '%Y-%m' ),"-1"), INTERVAL  @i := @i + 1 DAY ), '%Y-%m-%d' )  time
+        FROM
+        (SELECT a from
+        (SELECT '0'a UNION SELECT '1' UNION SELECT '2' UNION SELECT '3') a
+        JOIN
+        (SELECT '1' UNION SELECT '2' UNION SELECT '3' UNION SELECT '4' UNION  SELECT '5' UNION  SELECT '6' UNION  SELECT '7' UNION  SELECT '8')b)z,
+        (SELECT @i := -1) t)z
+        on z.time = y.time
+
+    </select>
+
+</mapper>

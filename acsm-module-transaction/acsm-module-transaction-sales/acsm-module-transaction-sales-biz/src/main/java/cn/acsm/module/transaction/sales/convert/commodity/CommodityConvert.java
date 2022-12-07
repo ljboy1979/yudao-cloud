@@ -2,7 +2,9 @@ package cn.acsm.module.transaction.sales.convert.commodity;
 
 import java.util.*;
 
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
 import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityDO;
+import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 import org.mapstruct.Mapper;
@@ -30,5 +32,7 @@ public interface CommodityConvert {
     PageResult<CommodityRespVO> convertPage(PageResult<CommodityDO> page);
 
     List<CommodityExcelVO> convertList02(List<CommodityDO> list);
+
+    List<ShelvesSalesRespDto> convertShelvesSales(List<ShelvesSalesRespDo> bean);
 
 }
