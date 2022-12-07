@@ -24,7 +24,8 @@
                     <el-form-item label="证件照片">
                         <div v-for="(item, index) in baseInfo.businessLicensePhoto" :key="index"
                             style="display: inline; margin: 0 10px;">
-                            <img :src="item" alt="证件照片" style="height: 100px" />
+                            <!-- <img :src="item" alt="证件照片" style="height: 100px" /> -->
+                            <el-image :src="item" alt="证件照片" style="height: 100px" :preview-src-list="[item]"/>
                         </div>
                     </el-form-item>
                     <el-form-item label="经营许可证号码">{{ baseInfo.businessLicenseNo }}</el-form-item>
@@ -188,7 +189,7 @@ export default {
 .info {
     font-size: 14px;
     margin: 15px 0 15px 15px;
-    width: 60%;
+    width: 1000px;
 }
 
 .editor >>>pre{

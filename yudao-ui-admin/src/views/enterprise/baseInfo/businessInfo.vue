@@ -75,6 +75,7 @@
           <el-form-item label="法人身份证照片" prop="legalIdCardFrontPhoto">
             <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-preview="handlePictureCardPreview"
               :on-remove="handleRemove" :on-change="changeIDimg" :class="{ hide: IDimg }" ref="uploadID"
+              :headers="upload.headers" :action="upload.url" :on-success="IDimgSuccess"
               :file-list="ruleForm.legalIdCardFrontPhoto">
               <i class="el-icon-plus"></i>
             </el-upload>
@@ -89,7 +90,8 @@
           <el-form-item label="" prop="legalIdCardBackPhoto">
             <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-preview="handlePictureCardPreview"
               :on-remove="handleRemoveReverse" :on-change="changeIDimgReverse" :class="{ hide: IDimgReverse }"
-              ref="uploadIDReverse" :file-list="ruleForm.legalIdCardBackPhoto">
+              ref="uploadIDReverse" :file-list="ruleForm.legalIdCardBackPhoto" 
+              :headers="upload.headers" :action="upload.url" :on-success="IDimgReverseSuccess">
               <i class="el-icon-plus"></i>
             </el-upload>
             <div style="font-size: 14px;color:#AAA">身份证反面 <span style="font-size: 12px;">仅支持扩展名".jpg/.jpeg/.png"</span>
@@ -148,7 +150,8 @@
         <el-form-item label="企业LOGO" prop="logo">
           <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-preview="handlePictureCardPreview"
             :on-remove="handleRemoveLogo" :on-change="changeLogoimg" :class="{ hide: Logoimg }"
-            :before-upload="beforeAvatarUpload" ref="uploadLogo" :file-list="ruleForm.logo">
+            :before-upload="beforeAvatarUpload" ref="uploadLogo" :file-list="ruleForm.logo"
+            :headers="upload.headers" :action="upload.url" :on-success="LogoimgSuccess">
             <i class="el-icon-plus"></i>
           </el-upload>
           <div style="font-size: 14px;color:#AAA">最多1张 <span style="font-size: 12px;">仅支持扩展名".jpg/.jpeg/.png"</span>
@@ -165,7 +168,7 @@
       <el-form-item>
         <el-col :span="15">
           <el-form-item label="备注" prop="remarks">
-            <el-input type="textarea" v-model="ruleForm.remarks" placeholder="请输入备注" :rows="8" ></el-input>
+            <el-input type="textarea" v-model="ruleForm.remarks" placeholder="请输入备注" :rows="8"></el-input>
           </el-form-item>
         </el-col>
       </el-form-item>
@@ -179,7 +182,8 @@
         <el-form-item label="电子营业执照" prop="businessCertificatePhoto">
           <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-preview="handlePictureCardPreview"
             :on-remove="handleRemoveLicense" :on-change="changeLicenseimg" :class="{ hide: Licenseimg }"
-            ref="uploadLicense" :file-list="ruleForm.businessCertificatePhoto">
+            ref="uploadLicense" :file-list="ruleForm.businessCertificatePhoto"
+            :headers="upload.headers" :action="upload.url" :on-success="LicenseimgSuccess">
             <i class="el-icon-plus"></i>
           </el-upload>
           <div style="font-size: 14px;color:#AAA">最多6张 <span style="font-size: 12px;">仅支持扩展名".jpg/.jpeg/.png"</span>
@@ -205,7 +209,8 @@
           <el-form-item label="经营许可证照片" prop="businessLicensePhoto">
             <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-preview="handlePictureCardPreview"
               :on-remove="handleRemovebusinessCert" :on-change="changebusinessCert" :class="{ hide: businessCert }"
-              ref="businessCert" :file-list="ruleForm.businessLicensePhoto">
+              ref="businessCert" :file-list="ruleForm.businessLicensePhoto"
+              :headers="upload.headers" :action="upload.url" :on-success="businessCertSuccess">
               <i class="el-icon-plus"></i>
             </el-upload>
             <div style="font-size: 14px;color:#AAA">最多6张 <span style="font-size: 12px;">仅支持扩展名".jpg/.jpeg/.png"</span>
@@ -252,6 +257,7 @@ import { getBaseInfo, updateBaseInfo, getTree } from "@/api/enterprise/baseInfo"
 import { DICT_TYPE } from "../../../utils/dict"
 import { Loading } from 'element-ui';
 import Editor from '@/components/Editor';
+import { getAccessToken } from "@/utils/auth";
 export default {
   /**注册组件*/
   components: { Editor },
@@ -400,6 +406,15 @@ export default {
       businessCertificatePhoto: [],//电子营业执照图片
       options: [],//行政区域下拉列表
       Administrative: [],//行政区域文字
+      // 图片上传参数
+      upload: {
+        open: false, // 是否显示弹出层
+        title: "", // 弹出层标题
+        isUploading: false, // 是否禁用上传
+        url: process.env.VUE_APP_BASE_API + "/admin-api/infra/file/upload", // 请求地址
+        headers: { Authorization: "Bearer " + getAccessToken() }, // 设置上传的请求头部
+        data: {} // 上传的额外数据，用于文件名
+      },
     };
   },
   /**计算属性*/
@@ -458,7 +473,7 @@ export default {
           obj.ruralName = this.Administrative[2]
           // [obj.villagesAreaId, obj.areaId, obj.ruralId] = this.ruleForm.value
           // [obj.villagesAreaName, obj.areaName, obj.ruralName] = this.Administrative
-          console.log(obj);
+          console.log(obj,'提交数据');
           if (obj.userTagName) {
             delete obj.userTagName
           }
@@ -519,9 +534,17 @@ export default {
       if (check) {
         this.legalIdCardFrontPhoto = fileList;
         this.IDimg = true;
+        //发起文件上传
+        this.$refs.uploadID.submit();
       } else {
         this.$refs.uploadID.uploadFiles.splice(this.$refs.uploadID.uploadFiles.length - 1, 1)
       }
+    },
+    /** 身份证正面照片上传成功处理 */
+    IDimgSuccess(response, file, fileList) {
+      console.log(response, file, fileList)
+      this.legalIdCardFrontPhoto[0].url = response.data;
+      console.log(this.legalIdCardFrontPhoto)
     },
     //上传身份证反面照片之后隐藏上传按钮
     changeIDimgReverse(file, fileList) {
@@ -529,9 +552,16 @@ export default {
       if (check) {
         this.legalIdCardBackPhoto = fileList;
         this.IDimgReverse = true;
+        //发起文件上传
+        this.$refs.uploadIDReverse.submit();
       } else {
         this.$refs.uploadIDReverse.uploadFiles.splice(this.$refs.uploadIDReverse.uploadFiles.length - 1, 1)
       }
+    },
+    /** 身份证反面照片上传成功处理 */
+    IDimgReverseSuccess(response, file, fileList) {
+      console.log(response, file, fileList)
+      this.legalIdCardBackPhoto[0].url = response.data;
     },
     //上传企业Logo之后隐藏上传按钮
     changeLogoimg(file, fileList) {
@@ -539,9 +569,16 @@ export default {
       if (check) {
         this.Logoimg = true;
         this.logo = fileList;
+        //发起文件上传
+        this.$refs.uploadLogo.submit();
       } else {
         this.$refs.uploadLogo.uploadFiles.splice(this.$refs.uploadLogo.uploadFiles.length - 1, 1)
       }
+    },
+    /** 企业Logo上传成功处理 */
+    LogoimgSuccess(response, file, fileList) {
+      console.log(response, file, fileList)
+      this.logo[0].url = response.data;
     },
     //上传电子营业执照,等于6张的时候隐藏上传按钮
     changeLicenseimg(file, fileList) {
@@ -549,10 +586,17 @@ export default {
       if (check) {
         fileList.length == 6 ? this.Licenseimg = true : ''
         this.businessCertificatePhoto = fileList
+        //发起文件上传
+        this.$refs.uploadLicense.submit();
       } else {
         this.$refs.uploadLicense.uploadFiles.splice(this.$refs.uploadLicense.uploadFiles.length - 1, 1)
       }
 
+    },
+     /** 电子营业执照上传成功处理 */
+     LicenseimgSuccess(response, file, fileList) {
+      console.log(response, file, fileList)
+      this.businessCertificatePhoto[this.businessCertificatePhoto.length-1].url = response.data;
     },
     //上传经营许可证，等于6张隐藏上传按钮
     changebusinessCert(file, fileList) {
@@ -560,9 +604,17 @@ export default {
       if (check) {
         fileList.length == 6 ? this.businessCert = true : ''
         this.businessLicensePhoto = fileList
+        this.$refs.businessCert.submit();
       } else {
         this.$refs.businessCert.uploadFiles.splice(this.$refs.businessCert.uploadFiles.length - 1, 1)
       }
+    },
+     /** 经营许可证上传成功处理 */
+     businessCertSuccess(response, file, fileList) {
+      console.log(response, file, fileList)
+      //改变上传文件的url
+      
+      this.businessLicensePhoto[this.businessLicensePhoto.length-1].url = response.data;
     },
     //检验上传图片格式以及大小
     beforeAvatarUpload(file) {

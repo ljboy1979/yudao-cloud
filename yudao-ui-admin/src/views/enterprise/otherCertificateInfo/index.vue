@@ -120,7 +120,9 @@
         <el-form-item label="证件照片" prop="certificatePhoto">
           <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-preview="handlePictureCardPreview"
             :on-remove="handleRemovecertificatePhoto" :on-change="changecertificatePhoto" :class="{ hide: certificate }"
-            ref="certificatePhoto" :file-list="this.certificatePhoto">
+            ref="certificatePhoto" :file-list="this.certificatePhoto"
+            :headers="upload.headers" :action="upload.url" :on-success="certificatePhotoSuccess"
+            >
             <i class="el-icon-plus"></i>
           </el-upload>
           <div style="font-size: 14px;color:#AAA">最多6张 <span style="font-size: 12px;">仅支持扩展名".jpg/.jpeg/.png"</span>
@@ -150,7 +152,7 @@
 
 <script>
 import { createOtherCertificateInfo, updateOtherCertificateInfo, deleteOtherCertificateInfo, getOtherCertificateInfo, getOtherCertificateInfoPage, exportOtherCertificateInfoExcel } from "@/api/enterprise/otherCertificateInfo";
-
+import { getAccessToken } from "@/utils/auth";
 export default {
   name: "OtherCertificateInfo",
   components: {
@@ -214,6 +216,15 @@ export default {
       certificate: false,//经营许可证是否可继续上传
       dialogVisible: false,//是否开启预览
       dialogImageUrl: '',//当前预览图片地址
+      // 图片上传参数
+      upload: {
+        open: false, // 是否显示弹出层
+        title: "", // 弹出层标题
+        isUploading: false, // 是否禁用上传
+        url: process.env.VUE_APP_BASE_API + "/admin-api/infra/file/upload", // 请求地址
+        headers: { Authorization: "Bearer " + getAccessToken() }, // 设置上传的请求头部
+        data: {} // 上传的额外数据，用于文件名
+      },
     };
   },
   created() {
@@ -299,6 +310,7 @@ export default {
         console.log(response)
         //图片反显
         this.certificatePhoto = this.ToUpload(response.data.certificatePhoto);
+        this.certificatePhoto.length<6? this.certificate = false : this.certificate = true
         this.open = true;
         this.title = "修改经营主体其他证件";
       });
@@ -313,7 +325,7 @@ export default {
         console.log("form:", this.form)
         // 修改的提交
         if (this.form.id != null) {
-          this.form.certificatePhoto = this.ArrayToString(this.changecertificatePhoto);
+          this.form.certificatePhoto = this.ArrayToString(this.certificatePhoto);
           updateOtherCertificateInfo(this.form).then(response => {
             this.$modal.msgSuccess("修改成功");
             this.open = false;
@@ -325,7 +337,7 @@ export default {
         let obj = JSON.parse(JSON.stringify(this.form));
         obj.enterpriseId=this.id
         obj.certificatePhoto = this.ArrayToString(this.certificatePhoto)
-        console.log(obj)
+        console.log(obj,'添加数据')
         createOtherCertificateInfo(obj).then(response => {
           this.$modal.msgSuccess("新增成功");
           this.open = false;
@@ -360,7 +372,7 @@ export default {
     //移除企业经营许可证
     handleRemovecertificatePhoto(file, fileList) {
       this.certificatePhoto = fileList
-      fileList.length < 6 ? this.certificate = false : ''
+      fileList.length < 6 ? this.certificate = false : true
       this.Logoimg = false;
     },
     //预览照片
@@ -375,9 +387,14 @@ export default {
       if (check) {
         fileList.length == 6 ? this.certificate = true : ''
         this.certificatePhoto = fileList
+        this.$refs.certificatePhoto.submit();
       } else {
-        this.$refs.certificate.uploadFiles.splice(this.$refs.certificate.uploadFiles.length - 1, 1)
+        this.$refs.certificatePhoto.uploadFiles.splice(this.$refs.certificatePhoto.uploadFiles.length - 1, 1)
       }
+    },
+    certificatePhotoSuccess(response){
+      this.certificatePhoto[this.certificatePhoto.length-1].url = response.data;
+      console.log(this.certificatePhoto)
     },
     //检验上传图片格式以及大小
     beforeAvatarUpload(file) {
