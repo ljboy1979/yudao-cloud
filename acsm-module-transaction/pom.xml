@@ -15,6 +15,7 @@
         <module>acsm-module-transaction-sales</module>
         <module>acsm-module-transaction-shelves</module>
         <module>acsm-module-transaction-pricetag</module>
+        <module>acsm-module-transaction-order</module>
     </modules>
 
     <name>${project.artifactId}</name> <!-- 3. 新增 name 为 ${project.artifactId} -->
