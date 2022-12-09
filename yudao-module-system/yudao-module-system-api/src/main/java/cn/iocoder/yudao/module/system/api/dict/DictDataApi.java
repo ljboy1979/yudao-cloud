@@ -46,4 +46,11 @@ public interface DictDataApi {
     CommonResult<DictDataRespDTO> parseDictData(@RequestParam("dictType") String dictType,
                                                 @RequestParam("label") String label);
 
+    @GetMapping(PREFIX + "/getId")
+    @ApiOperation("通过id获取字典数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "字典编码", required = true, dataTypeClass = String.class)
+    })
+    CommonResult<DictDataRespDTO> getDictDataId(@RequestParam("id") Long id);
+
 }

@@ -42,4 +42,10 @@ public class DictDataApiImpl implements DictDataApi {
         return success(DictDataConvert.INSTANCE.convert02(dictData));
     }
 
+    @Override
+    public CommonResult<DictDataRespDTO> getDictDataId(Long id) {
+        DictDataDO dictData = dictDataService.getDictData(id);
+        return success(DictDataConvert.INSTANCE.convert02(dictData));
+    }
+
 }
