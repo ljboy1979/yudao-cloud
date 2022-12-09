@@ -21,6 +21,8 @@
         <module>acsm-module-wallet</module>
         <module>acsm-module-enterprise</module>
         <module>acsm-module-transaction</module>
+        <module>acsm-module-service</module>
+        <module>acsm-module-resource</module>
         <!--        <module>yudao-module-pay</module>-->
     </modules>
 
