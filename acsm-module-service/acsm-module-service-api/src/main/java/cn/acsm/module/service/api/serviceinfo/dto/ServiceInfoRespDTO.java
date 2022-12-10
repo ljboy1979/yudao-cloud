@@ -10,9 +10,6 @@ import java.util.Date;
 @Data
 public class ServiceInfoRespDTO{
 
-    @ApiModelProperty(value = "id")
-    private Long id;
-
     @ApiModelProperty(value = "服务编号")
     private String serviceCode;
 

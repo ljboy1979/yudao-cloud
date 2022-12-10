@@ -11,9 +11,6 @@ import lombok.Data;
 @Data
 public class AdoptContentReqDTO {
 
-    @ApiModelProperty(value = "id")
-    private Long id;
-
     @ApiModelProperty(value = "编号")
     private String adoptContentCode;
 
