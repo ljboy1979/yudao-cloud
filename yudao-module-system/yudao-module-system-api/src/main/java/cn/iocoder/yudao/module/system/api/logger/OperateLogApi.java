@@ -18,7 +18,7 @@ public interface OperateLogApi {
     String PREFIX = ApiConstants.PREFIX + "/operate-log";
 
     @PostMapping(PREFIX + "/create")
-    @ApiOperation("创建操作日志")
+    //@ApiOperation("创建操作日志")
     CommonResult<Boolean> createOperateLog(@Valid @RequestBody OperateLogCreateReqDTO createReqDTO);
 
 }

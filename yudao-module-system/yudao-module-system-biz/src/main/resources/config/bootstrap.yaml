@@ -1,7 +1,6 @@
 spring:
   application:
     name: system-server
-
   profiles:
     active: dev
 
@@ -12,3 +11,5 @@ server:
 logging:
   file:
     name: ${user.home}/logs/${spring.application.name}.log # 日志文件名，全路径
+
+

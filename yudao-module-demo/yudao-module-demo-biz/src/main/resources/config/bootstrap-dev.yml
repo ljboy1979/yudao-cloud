@@ -27,3 +27,16 @@ spring:
 #  cloud:
 #    loadbalancer:
 #      configurations: net-segment
+
+# Spring Boot Admin 本地配置项
+#spring:
+#  boot:
+#    admin:
+#      # Spring Boot Admin Client 客户端的相关配置
+#      client:
+#        url: http://localhost:7880/${spring.boot.admin.context-path} # 设置 Spring Boot Admin Server 地址
+#        instance:
+#          service-host-type: IP # 注册实例时，优先使用 IP [IP, HOST_NAME, CANONICAL_HOST_NAME]
+#      context-path: admin
+#      monitor:
+#        default-timeout: 60000

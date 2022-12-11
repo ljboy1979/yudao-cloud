@@ -101,7 +101,9 @@ public class TenantServiceImpl implements TenantService {
     public Long createTenant(TenantCreateReqVO createReqVO) {
         // 校验套餐被禁用
         TenantPackageDO tenantPackage = tenantPackageService.validTenantPackage(createReqVO.getPackageId());
-
+        // 校验租户名唯一
+        if(null != getTenantByName(createReqVO.getName()))
+            throw exception(TENANT_NAME_NOT_UNIQUE);
         // 创建租户
         TenantDO tenant = TenantConvert.INSTANCE.convert(createReqVO);
         tenantMapper.insert(tenant);

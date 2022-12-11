@@ -139,8 +139,8 @@ public interface ErrorCodeConstants {
 
     // ========== OAuth2 授权 1002022000 =========
     ErrorCode OAUTH2_CODE_NOT_EXISTS = new ErrorCode(1002022000, "code 不存在");
-    ErrorCode OAUTH2_CODE_EXPIRE = new ErrorCode(1002022000, "code 已过期");
+    ErrorCode OAUTH2_CODE_EXPIRE = new ErrorCode(1002022001, "code 已过期");
     // ========== 行政区划 1002023000 =========
     ErrorCode AREA_NOT_EXISTS = new ErrorCode(1002023001, "行政区划不存在");
-
+    ErrorCode TENANT_NAME_NOT_UNIQUE = new ErrorCode(1002024000, "租户名重复");
 }
