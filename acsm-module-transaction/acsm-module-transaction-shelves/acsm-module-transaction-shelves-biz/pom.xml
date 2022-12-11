@@ -5,7 +5,7 @@
     <parent>
         <artifactId>acsm-module-transaction-shelves</artifactId>
         <groupId>cn.iocoder.cloud</groupId>
-        <version>1.6.2-snapshot</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

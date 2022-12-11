@@ -15,6 +15,7 @@
         <module>acsm-module-transaction-pricetag-biz</module>
         <module>acsm-module-transaction-pricetag-api</module>
     </modules>
+    <name>${project.artifactId}</name> <!-- 3. 新增 name 为 ${project.artifactId} -->
 
 
 

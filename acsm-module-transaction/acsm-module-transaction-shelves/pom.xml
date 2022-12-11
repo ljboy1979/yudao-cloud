@@ -5,7 +5,7 @@
     <parent>
         <artifactId>acsm-module-transaction</artifactId>
         <groupId>cn.iocoder.cloud</groupId>
-        <version>1.6.2-snapshot</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,6 +15,7 @@
         <module>acsm-module-transaction-shelves-api</module>
         <module>acsm-module-transaction-shelves-biz</module>
     </modules>
+    <name>${project.artifactId}</name> <!-- 3. 新增 name 为 ${project.artifactId} -->
 
 
 </project>
