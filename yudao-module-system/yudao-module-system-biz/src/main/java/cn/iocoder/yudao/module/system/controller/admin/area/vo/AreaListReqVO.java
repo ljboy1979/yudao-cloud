@@ -1,49 +1,44 @@
 package cn.iocoder.yudao.module.system.controller.admin.area.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
-* 行政区划 Base VO，提供给添加、修改、详细的子 VO 使用
-* 如果子 VO 存在差异的字段，请不要添加到这里，影响 Swagger 文档生成
-*/
-@Data
-public class AreaBaseVO {
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
-    @ApiModelProperty(value = "区域编码", required = true)
-    @NotNull(message = "区域编码不能为空")
+@ApiModel("管理后台 - 行政区划列表 Request VO")
+@Data
+public class AreaListReqVO {
+
+    @ApiModelProperty(value = "区域编码")
     private String areaCode;
 
-    @ApiModelProperty(value = "父级编号", required = true)
-    @NotNull(message = "父级编号不能为空")
+    @ApiModelProperty(value = "父级编号")
     private String parentCode;
 
-    @ApiModelProperty(value = "所有父级编号", required = true)
-    @NotNull(message = "所有父级编号不能为空")
+    @ApiModelProperty(value = "所有父级编号")
     private String parentCodes;
 
-    @ApiModelProperty(value = "本级排序号（升序）", required = true)
+    @ApiModelProperty(value = "本级排序号（升序）")
     private BigDecimal treeSort;
 
-    @ApiModelProperty(value = "所有级别排序号", required = true)
+    @ApiModelProperty(value = "所有级别排序号")
     private String treeSorts;
 
-    @ApiModelProperty(value = "是否最末级", required = true)
+    @ApiModelProperty(value = "是否最末级")
     private String treeLeaf;
 
-    @ApiModelProperty(value = "层次级别", required = true)
+    @ApiModelProperty(value = "层次级别")
     private BigDecimal treeLevel;
 
-    @ApiModelProperty(value = "全节点名", required = true)
-    @NotNull(message = "全节点名不能为空")
+    @ApiModelProperty(value = "全节点名")
     private String treeNames;
 
-    @ApiModelProperty(value = "区域名称", required = true)
-    @NotNull(message = "区域名称不能为空")
+    @ApiModelProperty(value = "区域名称")
     private String areaName;
 
     @ApiModelProperty(value = "区域类型")
@@ -52,20 +47,22 @@ public class AreaBaseVO {
     @ApiModelProperty(value = "状态(0正常 1停用)")
     private String status;
 
-    @ApiModelProperty(value = "是否删除", required = true)
+    @ApiModelProperty(value = "是否删除")
     private Boolean deleted;
 
     @ApiModelProperty(value = "创建者")
     private String creator;
 
-    @ApiModelProperty(value = "创建时间", required = true)
-    private Date createTime;
+    @ApiModelProperty(value = "创建时间")
+    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date[] createTime;
 
     @ApiModelProperty(value = "更新者")
     private String updater;
 
-    @ApiModelProperty(value = "更新时间", required = true)
-    private Date updateTime;
+    @ApiModelProperty(value = "更新时间")
+    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date[] updateTime;
 
     @ApiModelProperty(value = "备注信息")
     private String remarks;

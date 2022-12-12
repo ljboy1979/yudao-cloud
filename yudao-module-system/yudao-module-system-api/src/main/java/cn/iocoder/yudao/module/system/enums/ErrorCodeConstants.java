@@ -142,5 +142,9 @@ public interface ErrorCodeConstants {
     ErrorCode OAUTH2_CODE_EXPIRE = new ErrorCode(1002022000, "code 已过期");
     // ========== 行政区划 1002023000 =========
     ErrorCode AREA_NOT_EXISTS = new ErrorCode(1002023001, "行政区划不存在");
+    ErrorCode PARENT_NOT_EXISTS = new ErrorCode(1002023002, "行政区划父节点不存在");
+    ErrorCode PARENTCODES_PARAM_MISSING = new ErrorCode(1002023003, "全父级编号parentCodes参数缺失");
+    ErrorCode TREENAMES_PARAM_MISSING = new ErrorCode(1002023004, "全节点名treeNames参数缺失");
+    ErrorCode AREACODE_ALREADY_EXISTS = new ErrorCode(1002023005, "区域编码已经存在");
 
 }
