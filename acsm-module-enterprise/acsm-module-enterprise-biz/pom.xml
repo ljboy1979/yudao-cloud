@@ -98,10 +98,6 @@
         </dependency>
         <dependency>
             <groupId>cn.iocoder.cloud</groupId>
-            <artifactId>yudao-spring-boot-starter-biz-operatelog</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.iocoder.cloud</groupId>
             <artifactId>yudao-spring-boot-starter-biz-sms</artifactId>
         </dependency>
         <dependency>
