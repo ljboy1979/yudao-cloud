@@ -24,7 +24,7 @@ public interface OtherCertificateInfoMapper extends BaseMapperX< OtherCertificat
                 .eqIfPresent(OtherCertificateInfoDO::getEnterpriseId, reqVO.getEnterpriseId())
                 .eqIfPresent(OtherCertificateInfoDO::getCertificateType, reqVO.getCertificateType())
                 .likeIfPresent(OtherCertificateInfoDO::getCertificateName, reqVO.getCertificateName())
-                .eqIfPresent(OtherCertificateInfoDO::getCertificateNo, reqVO.getCertificateNo())
+                .likeIfPresent(OtherCertificateInfoDO::getCertificateNo, reqVO.getCertificateNo())
                 .betweenIfPresent(OtherCertificateInfoDO::getCertificateEndTime, reqVO.getCertificateEndTime())
                 .eqIfPresent(OtherCertificateInfoDO::getCertificatePhoto, reqVO.getCertificatePhoto())
                 .eqIfPresent(OtherCertificateInfoDO::getSource, reqVO.getSource())
