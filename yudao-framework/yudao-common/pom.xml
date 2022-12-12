@@ -108,7 +108,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <scope>provided</scope> <!-- 设置为 provided，只有工具类需要使用到 -->
+<!--            <scope>provided</scope> &lt;!&ndash; 设置为 provided，只有工具类需要使用到 &ndash;&gt;-->
         </dependency>
 
         <dependency>
