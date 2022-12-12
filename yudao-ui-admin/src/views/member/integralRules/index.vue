@@ -348,7 +348,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除会员积分规则编号为"' + id + '"的数据项?').then(function () {
+      this.$modal.confirm('是否确认删除企业名称为"' + row.enterpriseName + '"的数据项?').then(function () {
         return deleteIntegralRules(id);
       }).then(() => {
         this.getList();
@@ -375,5 +375,8 @@ export default {
 <style>
 .line {
   text-align: center;
+}
+.el-tooltip__popper {
+    max-width: 50%;
 }
 </style>

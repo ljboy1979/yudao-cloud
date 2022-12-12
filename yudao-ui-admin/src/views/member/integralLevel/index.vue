@@ -53,6 +53,14 @@
         </template>
       </el-table-column>
       <el-table-column label="等级描述" align="center" prop="levelDescription" show-overflow-tooltip />
+      <!-- <el-table-column label="等级描述" align="center" prop="levelDescription">
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="light" placement="top">
+            <div v-html="ToBreak(scope.row.levelDescription)" slot="content"></div>
+            <div class="content">{{ scope.row.levelDescription }}</div>
+          </el-tooltip>
+        </template>
+      </el-table-column> -->
       <!-- <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="租户集合" align="center" prop="source" />
       <el-table-column label="经营主体ID" align="center" prop="subjectId" /> -->
@@ -83,7 +91,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="会员等级" prop="memberLevel">
-          <el-input v-model="form.memberLevel" placeholder="请输入会员等级名称" />
+          <el-input v-model="form.memberLevel" placeholder="请输入会员等级名称" maxlength="64" />
         </el-form-item>
         <el-form-item label="积分阀值" prop="integralThreshold">
           <el-input v-model.number="form.integralThreshold" placeholder="请输入积分阀值" maxlength="9" />
@@ -175,6 +183,7 @@ export default {
         { type: 'number', message: '积分阀值必须为整数', trigger: "blur" }],
       },
       enterpriseNameData: [], //获取企业（经营主体）
+      tooltipShow: "", //是否显示文字提示
     };
   },
   created() {
@@ -284,7 +293,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除会员积分等级编号为"' + id + '"的数据项?').then(function () {
+      this.$modal.confirm('是否确认删除企业名称为"' + row.enterpriseName + '"的数据项?').then(function () {
         return deleteIntegralLevel(id);
       }).then(() => {
         this.getList();
@@ -304,7 +313,36 @@ export default {
         this.$download.excel(response, '会员积分等级.xls');
         this.exportLoading = false;
       }).catch(() => { });
+    },
+    ToBreak(content) {
+      let text, i;
+      if (content) {
+        let num = 80
+        if (content.length > num) {
+          // this.tooltipShow = true
+          text = content.slice(0, num)
+          for (i = 0; i < content.length; i += num) {
+            text = text + "<br/>" + content.slice(i, i + num)
+          }
+        }else{
+          // this.tooltipShow = false
+          text = content
+        }
+      }
+      return text
     }
   }
 };
 </script>
+<!-- <style scoped>
+.content {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+</style> -->
+<style>
+.el-tooltip__popper {
+    max-width: 50%;
+}
+</style>
