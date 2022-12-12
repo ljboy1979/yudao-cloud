@@ -35,9 +35,9 @@ export function getArea(id) {
 }
 
 // 获得行政区划分页
-export function getAreaPage(query) {
+export function getAreaList4Query(query) {
   return request({
-    url: '/system/area/page',
+    url: '/system/area/getAreaList4Query',
     method: 'get',
     params: query
   })
@@ -50,5 +50,22 @@ export function exportAreaExcel(query) {
     method: 'get',
     params: query,
     responseType: 'blob'
+  })
+}
+//停用启用行政区划
+export function updateStatus(data) {
+  return request({
+    url: '/system/area/updateStatus?id=' + data,
+    method: 'put',
+    params: data,
+  })
+}
+//行政区划三级列表
+export function getTree(){
+  return request({
+    url: '/system/area/tree/all',
+    method: 'get',
+    // params: query,
+    // responseType: 'blob'
   })
 }
