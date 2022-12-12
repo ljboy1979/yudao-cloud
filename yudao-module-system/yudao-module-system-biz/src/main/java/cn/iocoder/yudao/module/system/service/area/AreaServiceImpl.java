@@ -90,7 +90,7 @@ public class AreaServiceImpl implements AreaService {
         }
         // 更新
         AreaDO updateObj = AreaConvert.INSTANCE.convert(updateReqVO);
-//        updateObj = getAssemblyArea(updateObj, "2");
+        updateObj = getAssemblyArea(updateObj, "2");
         areaMapper.updateById(updateObj);
     }
 
@@ -111,10 +111,10 @@ public class AreaServiceImpl implements AreaService {
         String treeSorts = parentArea.getTreeSorts() + treeSort + ",";
         if ("1".equals(type)){
             area.setTreeLeaf("1"); // 新增默认为最末级
+            area.setTreeNames(area.getTreeNames() + "/" + area.getAreaName());
         }
         area.setTreeSorts(treeSorts);
         area.setParentCodes(parentArea.getParentCodes() + area.getParentCode()+ ",");
-        area.setTreeNames(area.getTreeNames() + "/" + area.getAreaName());
         // 计算层次级别
         String[] parentCodes = area.getParentCodes().split(",");
         area.setTreeLevel(new BigDecimal(parentCodes.length-1));
