@@ -44,6 +44,9 @@ public class AreaExcelVO {
     @ExcelProperty("区域类型")
     private String areaType;
 
+    @ExcelProperty("状态")
+    private String status;
+
     @ExcelProperty("是否删除")
     private Boolean deleted;
 

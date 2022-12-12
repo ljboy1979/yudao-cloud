@@ -94,10 +94,10 @@
           <el-input v-model="form.memberId" placeholder="请输入会员id" />
         </el-form-item> -->
         <el-form-item label="会员账号" prop="memberAccount">
-          <el-input v-model="form.memberAccount" placeholder="请输入会员账号" />
+          <el-input v-model="form.memberAccount" placeholder="请输入会员账号" disabled="true"/>
         </el-form-item>
         <el-form-item label="会员名称" prop="memberName">
-          <el-input v-model="form.memberName" placeholder="请输入会员名称" />
+          <el-input v-model="form.memberName" placeholder="请输入会员名称" disabled="true"/>
         </el-form-item>
         <el-form-item label="评分项目" prop="ratingItems">
           <el-select v-model="form.ratingItems" placeholder="请选择评分项目">
@@ -328,7 +328,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除会员积分记录编号为"' + id + '"的数据项?').then(function () {
+      this.$modal.confirm('是否确认删除会员账号为"' + row.memberAccount + '"的数据项?').then(function () {
         return deleteIntegralRecord(id);
       }).then(() => {
         this.getList();

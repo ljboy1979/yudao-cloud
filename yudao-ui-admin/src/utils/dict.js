@@ -82,6 +82,8 @@ export const DICT_TYPE = {
   WALLET_TRANSACTION_TYPE: 'wallet_transaction_type', //交易类型
   WALLET_PAY_TYPE: 'wallet_pay_type', //交易方式
   WALLET_TRANSACTION_STATUS: 'wallet_transaction_status', //交易状态
+  //行政区域类型
+  ADMINISTRATIVE_AREA_TYPE:'administrative_area_type'//区域类型
 }
 
 /**

@@ -1,10 +1,7 @@
 package cn.iocoder.yudao.module.system.service.area;
 
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.module.system.controller.admin.area.vo.AreaCreateReqVO;
-import cn.iocoder.yudao.module.system.controller.admin.area.vo.AreaExportReqVO;
-import cn.iocoder.yudao.module.system.controller.admin.area.vo.AreaPageReqVO;
-import cn.iocoder.yudao.module.system.controller.admin.area.vo.AreaUpdateReqVO;
+import cn.iocoder.yudao.module.system.controller.admin.area.vo.*;
 import cn.iocoder.yudao.module.system.dal.dataobject.area.AreaDO;
 
 import javax.validation.Valid;
@@ -78,4 +75,23 @@ public interface AreaService {
      */
     List<AreaDO> getAreaTreeList();
 
+    /**
+     * @Description:查询区划列表
+     * @param reqVO
+     * @Date: 2022/12/8
+     * @author: lihongyan
+     * @throws
+     * @return:java.util.List<cn.iocoder.yudao.module.system.dal.dataobject.area.AreaDO>
+     */
+    List<AreaDO> getAreaList4Query(AreaListReqVO reqVO);
+
+    /**
+     * @Description:停用/启用行政区划
+     * @param id
+     * @Date: 2022/12/9
+     * @author: lihongyan 
+     * @throws
+     * @return:void 
+     */
+    void updateStatus(Long id);
 }

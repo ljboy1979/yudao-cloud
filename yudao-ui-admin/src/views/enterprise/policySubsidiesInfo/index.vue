@@ -89,7 +89,7 @@
           <el-input v-model="form.subsidiesName" placeholder="请输入补贴名称" />
         </el-form-item>
         <el-form-item label="补贴金额" prop="subsidiesAmount">
-          <el-input v-model="form.subsidiesAmount" placeholder="请输入补贴金额" />
+          <el-input v-model.number="form.subsidiesAmount" placeholder="请输入补贴金额" />
         </el-form-item>
         <el-form-item label="补贴方式" prop="subsidiesType">
           <el-select v-model="form.subsidiesType" placeholder="请选择补贴方式">
@@ -179,12 +179,11 @@ export default {
         ],
         subsidiesAmount: [
           { required: true, message: '请输入补贴金额', trigger: 'blur' },
-          { min: 1, max: 10, message: '最大长度为10的整数或者2位小数', trigger: 'blur' },
+          { message: '最大长度为10的整数或者2位小数', trigger: 'blur', type: 'number' },
           {
-            pattern: /^[0-9]+(.[0-9]{1,2})?$/,
+            pattern: /^([1-9]\d{0,9}|0)(\.\d{1,2})?$/,
             message: '最大长度为10的整数或者2位小数',
             trigger: ['blur'],
-
           }
         ],
         // subsidiesType: [
@@ -193,9 +192,10 @@ export default {
         // subsidiesStatus: [
         //   { required: true, message: '请选择补贴状态', trigger: 'change' },
         // ],
-        // applyPerson: [
-        //   { required: true, message: '请输入申请人', trigger: 'blur' },
-        // ],
+        applyPerson: [
+          { required: false, message: '请输入申请人', trigger: 'blur' },
+          { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }
+        ],
       }
     };
   },
@@ -263,6 +263,8 @@ export default {
       getPolicySubsidiesInfo(id).then(response => {
         console.log(response)
         this.form = response.data;
+        this.form.subsidiesAmount = + this.form.subsidiesAmount
+        console.log(typeof this.form.subsidiesAmount)
         this.open = true;
         this.title = "修改政策补贴";
       });
@@ -294,7 +296,8 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const id = row.id;
-      this.$modal.confirm('是否确认删除企业政策补贴信息编号为"' + id + '"的数据项?').then(function () {
+      // this.$modal.confirm('是否确认删除企业政策补贴信息编号为"' + id + '"的数据项?').then(function () {
+      this.$modal.confirm('是否确认该条删除企业政策补贴信息?').then(function () {
         return deletePolicySubsidiesInfo(id);
       }).then(() => {
         this.getList();

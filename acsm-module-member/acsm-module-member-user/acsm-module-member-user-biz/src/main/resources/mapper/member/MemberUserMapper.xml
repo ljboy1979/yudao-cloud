@@ -41,13 +41,13 @@
         WHERE
             mu.deleted = 0
         <if test="reqVO.nickname != null and reqVO.nickname != ''">
-            and mu.nickname = #{reqVO.nickname}
+            and mu.nickname like concat('%',#{reqVO.nickname},'%')
         </if>
         <if test="reqVO.mobile != null and reqVO.mobile != ''">
-            and mu.mobile = #{reqVO.mobile}
+            and mu.mobile like concat('%',#{reqVO.mobile},'%')
         </if>
         <if test="reqVO.source != null">
-            and mu.source = #{reqVO.source}
+            and mu.source like concat('%',#{reqVO.source},'%')
         </if>
         <if test="reqVO.memberType != null ">
             and mud.member_type = #{reqVO.memberType}
@@ -59,7 +59,7 @@
             and mu.id = #{reqVO.id}
         </if>
         <if test="reqVO.memberAccount != null and reqVO.memberAccount != ''">
-            and mud.member_account = #{reqVO.memberAccount}
+            and mud.member_account like concat('%',#{reqVO.memberAccount},'%')
         </if>
         ORDER BY
             mu.id DESC
@@ -76,13 +76,13 @@
         WHERE
             mu.deleted = 0
         <if test="reqVO.nickname != null and reqVO.nickname != ''">
-            and mu.nickname = #{reqVO.nickname}
+            and mu.nickname like concat('%',#{reqVO.nickname},'%')
         </if>
         <if test="reqVO.mobile != null and reqVO.mobile != ''">
-            and mu.mobile = #{reqVO.mobile}
+            and mu.mobile like concat('%',#{reqVO.mobile},'%')
         </if>
         <if test="reqVO.source != null">
-            and mu.source = #{reqVO.source}
+            and mu.source like concat('%',#{reqVO.source},'%')
         </if>
         <if test="reqVO.memberType != null">
             and mud.member_type = #{reqVO.memberType}
@@ -94,7 +94,7 @@
             and mu.id = #{reqVO.id}
         </if>
         <if test="reqVO.memberAccount != null and reqVO.memberAccount != ''">
-            and mud.member_account = #{reqVO.memberAccount}
+            and mud.member_account like concat('%',#{reqVO.memberAccount},'%')
         </if>
     </select>
 </mapper>
