@@ -18,7 +18,7 @@ public class UserUpdatePasswordReqVO {
 
     @ApiModelProperty(value = "密码", required = true, example = "123456")
     @NotEmpty(message = "密码不能为空")
-    @Length(min = 4, max = 16, message = "密码长度为 4-16 位")
+    @Length(min = 6, max = 20, message = "密码长度为 6-20     位")
     private String password;
 
 }

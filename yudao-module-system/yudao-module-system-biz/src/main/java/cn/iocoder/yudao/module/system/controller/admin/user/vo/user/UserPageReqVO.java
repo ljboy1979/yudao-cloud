@@ -20,7 +20,7 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @EqualsAndHashCode(callSuper = true)
 public class UserPageReqVO extends PageParam {
 
-    @ApiModelProperty(value = "用户账号", example = "yudao", notes = "模糊匹配")
+    @ApiModelProperty(value = "用户名称", example = "yudao", notes = "模糊匹配")
     private String username;
 
     @ApiModelProperty(value = "手机号码", example = "yudao", notes = "模糊匹配")
