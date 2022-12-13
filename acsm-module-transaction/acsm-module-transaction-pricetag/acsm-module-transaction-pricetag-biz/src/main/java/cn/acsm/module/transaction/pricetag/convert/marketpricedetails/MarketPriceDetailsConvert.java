@@ -2,6 +2,7 @@ package cn.acsm.module.transaction.pricetag.convert.marketpricedetails;
 
 import java.util.*;
 
+import cn.acsm.module.transaction.pricetag.api.dto.MarketPriceDetailsDto;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 import org.mapstruct.Mapper;
@@ -31,4 +32,5 @@ public interface MarketPriceDetailsConvert {
 
     List<MarketPriceDetailsExcelVO> convertList02(List<MarketPriceDetailsDO> list);
 
+    MarketPriceDetailsDO convertDto(MarketPriceDetailsDto marketPriceDetailsDto);
 }

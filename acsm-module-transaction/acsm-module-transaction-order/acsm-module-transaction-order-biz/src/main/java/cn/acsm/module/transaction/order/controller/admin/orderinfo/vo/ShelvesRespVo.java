@@ -1,4 +1,4 @@
-package cn.acsm.module.transaction.shelves.dal.dataobject.pricetag;
+package cn.acsm.module.transaction.order.controller.admin.orderinfo.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @ApiModel("货架响应DTO")
 @Data
-public class PriceTagShelvesRespDO {
+public class ShelvesRespVo {
     @ApiModelProperty("id")
     private String id;
     @ApiModelProperty("名称")

@@ -1,11 +1,13 @@
 package cn.acsm.module.transaction.pricetag.service.marketcommodity;
 
+import cn.acsm.module.transaction.pricetag.api.dto.MarketPriceDto;
+import cn.acsm.module.transaction.pricetag.dal.dataobject.marketcommodity.MarketPriceFeignDO;
 import cn.acsm.module.transaction.pricetag.dal.mysql.marketcommodity.*;
 import cn.acsm.module.transaction.pricetag.util.ConfigNumberUtil;
-import cn.acsm.module.transaction.shelves.api.dto.PriceTagShelvesReqDto;
-import cn.acsm.module.transaction.shelves.api.dto.PriceTagShelvesRespDto;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesRespDto;
 import cn.acsm.module.transaction.shelves.api.dto.TreeSelectDto;
-import cn.acsm.module.transaction.shelves.api.shelves.PriceTagApi;
+import cn.acsm.module.transaction.shelves.api.shelves.ShelvesApi;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,7 @@ public class MarketCommodityServiceImpl implements MarketCommodityService {
     @Resource
     private MarketCommodityMapper marketCommodityMapper;
     @Resource
-    private PriceTagApi priceTagApi;
+    private ShelvesApi shelvesApi;
     @Resource
     private ConfigNumberUtil configNumberUtil;
     @Override
@@ -95,24 +97,31 @@ public class MarketCommodityServiceImpl implements MarketCommodityService {
     }
 
     @Override
-    public List<PriceTagShelvesRespVo> findShelves(PriceTagShelvesReqVo shelvesReqVO) {
-        PriceTagShelvesReqDto priceTagShelvesReqDto = MarketCommodityConvert.INSTANCE.convertShelvesReqDto(shelvesReqVO);
-        CommonResult<List<PriceTagShelvesRespDto>>  result =  priceTagApi.findPriceTagShelves(priceTagShelvesReqDto);
+    public List<ShelvesRespVo> findShelves(ShelvesReqVo shelvesReqVO) {
+        ShelvesReqDto shelvesReqDto = MarketCommodityConvert.INSTANCE.convertShelvesReqDto(shelvesReqVO);
+        CommonResult<List<ShelvesRespDto>>  result =  shelvesApi.findShelvesList(shelvesReqDto);
         return  MarketCommodityConvert.INSTANCE.convertShelvesRespList(result.getData());
     }
 
     @Override
-    public List<PriceTagShelvesRespVo> findSpecifications(PriceTagShelvesReqVo shelvesReqVO) {
-        PriceTagShelvesReqDto priceTagShelvesReqDto = MarketCommodityConvert.INSTANCE.convertShelvesReqDto(shelvesReqVO);
-        CommonResult<List<PriceTagShelvesRespDto>>  result =  priceTagApi.findPriceTagSpecifications(priceTagShelvesReqDto);
+    public List<ShelvesRespVo> findSpecifications(ShelvesReqVo shelvesReqVO) {
+        ShelvesReqDto shelvesReqDto = MarketCommodityConvert.INSTANCE.convertShelvesReqDto(shelvesReqVO);
+        CommonResult<List<ShelvesRespDto>>  result =  shelvesApi.findSpecificationsList(shelvesReqDto);
         return  MarketCommodityConvert.INSTANCE.convertShelvesRespList(result.getData());
     }
 
     @Override
-    public List<TreeSelectVo> findTreeList(PriceTagShelvesReqVo shelvesReqVO) {
-        PriceTagShelvesReqDto priceTagShelvesReqDto = MarketCommodityConvert.INSTANCE.convertShelvesReqDto(shelvesReqVO);
-        CommonResult<List<TreeSelectDto>>  result =  priceTagApi.treeList(priceTagShelvesReqDto);
+    public List<TreeSelectVo> findTreeList(ShelvesReqVo shelvesReqVO) {
+        ShelvesReqDto shelvesReqDto = MarketCommodityConvert.INSTANCE.convertShelvesReqDto(shelvesReqVO);
+        CommonResult<List<TreeSelectDto>>  result =  shelvesApi.treeList(shelvesReqDto);
         return  MarketCommodityConvert.convertShelvesTreeRespList(result.getData());
+    }
+
+    @Override
+    public List<MarketPriceDto> getIdBySpecificationId(String id) {
+        List<MarketPriceFeignDO> marketPriceFeignDOS = marketCommodityMapper.getIdBySpecificationId(id);
+        List<MarketPriceDto> shelvesReqDto = MarketCommodityConvert.INSTANCE.convertMarketPriceDto(marketPriceFeignDOS);
+        return shelvesReqDto;
     }
 
 }

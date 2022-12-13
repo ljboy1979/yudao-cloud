@@ -33,6 +33,10 @@ public class OrderInfoDO extends BaseDO {
     @TableId(type = IdType.INPUT)
     private String id;
     /**
+     * 编码
+     */
+    private String code;
+    /**
      * 货架id
      */
     private String shelvesId;

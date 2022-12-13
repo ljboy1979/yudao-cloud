@@ -4,8 +4,8 @@ import java.util.*;
 
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
-import cn.acsm.module.transaction.shelves.api.dto.PriceTagShelvesRespDto;
-import cn.acsm.module.transaction.shelves.dal.dataobject.pricetag.PriceTagShelvesRespDO;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesRespDto;
+import cn.acsm.module.transaction.shelves.dal.dataobject.shelves.ShelvesRespDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 import org.mapstruct.Mapper;
@@ -39,6 +39,6 @@ public interface ShelvesConvert {
 
     List<ShelvesSalesRespVO> convertShelvesSalesResp(List<ShelvesSalesRespDto> bean);
 
-    List<PriceTagShelvesRespDto> convertShelvesPriceTag(List<PriceTagShelvesRespDO> bean);
+    List<ShelvesRespDto> convertShelvesPriceTag(List<ShelvesRespDO> bean);
 
 }

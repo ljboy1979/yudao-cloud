@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.pricetag.service.marketpricedetails;
 
+import cn.acsm.module.transaction.pricetag.api.dto.MarketPriceDetailsDto;
 import cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.MarketPriceDO;
 import cn.acsm.module.transaction.pricetag.dal.mysql.marketprice.MarketPriceMapper;
 import cn.acsm.module.transaction.pricetag.util.ConfigNumberUtil;
@@ -90,6 +91,17 @@ public class MarketPriceDetailsServiceImpl implements MarketPriceDetailsService 
     @Override
     public List<MarketPriceDetailsDO> getMarketPriceDetailsList(MarketPriceDetailsExportReqVO exportReqVO) {
         return marketPriceDetailsMapper.selectList(exportReqVO);
+    }
+
+    @Override
+    public void saveMarketPriceDetails(MarketPriceDetailsDto marketPriceDetailsDto) {
+        Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
+        String number = configNumberUtil.getNumber("pricetag_market_price_details"+tenantId);
+        // 插入
+        MarketPriceDetailsDO marketPriceDetails = MarketPriceDetailsConvert.INSTANCE.convertDto(marketPriceDetailsDto);
+        marketPriceDetails.setId(UUID.randomUUID().toString());
+        marketPriceDetails.setPriceCode("MX"+number);
+        marketPriceDetailsMapper.insert(marketPriceDetails);
     }
 
     private void renewPrice(String id){

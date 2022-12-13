@@ -1,5 +1,7 @@
 package cn.acsm.module.transaction.order.service.deliveryinfo;
 
+import cn.acsm.module.transaction.order.util.ConfigNumberUtil;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -26,11 +28,16 @@ public class DeliveryInfoServiceImpl implements DeliveryInfoService {
 
     @Resource
     private DeliveryInfoMapper deliveryInfoMapper;
-
+    @Resource
+    private ConfigNumberUtil configNumberUtil;
     @Override
     public String createDeliveryInfo(DeliveryInfoCreateReqVO createReqVO) {
+        Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
+        String number = configNumberUtil.getNumber("order_delivery_info"+tenantId);
         // 插入
         DeliveryInfoDO deliveryInfo = DeliveryInfoConvert.INSTANCE.convert(createReqVO);
+        deliveryInfo.setId(UUID.randomUUID().toString());
+        deliveryInfo.setDeliveryCode("PS"+number);
         deliveryInfoMapper.insert(deliveryInfo);
         // 返回
         return deliveryInfo.getId();

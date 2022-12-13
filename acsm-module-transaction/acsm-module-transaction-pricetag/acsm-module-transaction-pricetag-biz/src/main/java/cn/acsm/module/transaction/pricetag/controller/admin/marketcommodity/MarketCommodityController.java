@@ -1,6 +1,5 @@
 package cn.acsm.module.transaction.pricetag.controller.admin.marketcommodity;
 
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -8,7 +7,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.annotations.*;
 
-import javax.validation.constraints.*;
 import javax.validation.*;
 import javax.servlet.http.*;
 import java.util.*;
@@ -102,21 +100,21 @@ public class MarketCommodityController {
     @PostMapping("/findShelves")
     @ApiOperation("查询售品")
     @PreAuthorize("@ss.hasPermission('shelves:shelves:query')")
-    public CommonResult<List<PriceTagShelvesRespVo>> findShelves(@Valid @RequestBody PriceTagShelvesReqVo shelvesReqVO) {
+    public CommonResult<List<ShelvesRespVo>> findShelves(@Valid @RequestBody ShelvesReqVo shelvesReqVO) {
         return success(marketCommodityService.findShelves(shelvesReqVO));
     }
 
     @PostMapping("/findSpecifications")
     @ApiOperation("查询售品规格")
     @PreAuthorize("@ss.hasPermission('shelves:shelves:query')")
-    public CommonResult<List<PriceTagShelvesRespVo>> findSpecifications(@Valid @RequestBody PriceTagShelvesReqVo shelvesReqVO) {
+    public CommonResult<List<ShelvesRespVo>> findSpecifications(@Valid @RequestBody ShelvesReqVo shelvesReqVO) {
         return success(marketCommodityService.findSpecifications(shelvesReqVO));
     }
     @PostMapping("/treeList")
     @ApiOperation("树形分类列表")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:query')")
     @Cacheable(value = "/shelves/stock-classify/treeList")
-    public CommonResult<List<TreeSelectVo>> treeList(@Valid PriceTagShelvesReqVo shelvesReqVO) {
+    public CommonResult<List<TreeSelectVo>> treeList(@Valid ShelvesReqVo shelvesReqVO) {
         List<TreeSelectVo> list = marketCommodityService.findTreeList(shelvesReqVO);
         return success(list);
     }

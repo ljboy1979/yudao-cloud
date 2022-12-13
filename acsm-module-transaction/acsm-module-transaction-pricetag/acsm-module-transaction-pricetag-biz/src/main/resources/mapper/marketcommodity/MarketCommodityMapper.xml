@@ -9,4 +9,15 @@
         文档可见：https://www.iocoder.cn/MyBatis/x-plugins/
      -->
 
+    <select id="getIdBySpecificationId" resultType="cn.acsm.module.transaction.pricetag.dal.dataobject.marketcommodity.MarketPriceFeignDO">
+        SELECT
+        pmc.id,
+        pmp.id AS priceId
+        FROM
+        pricetag_market_commodity pmc
+        LEFT JOIN pricetag_market_price pmp ON pmc.id = pmp.market_commodity_id
+        WHERE
+        pmc.specification_id = #{id}
+        and pmc.deleted=0
+    </select>
 </mapper>

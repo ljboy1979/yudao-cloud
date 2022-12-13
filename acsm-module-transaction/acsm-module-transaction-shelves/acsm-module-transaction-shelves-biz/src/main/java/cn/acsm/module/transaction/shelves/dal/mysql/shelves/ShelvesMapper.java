@@ -2,8 +2,8 @@ package cn.acsm.module.transaction.shelves.dal.mysql.shelves;
 
 import java.util.*;
 
-import cn.acsm.module.transaction.shelves.api.dto.PriceTagShelvesReqDto;
-import cn.acsm.module.transaction.shelves.dal.dataobject.pricetag.PriceTagShelvesRespDO;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
+import cn.acsm.module.transaction.shelves.dal.dataobject.shelves.ShelvesRespDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
@@ -35,7 +35,7 @@ public interface ShelvesMapper extends BaseMapperX<ShelvesDO> {
                 .orderByDesc(ShelvesDO::getId));
     }
 
-    List<PriceTagShelvesRespDO> findPriceTagShelves(PriceTagShelvesReqDto shelvesReqDto);
+    List<ShelvesRespDO> findPriceTagShelves(ShelvesReqDto shelvesReqDto);
 
-    List<PriceTagShelvesRespDO> findPriceTagSpecifications(PriceTagShelvesReqDto shelvesReqDto);
+    List<ShelvesRespDO> findPriceTagSpecifications(ShelvesReqDto shelvesReqDto);
 }

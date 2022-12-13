@@ -1,12 +1,12 @@
 package cn.acsm.module.transaction.order.controller.admin.orderinfo;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.annotations.*;
 
-import javax.validation.constraints.*;
 import javax.validation.*;
 import javax.servlet.http.*;
 import java.util.*;
@@ -96,5 +96,71 @@ public class OrderInfoController {
         List<OrderInfoExcelVO> datas = OrderInfoConvert.INSTANCE.convertList02(list);
         ExcelUtils.write(response, "订单.xls", "数据", OrderInfoExcelVO.class, datas);
     }
+
+    @PostMapping("/confirm")
+    @ApiOperation("订单确认")
+    @PreAuthorize("@ss.hasPermission('order:info:update')")
+    public CommonResult<Boolean> confirm(@Valid @RequestBody OrderConfirmVO orderConfirmVO) {
+        infoService.confirm(orderConfirmVO);
+        return success(true);
+    }
+
+    @PostMapping("/cancelOrder")
+    @ApiOperation("订单取消")
+    @PreAuthorize("@ss.hasPermission('order:info:update')")
+    public CommonResult<Boolean> cancelOrder(@Valid @RequestBody CancelOrderVO cancelOrderVO) {
+        infoService.cancelOrder(cancelOrderVO);
+        return success(true);
+    }
+
+
+    @PostMapping("/deliverGoods")
+    @ApiOperation("订单发货")
+    @PreAuthorize("@ss.hasPermission('order:info:update')")
+    public CommonResult<Boolean> deliverGoods(@Valid @RequestBody DeliverGoodsVO deliverGoodsVO) {
+        infoService.deliverGoods(deliverGoodsVO);
+
+
+        return success(true);
+    }
+    @PostMapping("/confirmDelivery")
+    @ApiOperation("确认送达")
+    @PreAuthorize("@ss.hasPermission('order:info:update')")
+    public CommonResult<Boolean> confirmDelivery(@Valid @RequestBody OrderIdVO orderIdVO) {
+        infoService.confirmDelivery(orderIdVO);
+        return success(true);
+    }
+
+    @PostMapping("/modifyPrice")
+    @ApiOperation("调价")
+    @PreAuthorize("@ss.hasPermission('order:info:update')")
+    public CommonResult<Boolean> modifyPrice(@Valid @RequestBody ModifyPriceVO modifyPriceVO) {
+        infoService.modifyPrice(modifyPriceVO);
+        return success(true);
+    }
+
+
+    @PostMapping("/findShelves")
+    @ApiOperation("查询货架")
+    @PreAuthorize("@ss.hasPermission('order:info:query')")
+    public CommonResult<List<ShelvesRespVo>> findShelves(@Valid @RequestBody ShelvesReqVo shelvesReqVO) {
+        return success(infoService.findShelves(shelvesReqVO));
+    }
+
+    @PostMapping("/findSpecifications")
+    @ApiOperation("查询货架规格")
+    @PreAuthorize("@ss.hasPermission('order:info:query')")
+    public CommonResult<List<ShelvesRespVo>> findSpecifications(@Valid @RequestBody ShelvesReqVo shelvesReqVO) {
+        return success(infoService.findSpecifications(shelvesReqVO));
+    }
+    @PostMapping("/treeList")
+    @ApiOperation("树形分类列表")
+    @PreAuthorize("@ss.hasPermission('order:info:query')")
+    @Cacheable(value = "/shelves/stock-classify/treeList")
+    public CommonResult<List<TreeSelectVo>> treeList(@Valid ShelvesReqVo shelvesReqVO) {
+        List<TreeSelectVo> list = infoService.findTreeList(shelvesReqVO);
+        return success(list);
+    }
+
 
 }
