@@ -133,7 +133,8 @@ export default {
           { required: true, message: "岗位编码不能为空", trigger: "blur" }
         ],
         sort: [
-          { required: true, message: "岗位顺序不能为空", trigger: "blur" }
+          { required: true, message: "岗位顺序不能为空", trigger: "blur" },
+          { max: 8, message: '最多输入8位', trigger: 'blur' }
         ]
       },
 
