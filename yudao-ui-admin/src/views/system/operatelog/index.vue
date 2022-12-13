@@ -156,9 +156,9 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        title: undefined,
-        operName: undefined,
-        businessType: undefined,
+        module: undefined,
+        userNickname: undefined,
+        type: undefined,
         status: undefined,
         startTime: []
       },

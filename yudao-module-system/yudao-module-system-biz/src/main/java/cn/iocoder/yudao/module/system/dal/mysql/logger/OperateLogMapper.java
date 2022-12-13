@@ -21,9 +21,9 @@ public interface OperateLogMapper extends BaseMapperX<OperateLogDO> {
                 .inIfPresent(OperateLogDO::getUserId, userIds)
                 .eqIfPresent(OperateLogDO::getType, reqVO.getType())
                 .betweenIfPresent(OperateLogDO::getStartTime, reqVO.getStartTime());
-        if (Boolean.TRUE.equals(reqVO.getSuccess())) {
+        if (Boolean.TRUE.equals(reqVO.getStatus())) {
             query.eq(OperateLogDO::getResultCode, GlobalErrorCodeConstants.SUCCESS.getCode());
-        } else if (Boolean.FALSE.equals(reqVO.getSuccess())) {
+        } else if (Boolean.FALSE.equals(reqVO.getStatus())) {
             query.gt(OperateLogDO::getResultCode, GlobalErrorCodeConstants.SUCCESS.getCode());
         }
         query.orderByDesc(OperateLogDO::getId); // 降序
@@ -36,9 +36,9 @@ public interface OperateLogMapper extends BaseMapperX<OperateLogDO> {
                 .inIfPresent(OperateLogDO::getUserId, userIds)
                 .eqIfPresent(OperateLogDO::getType, reqVO.getType())
                 .betweenIfPresent(OperateLogDO::getStartTime, reqVO.getStartTime());
-        if (Boolean.TRUE.equals(reqVO.getSuccess())) {
+        if (Boolean.TRUE.equals(reqVO.getStatus())) {
             query.eq(OperateLogDO::getResultCode, GlobalErrorCodeConstants.SUCCESS.getCode());
-        } else if (Boolean.FALSE.equals(reqVO.getSuccess())) {
+        } else if (Boolean.FALSE.equals(reqVO.getStatus())) {
             query.gt(OperateLogDO::getResultCode, GlobalErrorCodeConstants.SUCCESS.getCode());
         }
         query.orderByDesc(OperateLogDO::getId); // 降序
