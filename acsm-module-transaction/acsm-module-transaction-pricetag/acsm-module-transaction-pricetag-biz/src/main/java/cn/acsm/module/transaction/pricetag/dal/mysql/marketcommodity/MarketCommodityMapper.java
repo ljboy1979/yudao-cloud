@@ -2,6 +2,7 @@ package cn.acsm.module.transaction.pricetag.dal.mysql.marketcommodity;
 
 import java.util.*;
 
+import cn.acsm.module.transaction.pricetag.dal.dataobject.marketcommodity.MarketPriceFeignDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
@@ -37,4 +38,5 @@ public interface MarketCommodityMapper extends BaseMapperX<MarketCommodityDO> {
                 .orderByDesc(MarketCommodityDO::getId));
     }
 
+    List<MarketPriceFeignDO> getIdBySpecificationId(String id);
 }

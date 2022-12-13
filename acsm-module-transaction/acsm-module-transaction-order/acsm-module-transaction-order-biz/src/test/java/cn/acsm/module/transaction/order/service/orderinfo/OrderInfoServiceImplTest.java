@@ -1,5 +1,7 @@
 package cn.acsm.module.transaction.order.service.orderinfo;
 
+import cn.acsm.module.transaction.order.enums.RedisDelayQueueEnum;
+import cn.acsm.module.transaction.order.util.RedisDelayQueueUtil;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,6 +19,7 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Import;
 import java.util.*;
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 import static cn.hutool.core.util.RandomUtil.*;
 import static cn.acsm.module.transaction.order.enums.ErrorCodeConstants.*;
@@ -41,18 +44,13 @@ public class OrderInfoServiceImplTest extends BaseDbUnitTest {
     @Resource
     private OrderInfoMapper infoMapper;
 
+    @Resource
+    private RedisDelayQueueUtil redisDelayQueueUtil;
+
     @Test
     public void testCreateInfo_success() {
-        // 准备参数
-        OrderInfoCreateReqVO reqVO = randomPojo(OrderInfoCreateReqVO.class);
+        redisDelayQueueUtil.addDelayQueue("1111", 60, TimeUnit.SECONDS, RedisDelayQueueEnum.COMPLETE_LOGISTICS.getQueueCode());
 
-        // 调用
-        String infoId = infoService.createInfo(reqVO);
-        // 断言
-        assertNotNull(infoId);
-        // 校验记录的属性是否正确
-        OrderInfoDO info = infoMapper.selectById(infoId);
-        assertPojoEquals(reqVO, info);
     }
 
     @Test

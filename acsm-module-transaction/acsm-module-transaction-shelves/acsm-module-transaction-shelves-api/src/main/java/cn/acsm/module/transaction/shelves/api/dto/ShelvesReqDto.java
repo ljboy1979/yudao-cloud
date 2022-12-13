@@ -6,7 +6,7 @@ import lombok.Data;
 
 @ApiModel("货架请求DTO")
 @Data
-public class PriceTagShelvesReqDto {
+public class ShelvesReqDto {
 
     @ApiModelProperty("租户编号")
     private String tenantId;
@@ -15,4 +15,8 @@ public class PriceTagShelvesReqDto {
     private String shelvesId;
     @ApiModelProperty("分类id")
     private String classifyId;
+
+
+    @ApiModelProperty("规格id")
+    private String specificationsId;
 }

@@ -2,10 +2,11 @@ package cn.acsm.module.transaction.pricetag.service.marketcommodity;
 
 import java.util.*;
 import javax.validation.*;
+
+import cn.acsm.module.transaction.pricetag.api.dto.MarketPriceDto;
 import cn.acsm.module.transaction.pricetag.controller.admin.marketcommodity.vo.*;
 import cn.acsm.module.transaction.pricetag.dal.dataobject.marketcommodity.MarketCommodityDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 
 /**
  * 市场商品 Service 接口
@@ -68,9 +69,11 @@ public interface MarketCommodityService {
      */
     List<MarketCommodityDO> getMarketCommodityList(MarketCommodityExportReqVO exportReqVO);
 
-    List<PriceTagShelvesRespVo> findShelves(PriceTagShelvesReqVo shelvesReqVO);
+    List<ShelvesRespVo> findShelves(ShelvesReqVo shelvesReqVO);
 
-    List<PriceTagShelvesRespVo> findSpecifications(PriceTagShelvesReqVo shelvesReqVO);
+    List<ShelvesRespVo> findSpecifications(ShelvesReqVo shelvesReqVO);
 
-    List<TreeSelectVo> findTreeList(PriceTagShelvesReqVo shelvesReqVO);
+    List<TreeSelectVo> findTreeList(ShelvesReqVo shelvesReqVO);
+
+    List<MarketPriceDto> getIdBySpecificationId(String id);
 }

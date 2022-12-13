@@ -1,5 +1,7 @@
 package cn.acsm.module.transaction.order.service.giftinfo;
 
+import cn.acsm.module.transaction.order.util.ConfigNumberUtil;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -26,11 +28,16 @@ public class GiftInfoServiceImpl implements GiftInfoService {
 
     @Resource
     private GiftInfoMapper giftInfoMapper;
+    @Resource
+    private ConfigNumberUtil configNumberUtil;
 
     @Override
     public Integer createGiftInfo(GiftInfoCreateReqVO createReqVO) {
+        Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
+        String number = configNumberUtil.getNumber("order_gift_info"+tenantId);
         // 插入
         GiftInfoDO giftInfo = GiftInfoConvert.INSTANCE.convert(createReqVO);
+        giftInfo.setGiftNumber("ZP"+number);
         giftInfoMapper.insert(giftInfo);
         // 返回
         return giftInfo.getId();
