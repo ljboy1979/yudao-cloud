@@ -220,16 +220,16 @@ export default {
           {  pattern: /^\d{1,64}$/, message: '最多输入64位(数字)', trigger: 'blur' }
         ],
         bottom: [
-          { type: 'number', required: false, message: '请输入下(数字)', trigger: 'blur' },
-          { type: 'number', pattern: /^\d{1,64}$/, message: '最多输入64位(数字)', trigger: 'blur' }
+          {  required: false, message: '请输入下(数字)', trigger: 'blur' },
+          {  pattern: /^\d{1,64}$/, message: '最多输入64位(数字)', trigger: 'blur' }
         ],
         left: [
-          { type: 'number', required: false, message: '请输入左(数字)', trigger: 'blur' },
-          { type: 'number', pattern: /^\d{1,64}$/, message: '最多输入64位(数字)', trigger: 'blur' }
+          {  required: false, message: '请输入左(数字)', trigger: 'blur' },
+          {  pattern: /^\d{1,64}$/, message: '最多输入64位(数字)', trigger: 'blur' }
         ],
         right: [
-          { type: 'number', required: false, message: '请输入右(数字)', trigger: 'blur' },
-          { type: 'number', pattern: /^\d{1,64}$/, message: '最多输入64位(数字)', trigger: 'blur' }
+          {  required: false, message: '请输入右(数字)', trigger: 'blur' },
+          {  pattern: /^\d{1,64}$/, message: '最多输入64位(数字)', trigger: 'blur' }
         ],
         longitude: [
           { type: 'number', required: false, message: '请输入经度(数字或.)', trigger: 'blur' },
@@ -292,6 +292,18 @@ export default {
         this.getAllTree();
       });
     },
+    getFindList(data) {
+      this.loading = true;
+      // 执行查询
+      getAreaList4Query(data).then(response => {
+        console.log(response.data)
+        // this.list=response.data
+        this.list = this.StringtoBoolean(response.data);
+        this.loading = false;
+        this.symbolKey = Symbol(new Date().toString())
+        // this.getAllTree();
+      });
+    },
     //将treeLeaf由数字0/1转换为布尔值
     StringtoBoolean(arr) {
       if (!arr instanceof Array) {
@@ -320,7 +332,8 @@ export default {
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.getList(this.queryParams);
+      console.log(this.queryParams)
+      this.getFindList(this.queryParams);
     },
     /** 重置按钮操作 */
     resetQuery() {
@@ -447,9 +460,10 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const areaCode = row.areaCode;
-      this.$modal.confirm('是否确认删除行政区划编号为"' + areaCode + '"的数据项?').then(function () {
-        return deleteArea(areaCode);
+      console.log(row)
+      const id = row.id;
+      this.$modal.confirm('是否确认删除该条行政区划?').then(function () {
+        return deleteArea(id);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
