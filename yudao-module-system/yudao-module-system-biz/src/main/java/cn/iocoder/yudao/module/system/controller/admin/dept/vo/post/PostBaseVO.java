@@ -26,12 +26,14 @@ public class PostBaseVO {
 
     @ApiModelProperty(value = "显示顺序不能为空", required = true, example = "1024")
     @NotNull(message = "显示顺序不能为空")
+    @Size(max = 8, message = "备注长度不能超过8位")
     private Integer sort;
 
     @ApiModelProperty(value = "状态", required = true, example = "1", notes = "参见 CommonStatusEnum 枚举类")
     private Integer status;
 
     @ApiModelProperty(value = "备注", example = "快乐的备注")
+    @Size(max = 200, message = "备注长度不能超过200")
     private String remark;
 
 }
