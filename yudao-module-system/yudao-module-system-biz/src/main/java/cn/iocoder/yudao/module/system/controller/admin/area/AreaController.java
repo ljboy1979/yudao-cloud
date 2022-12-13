@@ -122,13 +122,13 @@ public class AreaController {
     @ApiOperation("查询行政区划列表")
     @PreAuthorize("@ss.hasPermission('system:area:query')")
     public CommonResult<List<AreaRespVO>> getAreaList4Query(@Valid AreaListReqVO reqVO) {
-        // 如果不传父节点ID，即代表只查询一级节点
-        if (!StringUtils.isEmpty(reqVO.getAreaCode())){
-            reqVO.setParentCode(reqVO.getAreaCode());
-            reqVO.setAreaCode(null);
-        }else if (!StringUtils.isEmpty(reqVO.getAreaName())){
 
-        }else {
+        // 如果不传父节点ID，
+        // 并且不是按照区域代码/区域名称查询条件查询
+        // 即代表只查询一级节点
+        if (StringUtils.isEmpty(reqVO.getParentCode())
+                && StringUtils.isEmpty(reqVO.getAreaCode())
+                && StringUtils.isEmpty(reqVO.getAreaName())){
             reqVO.setParentCode("0");
         }
         List<AreaDO> areaDOList = areaService.getAreaList4Query(reqVO);
