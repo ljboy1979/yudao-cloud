@@ -30,6 +30,7 @@
               :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
       <el-table-column prop="name" label="部门名称" width="260"></el-table-column>
       <el-table-column prop="leader" label="负责人" :formatter="userNicknameFormat" width="120"/>
+      <el-table-column prop="id" label="部门编号"  width="100"/>
       <el-table-column prop="sort" label="排序" width="200"></el-table-column>
       <el-table-column prop="status" label="状态" width="100">
         <template slot-scope="scope">
