@@ -31,7 +31,7 @@ public class PostExcelVO {
     @DictFormat(DictTypeConstants.COMMON_STATUS)
     private String status;
 
-    @ApiModelProperty(value = "创建时间", required = true, example = "时间戳格式")
+    @ExcelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
 }
