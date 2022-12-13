@@ -270,7 +270,7 @@ export default {
     //懒加载子节点
     load(tree, treeNode, resolve) {
       let obj = {}
-      obj.areaCode = tree.areaCode
+      obj.parentCode = tree.areaCode
       // 执行查询
       console.log(obj)
       getAreaList4Query(obj).then(response => {
