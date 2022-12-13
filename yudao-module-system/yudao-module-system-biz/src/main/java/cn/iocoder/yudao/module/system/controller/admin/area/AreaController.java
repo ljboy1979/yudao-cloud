@@ -15,6 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -116,4 +117,30 @@ public class AreaController {
                 buildTreeSelect(areaTreeVos);
         return success(treeSelects);
     }
+
+    @GetMapping("/getAreaList4Query")
+    @ApiOperation("查询行政区划列表")
+    @PreAuthorize("@ss.hasPermission('system:area:query')")
+    public CommonResult<List<AreaRespVO>> getAreaList4Query(@Valid AreaListReqVO reqVO) {
+        // 如果不传父节点ID，即代表只查询一级节点
+        if (StringUtils.isEmpty(reqVO.getAreaCode())){
+            reqVO.setParentCode("0");
+        }else {
+            reqVO.setParentCode(reqVO.getAreaCode());
+            reqVO.setAreaCode(null);
+        }
+        List<AreaDO> areaDOList = areaService.getAreaList4Query(reqVO);
+        return success(AreaConvert.INSTANCE.convertList(areaDOList));
+    }
+
+    @PutMapping("/updateStatus")
+    @ApiOperation("停用/启用行政区划")
+    @PreAuthorize("@ss.hasPermission('enterprise:base-info:update')")
+    @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
+    public CommonResult<Boolean> updateStatus(@RequestParam("id") Long id) {
+        areaService.updateStatus(id);
+        return success(true);
+    }
+
+
 }
