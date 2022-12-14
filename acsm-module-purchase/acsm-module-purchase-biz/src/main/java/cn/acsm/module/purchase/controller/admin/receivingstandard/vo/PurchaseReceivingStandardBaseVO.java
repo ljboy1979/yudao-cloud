@@ -29,7 +29,6 @@ public class PurchaseReceivingStandardBaseVO {
     private String company;
 
     @ApiModelProperty(value = "经营主体", required = true)
-    @NotNull(message = "经营主体不能为空")
     private String subjectId;
 
 }
