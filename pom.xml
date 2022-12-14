@@ -23,6 +23,7 @@
         <module>acsm-module-transaction</module>
         <module>acsm-module-service</module>
         <module>acsm-module-resource</module>
+        <module>acsm-module-purchase</module>
         <!--        <module>yudao-module-pay</module>-->
     </modules>
 
