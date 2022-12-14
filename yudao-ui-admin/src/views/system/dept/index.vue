@@ -70,7 +70,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="显示排序" prop="sort">
-              <el-input-number v-model="form.sort" controls-position="right" :min="0" />
+              <el-input-number v-model="form.sort" controls-position="right" :min="0" :max="999999"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -157,8 +157,7 @@ export default {
           { required: true, message: "部门名称不能为空", trigger: "blur" }
         ],
         sort: [
-          { required: true, message: "显示排序不能为空", trigger: "blur" },
-          { max: 8, message: '最多输入8位', trigger: 'blur' }
+          { required: true, message: "显示排序不能为空", trigger: "blur" }
         ],
         email: [
           {

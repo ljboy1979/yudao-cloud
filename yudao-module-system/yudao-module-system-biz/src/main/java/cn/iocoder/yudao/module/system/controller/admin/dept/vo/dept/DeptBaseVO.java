@@ -22,7 +22,6 @@ public class DeptBaseVO {
 
     @ApiModelProperty(value = "显示顺序不能为空", required = true, example = "1024")
     @NotNull(message = "显示顺序不能为空")
-    @Max(value = 8, message = "显示顺序长度不能超过8位")
     private Integer sort;
 
     @ApiModelProperty(value = "负责人的用户编号", example = "2048")
