@@ -509,7 +509,7 @@ export default {
         }).catch(() => {});
     },
     /** 分配用户角色操作 */
-    handleRole(row) {
+   async handleRole(row) {
       this.reset();
       const id = row.id
       // 处理了 form 的用户 username 和 nickname 的展示
@@ -519,16 +519,29 @@ export default {
       // 打开弹窗
       this.openRole = true;
       // 获得角色列表
-      listSimpleRoles().then(response => {
+      await listSimpleRoles().then(response => {
         // 处理 roleOptions 参数
         this.roleOptions = [];
         this.roleOptions.push(...response.data);
+        console.log(this.roleOptions)
       });
       // 获得角色拥有的菜单集合
-      listUserRoles(id).then(response => {
+      await listUserRoles(id).then(response => {
         // 设置选中
         this.form.roleIds = response.data;
+        console.log(this.form.roleIds)
+        
       })
+      let arr=[];
+      for(let i=0;i<this.roleOptions.length;i++){
+        for(let j=0;j<this.form.roleIds.length;j++){
+          if(this.roleOptions[i].id==this.form.roleIds[j]){
+            arr.push(this.form.roleIds[j]);
+          }
+        }
+      }
+      this.form.roleIds=arr;
+      console.log(arr)
     },
     /** 提交按钮 */
     submitForm: function() {
