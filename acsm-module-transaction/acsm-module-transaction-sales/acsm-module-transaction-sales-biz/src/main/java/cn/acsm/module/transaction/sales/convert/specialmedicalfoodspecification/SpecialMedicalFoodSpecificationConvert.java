@@ -19,9 +19,9 @@ public interface SpecialMedicalFoodSpecificationConvert {
 
     SpecialMedicalFoodSpecificationConvert INSTANCE = Mappers.getMapper(SpecialMedicalFoodSpecificationConvert.class);
 
-    SpecialMedicalFoodSpecificationDO convert(SpecialMedicalFoodSpecificationCreateReqVO bean);
+    SpecialMedicalFoodSpecificationDO convert(SpecialMedicalFoodSpecCreateReqVO bean);
 
-    SpecialMedicalFoodSpecificationDO convert(SpecialMedicalFoodSpecificationUpdateReqVO bean);
+    SpecialMedicalFoodSpecificationDO convert(SpecialMedicalFoodSpecUpdateReqVO bean);
 
     SpecialMedicalFoodSpecificationRespVO convert(SpecialMedicalFoodSpecificationDO bean);
 

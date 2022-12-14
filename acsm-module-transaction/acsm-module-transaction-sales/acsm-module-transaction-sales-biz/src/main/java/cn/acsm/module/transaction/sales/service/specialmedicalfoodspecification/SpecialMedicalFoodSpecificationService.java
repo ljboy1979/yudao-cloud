@@ -20,14 +20,14 @@ public interface SpecialMedicalFoodSpecificationService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    CommonResult<String> createSpecialMedicalFoodSpecification(@Valid SpecialMedicalFoodSpecificationCreateReqVO createReqVO);
+    CommonResult<String> createSpecialMedicalFoodSpecification(@Valid SpecialMedicalFoodSpecCreateReqVO createReqVO);
 
     /**
      * 更新特医食品规格
      *
      * @param updateReqVO 更新信息
      */
-    CommonResult<String> updateSpecialMedicalFoodSpecification(@Valid SpecialMedicalFoodSpecificationUpdateReqVO updateReqVO);
+    CommonResult<String> updateSpecialMedicalFoodSpecification(@Valid SpecialMedicalFoodSpecUpdateReqVO updateReqVO);
 
     /**
      * 删除特医食品规格
@@ -58,7 +58,7 @@ public interface SpecialMedicalFoodSpecificationService {
      * @param pageReqVO 分页查询
      * @return 特医食品规格分页
      */
-    PageResult<SpecialMedicalFoodSpecificationDO> getSpecialMedicalFoodSpecificationPage(SpecialMedicalFoodSpecificationPageReqVO pageReqVO);
+    PageResult<SpecialMedicalFoodSpecificationDO> getSpecialMedicalFoodSpecificationPage(SpecialMedicalFoodSpecPageReqVO pageReqVO);
 
     /**
      * 获得特医食品规格列表, 用于 Excel 导出
@@ -66,6 +66,6 @@ public interface SpecialMedicalFoodSpecificationService {
      * @param exportReqVO 查询条件
      * @return 特医食品规格列表
      */
-    List<SpecialMedicalFoodSpecificationDO> getSpecialMedicalFoodSpecificationList(SpecialMedicalFoodSpecificationExportReqVO exportReqVO);
+    List<SpecialMedicalFoodSpecificationDO> getSpecialMedicalFoodSpecificationList(SpecialMedicalFoodSpecExportReqVO exportReqVO);
 
 }

@@ -25,7 +25,7 @@ public interface SpecialMedicalFoodOrganizationMapper extends BaseMapperX<Specia
                 .orderByDesc(SpecialMedicalFoodOrganizationDO::getId));
     }
 
-    default List<SpecialMedicalFoodOrganizationDO> selectList(SpecialMedicalFoodOrganizationExportReqVO reqVO) {
+    default List<SpecialMedicalFoodOrganizationDO> selectList(SpecialMedicalFoodOrganExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<SpecialMedicalFoodOrganizationDO>()
                 .eqIfPresent(SpecialMedicalFoodOrganizationDO::getFoodId, reqVO.getFoodId())
                 .likeIfPresent(SpecialMedicalFoodOrganizationDO::getOrganizationName, reqVO.getOrganizationName())

@@ -31,7 +31,7 @@ public class SpecialMedicalFoodOrganizationServiceImpl implements SpecialMedical
     @Resource
     private ConfigNumberUtil configNumberUtil;
     @Override
-    public String createSpecialMedicalFoodOrganization(SpecialMedicalFoodOrganizationCreateReqVO createReqVO) {
+    public String createSpecialMedicalFoodOrganization(SpecialMedicalFoodOrganCreateReqVO createReqVO) {
         // 插入
         Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
         String number = configNumberUtil.getNumber("sales_special_medical_food_organization"+tenantId);
@@ -44,7 +44,7 @@ public class SpecialMedicalFoodOrganizationServiceImpl implements SpecialMedical
     }
 
     @Override
-    public void updateSpecialMedicalFoodOrganization(SpecialMedicalFoodOrganizationUpdateReqVO updateReqVO) {
+    public void updateSpecialMedicalFoodOrganization(SpecialMedicalFoodOrganUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateSpecialMedicalFoodOrganizationExists(updateReqVO.getId());
         // 更新
@@ -82,7 +82,7 @@ public class SpecialMedicalFoodOrganizationServiceImpl implements SpecialMedical
     }
 
     @Override
-    public List<SpecialMedicalFoodOrganizationDO> getSpecialMedicalFoodOrganizationList(SpecialMedicalFoodOrganizationExportReqVO exportReqVO) {
+    public List<SpecialMedicalFoodOrganizationDO> getSpecialMedicalFoodOrganizationList(SpecialMedicalFoodOrganExportReqVO exportReqVO) {
         return specialMedicalFoodOrganizationMapper.selectList(exportReqVO);
     }
 

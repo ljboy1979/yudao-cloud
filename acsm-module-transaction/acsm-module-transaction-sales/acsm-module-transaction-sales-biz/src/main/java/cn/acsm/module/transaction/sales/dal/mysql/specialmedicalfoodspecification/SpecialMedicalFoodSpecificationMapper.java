@@ -17,7 +17,7 @@ import cn.acsm.module.transaction.sales.controller.admin.specialmedicalfoodspeci
 @Mapper
 public interface SpecialMedicalFoodSpecificationMapper extends BaseMapperX<SpecialMedicalFoodSpecificationDO> {
 
-    default PageResult<SpecialMedicalFoodSpecificationDO> selectPage(SpecialMedicalFoodSpecificationPageReqVO reqVO) {
+    default PageResult<SpecialMedicalFoodSpecificationDO> selectPage(SpecialMedicalFoodSpecPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<SpecialMedicalFoodSpecificationDO>()
                 .eqIfPresent(SpecialMedicalFoodSpecificationDO::getFoodId, reqVO.getFoodId())
                 .likeIfPresent(SpecialMedicalFoodSpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
@@ -25,7 +25,7 @@ public interface SpecialMedicalFoodSpecificationMapper extends BaseMapperX<Speci
                 .orderByDesc(SpecialMedicalFoodSpecificationDO::getId));
     }
 
-    default List<SpecialMedicalFoodSpecificationDO> selectList(SpecialMedicalFoodSpecificationExportReqVO reqVO) {
+    default List<SpecialMedicalFoodSpecificationDO> selectList(SpecialMedicalFoodSpecExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<SpecialMedicalFoodSpecificationDO>()
                 .eqIfPresent(SpecialMedicalFoodSpecificationDO::getFoodId, reqVO.getFoodId())
                 .likeIfPresent(SpecialMedicalFoodSpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
