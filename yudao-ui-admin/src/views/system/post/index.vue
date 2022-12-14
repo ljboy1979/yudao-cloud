@@ -127,13 +127,20 @@ export default {
       // 表单校验
       rules: {
         name: [
-          { required: true, message: "岗位名称不能为空", trigger: "blur" }
+          { required: true, message: "岗位名称不能为空", trigger: "blur" },
+          {min:1,max:25,message:'最大输入25',trigger: "blur"}
         ],
         code: [
-          { required: true, message: "岗位编码不能为空", trigger: "blur" }
+          { required: true, message: "岗位编码不能为空", trigger: "blur" },
+          {min:1,max:32,message:'最大输入32',trigger: "blur"}
+        ],
+        remark:[
+          { required: false, message: "", trigger: "blur" },
+          {min:1,max:200,message:'最大输入200',trigger: "blur"}
         ],
         sort: [
-          { required: true, message: "岗位顺序不能为空", trigger: "blur" }
+          { required: true, message: "岗位顺序不能为空", trigger: "blur" },
+          {pattern:/^[0-9]{1,8}$/,message:'最多输入8位数字',trigger: "blur"}
         ]
       },
 

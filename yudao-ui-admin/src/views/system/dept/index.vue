@@ -154,10 +154,12 @@ export default {
       // 表单校验
       rules: {
         name: [
-          { required: true, message: "部门名称不能为空", trigger: "blur" }
+          { required: true, message: "部门名称不能为空", trigger: "blur" },
+          {min:1,max:15,message:'最大输入15',trigger: "blur"}
         ],
         sort: [
-          { required: true, message: "显示排序不能为空", trigger: "blur" }
+          { required: true, message: "显示排序不能为空", trigger: "blur" },
+          {pattern:/^[0-9]{1,8}$/,message:'最多输入8位数字',trigger: "blur"}
         ],
         email: [
           {
