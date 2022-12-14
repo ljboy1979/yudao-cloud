@@ -1,0 +1,14 @@
+package cn.acsm.module.purchase.controller.admin.quotationelectronic.vo;
+
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+@ApiModel("管理后台 - 采购报价单电子创建 Request VO")
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+public class PurchaseQuotationElectronicCreateReqVO extends PurchaseQuotationElectronicBaseVO {
+
+}

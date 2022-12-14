@@ -1,0 +1,59 @@
+package cn.acsm.module.purchase.dal.mysql.quotationelectronic;
+
+import cn.acsm.module.purchase.controller.admin.quotationelectronic.vo.PurchaseQuotationElectronicExportReqVO;
+import cn.acsm.module.purchase.controller.admin.quotationelectronic.vo.PurchaseQuotationElectronicPageReqVO;
+import cn.acsm.module.purchase.dal.dataobject.quotationelectronic.PurchaseQuotationElectronicDO;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
+import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+
+/**
+ * 采购报价单电子 Mapper
+ *
+ * @author 芋道源码
+ */
+@Mapper
+public interface PurchaseQuotationElectronicMapper extends BaseMapperX<PurchaseQuotationElectronicDO> {
+
+    default PageResult<PurchaseQuotationElectronicDO> selectPage(PurchaseQuotationElectronicPageReqVO reqVO) {
+        return selectPage(reqVO, new LambdaQueryWrapperX<PurchaseQuotationElectronicDO>()
+                .eqIfPresent(PurchaseQuotationElectronicDO::getQuotationId, reqVO.getQuotationId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getQuotationNo, reqVO.getQuotationNo())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getInquiryId, reqVO.getInquiryId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getCommodityId, reqVO.getCommodityId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getClassifyId, reqVO.getClassifyId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getSpecificationsId, reqVO.getSpecificationsId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getInitialBatchCount, reqVO.getInitialBatchCount())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getUnitPrice, reqVO.getUnitPrice())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getPurchaseCount, reqVO.getPurchaseCount())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getTotalPrice, reqVO.getTotalPrice())
+                .betweenIfPresent(PurchaseQuotationElectronicDO::getStartTime, reqVO.getStartTime())
+                .betweenIfPresent(PurchaseQuotationElectronicDO::getEndTime, reqVO.getEndTime())
+                .betweenIfPresent(PurchaseQuotationElectronicDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getSubjectId, reqVO.getSubjectId())
+                .orderByDesc(PurchaseQuotationElectronicDO::getId));
+    }
+
+    default List<PurchaseQuotationElectronicDO> selectList(PurchaseQuotationElectronicExportReqVO reqVO) {
+        return selectList(new LambdaQueryWrapperX<PurchaseQuotationElectronicDO>()
+                .eqIfPresent(PurchaseQuotationElectronicDO::getQuotationId, reqVO.getQuotationId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getQuotationNo, reqVO.getQuotationNo())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getInquiryId, reqVO.getInquiryId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getCommodityId, reqVO.getCommodityId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getClassifyId, reqVO.getClassifyId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getSpecificationsId, reqVO.getSpecificationsId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getInitialBatchCount, reqVO.getInitialBatchCount())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getUnitPrice, reqVO.getUnitPrice())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getPurchaseCount, reqVO.getPurchaseCount())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getTotalPrice, reqVO.getTotalPrice())
+                .betweenIfPresent(PurchaseQuotationElectronicDO::getStartTime, reqVO.getStartTime())
+                .betweenIfPresent(PurchaseQuotationElectronicDO::getEndTime, reqVO.getEndTime())
+                .betweenIfPresent(PurchaseQuotationElectronicDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getSubjectId, reqVO.getSubjectId())
+                .orderByDesc(PurchaseQuotationElectronicDO::getId));
+    }
+
+}

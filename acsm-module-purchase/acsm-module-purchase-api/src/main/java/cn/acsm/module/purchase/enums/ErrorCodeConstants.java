@@ -20,6 +20,18 @@ public interface ErrorCodeConstants {
     // ========== 采购交付表 TODO 1011000012 ==========
     ErrorCode DELIVER_NOT_EXISTS = new ErrorCode(1011000012, "采购交付不存在");
 
-    // ========== 采购交付表 TODO 1011000013 ==========
+    // ========== 收货标准表 TODO 1011000013 ==========
     ErrorCode RECEIVING_STANDARD_NOT_EXISTS = new ErrorCode(1011000013, "收货标准不存在");
+
+    // ========== 采购询价电子表 TODO 1011000014 ==========
+    ErrorCode INQUIRY_NOT_EXISTS = new ErrorCode(1011000014, "采购询价电子不存在");
+
+    // ========== 采购报价单表 TODO 1011000015 ==========
+    ErrorCode QUOTATION_NOT_EXISTS = new ErrorCode(1011000015, "采购询价电子不存在");
+
+    // ========== 采购报价单电子表 TODO 1011000016 ==========
+    ErrorCode QUOTATION_ELECTRONIC_NOT_EXISTS = new ErrorCode(1011000016, "采购报价单电子不存在");
+
+    // ========== 损耗表 TODO 1011000017 ==========
+    ErrorCode LOSS_NOT_EXISTS = new ErrorCode(1011000017, "损耗不存在");
 }
