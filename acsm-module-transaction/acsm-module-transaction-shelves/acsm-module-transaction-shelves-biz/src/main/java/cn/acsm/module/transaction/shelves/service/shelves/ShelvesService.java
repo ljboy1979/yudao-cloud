@@ -3,8 +3,8 @@ package cn.acsm.module.transaction.shelves.service.shelves;
 import java.util.*;
 import javax.validation.*;
 
-import cn.acsm.module.transaction.shelves.api.dto.PriceTagShelvesReqDto;
-import cn.acsm.module.transaction.shelves.api.dto.PriceTagShelvesRespDto;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesRespDto;
 import cn.acsm.module.transaction.shelves.controller.admin.shelves.vo.*;
 import cn.acsm.module.transaction.shelves.dal.dataobject.shelves.ShelvesDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -74,7 +74,7 @@ public interface ShelvesService {
 
     List<ShelvesSalesRespVO> findSpecifications(ShelvesReqVO shelvesReqVO);
 
-    List<PriceTagShelvesRespDto> findPriceTagShelves(PriceTagShelvesReqDto shelvesReqDto);
+    List<ShelvesRespDto> findShelvesList(ShelvesReqDto shelvesReqDto);
 
-    List<PriceTagShelvesRespDto> findPriceTagSpecifications(PriceTagShelvesReqDto shelvesReqDto);
+    List<ShelvesRespDto> findSpecificationsList(ShelvesReqDto shelvesReqDto);
 }

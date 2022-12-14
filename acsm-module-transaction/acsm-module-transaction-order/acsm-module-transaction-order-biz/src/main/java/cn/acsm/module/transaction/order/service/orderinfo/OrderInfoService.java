@@ -67,4 +67,19 @@ public interface OrderInfoService {
      */
     List<OrderInfoDO> getInfoList(OrderInfoExportReqVO exportReqVO);
 
+    void confirm(OrderConfirmVO orderConfirmVO);
+
+    void cancelOrder(CancelOrderVO cancelOrderVO);
+
+    void deliverGoods(DeliverGoodsVO deliverGoodsVO);
+
+    void confirmDelivery(OrderIdVO orderIdVO);
+
+    void modifyPrice(ModifyPriceVO modifyPriceVO);
+
+    List<ShelvesRespVo> findShelves(ShelvesReqVo shelvesReqVO);
+
+    List<ShelvesRespVo> findSpecifications(ShelvesReqVo shelvesReqVO);
+
+    List<TreeSelectVo> findTreeList(ShelvesReqVo shelvesReqVO);
 }

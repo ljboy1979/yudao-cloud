@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.order.dal.dataobject.settleinfo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import java.util.*;
 import java.math.BigDecimal;
@@ -31,6 +32,11 @@ public class SettleInfoDO extends BaseDO {
      * 订单id
      */
     private String orderId;
+
+    /**
+     * 编号
+     */
+    private String code;
     /**
      * 结账金额
      */

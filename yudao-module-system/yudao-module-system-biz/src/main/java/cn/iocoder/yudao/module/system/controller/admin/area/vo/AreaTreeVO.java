@@ -46,6 +46,9 @@ public class AreaTreeVO extends AreaTreeEntity {
     @ApiModelProperty(value = "区域类型")
     private String areaType;
 
+    @ApiModelProperty(value = "状态(0正常 1停用)")
+    private String status;
+
     @ApiModelProperty(value = "是否删除", required = true)
     private Boolean deleted;
 

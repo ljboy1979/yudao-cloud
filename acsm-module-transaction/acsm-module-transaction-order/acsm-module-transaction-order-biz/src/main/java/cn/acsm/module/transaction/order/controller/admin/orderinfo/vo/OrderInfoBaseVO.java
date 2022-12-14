@@ -21,6 +21,8 @@ public class OrderInfoBaseVO {
 
     @ApiModelProperty(value = "货架id")
     private String shelvesId;
+    @ApiModelProperty(value = "编号")
+    private String code;
 
     @ApiModelProperty(value = "计划id")
     private String planId;
@@ -35,11 +37,9 @@ public class OrderInfoBaseVO {
     private BigDecimal price;
 
     @ApiModelProperty(value = "付款状态 0未付款 1进行中/付款 2已取消/退款 3已完成", required = true)
-    @NotNull(message = "付款状态 0未付款 1进行中/付款 2已取消/退款 3已完成不能为空")
     private String payStatus;
 
     @ApiModelProperty(value = "配送状态 默认状态0待配送 1已配送", required = true)
-    @NotNull(message = "配送状态 默认状态0待配送 1已配送不能为空")
     private String sendStatus;
 
     @ApiModelProperty(value = "配送号")
@@ -118,7 +118,6 @@ public class OrderInfoBaseVO {
     private BigDecimal dealPrice;
 
     @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
     private Integer status;
 
     @ApiModelProperty(value = "source")

@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.annotations.*;
 
-import javax.validation.constraints.*;
 import javax.validation.*;
 import javax.servlet.http.*;
 import java.util.*;
@@ -38,14 +37,14 @@ public class SpecialMedicalFoodSpecificationController {
     @PostMapping("/create")
     @ApiOperation("创建特医食品规格")
     @PreAuthorize("@ss.hasPermission('sales:special-medical-food-specification:create')")
-    public CommonResult<String> createSpecialMedicalFoodSpecification(@Valid @RequestBody SpecialMedicalFoodSpecificationCreateReqVO createReqVO) {
+    public CommonResult<String> createSpecialMedicalFoodSpecification(@Valid @RequestBody SpecialMedicalFoodSpecCreateReqVO createReqVO) {
         return specialMedicalFoodSpecificationService.createSpecialMedicalFoodSpecification(createReqVO);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新特医食品规格")
     @PreAuthorize("@ss.hasPermission('sales:special-medical-food-specification:update')")
-    public CommonResult<String> updateSpecialMedicalFoodSpecification(@Valid @RequestBody SpecialMedicalFoodSpecificationUpdateReqVO updateReqVO) {
+    public CommonResult<String> updateSpecialMedicalFoodSpecification(@Valid @RequestBody SpecialMedicalFoodSpecUpdateReqVO updateReqVO) {
 
         return specialMedicalFoodSpecificationService.updateSpecialMedicalFoodSpecification(updateReqVO);
     }
@@ -80,7 +79,7 @@ public class SpecialMedicalFoodSpecificationController {
     @GetMapping("/page")
     @ApiOperation("获得特医食品规格分页")
     @PreAuthorize("@ss.hasPermission('sales:special-medical-food-specification:query')")
-    public CommonResult<PageResult<SpecialMedicalFoodSpecificationRespVO>> getSpecialMedicalFoodSpecificationPage(@Valid SpecialMedicalFoodSpecificationPageReqVO pageVO) {
+    public CommonResult<PageResult<SpecialMedicalFoodSpecificationRespVO>> getSpecialMedicalFoodSpecificationPage(@Valid SpecialMedicalFoodSpecPageReqVO pageVO) {
         PageResult<SpecialMedicalFoodSpecificationDO> pageResult = specialMedicalFoodSpecificationService.getSpecialMedicalFoodSpecificationPage(pageVO);
         return success(SpecialMedicalFoodSpecificationConvert.INSTANCE.convertPage(pageResult));
     }
@@ -89,7 +88,7 @@ public class SpecialMedicalFoodSpecificationController {
     @ApiOperation("导出特医食品规格 Excel")
     @PreAuthorize("@ss.hasPermission('sales:special-medical-food-specification:export')")
     @OperateLog(type = EXPORT)
-    public void exportSpecialMedicalFoodSpecificationExcel(@Valid SpecialMedicalFoodSpecificationExportReqVO exportReqVO,
+    public void exportSpecialMedicalFoodSpecificationExcel(@Valid SpecialMedicalFoodSpecExportReqVO exportReqVO,
               HttpServletResponse response) throws IOException {
         List<SpecialMedicalFoodSpecificationDO> list = specialMedicalFoodSpecificationService.getSpecialMedicalFoodSpecificationList(exportReqVO);
         // 导出 Excel

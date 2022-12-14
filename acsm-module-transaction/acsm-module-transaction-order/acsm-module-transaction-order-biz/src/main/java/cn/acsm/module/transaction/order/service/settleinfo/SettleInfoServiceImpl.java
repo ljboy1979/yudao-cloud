@@ -1,5 +1,8 @@
 package cn.acsm.module.transaction.order.service.settleinfo;
 
+import cn.acsm.module.transaction.order.dal.dataobject.confignumber.ConfigNumberDO;
+import cn.acsm.module.transaction.order.util.ConfigNumberUtil;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -27,10 +30,17 @@ public class SettleInfoServiceImpl implements SettleInfoService {
     @Resource
     private SettleInfoMapper settleInfoMapper;
 
+    @Resource
+    private ConfigNumberUtil configNumberUtil;
+
     @Override
     public String createSettleInfo(SettleInfoCreateReqVO createReqVO) {
+        Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
+        String number = configNumberUtil.getNumber("order_settle_info"+tenantId);
         // 插入
         SettleInfoDO settleInfo = SettleInfoConvert.INSTANCE.convert(createReqVO);
+        settleInfo.setId(UUID.randomUUID().toString());
+        settleInfo.setCode("JZD"+number);
         settleInfoMapper.insert(settleInfo);
         // 返回
         return settleInfo.getId();

@@ -100,8 +100,8 @@
       @pagination="getList" />
 
     <!-- 对话框(添加 / 修改) -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+    <el-dialog :title="title" :visible.sync="open" width="600px" v-dialogDrag append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="120px">
         <el-form-item label="证件类型" prop="certificateType">
           <el-select v-model="form.certificateType" placeholder="请选择证件类型">
             <el-option v-for="dict in this.getDictDatas(DICT_TYPE.CERTIFICATE_TYPE)" :key="dict.value"
@@ -298,6 +298,7 @@ export default {
     handleAdd() {
       this.reset();
       this.certificatePhoto = [];
+      this.certificatePhoto.length<6? this.certificate = false : this.certificate = true
       this.open = true;
       this.title = "添加经营主体其他证件";
     },

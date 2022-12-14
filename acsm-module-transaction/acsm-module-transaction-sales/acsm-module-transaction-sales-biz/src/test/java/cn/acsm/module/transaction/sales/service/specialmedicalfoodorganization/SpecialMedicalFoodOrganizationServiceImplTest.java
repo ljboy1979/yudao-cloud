@@ -2,7 +2,6 @@ package cn.acsm.module.transaction.sales.service.specialmedicalfoodorganization;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.annotation.Resource;
 
@@ -13,19 +12,14 @@ import cn.acsm.module.transaction.sales.dal.dataobject.specialmedicalfoodorganiz
 import cn.acsm.module.transaction.sales.dal.mysql.specialmedicalfoodorganization.SpecialMedicalFoodOrganizationMapper;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
-import javax.annotation.Resource;
 import org.springframework.context.annotation.Import;
 import java.util.*;
-import java.time.LocalDateTime;
 
-import static cn.hutool.core.util.RandomUtil.*;
 import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.*;
 import static cn.iocoder.yudao.framework.test.core.util.AssertUtils.*;
 import static cn.iocoder.yudao.framework.test.core.util.RandomUtils.*;
 import static cn.iocoder.yudao.framework.common.util.object.ObjectUtils.*;
-import static cn.iocoder.yudao.framework.common.util.date.DateUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 /**
 * {@link SpecialMedicalFoodOrganizationServiceImpl} 的单元测试类
@@ -44,7 +38,7 @@ public class SpecialMedicalFoodOrganizationServiceImplTest extends BaseDbUnitTes
     @Test
     public void testCreateSpecialMedicalFoodOrganization_success() {
         // 准备参数
-        SpecialMedicalFoodOrganizationCreateReqVO reqVO = randomPojo(SpecialMedicalFoodOrganizationCreateReqVO.class);
+        SpecialMedicalFoodOrganCreateReqVO reqVO = randomPojo(SpecialMedicalFoodOrganCreateReqVO.class);
 
         // 调用
         String specialMedicalFoodOrganizationId = specialMedicalFoodOrganizationService.createSpecialMedicalFoodOrganization(reqVO);
@@ -61,7 +55,7 @@ public class SpecialMedicalFoodOrganizationServiceImplTest extends BaseDbUnitTes
         SpecialMedicalFoodOrganizationDO dbSpecialMedicalFoodOrganization = randomPojo(SpecialMedicalFoodOrganizationDO.class);
         specialMedicalFoodOrganizationMapper.insert(dbSpecialMedicalFoodOrganization);// @Sql: 先插入出一条存在的数据
         // 准备参数
-        SpecialMedicalFoodOrganizationUpdateReqVO reqVO = randomPojo(SpecialMedicalFoodOrganizationUpdateReqVO.class, o -> {
+        SpecialMedicalFoodOrganUpdateReqVO reqVO = randomPojo(SpecialMedicalFoodOrganUpdateReqVO.class, o -> {
             o.setId(dbSpecialMedicalFoodOrganization.getId()); // 设置更新的 ID
         });
 
@@ -75,7 +69,7 @@ public class SpecialMedicalFoodOrganizationServiceImplTest extends BaseDbUnitTes
     @Test
     public void testUpdateSpecialMedicalFoodOrganization_notExists() {
         // 准备参数
-        SpecialMedicalFoodOrganizationUpdateReqVO reqVO = randomPojo(SpecialMedicalFoodOrganizationUpdateReqVO.class);
+        SpecialMedicalFoodOrganUpdateReqVO reqVO = randomPojo(SpecialMedicalFoodOrganUpdateReqVO.class);
 
         // 调用, 并断言异常
         assertServiceException(() -> specialMedicalFoodOrganizationService.updateSpecialMedicalFoodOrganization(reqVO), SPECIAL_MEDICAL_FOOD_ORGANIZATION_NOT_EXISTS);
@@ -155,7 +149,7 @@ public class SpecialMedicalFoodOrganizationServiceImplTest extends BaseDbUnitTes
        // 测试 createTime 不匹配
        specialMedicalFoodOrganizationMapper.insert(cloneIgnoreId(dbSpecialMedicalFoodOrganization, o -> o.setCreateTime(null)));
        // 准备参数
-       SpecialMedicalFoodOrganizationExportReqVO reqVO = new SpecialMedicalFoodOrganizationExportReqVO();
+       SpecialMedicalFoodOrganExportReqVO reqVO = new SpecialMedicalFoodOrganExportReqVO();
        reqVO.setFoodId(null);
        reqVO.setOrganizationName(null);
        reqVO.setCreateTime((new Date[]{}));

@@ -1,12 +1,13 @@
 package cn.acsm.module.transaction.shelves.service.shelves;
 
+import cn.acsm.module.transaction.pricetag.api.pricetag.MarketPriceApi;
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
 import cn.acsm.module.transaction.sales.api.shelves.ShelvesApi;
-import cn.acsm.module.transaction.shelves.api.dto.PriceTagShelvesReqDto;
-import cn.acsm.module.transaction.shelves.api.dto.PriceTagShelvesRespDto;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesRespDto;
 import cn.acsm.module.transaction.shelves.convert.specifications.SpecificationsConvert;
-import cn.acsm.module.transaction.shelves.dal.dataobject.pricetag.PriceTagShelvesRespDO;
+import cn.acsm.module.transaction.shelves.dal.dataobject.shelves.ShelvesRespDO;
 import cn.acsm.module.transaction.shelves.dal.dataobject.specifications.SpecificationsDO;
 import cn.acsm.module.transaction.shelves.dal.mysql.specifications.SpecificationsMapper;
 import cn.acsm.module.transaction.shelves.util.ConfigNumberUtil;
@@ -79,6 +80,7 @@ public class ShelvesServiceImpl implements ShelvesService {
         shelvesMapper.updateById(updateObj);
     }
 
+
     @Override
     public void deleteshelves(String id) {
         // 校验存在
@@ -128,14 +130,14 @@ public class ShelvesServiceImpl implements ShelvesService {
     }
 
     @Override
-    public List<PriceTagShelvesRespDto> findPriceTagShelves(PriceTagShelvesReqDto shelvesReqDto) {
-        List<PriceTagShelvesRespDO>  priceTagShelves = shelvesMapper.findPriceTagShelves(shelvesReqDto);
+    public List<ShelvesRespDto> findShelvesList(ShelvesReqDto shelvesReqDto) {
+        List<ShelvesRespDO>  priceTagShelves = shelvesMapper.findPriceTagShelves(shelvesReqDto);
         return ShelvesConvert.INSTANCE.convertShelvesPriceTag(priceTagShelves);
     }
 
     @Override
-    public List<PriceTagShelvesRespDto> findPriceTagSpecifications(PriceTagShelvesReqDto shelvesReqDto) {
-        List<PriceTagShelvesRespDO>  priceTagShelves = shelvesMapper.findPriceTagSpecifications(shelvesReqDto);
+    public List<ShelvesRespDto> findSpecificationsList(ShelvesReqDto shelvesReqDto) {
+        List<ShelvesRespDO>  priceTagShelves = shelvesMapper.findPriceTagSpecifications(shelvesReqDto);
         return ShelvesConvert.INSTANCE.convertShelvesPriceTag(priceTagShelves);
     }
 

@@ -2,12 +2,13 @@ package cn.acsm.module.transaction.pricetag.convert.marketcommodity;
 
 import java.util.*;
 
-import cn.acsm.module.transaction.shelves.api.dto.PriceTagShelvesReqDto;
-import cn.acsm.module.transaction.shelves.api.dto.PriceTagShelvesRespDto;
+import cn.acsm.module.transaction.pricetag.api.dto.MarketPriceDto;
+import cn.acsm.module.transaction.pricetag.dal.dataobject.marketcommodity.MarketPriceFeignDO;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesRespDto;
 import cn.acsm.module.transaction.shelves.api.dto.TreeSelectDto;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import cn.acsm.module.transaction.pricetag.controller.admin.marketcommodity.vo.*;
@@ -36,9 +37,9 @@ public interface MarketCommodityConvert {
     List<MarketCommodityExcelVO> convertList02(List<MarketCommodityDO> list);
 
 
-    PriceTagShelvesReqDto convertShelvesReqDto(PriceTagShelvesReqVo bean);
+    ShelvesReqDto convertShelvesReqDto(ShelvesReqVo bean);
 
-    List<PriceTagShelvesRespVo> convertShelvesRespList(List<PriceTagShelvesRespDto> list);
+    List<ShelvesRespVo> convertShelvesRespList(List<ShelvesRespDto> list);
 
     static   List<TreeSelectVo> convertShelvesTreeRespList(List<TreeSelectDto> list) {
         if ( list == null ) {
@@ -56,5 +57,7 @@ public interface MarketCommodityConvert {
 
         return treeSelectVos;
     };
+
+    List<MarketPriceDto> convertMarketPriceDto(List<MarketPriceFeignDO> marketPriceFeignDOS);
 
 }

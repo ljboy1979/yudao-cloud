@@ -179,6 +179,8 @@ export default {
         name: [{ required: true, message: "租户名不能为空", trigger: "blur" }],
         packageId: [{ required: true, message: "租户套餐不能为空", trigger: "blur" }],
         contactName: [{ required: true, message: "联系人不能为空", trigger: "blur" }],
+        username: [{ required: true, message: "用户名称不能为空", trigger: "blur" }],
+        password: [{ required: true, message: "用户密码不能为空", trigger: "blur" }],
         status: [{ required: true, message: "租户状态不能为空", trigger: "blur" }],
         accountCount: [{ required: true, message: "账号额度不能为空", trigger: "blur" }],
         expireTime: [{ required: true, message: "过期时间不能为空", trigger: "blur" }],

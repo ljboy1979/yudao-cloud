@@ -4,7 +4,10 @@ import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
 import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
 import cn.iocoder.yudao.module.system.enums.DictTypeConstants;
 import com.alibaba.excel.annotation.ExcelProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 /**
  * 岗位 Excel 导出响应 VO
@@ -27,5 +30,8 @@ public class PostExcelVO {
     @ExcelProperty(value = "状态", converter = DictConvert.class)
     @DictFormat(DictTypeConstants.COMMON_STATUS)
     private String status;
+
+    @ExcelProperty(value = "创建时间")
+    private LocalDateTime createTime;
 
 }

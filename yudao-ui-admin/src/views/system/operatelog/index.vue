@@ -3,12 +3,12 @@
     <doc-alert title="系统日志" url="https://doc.iocoder.cn/system-log/" />
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="系统模块" prop="title">
-        <el-input v-model="queryParams.title" placeholder="请输入系统模块" clearable style="width: 240px;"
+      <el-form-item label="操作模块" prop="module">
+        <el-input v-model="queryParams.module" placeholder="请输入系统模块" clearable style="width: 240px;"
                   @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="操作人员" prop="operName">
-        <el-input v-model="queryParams.operName" placeholder="请输入操作人员" clearable style="width: 240px;"
+      <el-form-item label="操作人" prop="userNickname">
+        <el-input v-model="queryParams.userNickname" placeholder="请输入操作人" clearable style="width: 240px;"
                   @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="类型" prop="type">
@@ -18,7 +18,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="状态" prop="status">
-        <el-select v-model="queryParams.success" placeholder="操作状态" clearable style="width: 240px">
+        <el-select v-model="queryParams.status" placeholder="操作状态" clearable style="width: 240px">
           <el-option :key="true" label="成功" :value="true"/>
           <el-option :key="false" label="失败" :value="false"/>
         </el-select>
@@ -156,9 +156,9 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        title: undefined,
-        operName: undefined,
-        businessType: undefined,
+        module: undefined,
+        userNickname: undefined,
+        type: undefined,
         status: undefined,
         startTime: []
       },

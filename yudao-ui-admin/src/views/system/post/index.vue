@@ -68,7 +68,7 @@
           <el-input v-model="form.code" placeholder="请输入编码名称" />
         </el-form-item>
         <el-form-item label="岗位顺序" prop="sort">
-          <el-input-number v-model="form.sort" controls-position="right" :min="0" />
+          <el-input-number v-model="form.sort" controls-position="right" :min="0" :max="99999999"/>
         </el-form-item>
         <el-form-item label="岗位状态" prop="status">
           <el-radio-group v-model="form.status">
@@ -127,13 +127,20 @@ export default {
       // 表单校验
       rules: {
         name: [
-          { required: true, message: "岗位名称不能为空", trigger: "blur" }
+          { required: true, message: "岗位名称不能为空", trigger: "blur" },
+          {min:1,max:25,message:'最大输入25',trigger: "blur"}
         ],
         code: [
-          { required: true, message: "岗位编码不能为空", trigger: "blur" }
+          { required: true, message: "岗位编码不能为空", trigger: "blur" },
+          {min:1,max:32,message:'最大输入32',trigger: "blur"}
+        ],
+        remark:[
+          { required: false, message: "", trigger: "blur" },
+          {min:1,max:200,message:'最大输入200',trigger: "blur"}
         ],
         sort: [
-          { required: true, message: "岗位顺序不能为空", trigger: "blur" }
+          { required: true, message: "岗位顺序不能为空", trigger: "blur" },
+          {pattern:/^[0-9]{1,8}$/,message:'最多输入8位数字',trigger: "blur"}
         ]
       },
 

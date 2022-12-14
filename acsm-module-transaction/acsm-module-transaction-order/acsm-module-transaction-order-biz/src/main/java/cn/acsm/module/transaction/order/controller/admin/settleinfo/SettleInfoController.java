@@ -37,7 +37,7 @@ public class SettleInfoController {
 
     @PostMapping("/create")
     @ApiOperation("创建订单结账")
-    @PreAuthorize("@ss.hasPermission('order:settle-info:create')")
+    @PreAuthorize("@ss.hasPermission('order:info:create')")
     public CommonResult<String> createSettleInfo(@Valid @RequestBody SettleInfoCreateReqVO createReqVO) {
         return success(settleInfoService.createSettleInfo(createReqVO));
     }

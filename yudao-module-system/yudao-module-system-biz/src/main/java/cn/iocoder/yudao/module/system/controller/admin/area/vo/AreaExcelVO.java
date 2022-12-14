@@ -4,7 +4,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 行政区划 Excel VO
@@ -44,6 +44,9 @@ public class AreaExcelVO {
     @ExcelProperty("区域类型")
     private String areaType;
 
+    @ExcelProperty("状态")
+    private String status;
+
     @ExcelProperty("是否删除")
     private Boolean deleted;
 
@@ -51,13 +54,13 @@ public class AreaExcelVO {
     private String creator;
 
     @ExcelProperty("创建时间")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ExcelProperty("更新者")
     private String updater;
 
     @ExcelProperty("更新时间")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     @ExcelProperty("备注信息")
     private String remarks;

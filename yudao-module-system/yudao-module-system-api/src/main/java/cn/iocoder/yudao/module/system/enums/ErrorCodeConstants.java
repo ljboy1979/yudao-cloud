@@ -39,7 +39,7 @@ public interface ErrorCodeConstants {
     ErrorCode USER_EMAIL_EXISTS = new ErrorCode(1002003002, "邮箱已经存在");
     ErrorCode USER_NOT_EXISTS = new ErrorCode(1002003003, "用户不存在");
     ErrorCode USER_IMPORT_LIST_IS_EMPTY = new ErrorCode(1002003004, "导入用户数据不能为空！");
-    ErrorCode USER_PASSWORD_FAILED = new ErrorCode(1002003005, "用户密码校验失败");
+    ErrorCode USER_PASSWORD_FAILED = new ErrorCode(1002003005, "旧密码填写错误");
     ErrorCode USER_IS_DISABLE = new ErrorCode(1002003006, "名字为【{}】的用户已被禁用");
     ErrorCode USER_COUNT_MAX = new ErrorCode(1002003008, "创建用户失败，原因：超过租户最大租户配额({})！");
 
@@ -143,4 +143,9 @@ public interface ErrorCodeConstants {
     // ========== 行政区划 1002023000 =========
     ErrorCode AREA_NOT_EXISTS = new ErrorCode(1002023001, "行政区划不存在");
     ErrorCode TENANT_NAME_NOT_UNIQUE = new ErrorCode(1002024000, "租户名重复");
+    ErrorCode PARENT_NOT_EXISTS = new ErrorCode(1002023002, "行政区划父节点不存在");
+    ErrorCode PARENTCODES_PARAM_MISSING = new ErrorCode(1002023003, "全父级编号parentCodes参数缺失");
+    ErrorCode TREENAMES_PARAM_MISSING = new ErrorCode(1002023004, "全节点名treeNames参数缺失");
+    ErrorCode AREACODE_ALREADY_EXISTS = new ErrorCode(1002023005, "区域编码已经存在");
+
 }

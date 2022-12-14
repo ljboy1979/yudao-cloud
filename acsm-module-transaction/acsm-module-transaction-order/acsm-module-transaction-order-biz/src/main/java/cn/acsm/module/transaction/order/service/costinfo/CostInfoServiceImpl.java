@@ -1,5 +1,7 @@
 package cn.acsm.module.transaction.order.service.costinfo;
 
+import cn.acsm.module.transaction.order.util.ConfigNumberUtil;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -26,11 +28,16 @@ public class CostInfoServiceImpl implements CostInfoService {
 
     @Resource
     private CostInfoMapper costInfoMapper;
-
+    @Resource
+    private ConfigNumberUtil configNumberUtil;
     @Override
     public String createCostInfo(CostInfoCreateReqVO createReqVO) {
+        Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
+        String number = configNumberUtil.getNumber("order_cost_info"+tenantId);
         // 插入
         CostInfoDO costInfo = CostInfoConvert.INSTANCE.convert(createReqVO);
+        costInfo.setId(UUID.randomUUID().toString());
+        costInfo.setCostNumber("YJ"+number);
         costInfoMapper.insert(costInfo);
         // 返回
         return costInfo.getId();

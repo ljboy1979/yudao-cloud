@@ -2,6 +2,8 @@ package cn.acsm.module.transaction.pricetag.service.marketpricedetails;
 
 import java.util.*;
 import javax.validation.*;
+
+import cn.acsm.module.transaction.pricetag.api.dto.MarketPriceDetailsDto;
 import cn.acsm.module.transaction.pricetag.controller.admin.marketpricedetails.vo.*;
 import cn.acsm.module.transaction.pricetag.dal.dataobject.marketpricedetails.MarketPriceDetailsDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -66,5 +68,7 @@ public interface MarketPriceDetailsService {
      * @return 市场价格明细列表
      */
     List<MarketPriceDetailsDO> getMarketPriceDetailsList(MarketPriceDetailsExportReqVO exportReqVO);
+
+    void saveMarketPriceDetails(MarketPriceDetailsDto marketPriceDetailsDto);
 
 }

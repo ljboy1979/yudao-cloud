@@ -3,6 +3,7 @@ package cn.iocoder.yudao.module.system.controller.admin.dept.vo.post;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,6 +33,7 @@ public class PostBaseVO {
     private Integer status;
 
     @ApiModelProperty(value = "备注", example = "快乐的备注")
+    @Size(max = 200, message = "备注长度不能超过200")
     private String remark;
 
 }

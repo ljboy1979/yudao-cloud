@@ -9,7 +9,7 @@
         文档可见：https://www.iocoder.cn/MyBatis/x-plugins/
      -->
 
-    <select id="findPriceTagShelves" resultType="cn.acsm.module.transaction.shelves.dal.dataobject.pricetag.PriceTagShelvesRespDO">
+    <select id="findPriceTagShelves" resultType="cn.acsm.module.transaction.shelves.dal.dataobject.shelves.ShelvesRespDO">
         select
         id ,
         name,
@@ -21,7 +21,7 @@
         </if>
     </select>
 
-    <select id="findPriceTagSpecifications" resultType="cn.acsm.module.transaction.shelves.dal.dataobject.pricetag.PriceTagShelvesRespDO">
+    <select id="findPriceTagSpecifications" resultType="cn.acsm.module.transaction.shelves.dal.dataobject.shelves.ShelvesRespDO">
         select
         id ,
         specifications_name AS name,
@@ -39,7 +39,12 @@
         CONCAT(number,unit_name,"/",packaging_name) AS specifications
         FROM shelves_specifications
         where deleted = 0
+        <if test="shelvesId!=null and shelvesId!='' ">
         AND shelves_id=#{shelvesId}
+        </if>
         AND tenant_id =#{tenantId}
+        <if test="specificationsId!=null and specificationsId!='' ">
+        AND id =#{specificationsId}
+        </if>
     </select>
 </mapper>
