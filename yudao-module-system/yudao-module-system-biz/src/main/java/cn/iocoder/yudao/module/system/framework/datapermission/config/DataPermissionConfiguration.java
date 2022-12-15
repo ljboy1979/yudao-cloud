@@ -24,6 +24,8 @@ public class DataPermissionConfiguration {
             rule.addDeptColumn(DeptDO.class, "id");
             // user
             rule.addUserColumn(AdminUserDO.class, "id");
+
+            // notice,如果哪个模块要配置部门和用户权限，请如下新增
             rule.addUserColumn(PostDO.class, "creator");
             rule.addUserColumn(NoticeDO.class, "creator");
         };
