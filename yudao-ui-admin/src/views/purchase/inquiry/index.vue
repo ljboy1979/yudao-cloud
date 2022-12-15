@@ -3,23 +3,20 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="询价单编号" prop="inquiryNo">
-        <el-input v-model="queryParams.inquiryNo" placeholder="请输入询价单编号" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="商品id" prop="commodityId">
+        <el-input v-model="queryParams.commodityId" placeholder="请输入商品id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="商品id" prop="productId">
-        <el-input v-model="queryParams.productId" placeholder="请输入商品id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="分类id" prop="commodityCategoryId">
+        <el-input v-model="queryParams.commodityCategoryId" placeholder="请输入分类id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="分类id" prop="classifyId">
-        <el-input v-model="queryParams.classifyId" placeholder="请输入分类id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="规格id" prop="productSpecificationsId">
+        <el-input v-model="queryParams.productSpecificationsId" placeholder="请输入规格id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="规格id" prop="specificationsId">
-        <el-input v-model="queryParams.specificationsId" placeholder="请输入规格id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="计划数量最低" prop="plannedQuantityMin">
+        <el-input v-model="queryParams.plannedQuantityMin" placeholder="请输入计划数量最低" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="计划数量最低" prop="lowestPlannedQuantity">
-        <el-input v-model="queryParams.lowestPlannedQuantity" placeholder="请输入计划数量最低" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="计划数量最高" prop="highestPlannedQuantity">
-        <el-input v-model="queryParams.highestPlannedQuantity" placeholder="请输入计划数量最高" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="计划数量最高" prop="plannedQuantityMax">
+        <el-input v-model="queryParams.plannedQuantityMax" placeholder="请输入计划数量最高" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
@@ -50,12 +47,11 @@
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="询价单编号" align="center" prop="inquiryNo" />
-      <el-table-column label="商品id" align="center" prop="productId" />
-      <el-table-column label="分类id" align="center" prop="classifyId" />
-      <el-table-column label="规格id" align="center" prop="specificationsId" />
-      <el-table-column label="计划数量最低" align="center" prop="lowestPlannedQuantity" />
-      <el-table-column label="计划数量最高" align="center" prop="highestPlannedQuantity" />
+      <el-table-column label="商品id" align="center" prop="commodityId" />
+      <el-table-column label="分类id" align="center" prop="commodityCategoryId" />
+      <el-table-column label="规格id" align="center" prop="productSpecificationsId" />
+      <el-table-column label="计划数量最低" align="center" prop="plannedQuantityMin" />
+      <el-table-column label="计划数量最高" align="center" prop="plannedQuantityMax" />
       <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="经营主体" align="center" prop="subjectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -74,23 +70,20 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="询价单编号" prop="inquiryNo">
-          <el-input v-model="form.inquiryNo" placeholder="请输入询价单编号" />
+        <el-form-item label="商品id" prop="commodityId">
+          <el-input v-model="form.commodityId" placeholder="请输入商品id" />
         </el-form-item>
-        <el-form-item label="商品id" prop="productId">
-          <el-input v-model="form.productId" placeholder="请输入商品id" />
+        <el-form-item label="分类id" prop="commodityCategoryId">
+          <el-input v-model="form.commodityCategoryId" placeholder="请输入分类id" />
         </el-form-item>
-        <el-form-item label="分类id" prop="classifyId">
-          <el-input v-model="form.classifyId" placeholder="请输入分类id" />
+        <el-form-item label="规格id" prop="productSpecificationsId">
+          <el-input v-model="form.productSpecificationsId" placeholder="请输入规格id" />
         </el-form-item>
-        <el-form-item label="规格id" prop="specificationsId">
-          <el-input v-model="form.specificationsId" placeholder="请输入规格id" />
+        <el-form-item label="计划数量最低" prop="plannedQuantityMin">
+          <el-input v-model="form.plannedQuantityMin" placeholder="请输入计划数量最低" />
         </el-form-item>
-        <el-form-item label="计划数量最低" prop="lowestPlannedQuantity">
-          <el-input v-model="form.lowestPlannedQuantity" placeholder="请输入计划数量最低" />
-        </el-form-item>
-        <el-form-item label="计划数量最高" prop="highestPlannedQuantity">
-          <el-input v-model="form.highestPlannedQuantity" placeholder="请输入计划数量最高" />
+        <el-form-item label="计划数量最高" prop="plannedQuantityMax">
+          <el-input v-model="form.plannedQuantityMax" placeholder="请输入计划数量最高" />
         </el-form-item>
         <el-form-item label="经营主体" prop="subjectId">
           <el-input v-model="form.subjectId" placeholder="请输入经营主体" />
@@ -131,12 +124,11 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        inquiryNo: null,
-        productId: null,
-        classifyId: null,
-        specificationsId: null,
-        lowestPlannedQuantity: null,
-        highestPlannedQuantity: null,
+        commodityId: null,
+        commodityCategoryId: null,
+        productSpecificationsId: null,
+        plannedQuantityMin: null,
+        plannedQuantityMax: null,
         createTime: [],
         subjectId: null,
       },
@@ -144,9 +136,8 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        inquiryNo: [{ required: true, message: "询价单编号不能为空", trigger: "blur" }],
-        productId: [{ required: true, message: "商品id不能为空", trigger: "blur" }],
-        classifyId: [{ required: true, message: "分类id不能为空", trigger: "blur" }],
+        commodityId: [{ required: true, message: "商品id不能为空", trigger: "blur" }],
+        commodityCategoryId: [{ required: true, message: "分类id不能为空", trigger: "blur" }],
         subjectId: [{ required: true, message: "经营主体不能为空", trigger: "blur" }],
       }
     };
@@ -174,12 +165,11 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        inquiryNo: undefined,
-        productId: undefined,
-        classifyId: undefined,
-        specificationsId: undefined,
-        lowestPlannedQuantity: undefined,
-        highestPlannedQuantity: undefined,
+        commodityId: undefined,
+        commodityCategoryId: undefined,
+        productSpecificationsId: undefined,
+        plannedQuantityMin: undefined,
+        plannedQuantityMax: undefined,
         subjectId: undefined,
       };
       this.resetForm("form");

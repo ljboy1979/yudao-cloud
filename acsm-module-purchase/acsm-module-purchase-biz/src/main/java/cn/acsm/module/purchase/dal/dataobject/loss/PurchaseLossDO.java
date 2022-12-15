@@ -29,31 +29,23 @@ public class PurchaseLossDO extends BaseDO {
     /**
      * 采购单id
      */
-    private Long orderId;
+    private Long purchaseId;
     /**
      * 采购单号
      */
-    private String orderNo;
+    private String purchaseNumber;
     /**
-     * 货单id
+     * 货品编号
      */
     private Long goodsId;
     /**
-     * 货单单号
-     */
-    private String goodsNo;
-    /**
-     * 货电子表-明细id
+     * 货单电子表-明细id
      */
     private Long electronicBillOfGoodsId;
     /**
-     * 货架id
+     * 货架编号
      */
-    private Long goodsShelvesId;
-    /**
-     * 货架号
-     */
-    private String goodsShelvesNo;
+    private Long goodSkuId;
     /**
      * 货品名称
      */
@@ -61,7 +53,7 @@ public class PurchaseLossDO extends BaseDO {
     /**
      * 包装规格
      */
-    private String packingSpecifications;
+    private String packingSpecification;
     /**
      * 规格单位
      */
@@ -79,21 +71,21 @@ public class PurchaseLossDO extends BaseDO {
      */
     private BigDecimal amount;
     /**
-     * 报损人id
+     * 报损人编号
      */
-    private Long lossReporterId;
+    private Long managerId;
     /**
      * 报损人姓名
      */
-    private String lossReporterName;
+    private String manager;
     /**
      * 报损时间
      */
-    private Date lossReporterTime;
+    private Date time;
     /**
-     * 库存记录id
+     * 库存记录编号
      */
-    private Long inventoryRecordsId;
+    private Long stockId;
     /**
      * 入库批次号
      */

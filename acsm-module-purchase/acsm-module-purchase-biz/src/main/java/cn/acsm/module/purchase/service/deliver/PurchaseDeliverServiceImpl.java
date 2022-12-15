@@ -8,10 +8,10 @@ import cn.acsm.module.purchase.convert.deliver.PurchaseDeliverConvert;
 import cn.acsm.module.purchase.dal.dataobject.deliver.PurchaseDeliverDO;
 import cn.acsm.module.purchase.dal.mysql.deliver.PurchaseDeliverMapper;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 
@@ -27,7 +27,7 @@ import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionU
 @Validated
 public class PurchaseDeliverServiceImpl implements PurchaseDeliverService {
 
-    @Autowired
+    @Resource
     private PurchaseDeliverMapper deliverMapper;
 
     @Override

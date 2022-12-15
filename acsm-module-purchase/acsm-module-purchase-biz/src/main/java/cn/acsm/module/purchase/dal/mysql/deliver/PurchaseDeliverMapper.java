@@ -20,10 +20,9 @@ public interface PurchaseDeliverMapper extends BaseMapperX<PurchaseDeliverDO> {
 
     default PageResult<PurchaseDeliverDO> selectPage(PurchaseDeliverPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<PurchaseDeliverDO>()
-                .eqIfPresent(PurchaseDeliverDO::getOrderId, reqVO.getOrderId())
-                .eqIfPresent(PurchaseDeliverDO::getOrderDetailsId, reqVO.getOrderDetailsId())
-                .eqIfPresent(PurchaseDeliverDO::getPurchaseOrderNumber, reqVO.getPurchaseOrderNumber())
-                .eqIfPresent(PurchaseDeliverDO::getDeliveryBatch, reqVO.getDeliveryBatch())
+                .eqIfPresent(PurchaseDeliverDO::getPurchaseId, reqVO.getPurchaseId())
+                .eqIfPresent(PurchaseDeliverDO::getPurchaseNumber, reqVO.getPurchaseNumber())
+                .eqIfPresent(PurchaseDeliverDO::getBatchCode, reqVO.getBatchCode())
                 .betweenIfPresent(PurchaseDeliverDO::getExpectedDeliveryTime, reqVO.getExpectedDeliveryTime())
                 .eqIfPresent(PurchaseDeliverDO::getActualDelivery, reqVO.getActualDelivery())
                 .eqIfPresent(PurchaseDeliverDO::getExpectedDeliveryCount, reqVO.getExpectedDeliveryCount())
@@ -40,10 +39,9 @@ public interface PurchaseDeliverMapper extends BaseMapperX<PurchaseDeliverDO> {
 
     default List<PurchaseDeliverDO> selectList(PurchaseDeliverExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<PurchaseDeliverDO>()
-                .eqIfPresent(PurchaseDeliverDO::getOrderId, reqVO.getOrderId())
-                .eqIfPresent(PurchaseDeliverDO::getOrderDetailsId, reqVO.getOrderDetailsId())
-                .eqIfPresent(PurchaseDeliverDO::getPurchaseOrderNumber, reqVO.getPurchaseOrderNumber())
-                .eqIfPresent(PurchaseDeliverDO::getDeliveryBatch, reqVO.getDeliveryBatch())
+                .eqIfPresent(PurchaseDeliverDO::getPurchaseId, reqVO.getPurchaseId())
+                .eqIfPresent(PurchaseDeliverDO::getPurchaseNumber, reqVO.getPurchaseNumber())
+                .eqIfPresent(PurchaseDeliverDO::getBatchCode, reqVO.getBatchCode())
                 .betweenIfPresent(PurchaseDeliverDO::getExpectedDeliveryTime, reqVO.getExpectedDeliveryTime())
                 .eqIfPresent(PurchaseDeliverDO::getActualDelivery, reqVO.getActualDelivery())
                 .eqIfPresent(PurchaseDeliverDO::getExpectedDeliveryCount, reqVO.getExpectedDeliveryCount())

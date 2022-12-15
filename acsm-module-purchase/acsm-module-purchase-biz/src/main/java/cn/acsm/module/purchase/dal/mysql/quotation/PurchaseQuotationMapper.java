@@ -20,13 +20,12 @@ public interface PurchaseQuotationMapper extends BaseMapperX<PurchaseQuotationDO
 
     default PageResult<PurchaseQuotationDO> selectPage(PurchaseQuotationPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<PurchaseQuotationDO>()
-                .eqIfPresent(PurchaseQuotationDO::getQuotationNo, reqVO.getQuotationNo())
-                .likeIfPresent(PurchaseQuotationDO::getQuotationName, reqVO.getQuotationName())
+                .eqIfPresent(PurchaseQuotationDO::getQuoteId, reqVO.getQuoteId())
+                .likeIfPresent(PurchaseQuotationDO::getQuoteName, reqVO.getQuoteName())
                 .eqIfPresent(PurchaseQuotationDO::getPurchaserId, reqVO.getPurchaserId())
-                .eqIfPresent(PurchaseQuotationDO::getInquiryId, reqVO.getInquiryId())
-                .eqIfPresent(PurchaseQuotationDO::getInquiryNo, reqVO.getInquiryNo())
-                .betweenIfPresent(PurchaseQuotationDO::getQuotationValidTime, reqVO.getQuotationValidTime())
-                .eqIfPresent(PurchaseQuotationDO::getIsSubmit, reqVO.getIsSubmit())
+                .eqIfPresent(PurchaseQuotationDO::getEnquiryId, reqVO.getEnquiryId())
+                .betweenIfPresent(PurchaseQuotationDO::getIndateDate, reqVO.getIndateDate())
+                .eqIfPresent(PurchaseQuotationDO::getSubmitStatus, reqVO.getSubmitStatus())
                 .betweenIfPresent(PurchaseQuotationDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(PurchaseQuotationDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(PurchaseQuotationDO::getId));
@@ -34,13 +33,12 @@ public interface PurchaseQuotationMapper extends BaseMapperX<PurchaseQuotationDO
 
     default List<PurchaseQuotationDO> selectList(PurchaseQuotationExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<PurchaseQuotationDO>()
-                .eqIfPresent(PurchaseQuotationDO::getQuotationNo, reqVO.getQuotationNo())
-                .likeIfPresent(PurchaseQuotationDO::getQuotationName, reqVO.getQuotationName())
+                .eqIfPresent(PurchaseQuotationDO::getQuoteId, reqVO.getQuoteId())
+                .likeIfPresent(PurchaseQuotationDO::getQuoteName, reqVO.getQuoteName())
                 .eqIfPresent(PurchaseQuotationDO::getPurchaserId, reqVO.getPurchaserId())
-                .eqIfPresent(PurchaseQuotationDO::getInquiryId, reqVO.getInquiryId())
-                .eqIfPresent(PurchaseQuotationDO::getInquiryNo, reqVO.getInquiryNo())
-                .betweenIfPresent(PurchaseQuotationDO::getQuotationValidTime, reqVO.getQuotationValidTime())
-                .eqIfPresent(PurchaseQuotationDO::getIsSubmit, reqVO.getIsSubmit())
+                .eqIfPresent(PurchaseQuotationDO::getEnquiryId, reqVO.getEnquiryId())
+                .betweenIfPresent(PurchaseQuotationDO::getIndateDate, reqVO.getIndateDate())
+                .eqIfPresent(PurchaseQuotationDO::getSubmitStatus, reqVO.getSubmitStatus())
                 .betweenIfPresent(PurchaseQuotationDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(PurchaseQuotationDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(PurchaseQuotationDO::getId));

@@ -5,7 +5,7 @@ INSERT INTO system_menu(
 )
 VALUES (
     '采购单管理', '', 2, 0, 1314,
-    'purchase', '', 'purchase/purchase/index', 0
+    'order', '', 'purchase/order/index', 0
 );
 
 -- 按钮父菜单ID
@@ -18,7 +18,7 @@ INSERT INTO system_menu(
     path, icon, component, status
 )
 VALUES (
-    '采购单查询', 'purchase:purchase:query', 3, 1, @parentId,
+    '采购单查询', 'purchase:order:query', 3, 1, @parentId,
     '', '', '', 0
 );
 INSERT INTO system_menu(
@@ -26,7 +26,7 @@ INSERT INTO system_menu(
     path, icon, component, status
 )
 VALUES (
-    '采购单创建', 'purchase:purchase:create', 3, 2, @parentId,
+    '采购单创建', 'purchase:order:create', 3, 2, @parentId,
     '', '', '', 0
 );
 INSERT INTO system_menu(
@@ -34,7 +34,7 @@ INSERT INTO system_menu(
     path, icon, component, status
 )
 VALUES (
-    '采购单更新', 'purchase:purchase:update', 3, 3, @parentId,
+    '采购单更新', 'purchase:order:update', 3, 3, @parentId,
     '', '', '', 0
 );
 INSERT INTO system_menu(
@@ -42,7 +42,7 @@ INSERT INTO system_menu(
     path, icon, component, status
 )
 VALUES (
-    '采购单删除', 'purchase:purchase:delete', 3, 4, @parentId,
+    '采购单删除', 'purchase:order:delete', 3, 4, @parentId,
     '', '', '', 0
 );
 INSERT INTO system_menu(
@@ -50,6 +50,6 @@ INSERT INTO system_menu(
     path, icon, component, status
 )
 VALUES (
-    '采购单导出', 'purchase:purchase:export', 3, 5, @parentId,
+    '采购单导出', 'purchase:order:export', 3, 5, @parentId,
     '', '', '', 0
 );

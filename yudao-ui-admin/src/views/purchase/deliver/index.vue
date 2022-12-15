@@ -3,17 +3,14 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="采购单id" prop="orderId">
-        <el-input v-model="queryParams.orderId" placeholder="请输入采购单id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="采购单编号" prop="purchaseId">
+        <el-input v-model="queryParams.purchaseId" placeholder="请输入采购单编号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="采购单明细id" prop="orderDetailsId">
-        <el-input v-model="queryParams.orderDetailsId" placeholder="请输入采购单明细id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="采购单号" prop="purchaseNumber">
+        <el-input v-model="queryParams.purchaseNumber" placeholder="请输入采购单号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="采购单号" prop="purchaseOrderNumber">
-        <el-input v-model="queryParams.purchaseOrderNumber" placeholder="请输入采购单号" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="交付批次号(系统自动生成)" prop="deliveryBatch">
-        <el-input v-model="queryParams.deliveryBatch" placeholder="请输入交付批次号(系统自动生成)" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="交付批次号(系统自动生成)" prop="batchCode">
+        <el-input v-model="queryParams.batchCode" placeholder="请输入交付批次号(系统自动生成)" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="期望交付时间" prop="expectedDeliveryTime">
         <el-date-picker v-model="queryParams.expectedDeliveryTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
@@ -75,10 +72,9 @@
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="采购单id" align="center" prop="orderId" />
-      <el-table-column label="采购单明细id" align="center" prop="orderDetailsId" />
-      <el-table-column label="采购单号" align="center" prop="purchaseOrderNumber" />
-      <el-table-column label="交付批次号(系统自动生成)" align="center" prop="deliveryBatch" />
+      <el-table-column label="采购单编号" align="center" prop="purchaseId" />
+      <el-table-column label="采购单号" align="center" prop="purchaseNumber" />
+      <el-table-column label="交付批次号(系统自动生成)" align="center" prop="batchCode" />
       <el-table-column label="期望交付时间" align="center" prop="expectedDeliveryTime" />
       <el-table-column label="实际交付时间" align="center" prop="actualDelivery" />
       <el-table-column label="期望交付数量" align="center" prop="expectedDeliveryCount" />
@@ -106,17 +102,14 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="采购单id" prop="orderId">
-          <el-input v-model="form.orderId" placeholder="请输入采购单id" />
+        <el-form-item label="采购单编号" prop="purchaseId">
+          <el-input v-model="form.purchaseId" placeholder="请输入采购单编号" />
         </el-form-item>
-        <el-form-item label="采购单明细id" prop="orderDetailsId">
-          <el-input v-model="form.orderDetailsId" placeholder="请输入采购单明细id" />
+        <el-form-item label="采购单号" prop="purchaseNumber">
+          <el-input v-model="form.purchaseNumber" placeholder="请输入采购单号" />
         </el-form-item>
-        <el-form-item label="采购单号" prop="purchaseOrderNumber">
-          <el-input v-model="form.purchaseOrderNumber" placeholder="请输入采购单号" />
-        </el-form-item>
-        <el-form-item label="交付批次号(系统自动生成)" prop="deliveryBatch">
-          <el-input v-model="form.deliveryBatch" placeholder="请输入交付批次号(系统自动生成)" />
+        <el-form-item label="交付批次号(系统自动生成)" prop="batchCode">
+          <el-input v-model="form.batchCode" placeholder="请输入交付批次号(系统自动生成)" />
         </el-form-item>
         <el-form-item label="期望交付时间" prop="expectedDeliveryTime">
           <el-date-picker clearable v-model="form.expectedDeliveryTime" type="date" value-format="timestamp" placeholder="选择期望交付时间" />
@@ -186,10 +179,9 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        orderId: null,
-        orderDetailsId: null,
-        purchaseOrderNumber: null,
-        deliveryBatch: null,
+        purchaseId: null,
+        purchaseNumber: null,
+        batchCode: null,
         expectedDeliveryTime: [],
         actualDelivery: null,
         expectedDeliveryCount: null,
@@ -206,10 +198,9 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        orderId: [{ required: true, message: "采购单id不能为空", trigger: "blur" }],
-        orderDetailsId: [{ required: true, message: "采购单明细id不能为空", trigger: "blur" }],
-        purchaseOrderNumber: [{ required: true, message: "采购单号不能为空", trigger: "blur" }],
-        deliveryBatch: [{ required: true, message: "交付批次号(系统自动生成)不能为空", trigger: "blur" }],
+        purchaseId: [{ required: true, message: "采购单编号不能为空", trigger: "blur" }],
+        purchaseNumber: [{ required: true, message: "采购单号不能为空", trigger: "blur" }],
+        batchCode: [{ required: true, message: "交付批次号(系统自动生成)不能为空", trigger: "blur" }],
         expectedDeliveryTime: [{ required: true, message: "期望交付时间不能为空", trigger: "blur" }],
         expectedDeliveryCount: [{ required: true, message: "期望交付数量不能为空", trigger: "blur" }],
         companyId: [{ required: true, message: "单位(字典id)不能为空", trigger: "blur" }],
@@ -240,10 +231,9 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        orderId: undefined,
-        orderDetailsId: undefined,
-        purchaseOrderNumber: undefined,
-        deliveryBatch: undefined,
+        purchaseId: undefined,
+        purchaseNumber: undefined,
+        batchCode: undefined,
         expectedDeliveryTime: undefined,
         actualDelivery: undefined,
         expectedDeliveryCount: undefined,

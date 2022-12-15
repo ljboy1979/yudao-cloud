@@ -13,16 +13,16 @@ import java.math.BigDecimal;
 @Data
 public class PurchaseDetailsBaseVO {
 
-    @ApiModelProperty(value = "采购单id", required = true)
-    @NotNull(message = "采购单id不能为空")
-    private Long orderId;
+    @ApiModelProperty(value = "采购单编号", required = true)
+    @NotNull(message = "采购单编号不能为空")
+    private Long purchaseId;
 
     @ApiModelProperty(value = "采购单号", required = true)
     @NotNull(message = "采购单号不能为空")
-    private String purchaseOrderNumber;
+    private String purchaseNumber;
 
-    @ApiModelProperty(value = "货品id", required = true)
-    @NotNull(message = "货品id不能为空")
+    @ApiModelProperty(value = "货品编号", required = true)
+    @NotNull(message = "货品编号不能为空")
     private Long goodsId;
 
     @ApiModelProperty(value = "货品名称", required = true)
@@ -37,31 +37,32 @@ public class PurchaseDetailsBaseVO {
 
     @ApiModelProperty(value = "计量单位", required = true)
     @NotNull(message = "计量单位不能为空")
-    private String unitOfMeasurement;
+    private String unit;
 
     @ApiModelProperty(value = "包装类型")
     private String packagingType;
 
     @ApiModelProperty(value = "采购数量/重量", required = true)
     @NotNull(message = "采购数量/重量不能为空")
-    private BigDecimal purchaseQuantity;
+    private BigDecimal buyNumber;
 
     @ApiModelProperty(value = "期望到货频次")
-    private String expectedArrivalFrequency;
+    private String frequency;
 
     @ApiModelProperty(value = "单价")
-    private BigDecimal unitPrice;
+    private BigDecimal price;
 
     @ApiModelProperty(value = "优惠金额")
-    private BigDecimal discountAmount;
+    private BigDecimal discount;
 
-    @ApiModelProperty(value = "采购金额")
-    private BigDecimal purchaseAmount;
+    @ApiModelProperty(value = "采购金额(总金额)")
+    private BigDecimal total;
 
-    @ApiModelProperty(value = "货品id")
-    private Long chargingStandard;
+    @ApiModelProperty(value = "收货标准id")
+    private Long standardId;
 
     @ApiModelProperty(value = "经营主体", required = true)
+    @NotNull(message = "经营主体不能为空")
     private String subjectId;
 
 }

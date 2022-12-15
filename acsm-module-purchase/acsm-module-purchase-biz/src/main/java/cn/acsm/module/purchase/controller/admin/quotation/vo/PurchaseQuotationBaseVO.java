@@ -15,29 +15,25 @@ public class PurchaseQuotationBaseVO {
 
     @ApiModelProperty(value = "报价单编号", required = true)
     @NotNull(message = "报价单编号不能为空")
-    private String quotationNo;
+    private Long quoteId;
 
     @ApiModelProperty(value = "报价单名称", required = true)
     @NotNull(message = "报价单名称不能为空")
-    private String quotationName;
+    private String quoteName;
 
     @ApiModelProperty(value = "采购商id", required = true)
     @NotNull(message = "采购商id不能为空")
     private Long purchaserId;
 
-    @ApiModelProperty(value = "询价单id", required = true)
-    @NotNull(message = "询价单id不能为空")
-    private Long inquiryId;
-
     @ApiModelProperty(value = "询价单编号", required = true)
     @NotNull(message = "询价单编号不能为空")
-    private String inquiryNo;
+    private Long enquiryId;
 
     @ApiModelProperty(value = "报价有效期")
-    private Date quotationValidTime;
+    private Date indateDate;
 
     @ApiModelProperty(value = "是否提交 0：未提交 1：已提交")
-    private Boolean isSubmit;
+    private Boolean submitStatus;
 
     @ApiModelProperty(value = "经营主体", required = true)
     private String subjectId;

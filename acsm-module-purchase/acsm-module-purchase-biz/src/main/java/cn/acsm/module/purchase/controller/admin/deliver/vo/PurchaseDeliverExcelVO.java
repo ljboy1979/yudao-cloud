@@ -18,17 +18,14 @@ public class PurchaseDeliverExcelVO {
     @ExcelProperty("编号")
     private Long id;
 
-    @ExcelProperty("采购单id")
-    private Long orderId;
-
-    @ExcelProperty("采购单明细id")
-    private Long orderDetailsId;
+    @ExcelProperty("采购单编号")
+    private Long purchaseId;
 
     @ExcelProperty("采购单号")
-    private String purchaseOrderNumber;
+    private String purchaseNumber;
 
     @ExcelProperty("交付批次号(系统自动生成)")
-    private String deliveryBatch;
+    private String batchCode;
 
     @ExcelProperty("期望交付时间")
     private Date expectedDeliveryTime;

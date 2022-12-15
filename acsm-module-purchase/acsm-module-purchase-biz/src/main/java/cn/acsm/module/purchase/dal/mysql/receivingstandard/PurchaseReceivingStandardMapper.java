@@ -20,10 +20,10 @@ public interface PurchaseReceivingStandardMapper extends BaseMapperX<PurchaseRec
 
     default PageResult<PurchaseReceivingStandardDO> selectPage(PurchaseReceivingStandardPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<PurchaseReceivingStandardDO>()
-                .likeIfPresent(PurchaseReceivingStandardDO::getStandardName, reqVO.getStandardName())
-                .eqIfPresent(PurchaseReceivingStandardDO::getUpperRange, reqVO.getUpperRange())
-                .eqIfPresent(PurchaseReceivingStandardDO::getLowerRange, reqVO.getLowerRange())
-                .eqIfPresent(PurchaseReceivingStandardDO::getCompany, reqVO.getCompany())
+                .likeIfPresent(PurchaseReceivingStandardDO::getName, reqVO.getName())
+                .eqIfPresent(PurchaseReceivingStandardDO::getUpperLimit, reqVO.getUpperLimit())
+                .eqIfPresent(PurchaseReceivingStandardDO::getLowerLimit, reqVO.getLowerLimit())
+                .eqIfPresent(PurchaseReceivingStandardDO::getUnit, reqVO.getUnit())
                 .betweenIfPresent(PurchaseReceivingStandardDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(PurchaseReceivingStandardDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(PurchaseReceivingStandardDO::getId));
@@ -31,10 +31,10 @@ public interface PurchaseReceivingStandardMapper extends BaseMapperX<PurchaseRec
 
     default List<PurchaseReceivingStandardDO> selectList(PurchaseReceivingStandardExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<PurchaseReceivingStandardDO>()
-                .likeIfPresent(PurchaseReceivingStandardDO::getStandardName, reqVO.getStandardName())
-                .eqIfPresent(PurchaseReceivingStandardDO::getUpperRange, reqVO.getUpperRange())
-                .eqIfPresent(PurchaseReceivingStandardDO::getLowerRange, reqVO.getLowerRange())
-                .eqIfPresent(PurchaseReceivingStandardDO::getCompany, reqVO.getCompany())
+                .likeIfPresent(PurchaseReceivingStandardDO::getName, reqVO.getName())
+                .eqIfPresent(PurchaseReceivingStandardDO::getUpperLimit, reqVO.getUpperLimit())
+                .eqIfPresent(PurchaseReceivingStandardDO::getLowerLimit, reqVO.getLowerLimit())
+                .eqIfPresent(PurchaseReceivingStandardDO::getUnit, reqVO.getUnit())
                 .betweenIfPresent(PurchaseReceivingStandardDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(PurchaseReceivingStandardDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(PurchaseReceivingStandardDO::getId));

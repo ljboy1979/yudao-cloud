@@ -14,17 +14,13 @@ import java.util.Date;
 @Data
 public class PurchaseQuotationElectronicBaseVO {
 
-    @ApiModelProperty(value = "报价单id", required = true)
-    @NotNull(message = "报价单id不能为空")
-    private Long quotationId;
-
     @ApiModelProperty(value = "报价单编号", required = true)
     @NotNull(message = "报价单编号不能为空")
-    private String quotationNo;
+    private Long quoteId;
 
-    @ApiModelProperty(value = "询价单明细id", required = true)
-    @NotNull(message = "询价单明细id不能为空")
-    private Long inquiryId;
+    @ApiModelProperty(value = "询价单明细编号", required = true)
+    @NotNull(message = "询价单明细编号不能为空")
+    private Long enquiryId;
 
     @ApiModelProperty(value = "商品id", required = true)
     @NotNull(message = "商品id不能为空")
@@ -32,19 +28,19 @@ public class PurchaseQuotationElectronicBaseVO {
 
     @ApiModelProperty(value = "分类id", required = true)
     @NotNull(message = "分类id不能为空")
-    private Long classifyId;
+    private Long commodityCategoryId;
 
     @ApiModelProperty(value = "规格id")
-    private Long specificationsId;
+    private String specificationsId;
 
     @ApiModelProperty(value = "起批数量")
-    private Integer initialBatchCount;
+    private String batchNumber;
 
     @ApiModelProperty(value = "单价")
-    private BigDecimal unitPrice;
+    private BigDecimal price;
 
     @ApiModelProperty(value = "采购数量")
-    private Integer purchaseCount;
+    private String orderSize;
 
     @ApiModelProperty(value = "总价")
     private BigDecimal totalPrice;

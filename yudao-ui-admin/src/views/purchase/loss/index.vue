@@ -3,32 +3,26 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="采购单id" prop="orderId">
-        <el-input v-model="queryParams.orderId" placeholder="请输入采购单id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="采购单id" prop="purchaseId">
+        <el-input v-model="queryParams.purchaseId" placeholder="请输入采购单id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="采购单号" prop="orderNo">
-        <el-input v-model="queryParams.orderNo" placeholder="请输入采购单号" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="采购单号" prop="purchaseNumber">
+        <el-input v-model="queryParams.purchaseNumber" placeholder="请输入采购单号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="货单id" prop="goodsId">
-        <el-input v-model="queryParams.goodsId" placeholder="请输入货单id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="货品编号" prop="goodsId">
+        <el-input v-model="queryParams.goodsId" placeholder="请输入货品编号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="货单单号" prop="goodsNo">
-        <el-input v-model="queryParams.goodsNo" placeholder="请输入货单单号" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="货单电子表-明细id" prop="electronicBillOfGoodsId">
+        <el-input v-model="queryParams.electronicBillOfGoodsId" placeholder="请输入货单电子表-明细id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="货电子表-明细id" prop="electronicBillOfGoodsId">
-        <el-input v-model="queryParams.electronicBillOfGoodsId" placeholder="请输入货电子表-明细id" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="货架id" prop="goodsShelvesId">
-        <el-input v-model="queryParams.goodsShelvesId" placeholder="请输入货架id" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="货架号" prop="goodsShelvesNo">
-        <el-input v-model="queryParams.goodsShelvesNo" placeholder="请输入货架号" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="货架编号" prop="goodSkuId">
+        <el-input v-model="queryParams.goodSkuId" placeholder="请输入货架编号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="货品名称" prop="goodsName">
         <el-input v-model="queryParams.goodsName" placeholder="请输入货品名称" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="包装规格" prop="packingSpecifications">
-        <el-input v-model="queryParams.packingSpecifications" placeholder="请输入包装规格" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="包装规格" prop="packingSpecification">
+        <el-input v-model="queryParams.packingSpecification" placeholder="请输入包装规格" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="规格单位" prop="specificationUnit">
         <el-input v-model="queryParams.specificationUnit" placeholder="请输入规格单位" clearable @keyup.enter.native="handleQuery"/>
@@ -42,18 +36,18 @@
       <el-form-item label="金额" prop="amount">
         <el-input v-model="queryParams.amount" placeholder="请输入金额" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="报损人id" prop="lossReporterId">
-        <el-input v-model="queryParams.lossReporterId" placeholder="请输入报损人id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="报损人编号" prop="managerId">
+        <el-input v-model="queryParams.managerId" placeholder="请输入报损人编号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="报损人姓名" prop="lossReporterName">
-        <el-input v-model="queryParams.lossReporterName" placeholder="请输入报损人姓名" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="报损人姓名" prop="manager">
+        <el-input v-model="queryParams.manager" placeholder="请输入报损人姓名" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="报损时间" prop="lossReporterTime">
-        <el-date-picker v-model="queryParams.lossReporterTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
+      <el-form-item label="报损时间" prop="time">
+        <el-date-picker v-model="queryParams.time" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
                         range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
-      <el-form-item label="库存记录id" prop="inventoryRecordsId">
-        <el-input v-model="queryParams.inventoryRecordsId" placeholder="请输入库存记录id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="库存记录编号" prop="stockId">
+        <el-input v-model="queryParams.stockId" placeholder="请输入库存记录编号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="入库批次号" prop="receiptBatchNo">
         <el-input v-model="queryParams.receiptBatchNo" placeholder="请输入入库批次号" clearable @keyup.enter.native="handleQuery"/>
@@ -90,23 +84,21 @@
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="采购单id" align="center" prop="orderId" />
-      <el-table-column label="采购单号" align="center" prop="orderNo" />
-      <el-table-column label="货单id" align="center" prop="goodsId" />
-      <el-table-column label="货单单号" align="center" prop="goodsNo" />
-      <el-table-column label="货电子表-明细id" align="center" prop="electronicBillOfGoodsId" />
-      <el-table-column label="货架id" align="center" prop="goodsShelvesId" />
-      <el-table-column label="货架号" align="center" prop="goodsShelvesNo" />
+      <el-table-column label="采购单id" align="center" prop="purchaseId" />
+      <el-table-column label="采购单号" align="center" prop="purchaseNumber" />
+      <el-table-column label="货品编号" align="center" prop="goodsId" />
+      <el-table-column label="货单电子表-明细id" align="center" prop="electronicBillOfGoodsId" />
+      <el-table-column label="货架编号" align="center" prop="goodSkuId" />
       <el-table-column label="货品名称" align="center" prop="goodsName" />
-      <el-table-column label="包装规格" align="center" prop="packingSpecifications" />
+      <el-table-column label="包装规格" align="center" prop="packingSpecification" />
       <el-table-column label="规格单位" align="center" prop="specificationUnit" />
       <el-table-column label="损耗数量" align="center" prop="lossCount" />
       <el-table-column label="损耗重量" align="center" prop="lossWeight" />
       <el-table-column label="金额" align="center" prop="amount" />
-      <el-table-column label="报损人id" align="center" prop="lossReporterId" />
-      <el-table-column label="报损人姓名" align="center" prop="lossReporterName" />
-      <el-table-column label="报损时间" align="center" prop="lossReporterTime" />
-      <el-table-column label="库存记录id" align="center" prop="inventoryRecordsId" />
+      <el-table-column label="报损人编号" align="center" prop="managerId" />
+      <el-table-column label="报损人姓名" align="center" prop="manager" />
+      <el-table-column label="报损时间" align="center" prop="time" />
+      <el-table-column label="库存记录编号" align="center" prop="stockId" />
       <el-table-column label="入库批次号" align="center" prop="receiptBatchNo" />
       <el-table-column label="库存记录明细id" align="center" prop="inventoryRecordDetailsId" />
       <el-table-column label="创建时间" align="center" prop="createTime" />
@@ -127,32 +119,26 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="采购单id" prop="orderId">
-          <el-input v-model="form.orderId" placeholder="请输入采购单id" />
+        <el-form-item label="采购单id" prop="purchaseId">
+          <el-input v-model="form.purchaseId" placeholder="请输入采购单id" />
         </el-form-item>
-        <el-form-item label="采购单号" prop="orderNo">
-          <el-input v-model="form.orderNo" placeholder="请输入采购单号" />
+        <el-form-item label="采购单号" prop="purchaseNumber">
+          <el-input v-model="form.purchaseNumber" placeholder="请输入采购单号" />
         </el-form-item>
-        <el-form-item label="货单id" prop="goodsId">
-          <el-input v-model="form.goodsId" placeholder="请输入货单id" />
+        <el-form-item label="货品编号" prop="goodsId">
+          <el-input v-model="form.goodsId" placeholder="请输入货品编号" />
         </el-form-item>
-        <el-form-item label="货单单号" prop="goodsNo">
-          <el-input v-model="form.goodsNo" placeholder="请输入货单单号" />
+        <el-form-item label="货单电子表-明细id" prop="electronicBillOfGoodsId">
+          <el-input v-model="form.electronicBillOfGoodsId" placeholder="请输入货单电子表-明细id" />
         </el-form-item>
-        <el-form-item label="货电子表-明细id" prop="electronicBillOfGoodsId">
-          <el-input v-model="form.electronicBillOfGoodsId" placeholder="请输入货电子表-明细id" />
-        </el-form-item>
-        <el-form-item label="货架id" prop="goodsShelvesId">
-          <el-input v-model="form.goodsShelvesId" placeholder="请输入货架id" />
-        </el-form-item>
-        <el-form-item label="货架号" prop="goodsShelvesNo">
-          <el-input v-model="form.goodsShelvesNo" placeholder="请输入货架号" />
+        <el-form-item label="货架编号" prop="goodSkuId">
+          <el-input v-model="form.goodSkuId" placeholder="请输入货架编号" />
         </el-form-item>
         <el-form-item label="货品名称" prop="goodsName">
           <el-input v-model="form.goodsName" placeholder="请输入货品名称" />
         </el-form-item>
-        <el-form-item label="包装规格" prop="packingSpecifications">
-          <el-input v-model="form.packingSpecifications" placeholder="请输入包装规格" />
+        <el-form-item label="包装规格" prop="packingSpecification">
+          <el-input v-model="form.packingSpecification" placeholder="请输入包装规格" />
         </el-form-item>
         <el-form-item label="规格单位" prop="specificationUnit">
           <el-input v-model="form.specificationUnit" placeholder="请输入规格单位" />
@@ -166,17 +152,17 @@
         <el-form-item label="金额" prop="amount">
           <el-input v-model="form.amount" placeholder="请输入金额" />
         </el-form-item>
-        <el-form-item label="报损人id" prop="lossReporterId">
-          <el-input v-model="form.lossReporterId" placeholder="请输入报损人id" />
+        <el-form-item label="报损人编号" prop="managerId">
+          <el-input v-model="form.managerId" placeholder="请输入报损人编号" />
         </el-form-item>
-        <el-form-item label="报损人姓名" prop="lossReporterName">
-          <el-input v-model="form.lossReporterName" placeholder="请输入报损人姓名" />
+        <el-form-item label="报损人姓名" prop="manager">
+          <el-input v-model="form.manager" placeholder="请输入报损人姓名" />
         </el-form-item>
-        <el-form-item label="报损时间" prop="lossReporterTime">
-          <el-date-picker clearable v-model="form.lossReporterTime" type="date" value-format="timestamp" placeholder="选择报损时间" />
+        <el-form-item label="报损时间" prop="time">
+          <el-date-picker clearable v-model="form.time" type="date" value-format="timestamp" placeholder="选择报损时间" />
         </el-form-item>
-        <el-form-item label="库存记录id" prop="inventoryRecordsId">
-          <el-input v-model="form.inventoryRecordsId" placeholder="请输入库存记录id" />
+        <el-form-item label="库存记录编号" prop="stockId">
+          <el-input v-model="form.stockId" placeholder="请输入库存记录编号" />
         </el-form-item>
         <el-form-item label="入库批次号" prop="receiptBatchNo">
           <el-input v-model="form.receiptBatchNo" placeholder="请输入入库批次号" />
@@ -223,23 +209,21 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        orderId: null,
-        orderNo: null,
+        purchaseId: null,
+        purchaseNumber: null,
         goodsId: null,
-        goodsNo: null,
         electronicBillOfGoodsId: null,
-        goodsShelvesId: null,
-        goodsShelvesNo: null,
+        goodSkuId: null,
         goodsName: null,
-        packingSpecifications: null,
+        packingSpecification: null,
         specificationUnit: null,
         lossCount: null,
         lossWeight: null,
         amount: null,
-        lossReporterId: null,
-        lossReporterName: null,
-        lossReporterTime: [],
-        inventoryRecordsId: null,
+        managerId: null,
+        manager: null,
+        time: [],
+        stockId: null,
         receiptBatchNo: null,
         inventoryRecordDetailsId: null,
         createTime: [],
@@ -249,19 +233,17 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        orderId: [{ required: true, message: "采购单id不能为空", trigger: "blur" }],
-        orderNo: [{ required: true, message: "采购单号不能为空", trigger: "blur" }],
-        goodsId: [{ required: true, message: "货单id不能为空", trigger: "blur" }],
-        goodsNo: [{ required: true, message: "货单单号不能为空", trigger: "blur" }],
-        electronicBillOfGoodsId: [{ required: true, message: "货电子表-明细id不能为空", trigger: "blur" }],
-        goodsShelvesId: [{ required: true, message: "货架id不能为空", trigger: "blur" }],
-        goodsShelvesNo: [{ required: true, message: "货架号不能为空", trigger: "blur" }],
+        purchaseId: [{ required: true, message: "采购单id不能为空", trigger: "blur" }],
+        purchaseNumber: [{ required: true, message: "采购单号不能为空", trigger: "blur" }],
+        goodsId: [{ required: true, message: "货品编号不能为空", trigger: "blur" }],
+        electronicBillOfGoodsId: [{ required: true, message: "货单电子表-明细id不能为空", trigger: "blur" }],
+        goodSkuId: [{ required: true, message: "货架编号不能为空", trigger: "blur" }],
         goodsName: [{ required: true, message: "货品名称不能为空", trigger: "blur" }],
-        packingSpecifications: [{ required: true, message: "包装规格不能为空", trigger: "blur" }],
+        packingSpecification: [{ required: true, message: "包装规格不能为空", trigger: "blur" }],
         specificationUnit: [{ required: true, message: "规格单位不能为空", trigger: "blur" }],
-        lossReporterId: [{ required: true, message: "报损人id不能为空", trigger: "blur" }],
-        lossReporterName: [{ required: true, message: "报损人姓名不能为空", trigger: "blur" }],
-        inventoryRecordsId: [{ required: true, message: "库存记录id不能为空", trigger: "blur" }],
+        managerId: [{ required: true, message: "报损人编号不能为空", trigger: "blur" }],
+        manager: [{ required: true, message: "报损人姓名不能为空", trigger: "blur" }],
+        stockId: [{ required: true, message: "库存记录编号不能为空", trigger: "blur" }],
         receiptBatchNo: [{ required: true, message: "入库批次号不能为空", trigger: "blur" }],
         inventoryRecordDetailsId: [{ required: true, message: "库存记录明细id不能为空", trigger: "blur" }],
         subjectId: [{ required: true, message: "经营主体不能为空", trigger: "blur" }],
@@ -291,23 +273,21 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        orderId: undefined,
-        orderNo: undefined,
+        purchaseId: undefined,
+        purchaseNumber: undefined,
         goodsId: undefined,
-        goodsNo: undefined,
         electronicBillOfGoodsId: undefined,
-        goodsShelvesId: undefined,
-        goodsShelvesNo: undefined,
+        goodSkuId: undefined,
         goodsName: undefined,
-        packingSpecifications: undefined,
+        packingSpecification: undefined,
         specificationUnit: undefined,
         lossCount: undefined,
         lossWeight: undefined,
         amount: undefined,
-        lossReporterId: undefined,
-        lossReporterName: undefined,
-        lossReporterTime: undefined,
-        inventoryRecordsId: undefined,
+        managerId: undefined,
+        manager: undefined,
+        time: undefined,
+        stockId: undefined,
         receiptBatchNo: undefined,
         inventoryRecordDetailsId: undefined,
         subjectId: undefined,

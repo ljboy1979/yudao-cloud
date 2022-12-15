@@ -1,12 +1,9 @@
 package cn.acsm.module.purchase.controller.admin.deliver.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
-import javax.validation.constraints.NotNull;
+import lombok.*;
+import java.util.*;
+import io.swagger.annotations.*;
+import javax.validation.constraints.*;
 
 @ApiModel("管理后台 - 采购交付更新 Request VO")
 @Data

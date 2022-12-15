@@ -106,47 +106,41 @@ public class PurchaseLossServiceImplTest extends BaseDbUnitTest {
     public void testGetLossPage() {
        // mock 数据
        PurchaseLossDO dbLoss = randomPojo(PurchaseLossDO.class, o -> { // 等会查询到
-           o.setOrderId(null);
-           o.setOrderNo(null);
+           o.setPurchaseId(null);
+           o.setPurchaseNumber(null);
            o.setGoodsId(null);
-           o.setGoodsNo(null);
            o.setElectronicBillOfGoodsId(null);
-           o.setGoodsShelvesId(null);
-           o.setGoodsShelvesNo(null);
+           o.setGoodSkuId(null);
            o.setGoodsName(null);
-           o.setPackingSpecifications(null);
+           o.setPackingSpecification(null);
            o.setSpecificationUnit(null);
            o.setLossCount(null);
            o.setLossWeight(null);
            o.setAmount(null);
-           o.setLossReporterId(null);
-           o.setLossReporterName(null);
-           o.setLossReporterTime(null);
-           o.setInventoryRecordsId(null);
+           o.setManagerId(null);
+           o.setManager(null);
+           o.setTime(null);
+           o.setStockId(null);
            o.setReceiptBatchNo(null);
            o.setInventoryRecordDetailsId(null);
            o.setCreateTime(null);
            o.setSubjectId(null);
        });
        lossMapper.insert(dbLoss);
-       // 测试 orderId 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setOrderId(null)));
-       // 测试 orderNo 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setOrderNo(null)));
+       // 测试 purchaseId 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setPurchaseId(null)));
+       // 测试 purchaseNumber 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setPurchaseNumber(null)));
        // 测试 goodsId 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodsId(null)));
-       // 测试 goodsNo 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodsNo(null)));
        // 测试 electronicBillOfGoodsId 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setElectronicBillOfGoodsId(null)));
-       // 测试 goodsShelvesId 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodsShelvesId(null)));
-       // 测试 goodsShelvesNo 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodsShelvesNo(null)));
+       // 测试 goodSkuId 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodSkuId(null)));
        // 测试 goodsName 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodsName(null)));
-       // 测试 packingSpecifications 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setPackingSpecifications(null)));
+       // 测试 packingSpecification 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setPackingSpecification(null)));
        // 测试 specificationUnit 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setSpecificationUnit(null)));
        // 测试 lossCount 不匹配
@@ -155,14 +149,14 @@ public class PurchaseLossServiceImplTest extends BaseDbUnitTest {
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setLossWeight(null)));
        // 测试 amount 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setAmount(null)));
-       // 测试 lossReporterId 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setLossReporterId(null)));
-       // 测试 lossReporterName 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setLossReporterName(null)));
-       // 测试 lossReporterTime 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setLossReporterTime(null)));
-       // 测试 inventoryRecordsId 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setInventoryRecordsId(null)));
+       // 测试 managerId 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setManagerId(null)));
+       // 测试 manager 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setManager(null)));
+       // 测试 time 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setTime(null)));
+       // 测试 stockId 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setStockId(null)));
        // 测试 receiptBatchNo 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setReceiptBatchNo(null)));
        // 测试 inventoryRecordDetailsId 不匹配
@@ -173,23 +167,21 @@ public class PurchaseLossServiceImplTest extends BaseDbUnitTest {
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setSubjectId(null)));
        // 准备参数
        PurchaseLossPageReqVO reqVO = new PurchaseLossPageReqVO();
-       reqVO.setOrderId(null);
-       reqVO.setOrderNo(null);
+       reqVO.setPurchaseId(null);
+       reqVO.setPurchaseNumber(null);
        reqVO.setGoodsId(null);
-       reqVO.setGoodsNo(null);
        reqVO.setElectronicBillOfGoodsId(null);
-       reqVO.setGoodsShelvesId(null);
-       reqVO.setGoodsShelvesNo(null);
+       reqVO.setGoodSkuId(null);
        reqVO.setGoodsName(null);
-       reqVO.setPackingSpecifications(null);
+       reqVO.setPackingSpecification(null);
        reqVO.setSpecificationUnit(null);
        reqVO.setLossCount(null);
        reqVO.setLossWeight(null);
        reqVO.setAmount(null);
-       reqVO.setLossReporterId(null);
-       reqVO.setLossReporterName(null);
-       reqVO.setLossReporterTime((new Date[]{}));
-       reqVO.setInventoryRecordsId(null);
+       reqVO.setManagerId(null);
+       reqVO.setManager(null);
+       reqVO.setTime((new Date[]{}));
+       reqVO.setStockId(null);
        reqVO.setReceiptBatchNo(null);
        reqVO.setInventoryRecordDetailsId(null);
        reqVO.setCreateTime((new Date[]{}));
@@ -208,47 +200,41 @@ public class PurchaseLossServiceImplTest extends BaseDbUnitTest {
     public void testGetLossList() {
        // mock 数据
        PurchaseLossDO dbLoss = randomPojo(PurchaseLossDO.class, o -> { // 等会查询到
-           o.setOrderId(null);
-           o.setOrderNo(null);
+           o.setPurchaseId(null);
+           o.setPurchaseNumber(null);
            o.setGoodsId(null);
-           o.setGoodsNo(null);
            o.setElectronicBillOfGoodsId(null);
-           o.setGoodsShelvesId(null);
-           o.setGoodsShelvesNo(null);
+           o.setGoodSkuId(null);
            o.setGoodsName(null);
-           o.setPackingSpecifications(null);
+           o.setPackingSpecification(null);
            o.setSpecificationUnit(null);
            o.setLossCount(null);
            o.setLossWeight(null);
            o.setAmount(null);
-           o.setLossReporterId(null);
-           o.setLossReporterName(null);
-           o.setLossReporterTime(null);
-           o.setInventoryRecordsId(null);
+           o.setManagerId(null);
+           o.setManager(null);
+           o.setTime(null);
+           o.setStockId(null);
            o.setReceiptBatchNo(null);
            o.setInventoryRecordDetailsId(null);
            o.setCreateTime(null);
            o.setSubjectId(null);
        });
        lossMapper.insert(dbLoss);
-       // 测试 orderId 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setOrderId(null)));
-       // 测试 orderNo 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setOrderNo(null)));
+       // 测试 purchaseId 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setPurchaseId(null)));
+       // 测试 purchaseNumber 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setPurchaseNumber(null)));
        // 测试 goodsId 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodsId(null)));
-       // 测试 goodsNo 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodsNo(null)));
        // 测试 electronicBillOfGoodsId 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setElectronicBillOfGoodsId(null)));
-       // 测试 goodsShelvesId 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodsShelvesId(null)));
-       // 测试 goodsShelvesNo 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodsShelvesNo(null)));
+       // 测试 goodSkuId 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodSkuId(null)));
        // 测试 goodsName 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setGoodsName(null)));
-       // 测试 packingSpecifications 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setPackingSpecifications(null)));
+       // 测试 packingSpecification 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setPackingSpecification(null)));
        // 测试 specificationUnit 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setSpecificationUnit(null)));
        // 测试 lossCount 不匹配
@@ -257,14 +243,14 @@ public class PurchaseLossServiceImplTest extends BaseDbUnitTest {
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setLossWeight(null)));
        // 测试 amount 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setAmount(null)));
-       // 测试 lossReporterId 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setLossReporterId(null)));
-       // 测试 lossReporterName 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setLossReporterName(null)));
-       // 测试 lossReporterTime 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setLossReporterTime(null)));
-       // 测试 inventoryRecordsId 不匹配
-       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setInventoryRecordsId(null)));
+       // 测试 managerId 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setManagerId(null)));
+       // 测试 manager 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setManager(null)));
+       // 测试 time 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setTime(null)));
+       // 测试 stockId 不匹配
+       lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setStockId(null)));
        // 测试 receiptBatchNo 不匹配
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setReceiptBatchNo(null)));
        // 测试 inventoryRecordDetailsId 不匹配
@@ -275,23 +261,21 @@ public class PurchaseLossServiceImplTest extends BaseDbUnitTest {
        lossMapper.insert(cloneIgnoreId(dbLoss, o -> o.setSubjectId(null)));
        // 准备参数
        PurchaseLossExportReqVO reqVO = new PurchaseLossExportReqVO();
-       reqVO.setOrderId(null);
-       reqVO.setOrderNo(null);
+       reqVO.setPurchaseId(null);
+       reqVO.setPurchaseNumber(null);
        reqVO.setGoodsId(null);
-       reqVO.setGoodsNo(null);
        reqVO.setElectronicBillOfGoodsId(null);
-       reqVO.setGoodsShelvesId(null);
-       reqVO.setGoodsShelvesNo(null);
+       reqVO.setGoodSkuId(null);
        reqVO.setGoodsName(null);
-       reqVO.setPackingSpecifications(null);
+       reqVO.setPackingSpecification(null);
        reqVO.setSpecificationUnit(null);
        reqVO.setLossCount(null);
        reqVO.setLossWeight(null);
        reqVO.setAmount(null);
-       reqVO.setLossReporterId(null);
-       reqVO.setLossReporterName(null);
-       reqVO.setLossReporterTime((new Date[]{}));
-       reqVO.setInventoryRecordsId(null);
+       reqVO.setManagerId(null);
+       reqVO.setManager(null);
+       reqVO.setTime((new Date[]{}));
+       reqVO.setStockId(null);
        reqVO.setReceiptBatchNo(null);
        reqVO.setInventoryRecordDetailsId(null);
        reqVO.setCreateTime((new Date[]{}));

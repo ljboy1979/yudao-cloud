@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -106,44 +107,40 @@ public class PurchaseQuotationServiceImplTest extends BaseDbUnitTest {
     public void testGetQuotationPage() {
        // mock 数据
        PurchaseQuotationDO dbQuotation = randomPojo(PurchaseQuotationDO.class, o -> { // 等会查询到
-           o.setQuotationNo(null);
-           o.setQuotationName(null);
+           o.setQuoteId(null);
+           o.setQuoteName(null);
            o.setPurchaserId(null);
-           o.setInquiryId(null);
-           o.setInquiryNo(null);
-           o.setQuotationValidTime(null);
-           o.setIsSubmit(null);
+           o.setEnquiryId(null);
+           o.setIndateDate(null);
+           o.setSubmitStatus(null);
            o.setCreateTime(null);
            o.setSubjectId(null);
        });
        quotationMapper.insert(dbQuotation);
-       // 测试 quotationNo 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setQuotationNo(null)));
-       // 测试 quotationName 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setQuotationName(null)));
+       // 测试 quoteId 不匹配
+       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setQuoteId(null)));
+       // 测试 quoteName 不匹配
+       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setQuoteName(null)));
        // 测试 purchaserId 不匹配
        quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setPurchaserId(null)));
-       // 测试 inquiryId 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setInquiryId(null)));
-       // 测试 inquiryNo 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setInquiryNo(null)));
-       // 测试 quotationValidTime 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setQuotationValidTime(null)));
-       // 测试 isSubmit 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setIsSubmit(null)));
+       // 测试 enquiryId 不匹配
+       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setEnquiryId(null)));
+       // 测试 indateDate 不匹配
+       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setIndateDate(null)));
+       // 测试 submitStatus 不匹配
+       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setSubmitStatus(null)));
        // 测试 createTime 不匹配
        quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setCreateTime(null)));
        // 测试 subjectId 不匹配
        quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setSubjectId(null)));
        // 准备参数
        PurchaseQuotationPageReqVO reqVO = new PurchaseQuotationPageReqVO();
-       reqVO.setQuotationNo(null);
-       reqVO.setQuotationName(null);
+       reqVO.setQuoteId(null);
+       reqVO.setQuoteName(null);
        reqVO.setPurchaserId(null);
-       reqVO.setInquiryId(null);
-       reqVO.setInquiryNo(null);
-       reqVO.setQuotationValidTime((new Date[]{}));
-       reqVO.setIsSubmit(null);
+       reqVO.setEnquiryId(null);
+       reqVO.setIndateDate((new Date[]{}));
+       reqVO.setSubmitStatus(null);
        reqVO.setCreateTime((new Date[]{}));
        reqVO.setSubjectId(null);
 
@@ -160,44 +157,40 @@ public class PurchaseQuotationServiceImplTest extends BaseDbUnitTest {
     public void testGetQuotationList() {
        // mock 数据
        PurchaseQuotationDO dbQuotation = randomPojo(PurchaseQuotationDO.class, o -> { // 等会查询到
-           o.setQuotationNo(null);
-           o.setQuotationName(null);
+           o.setQuoteId(null);
+           o.setQuoteName(null);
            o.setPurchaserId(null);
-           o.setInquiryId(null);
-           o.setInquiryNo(null);
-           o.setQuotationValidTime(null);
-           o.setIsSubmit(null);
+           o.setEnquiryId(null);
+           o.setIndateDate(null);
+           o.setSubmitStatus(null);
            o.setCreateTime(null);
            o.setSubjectId(null);
        });
        quotationMapper.insert(dbQuotation);
-       // 测试 quotationNo 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setQuotationNo(null)));
-       // 测试 quotationName 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setQuotationName(null)));
+       // 测试 quoteId 不匹配
+       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setQuoteId(null)));
+       // 测试 quoteName 不匹配
+       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setQuoteName(null)));
        // 测试 purchaserId 不匹配
        quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setPurchaserId(null)));
-       // 测试 inquiryId 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setInquiryId(null)));
-       // 测试 inquiryNo 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setInquiryNo(null)));
-       // 测试 quotationValidTime 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setQuotationValidTime(null)));
-       // 测试 isSubmit 不匹配
-       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setIsSubmit(null)));
+       // 测试 enquiryId 不匹配
+       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setEnquiryId(null)));
+       // 测试 indateDate 不匹配
+       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setIndateDate(null)));
+       // 测试 submitStatus 不匹配
+       quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setSubmitStatus(null)));
        // 测试 createTime 不匹配
        quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setCreateTime(null)));
        // 测试 subjectId 不匹配
        quotationMapper.insert(cloneIgnoreId(dbQuotation, o -> o.setSubjectId(null)));
        // 准备参数
        PurchaseQuotationExportReqVO reqVO = new PurchaseQuotationExportReqVO();
-       reqVO.setQuotationNo(null);
-       reqVO.setQuotationName(null);
+       reqVO.setQuoteId(null);
+       reqVO.setQuoteName(null);
        reqVO.setPurchaserId(null);
-       reqVO.setInquiryId(null);
-       reqVO.setInquiryNo(null);
-       reqVO.setQuotationValidTime((new Date[]{}));
-       reqVO.setIsSubmit(null);
+       reqVO.setEnquiryId(null);
+       reqVO.setIndateDate((new Date[]{}));
+       reqVO.setSubmitStatus(null);
        reqVO.setCreateTime((new Date[]{}));
        reqVO.setSubjectId(null);
 

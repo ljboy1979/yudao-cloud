@@ -3,6 +3,7 @@ package cn.acsm.module.purchase.controller.admin.receivingstandard.vo;
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -17,16 +18,16 @@ public class PurchaseReceivingStandardExcelVO {
     private Long id;
 
     @ExcelProperty("标准名称")
-    private String standardName;
+    private String name;
 
     @ExcelProperty("范围上限")
-    private String upperRange;
+    private BigDecimal upperLimit;
 
     @ExcelProperty("范围下限")
-    private String lowerRange;
+    private BigDecimal lowerLimit;
 
-    @ExcelProperty("单位")
-    private String company;
+    @ExcelProperty("单位(字典id)")
+    private String unit;
 
     @ExcelProperty("创建时间")
     private Date createTime;

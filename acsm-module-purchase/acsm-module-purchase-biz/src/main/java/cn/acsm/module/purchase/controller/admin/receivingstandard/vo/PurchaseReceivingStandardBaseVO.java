@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
 * 收货标准 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -14,21 +15,20 @@ public class PurchaseReceivingStandardBaseVO {
 
     @ApiModelProperty(value = "标准名称", required = true)
     @NotNull(message = "标准名称不能为空")
-    private String standardName;
+    private String name;
 
-    @ApiModelProperty(value = "范围上限", required = true)
-    @NotNull(message = "范围上限不能为空")
-    private String upperRange;
+    @ApiModelProperty(value = "范围上限")
+    private BigDecimal upperLimit;
 
-    @ApiModelProperty(value = "范围下限", required = true)
-    @NotNull(message = "范围下限不能为空")
-    private String lowerRange;
+    @ApiModelProperty(value = "范围下限")
+    private BigDecimal lowerLimit;
 
-    @ApiModelProperty(value = "单位", required = true)
-    @NotNull(message = "单位不能为空")
-    private String company;
+    @ApiModelProperty(value = "单位(字典id)", required = true)
+    @NotNull(message = "单位(字典id)不能为空")
+    private String unit;
 
     @ApiModelProperty(value = "经营主体", required = true)
+    @NotNull(message = "经营主体不能为空")
     private String subjectId;
 
 }

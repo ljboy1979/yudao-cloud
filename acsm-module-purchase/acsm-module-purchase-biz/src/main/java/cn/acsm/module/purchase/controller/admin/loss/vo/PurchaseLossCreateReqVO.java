@@ -1,9 +1,9 @@
 package cn.acsm.module.purchase.controller.admin.loss.vo;
 
-import io.swagger.annotations.ApiModel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+import java.util.*;
+import io.swagger.annotations.*;
+import javax.validation.constraints.*;
 
 @ApiModel("管理后台 - 损耗创建 Request VO")
 @Data

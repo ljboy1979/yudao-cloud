@@ -1,10 +1,9 @@
 package cn.acsm.module.purchase.dal.dataobject.inquiry;
 
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import java.util.*;
+import com.baomidou.mybatisplus.annotation.*;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 采购询价电子 DO
@@ -27,29 +26,25 @@ public class PurchaseInquiryDO extends BaseDO {
     @TableId
     private Long id;
     /**
-     * 询价单编号
-     */
-    private String inquiryNo;
-    /**
      * 商品id
      */
-    private Long productId;
+    private Long commodityId;
     /**
      * 分类id
      */
-    private Long classifyId;
+    private Long commodityCategoryId;
     /**
      * 规格id
      */
-    private Long specificationsId;
+    private Long productSpecificationsId;
     /**
      * 计划数量最低
      */
-    private Integer lowestPlannedQuantity;
+    private String plannedQuantityMin;
     /**
      * 计划数量最高
      */
-    private Integer highestPlannedQuantity;
+    private String plannedQuantityMax;
     /**
      * 经营主体
      */

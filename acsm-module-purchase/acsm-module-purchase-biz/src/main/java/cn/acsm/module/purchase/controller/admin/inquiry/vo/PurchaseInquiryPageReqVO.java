@@ -1,6 +1,7 @@
 package cn.acsm.module.purchase.controller.admin.inquiry.vo;
 
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,26 +19,24 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class PurchaseInquiryPageReqVO extends PageParam {
 
-    @ApiModelProperty(value = "询价单编号")
-    private String inquiryNo;
-
     @ApiModelProperty(value = "商品id")
-    private Long productId;
+    private Long commodityId;
 
     @ApiModelProperty(value = "分类id")
-    private Long classifyId;
+    private Long commodityCategoryId;
 
     @ApiModelProperty(value = "规格id")
-    private Long specificationsId;
+    private Long productSpecificationsId;
 
     @ApiModelProperty(value = "计划数量最低")
-    private Integer lowestPlannedQuantity;
+    private String plannedQuantityMin;
 
     @ApiModelProperty(value = "计划数量最高")
-    private Integer highestPlannedQuantity;
+    private String plannedQuantityMax;
 
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date[] createTime;
 
     @ApiModelProperty(value = "经营主体")

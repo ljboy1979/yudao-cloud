@@ -1,28 +1,31 @@
 package cn.acsm.module.purchase.service.receivingstandard;
 
-import cn.acsm.module.purchase.controller.admin.receivingstandard.vo.PurchaseReceivingStandardCreateReqVO;
-import cn.acsm.module.purchase.controller.admin.receivingstandard.vo.PurchaseReceivingStandardExportReqVO;
-import cn.acsm.module.purchase.controller.admin.receivingstandard.vo.PurchaseReceivingStandardPageReqVO;
-import cn.acsm.module.purchase.controller.admin.receivingstandard.vo.PurchaseReceivingStandardUpdateReqVO;
-import cn.acsm.module.purchase.dal.dataobject.receivingstandard.PurchaseReceivingStandardDO;
-import cn.acsm.module.purchase.dal.mysql.receivingstandard.PurchaseReceivingStandardMapper;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
 
-import static cn.acsm.module.purchase.enums.ErrorCodeConstants.RECEIVING_STANDARD_NOT_EXISTS;
-import static cn.iocoder.yudao.framework.common.util.object.ObjectUtils.cloneIgnoreId;
-import static cn.iocoder.yudao.framework.test.core.util.AssertUtils.assertPojoEquals;
-import static cn.iocoder.yudao.framework.test.core.util.AssertUtils.assertServiceException;
-import static cn.iocoder.yudao.framework.test.core.util.RandomUtils.randomLongId;
-import static cn.iocoder.yudao.framework.test.core.util.RandomUtils.randomPojo;
+import cn.iocoder.yudao.module.infra.framework.test.core.ut.BaseDbUnitTest;
+
+import cn.iocoder.yudao.module.infra.module.purchase.controller.admin.receivingstandard.vo.*;
+import cn.iocoder.yudao.module.infra.module.purchase.dal.dataobject.receivingstandard.PurchaseReceivingStandardDO;
+import cn.iocoder.yudao.module.infra.module.purchase.dal.mysql.receivingstandard.PurchaseReceivingStandardMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+
+import javax.annotation.Resource;
+import org.springframework.context.annotation.Import;
+import java.util.*;
+import java.time.LocalDateTime;
+
+import static cn.hutool.core.util.RandomUtil.*;
+import static cn.iocoder.yudao.module.infra.module.purchase.enums.ErrorCodeConstants.*;
+import static cn.iocoder.yudao.module.infra.framework.test.core.util.AssertUtils.*;
+import static cn.iocoder.yudao.module.infra.framework.test.core.util.RandomUtils.*;
+import static cn.iocoder.yudao.framework.common.util.object.ObjectUtils.*;
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
 * {@link PurchaseReceivingStandardServiceImpl} 的单元测试类
@@ -106,33 +109,33 @@ public class PurchaseReceivingStandardServiceImplTest extends BaseDbUnitTest {
     public void testGetReceivingStandardPage() {
        // mock 数据
        PurchaseReceivingStandardDO dbReceivingStandard = randomPojo(PurchaseReceivingStandardDO.class, o -> { // 等会查询到
-           o.setStandardName(null);
-           o.setUpperRange(null);
-           o.setLowerRange(null);
-           o.setCompany(null);
+           o.setName(null);
+           o.setUpperLimit(null);
+           o.setLowerLimit(null);
+           o.setUnit(null);
            o.setCreateTime(null);
            o.setSubjectId(null);
        });
        receivingStandardMapper.insert(dbReceivingStandard);
-       // 测试 standardName 不匹配
-       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setStandardName(null)));
-       // 测试 upperRange 不匹配
-       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setUpperRange(null)));
-       // 测试 lowerRange 不匹配
-       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setLowerRange(null)));
-       // 测试 company 不匹配
-       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setCompany(null)));
+       // 测试 name 不匹配
+       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setName(null)));
+       // 测试 upperLimit 不匹配
+       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setUpperLimit(null)));
+       // 测试 lowerLimit 不匹配
+       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setLowerLimit(null)));
+       // 测试 unit 不匹配
+       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setUnit(null)));
        // 测试 createTime 不匹配
        receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setCreateTime(null)));
        // 测试 subjectId 不匹配
        receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setSubjectId(null)));
        // 准备参数
        PurchaseReceivingStandardPageReqVO reqVO = new PurchaseReceivingStandardPageReqVO();
-       reqVO.setStandardName(null);
-       reqVO.setUpperRange(null);
-       reqVO.setLowerRange(null);
-       reqVO.setCompany(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setName(null);
+       reqVO.setUpperLimit(null);
+       reqVO.setLowerLimit(null);
+       reqVO.setUnit(null);
+       reqVO.setCreateTime((new LocalDateTime[]{}));
        reqVO.setSubjectId(null);
 
        // 调用
@@ -148,33 +151,33 @@ public class PurchaseReceivingStandardServiceImplTest extends BaseDbUnitTest {
     public void testGetReceivingStandardList() {
        // mock 数据
        PurchaseReceivingStandardDO dbReceivingStandard = randomPojo(PurchaseReceivingStandardDO.class, o -> { // 等会查询到
-           o.setStandardName(null);
-           o.setUpperRange(null);
-           o.setLowerRange(null);
-           o.setCompany(null);
+           o.setName(null);
+           o.setUpperLimit(null);
+           o.setLowerLimit(null);
+           o.setUnit(null);
            o.setCreateTime(null);
            o.setSubjectId(null);
        });
        receivingStandardMapper.insert(dbReceivingStandard);
-       // 测试 standardName 不匹配
-       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setStandardName(null)));
-       // 测试 upperRange 不匹配
-       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setUpperRange(null)));
-       // 测试 lowerRange 不匹配
-       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setLowerRange(null)));
-       // 测试 company 不匹配
-       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setCompany(null)));
+       // 测试 name 不匹配
+       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setName(null)));
+       // 测试 upperLimit 不匹配
+       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setUpperLimit(null)));
+       // 测试 lowerLimit 不匹配
+       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setLowerLimit(null)));
+       // 测试 unit 不匹配
+       receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setUnit(null)));
        // 测试 createTime 不匹配
        receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setCreateTime(null)));
        // 测试 subjectId 不匹配
        receivingStandardMapper.insert(cloneIgnoreId(dbReceivingStandard, o -> o.setSubjectId(null)));
        // 准备参数
        PurchaseReceivingStandardExportReqVO reqVO = new PurchaseReceivingStandardExportReqVO();
-       reqVO.setStandardName(null);
-       reqVO.setUpperRange(null);
-       reqVO.setLowerRange(null);
-       reqVO.setCompany(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setName(null);
+       reqVO.setUpperLimit(null);
+       reqVO.setLowerLimit(null);
+       reqVO.setUnit(null);
+       reqVO.setCreateTime((new LocalDateTime[]{}));
        reqVO.setSubjectId(null);
 
        // 调用

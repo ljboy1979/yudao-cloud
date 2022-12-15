@@ -12,7 +12,7 @@ public interface ErrorCodeConstants {
 
 
     // ========== 采购单 TODO 1011000010 ==========
-    ErrorCode PURCHASE_NOT_EXISTS = new ErrorCode(1011000010, "采购单不存在");
+    ErrorCode ORDER_NOT_EXISTS = new ErrorCode(1011000010, "采购单不存在");
 
     // ========== 采购单明细 TODO 1011000011 ==========
     ErrorCode DETAILS_NOT_EXISTS = new ErrorCode(1011000011, "采购单明细不存在");

@@ -1,9 +1,12 @@
 package cn.acsm.module.purchase.dal.dataobject.quotation;
 
-import lombok.*;
-import java.util.*;
-import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
+
+import java.util.Date;
 
 /**
  * 采购询价电子 DO
@@ -28,31 +31,27 @@ public class PurchaseQuotationDO extends BaseDO {
     /**
      * 报价单编号
      */
-    private String quotationNo;
+    private Long quoteId;
     /**
      * 报价单名称
      */
-    private String quotationName;
+    private String quoteName;
     /**
      * 采购商id
      */
     private Long purchaserId;
     /**
-     * 询价单id
-     */
-    private Long inquiryId;
-    /**
      * 询价单编号
      */
-    private String inquiryNo;
+    private Long enquiryId;
     /**
      * 报价有效期
      */
-    private Date quotationValidTime;
+    private Date indateDate;
     /**
      * 是否提交 0：未提交 1：已提交
      */
-    private Boolean isSubmit;
+    private Boolean submitStatus;
     /**
      * 经营主体
      */

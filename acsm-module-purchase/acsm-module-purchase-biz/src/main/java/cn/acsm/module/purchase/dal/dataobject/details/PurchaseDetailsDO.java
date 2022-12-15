@@ -1,12 +1,13 @@
 package cn.acsm.module.purchase.dal.dataobject.details;
 
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
-
+import java.util.*;
 import java.math.BigDecimal;
+import java.math.BigDecimal;
+import java.math.BigDecimal;
+import java.math.BigDecimal;
+import com.baomidou.mybatisplus.annotation.*;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 采购单明细 DO
@@ -29,15 +30,15 @@ public class PurchaseDetailsDO extends BaseDO {
     @TableId
     private Long id;
     /**
-     * 采购单id
+     * 采购单编号
      */
-    private Long orderId;
+    private Long purchaseId;
     /**
      * 采购单号
      */
-    private String purchaseOrderNumber;
+    private String purchaseNumber;
     /**
-     * 货品id
+     * 货品编号
      */
     private Long goodsId;
     /**
@@ -55,7 +56,7 @@ public class PurchaseDetailsDO extends BaseDO {
     /**
      * 计量单位
      */
-    private String unitOfMeasurement;
+    private String unit;
     /**
      * 包装类型
      */
@@ -63,27 +64,27 @@ public class PurchaseDetailsDO extends BaseDO {
     /**
      * 采购数量/重量
      */
-    private BigDecimal purchaseQuantity;
+    private BigDecimal buyNumber;
     /**
      * 期望到货频次
      */
-    private String expectedArrivalFrequency;
+    private String frequency;
     /**
      * 单价
      */
-    private BigDecimal unitPrice;
+    private BigDecimal price;
     /**
      * 优惠金额
      */
-    private BigDecimal discountAmount;
+    private BigDecimal discount;
     /**
-     * 采购金额
+     * 采购金额(总金额)
      */
-    private BigDecimal purchaseAmount;
+    private BigDecimal total;
     /**
-     * 货品id
+     * 收货标准id
      */
-    private Long chargingStandard;
+    private Long standardId;
     /**
      * 经营主体
      */

@@ -20,12 +20,11 @@ public interface PurchaseInquiryMapper extends BaseMapperX<PurchaseInquiryDO> {
 
     default PageResult<PurchaseInquiryDO> selectPage(PurchaseInquiryPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<PurchaseInquiryDO>()
-                .eqIfPresent(PurchaseInquiryDO::getInquiryNo, reqVO.getInquiryNo())
-                .eqIfPresent(PurchaseInquiryDO::getProductId, reqVO.getProductId())
-                .eqIfPresent(PurchaseInquiryDO::getClassifyId, reqVO.getClassifyId())
-                .eqIfPresent(PurchaseInquiryDO::getSpecificationsId, reqVO.getSpecificationsId())
-                .eqIfPresent(PurchaseInquiryDO::getLowestPlannedQuantity, reqVO.getLowestPlannedQuantity())
-                .eqIfPresent(PurchaseInquiryDO::getHighestPlannedQuantity, reqVO.getHighestPlannedQuantity())
+                .eqIfPresent(PurchaseInquiryDO::getCommodityId, reqVO.getCommodityId())
+                .eqIfPresent(PurchaseInquiryDO::getCommodityCategoryId, reqVO.getCommodityCategoryId())
+                .eqIfPresent(PurchaseInquiryDO::getProductSpecificationsId, reqVO.getProductSpecificationsId())
+                .eqIfPresent(PurchaseInquiryDO::getPlannedQuantityMin, reqVO.getPlannedQuantityMin())
+                .eqIfPresent(PurchaseInquiryDO::getPlannedQuantityMax, reqVO.getPlannedQuantityMax())
                 .betweenIfPresent(PurchaseInquiryDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(PurchaseInquiryDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(PurchaseInquiryDO::getId));
@@ -33,12 +32,11 @@ public interface PurchaseInquiryMapper extends BaseMapperX<PurchaseInquiryDO> {
 
     default List<PurchaseInquiryDO> selectList(PurchaseInquiryExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<PurchaseInquiryDO>()
-                .eqIfPresent(PurchaseInquiryDO::getInquiryNo, reqVO.getInquiryNo())
-                .eqIfPresent(PurchaseInquiryDO::getProductId, reqVO.getProductId())
-                .eqIfPresent(PurchaseInquiryDO::getClassifyId, reqVO.getClassifyId())
-                .eqIfPresent(PurchaseInquiryDO::getSpecificationsId, reqVO.getSpecificationsId())
-                .eqIfPresent(PurchaseInquiryDO::getLowestPlannedQuantity, reqVO.getLowestPlannedQuantity())
-                .eqIfPresent(PurchaseInquiryDO::getHighestPlannedQuantity, reqVO.getHighestPlannedQuantity())
+                .eqIfPresent(PurchaseInquiryDO::getCommodityId, reqVO.getCommodityId())
+                .eqIfPresent(PurchaseInquiryDO::getCommodityCategoryId, reqVO.getCommodityCategoryId())
+                .eqIfPresent(PurchaseInquiryDO::getProductSpecificationsId, reqVO.getProductSpecificationsId())
+                .eqIfPresent(PurchaseInquiryDO::getPlannedQuantityMin, reqVO.getPlannedQuantityMin())
+                .eqIfPresent(PurchaseInquiryDO::getPlannedQuantityMax, reqVO.getPlannedQuantityMax())
                 .betweenIfPresent(PurchaseInquiryDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(PurchaseInquiryDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(PurchaseInquiryDO::getId));

@@ -106,15 +106,14 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
     public void testGetQuotationElectronicPage() {
        // mock 数据
        PurchaseQuotationElectronicDO dbQuotationElectronic = randomPojo(PurchaseQuotationElectronicDO.class, o -> { // 等会查询到
-           o.setQuotationId(null);
-           o.setQuotationNo(null);
-           o.setInquiryId(null);
+           o.setQuoteId(null);
+           o.setEnquiryId(null);
            o.setCommodityId(null);
-           o.setClassifyId(null);
+           o.setCommodityCategoryId(null);
            o.setSpecificationsId(null);
-           o.setInitialBatchCount(null);
-           o.setUnitPrice(null);
-           o.setPurchaseCount(null);
+           o.setBatchNumber(null);
+           o.setPrice(null);
+           o.setOrderSize(null);
            o.setTotalPrice(null);
            o.setStartTime(null);
            o.setEndTime(null);
@@ -122,24 +121,22 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
            o.setSubjectId(null);
        });
        quotationElectronicMapper.insert(dbQuotationElectronic);
-       // 测试 quotationId 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setQuotationId(null)));
-       // 测试 quotationNo 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setQuotationNo(null)));
-       // 测试 inquiryId 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setInquiryId(null)));
+       // 测试 quoteId 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setQuoteId(null)));
+       // 测试 enquiryId 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setEnquiryId(null)));
        // 测试 commodityId 不匹配
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setCommodityId(null)));
-       // 测试 classifyId 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setClassifyId(null)));
+       // 测试 commodityCategoryId 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setCommodityCategoryId(null)));
        // 测试 specificationsId 不匹配
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setSpecificationsId(null)));
-       // 测试 initialBatchCount 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setInitialBatchCount(null)));
-       // 测试 unitPrice 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setUnitPrice(null)));
-       // 测试 purchaseCount 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setPurchaseCount(null)));
+       // 测试 batchNumber 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setBatchNumber(null)));
+       // 测试 price 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setPrice(null)));
+       // 测试 orderSize 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setOrderSize(null)));
        // 测试 totalPrice 不匹配
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setTotalPrice(null)));
        // 测试 startTime 不匹配
@@ -152,15 +149,14 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setSubjectId(null)));
        // 准备参数
        PurchaseQuotationElectronicPageReqVO reqVO = new PurchaseQuotationElectronicPageReqVO();
-       reqVO.setQuotationId(null);
-       reqVO.setQuotationNo(null);
-       reqVO.setInquiryId(null);
+       reqVO.setQuoteId(null);
+       reqVO.setEnquiryId(null);
        reqVO.setCommodityId(null);
-       reqVO.setClassifyId(null);
+       reqVO.setCommodityCategoryId(null);
        reqVO.setSpecificationsId(null);
-       reqVO.setInitialBatchCount(null);
-       reqVO.setUnitPrice(null);
-       reqVO.setPurchaseCount(null);
+       reqVO.setBatchNumber(null);
+       reqVO.setPrice(null);
+       reqVO.setOrderSize(null);
        reqVO.setTotalPrice(null);
        reqVO.setStartTime((new Date[]{}));
        reqVO.setEndTime((new Date[]{}));
@@ -180,15 +176,14 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
     public void testGetQuotationElectronicList() {
        // mock 数据
        PurchaseQuotationElectronicDO dbQuotationElectronic = randomPojo(PurchaseQuotationElectronicDO.class, o -> { // 等会查询到
-           o.setQuotationId(null);
-           o.setQuotationNo(null);
-           o.setInquiryId(null);
+           o.setQuoteId(null);
+           o.setEnquiryId(null);
            o.setCommodityId(null);
-           o.setClassifyId(null);
+           o.setCommodityCategoryId(null);
            o.setSpecificationsId(null);
-           o.setInitialBatchCount(null);
-           o.setUnitPrice(null);
-           o.setPurchaseCount(null);
+           o.setBatchNumber(null);
+           o.setPrice(null);
+           o.setOrderSize(null);
            o.setTotalPrice(null);
            o.setStartTime(null);
            o.setEndTime(null);
@@ -196,24 +191,22 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
            o.setSubjectId(null);
        });
        quotationElectronicMapper.insert(dbQuotationElectronic);
-       // 测试 quotationId 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setQuotationId(null)));
-       // 测试 quotationNo 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setQuotationNo(null)));
-       // 测试 inquiryId 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setInquiryId(null)));
+       // 测试 quoteId 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setQuoteId(null)));
+       // 测试 enquiryId 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setEnquiryId(null)));
        // 测试 commodityId 不匹配
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setCommodityId(null)));
-       // 测试 classifyId 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setClassifyId(null)));
+       // 测试 commodityCategoryId 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setCommodityCategoryId(null)));
        // 测试 specificationsId 不匹配
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setSpecificationsId(null)));
-       // 测试 initialBatchCount 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setInitialBatchCount(null)));
-       // 测试 unitPrice 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setUnitPrice(null)));
-       // 测试 purchaseCount 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setPurchaseCount(null)));
+       // 测试 batchNumber 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setBatchNumber(null)));
+       // 测试 price 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setPrice(null)));
+       // 测试 orderSize 不匹配
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setOrderSize(null)));
        // 测试 totalPrice 不匹配
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setTotalPrice(null)));
        // 测试 startTime 不匹配
@@ -226,15 +219,14 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setSubjectId(null)));
        // 准备参数
        PurchaseQuotationElectronicExportReqVO reqVO = new PurchaseQuotationElectronicExportReqVO();
-       reqVO.setQuotationId(null);
-       reqVO.setQuotationNo(null);
-       reqVO.setInquiryId(null);
+       reqVO.setQuoteId(null);
+       reqVO.setEnquiryId(null);
        reqVO.setCommodityId(null);
-       reqVO.setClassifyId(null);
+       reqVO.setCommodityCategoryId(null);
        reqVO.setSpecificationsId(null);
-       reqVO.setInitialBatchCount(null);
-       reqVO.setUnitPrice(null);
-       reqVO.setPurchaseCount(null);
+       reqVO.setBatchNumber(null);
+       reqVO.setPrice(null);
+       reqVO.setOrderSize(null);
        reqVO.setTotalPrice(null);
        reqVO.setStartTime((new Date[]{}));
        reqVO.setEndTime((new Date[]{}));

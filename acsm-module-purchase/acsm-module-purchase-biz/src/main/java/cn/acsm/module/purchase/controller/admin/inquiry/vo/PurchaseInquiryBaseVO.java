@@ -12,28 +12,25 @@ import javax.validation.constraints.NotNull;
 @Data
 public class PurchaseInquiryBaseVO {
 
-    @ApiModelProperty(value = "询价单编号", required = true)
-    @NotNull(message = "询价单编号不能为空")
-    private String inquiryNo;
-
     @ApiModelProperty(value = "商品id", required = true)
     @NotNull(message = "商品id不能为空")
-    private Long productId;
+    private Long commodityId;
 
     @ApiModelProperty(value = "分类id", required = true)
     @NotNull(message = "分类id不能为空")
-    private Long classifyId;
+    private Long commodityCategoryId;
 
     @ApiModelProperty(value = "规格id")
-    private Long specificationsId;
+    private Long productSpecificationsId;
 
     @ApiModelProperty(value = "计划数量最低")
-    private Integer lowestPlannedQuantity;
+    private String plannedQuantityMin;
 
     @ApiModelProperty(value = "计划数量最高")
-    private Integer highestPlannedQuantity;
+    private String plannedQuantityMax;
 
     @ApiModelProperty(value = "经营主体", required = true)
+    @NotNull(message = "经营主体不能为空")
     private String subjectId;
 
 }

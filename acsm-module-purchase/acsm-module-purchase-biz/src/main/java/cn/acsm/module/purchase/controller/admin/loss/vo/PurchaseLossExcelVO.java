@@ -1,10 +1,11 @@
 package cn.acsm.module.purchase.controller.admin.loss.vo;
 
-import com.alibaba.excel.annotation.ExcelProperty;
-import lombok.Data;
-
+import lombok.*;
+import java.util.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import io.swagger.annotations.*;
+
+import com.alibaba.excel.annotation.ExcelProperty;
 
 /**
  * 损耗 Excel VO
@@ -18,31 +19,25 @@ public class PurchaseLossExcelVO {
     private Long id;
 
     @ExcelProperty("采购单id")
-    private Long orderId;
+    private Long purchaseId;
 
     @ExcelProperty("采购单号")
-    private String orderNo;
+    private String purchaseNumber;
 
-    @ExcelProperty("货单id")
+    @ExcelProperty("货品编号")
     private Long goodsId;
 
-    @ExcelProperty("货单单号")
-    private String goodsNo;
-
-    @ExcelProperty("货电子表-明细id")
+    @ExcelProperty("货单电子表-明细id")
     private Long electronicBillOfGoodsId;
 
-    @ExcelProperty("货架id")
-    private Long goodsShelvesId;
-
-    @ExcelProperty("货架号")
-    private String goodsShelvesNo;
+    @ExcelProperty("货架编号")
+    private Long goodSkuId;
 
     @ExcelProperty("货品名称")
     private String goodsName;
 
     @ExcelProperty("包装规格")
-    private String packingSpecifications;
+    private String packingSpecification;
 
     @ExcelProperty("规格单位")
     private String specificationUnit;
@@ -56,17 +51,17 @@ public class PurchaseLossExcelVO {
     @ExcelProperty("金额")
     private BigDecimal amount;
 
-    @ExcelProperty("报损人id")
-    private Long lossReporterId;
+    @ExcelProperty("报损人编号")
+    private Long managerId;
 
     @ExcelProperty("报损人姓名")
-    private String lossReporterName;
+    private String manager;
 
     @ExcelProperty("报损时间")
-    private Date lossReporterTime;
+    private Date time;
 
-    @ExcelProperty("库存记录id")
-    private Long inventoryRecordsId;
+    @ExcelProperty("库存记录编号")
+    private Long stockId;
 
     @ExcelProperty("入库批次号")
     private String receiptBatchNo;

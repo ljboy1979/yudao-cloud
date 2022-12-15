@@ -2,6 +2,8 @@ package cn.acsm.module.purchase.dal.dataobject.receivingstandard;
 
 import lombok.*;
 import java.util.*;
+import java.math.BigDecimal;
+import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 
@@ -28,19 +30,19 @@ public class PurchaseReceivingStandardDO extends BaseDO {
     /**
      * 标准名称
      */
-    private String standardName;
+    private String name;
     /**
      * 范围上限
      */
-    private String upperRange;
+    private BigDecimal upperLimit;
     /**
      * 范围下限
      */
-    private String lowerRange;
+    private BigDecimal lowerLimit;
     /**
-     * 单位
+     * 单位(字典id)
      */
-    private String company;
+    private String unit;
     /**
      * 经营主体
      */

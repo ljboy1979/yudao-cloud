@@ -1,6 +1,7 @@
 package cn.acsm.module.purchase.controller.admin.deliver.vo;
 
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,20 +20,18 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class PurchaseDeliverPageReqVO extends PageParam {
 
-    @ApiModelProperty(value = "采购单id")
-    private Long orderId;
-
-    @ApiModelProperty(value = "采购单明细id")
-    private Long orderDetailsId;
+    @ApiModelProperty(value = "采购单编号")
+    private Long purchaseId;
 
     @ApiModelProperty(value = "采购单号")
-    private String purchaseOrderNumber;
+    private String purchaseNumber;
 
     @ApiModelProperty(value = "交付批次号(系统自动生成)")
-    private String deliveryBatch;
+    private String batchCode;
 
     @ApiModelProperty(value = "期望交付时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date[] expectedDeliveryTime;
 
     @ApiModelProperty(value = "实际交付时间")
@@ -49,6 +48,7 @@ public class PurchaseDeliverPageReqVO extends PageParam {
 
     @ApiModelProperty(value = "结算时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date[] settlementTime;
 
     @ApiModelProperty(value = "结算金额")
@@ -62,6 +62,7 @@ public class PurchaseDeliverPageReqVO extends PageParam {
 
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date[] createTime;
 
     @ApiModelProperty(value = "经营主体")

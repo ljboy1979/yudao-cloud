@@ -3,17 +3,17 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="标准名称" prop="standardName">
-        <el-input v-model="queryParams.standardName" placeholder="请输入标准名称" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="标准名称" prop="name">
+        <el-input v-model="queryParams.name" placeholder="请输入标准名称" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="范围上限" prop="upperRange">
-        <el-input v-model="queryParams.upperRange" placeholder="请输入范围上限" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="范围上限" prop="upperLimit">
+        <el-input v-model="queryParams.upperLimit" placeholder="请输入范围上限" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="范围下限" prop="lowerRange">
-        <el-input v-model="queryParams.lowerRange" placeholder="请输入范围下限" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="范围下限" prop="lowerLimit">
+        <el-input v-model="queryParams.lowerLimit" placeholder="请输入范围下限" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="单位" prop="company">
-        <el-input v-model="queryParams.company" placeholder="请输入单位" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="单位(字典id)" prop="unit">
+        <el-input v-model="queryParams.unit" placeholder="请输入单位(字典id)" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
@@ -44,10 +44,10 @@
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="标准名称" align="center" prop="standardName" />
-      <el-table-column label="范围上限" align="center" prop="upperRange" />
-      <el-table-column label="范围下限" align="center" prop="lowerRange" />
-      <el-table-column label="单位" align="center" prop="company" />
+      <el-table-column label="标准名称" align="center" prop="name" />
+      <el-table-column label="范围上限" align="center" prop="upperLimit" />
+      <el-table-column label="范围下限" align="center" prop="lowerLimit" />
+      <el-table-column label="单位(字典id)" align="center" prop="unit" />
       <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="经营主体" align="center" prop="subjectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -66,17 +66,17 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="标准名称" prop="standardName">
-          <el-input v-model="form.standardName" placeholder="请输入标准名称" />
+        <el-form-item label="标准名称" prop="name">
+          <el-input v-model="form.name" placeholder="请输入标准名称" />
         </el-form-item>
-        <el-form-item label="范围上限" prop="upperRange">
-          <el-input v-model="form.upperRange" placeholder="请输入范围上限" />
+        <el-form-item label="范围上限" prop="upperLimit">
+          <el-input v-model="form.upperLimit" placeholder="请输入范围上限" />
         </el-form-item>
-        <el-form-item label="范围下限" prop="lowerRange">
-          <el-input v-model="form.lowerRange" placeholder="请输入范围下限" />
+        <el-form-item label="范围下限" prop="lowerLimit">
+          <el-input v-model="form.lowerLimit" placeholder="请输入范围下限" />
         </el-form-item>
-        <el-form-item label="单位" prop="company">
-          <el-input v-model="form.company" placeholder="请输入单位" />
+        <el-form-item label="单位(字典id)" prop="unit">
+          <el-input v-model="form.unit" placeholder="请输入单位(字典id)" />
         </el-form-item>
         <el-form-item label="经营主体" prop="subjectId">
           <el-input v-model="form.subjectId" placeholder="请输入经营主体" />
@@ -117,10 +117,10 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        standardName: null,
-        upperRange: null,
-        lowerRange: null,
-        company: null,
+        name: null,
+        upperLimit: null,
+        lowerLimit: null,
+        unit: null,
         createTime: [],
         subjectId: null,
       },
@@ -128,10 +128,8 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        standardName: [{ required: true, message: "标准名称不能为空", trigger: "blur" }],
-        upperRange: [{ required: true, message: "范围上限不能为空", trigger: "blur" }],
-        lowerRange: [{ required: true, message: "范围下限不能为空", trigger: "blur" }],
-        company: [{ required: true, message: "单位不能为空", trigger: "blur" }],
+        name: [{ required: true, message: "标准名称不能为空", trigger: "blur" }],
+        unit: [{ required: true, message: "单位(字典id)不能为空", trigger: "blur" }],
         subjectId: [{ required: true, message: "经营主体不能为空", trigger: "blur" }],
       }
     };
@@ -159,10 +157,10 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        standardName: undefined,
-        upperRange: undefined,
-        lowerRange: undefined,
-        company: undefined,
+        name: undefined,
+        upperLimit: undefined,
+        lowerLimit: undefined,
+        unit: undefined,
         subjectId: undefined,
       };
       this.resetForm("form");

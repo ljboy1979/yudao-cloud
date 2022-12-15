@@ -17,25 +17,22 @@ public class PurchaseQuotationExcelVO {
     private Long id;
 
     @ExcelProperty("报价单编号")
-    private String quotationNo;
+    private Long quoteId;
 
     @ExcelProperty("报价单名称")
-    private String quotationName;
+    private String quoteName;
 
     @ExcelProperty("采购商id")
     private Long purchaserId;
 
-    @ExcelProperty("询价单id")
-    private Long inquiryId;
-
     @ExcelProperty("询价单编号")
-    private String inquiryNo;
+    private Long enquiryId;
 
     @ExcelProperty("报价有效期")
-    private Date quotationValidTime;
+    private Date indateDate;
 
     @ExcelProperty("是否提交 0：未提交 1：已提交")
-    private Boolean isSubmit;
+    private Boolean submitStatus;
 
     @ExcelProperty("创建时间")
     private Date createTime;

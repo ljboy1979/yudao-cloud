@@ -28,17 +28,13 @@ public class PurchaseQuotationElectronicDO extends BaseDO {
     @TableId
     private Long id;
     /**
-     * 报价单id
-     */
-    private Long quotationId;
-    /**
      * 报价单编号
      */
-    private String quotationNo;
+    private Long quoteId;
     /**
-     * 询价单明细id
+     * 询价单明细编号
      */
-    private Long inquiryId;
+    private Long enquiryId;
     /**
      * 商品id
      */
@@ -46,23 +42,23 @@ public class PurchaseQuotationElectronicDO extends BaseDO {
     /**
      * 分类id
      */
-    private Long classifyId;
+    private Long commodityCategoryId;
     /**
      * 规格id
      */
-    private Long specificationsId;
+    private String specificationsId;
     /**
      * 起批数量
      */
-    private Integer initialBatchCount;
+    private String batchNumber;
     /**
      * 单价
      */
-    private BigDecimal unitPrice;
+    private BigDecimal price;
     /**
      * 采购数量
      */
-    private Integer purchaseCount;
+    private String orderSize;
     /**
      * 总价
      */

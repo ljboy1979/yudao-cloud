@@ -3,32 +3,29 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="报价单id" prop="quotationId">
-        <el-input v-model="queryParams.quotationId" placeholder="请输入报价单id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="报价单编号" prop="quoteId">
+        <el-input v-model="queryParams.quoteId" placeholder="请输入报价单编号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="报价单编号" prop="quotationNo">
-        <el-input v-model="queryParams.quotationNo" placeholder="请输入报价单编号" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="询价单明细id" prop="inquiryId">
-        <el-input v-model="queryParams.inquiryId" placeholder="请输入询价单明细id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="询价单明细编号" prop="enquiryId">
+        <el-input v-model="queryParams.enquiryId" placeholder="请输入询价单明细编号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="商品id" prop="commodityId">
         <el-input v-model="queryParams.commodityId" placeholder="请输入商品id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="分类id" prop="classifyId">
-        <el-input v-model="queryParams.classifyId" placeholder="请输入分类id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="分类id" prop="commodityCategoryId">
+        <el-input v-model="queryParams.commodityCategoryId" placeholder="请输入分类id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="规格id" prop="specificationsId">
         <el-input v-model="queryParams.specificationsId" placeholder="请输入规格id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="起批数量" prop="initialBatchCount">
-        <el-input v-model="queryParams.initialBatchCount" placeholder="请输入起批数量" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="起批数量" prop="batchNumber">
+        <el-input v-model="queryParams.batchNumber" placeholder="请输入起批数量" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="单价" prop="unitPrice">
-        <el-input v-model="queryParams.unitPrice" placeholder="请输入单价" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="单价" prop="price">
+        <el-input v-model="queryParams.price" placeholder="请输入单价" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="采购数量" prop="purchaseCount">
-        <el-input v-model="queryParams.purchaseCount" placeholder="请输入采购数量" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="采购数量" prop="orderSize">
+        <el-input v-model="queryParams.orderSize" placeholder="请输入采购数量" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="总价" prop="totalPrice">
         <el-input v-model="queryParams.totalPrice" placeholder="请输入总价" clearable @keyup.enter.native="handleQuery"/>
@@ -70,15 +67,14 @@
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="报价单id" align="center" prop="quotationId" />
-      <el-table-column label="报价单编号" align="center" prop="quotationNo" />
-      <el-table-column label="询价单明细id" align="center" prop="inquiryId" />
+      <el-table-column label="报价单编号" align="center" prop="quoteId" />
+      <el-table-column label="询价单明细编号" align="center" prop="enquiryId" />
       <el-table-column label="商品id" align="center" prop="commodityId" />
-      <el-table-column label="分类id" align="center" prop="classifyId" />
+      <el-table-column label="分类id" align="center" prop="commodityCategoryId" />
       <el-table-column label="规格id" align="center" prop="specificationsId" />
-      <el-table-column label="起批数量" align="center" prop="initialBatchCount" />
-      <el-table-column label="单价" align="center" prop="unitPrice" />
-      <el-table-column label="采购数量" align="center" prop="purchaseCount" />
+      <el-table-column label="起批数量" align="center" prop="batchNumber" />
+      <el-table-column label="单价" align="center" prop="price" />
+      <el-table-column label="采购数量" align="center" prop="orderSize" />
       <el-table-column label="总价" align="center" prop="totalPrice" />
       <el-table-column label="开始时间" align="center" prop="startTime" />
       <el-table-column label="结束时间" align="center" prop="endTime" />
@@ -100,32 +96,29 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="报价单id" prop="quotationId">
-          <el-input v-model="form.quotationId" placeholder="请输入报价单id" />
+        <el-form-item label="报价单编号" prop="quoteId">
+          <el-input v-model="form.quoteId" placeholder="请输入报价单编号" />
         </el-form-item>
-        <el-form-item label="报价单编号" prop="quotationNo">
-          <el-input v-model="form.quotationNo" placeholder="请输入报价单编号" />
-        </el-form-item>
-        <el-form-item label="询价单明细id" prop="inquiryId">
-          <el-input v-model="form.inquiryId" placeholder="请输入询价单明细id" />
+        <el-form-item label="询价单明细编号" prop="enquiryId">
+          <el-input v-model="form.enquiryId" placeholder="请输入询价单明细编号" />
         </el-form-item>
         <el-form-item label="商品id" prop="commodityId">
           <el-input v-model="form.commodityId" placeholder="请输入商品id" />
         </el-form-item>
-        <el-form-item label="分类id" prop="classifyId">
-          <el-input v-model="form.classifyId" placeholder="请输入分类id" />
+        <el-form-item label="分类id" prop="commodityCategoryId">
+          <el-input v-model="form.commodityCategoryId" placeholder="请输入分类id" />
         </el-form-item>
         <el-form-item label="规格id" prop="specificationsId">
           <el-input v-model="form.specificationsId" placeholder="请输入规格id" />
         </el-form-item>
-        <el-form-item label="起批数量" prop="initialBatchCount">
-          <el-input v-model="form.initialBatchCount" placeholder="请输入起批数量" />
+        <el-form-item label="起批数量" prop="batchNumber">
+          <el-input v-model="form.batchNumber" placeholder="请输入起批数量" />
         </el-form-item>
-        <el-form-item label="单价" prop="unitPrice">
-          <el-input v-model="form.unitPrice" placeholder="请输入单价" />
+        <el-form-item label="单价" prop="price">
+          <el-input v-model="form.price" placeholder="请输入单价" />
         </el-form-item>
-        <el-form-item label="采购数量" prop="purchaseCount">
-          <el-input v-model="form.purchaseCount" placeholder="请输入采购数量" />
+        <el-form-item label="采购数量" prop="orderSize">
+          <el-input v-model="form.orderSize" placeholder="请输入采购数量" />
         </el-form-item>
         <el-form-item label="总价" prop="totalPrice">
           <el-input v-model="form.totalPrice" placeholder="请输入总价" />
@@ -175,15 +168,14 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        quotationId: null,
-        quotationNo: null,
-        inquiryId: null,
+        quoteId: null,
+        enquiryId: null,
         commodityId: null,
-        classifyId: null,
+        commodityCategoryId: null,
         specificationsId: null,
-        initialBatchCount: null,
-        unitPrice: null,
-        purchaseCount: null,
+        batchNumber: null,
+        price: null,
+        orderSize: null,
         totalPrice: null,
         startTime: [],
         endTime: [],
@@ -194,11 +186,10 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        quotationId: [{ required: true, message: "报价单id不能为空", trigger: "blur" }],
-        quotationNo: [{ required: true, message: "报价单编号不能为空", trigger: "blur" }],
-        inquiryId: [{ required: true, message: "询价单明细id不能为空", trigger: "blur" }],
+        quoteId: [{ required: true, message: "报价单编号不能为空", trigger: "blur" }],
+        enquiryId: [{ required: true, message: "询价单明细编号不能为空", trigger: "blur" }],
         commodityId: [{ required: true, message: "商品id不能为空", trigger: "blur" }],
-        classifyId: [{ required: true, message: "分类id不能为空", trigger: "blur" }],
+        commodityCategoryId: [{ required: true, message: "分类id不能为空", trigger: "blur" }],
         subjectId: [{ required: true, message: "经营主体不能为空", trigger: "blur" }],
       }
     };
@@ -226,15 +217,14 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        quotationId: undefined,
-        quotationNo: undefined,
-        inquiryId: undefined,
+        quoteId: undefined,
+        enquiryId: undefined,
         commodityId: undefined,
-        classifyId: undefined,
+        commodityCategoryId: undefined,
         specificationsId: undefined,
-        initialBatchCount: undefined,
-        unitPrice: undefined,
-        purchaseCount: undefined,
+        batchNumber: undefined,
+        price: undefined,
+        orderSize: undefined,
         totalPrice: undefined,
         startTime: undefined,
         endTime: undefined,

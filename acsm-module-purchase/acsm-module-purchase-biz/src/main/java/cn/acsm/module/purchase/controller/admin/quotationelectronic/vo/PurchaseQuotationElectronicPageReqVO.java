@@ -19,32 +19,29 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class PurchaseQuotationElectronicPageReqVO extends PageParam {
 
-    @ApiModelProperty(value = "报价单id")
-    private Long quotationId;
-
     @ApiModelProperty(value = "报价单编号")
-    private String quotationNo;
+    private Long quoteId;
 
-    @ApiModelProperty(value = "询价单明细id")
-    private Long inquiryId;
+    @ApiModelProperty(value = "询价单明细编号")
+    private Long enquiryId;
 
     @ApiModelProperty(value = "商品id")
     private Long commodityId;
 
     @ApiModelProperty(value = "分类id")
-    private Long classifyId;
+    private Long commodityCategoryId;
 
     @ApiModelProperty(value = "规格id")
-    private Long specificationsId;
+    private String specificationsId;
 
     @ApiModelProperty(value = "起批数量")
-    private Integer initialBatchCount;
+    private String batchNumber;
 
     @ApiModelProperty(value = "单价")
-    private BigDecimal unitPrice;
+    private BigDecimal price;
 
     @ApiModelProperty(value = "采购数量")
-    private Integer purchaseCount;
+    private String orderSize;
 
     @ApiModelProperty(value = "总价")
     private BigDecimal totalPrice;

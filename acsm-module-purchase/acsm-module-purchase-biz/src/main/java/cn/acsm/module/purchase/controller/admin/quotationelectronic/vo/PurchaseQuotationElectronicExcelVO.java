@@ -17,32 +17,29 @@ public class PurchaseQuotationElectronicExcelVO {
     @ExcelProperty("编号")
     private Long id;
 
-    @ExcelProperty("报价单id")
-    private Long quotationId;
-
     @ExcelProperty("报价单编号")
-    private String quotationNo;
+    private Long quoteId;
 
-    @ExcelProperty("询价单明细id")
-    private Long inquiryId;
+    @ExcelProperty("询价单明细编号")
+    private Long enquiryId;
 
     @ExcelProperty("商品id")
     private Long commodityId;
 
     @ExcelProperty("分类id")
-    private Long classifyId;
+    private Long commodityCategoryId;
 
     @ExcelProperty("规格id")
-    private Long specificationsId;
+    private String specificationsId;
 
     @ExcelProperty("起批数量")
-    private Integer initialBatchCount;
+    private String batchNumber;
 
     @ExcelProperty("单价")
-    private BigDecimal unitPrice;
+    private BigDecimal price;
 
     @ExcelProperty("采购数量")
-    private Integer purchaseCount;
+    private String orderSize;
 
     @ExcelProperty("总价")
     private BigDecimal totalPrice;

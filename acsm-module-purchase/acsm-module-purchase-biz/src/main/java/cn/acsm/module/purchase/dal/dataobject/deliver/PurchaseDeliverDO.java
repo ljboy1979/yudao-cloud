@@ -1,13 +1,10 @@
 package cn.acsm.module.purchase.dal.dataobject.deliver;
 
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
-
+import java.util.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.*;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 采购交付 DO
@@ -30,21 +27,17 @@ public class PurchaseDeliverDO extends BaseDO {
     @TableId
     private Long id;
     /**
-     * 采购单id
+     * 采购单编号
      */
-    private Long orderId;
-    /**
-     * 采购单明细id
-     */
-    private Long orderDetailsId;
+    private Long purchaseId;
     /**
      * 采购单号
      */
-    private String purchaseOrderNumber;
+    private String purchaseNumber;
     /**
      * 交付批次号(系统自动生成)
      */
-    private String deliveryBatch;
+    private String batchCode;
     /**
      * 期望交付时间
      */

@@ -1,6 +1,5 @@
 package cn.acsm.module.purchase.controller.admin.deliver.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,29 +14,23 @@ import java.util.Date;
 @Data
 public class PurchaseDeliverBaseVO {
 
-    @ApiModelProperty(value = "采购单id", required = true)
-    @NotNull(message = "采购单id不能为空")
-    private Long orderId;
-
-    @ApiModelProperty(value = "采购单明细id", required = true)
-    @NotNull(message = "采购单明细id不能为空")
-    private Long orderDetailsId;
+    @ApiModelProperty(value = "采购单编号", required = true)
+    @NotNull(message = "采购单编号不能为空")
+    private Long purchaseId;
 
     @ApiModelProperty(value = "采购单号", required = true)
     @NotNull(message = "采购单号不能为空")
-    private String purchaseOrderNumber;
+    private String purchaseNumber;
 
     @ApiModelProperty(value = "交付批次号(系统自动生成)", required = true)
     @NotNull(message = "交付批次号(系统自动生成)不能为空")
-    private String deliveryBatch;
+    private String batchCode;
 
     @ApiModelProperty(value = "期望交付时间", required = true)
     @NotNull(message = "期望交付时间不能为空")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date expectedDeliveryTime;
 
     @ApiModelProperty(value = "实际交付时间")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date actualDelivery;
 
     @ApiModelProperty(value = "期望交付数量", required = true)
@@ -52,7 +45,6 @@ public class PurchaseDeliverBaseVO {
     private Long companyId;
 
     @ApiModelProperty(value = "结算时间")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date settlementTime;
 
     @ApiModelProperty(value = "结算金额")

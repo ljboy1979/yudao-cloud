@@ -1,5 +1,6 @@
 package cn.acsm.module.purchase.controller.admin.details.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,13 +15,13 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @Data
 public class PurchaseDetailsExportReqVO {
 
-    @ApiModelProperty(value = "采购单id")
-    private Long orderId;
+    @ApiModelProperty(value = "采购单编号")
+    private Long purchaseId;
 
     @ApiModelProperty(value = "采购单号")
-    private String purchaseOrderNumber;
+    private String purchaseNumber;
 
-    @ApiModelProperty(value = "货品id")
+    @ApiModelProperty(value = "货品编号")
     private Long goodsId;
 
     @ApiModelProperty(value = "货品名称")
@@ -33,31 +34,32 @@ public class PurchaseDetailsExportReqVO {
     private String packagingSpecification;
 
     @ApiModelProperty(value = "计量单位")
-    private String unitOfMeasurement;
+    private String unit;
 
     @ApiModelProperty(value = "包装类型")
     private String packagingType;
 
     @ApiModelProperty(value = "采购数量/重量")
-    private BigDecimal purchaseQuantity;
+    private BigDecimal buyNumber;
 
     @ApiModelProperty(value = "期望到货频次")
-    private String expectedArrivalFrequency;
+    private String frequency;
 
     @ApiModelProperty(value = "单价")
-    private BigDecimal unitPrice;
+    private BigDecimal price;
 
     @ApiModelProperty(value = "优惠金额")
-    private BigDecimal discountAmount;
+    private BigDecimal discount;
 
-    @ApiModelProperty(value = "采购金额")
-    private BigDecimal purchaseAmount;
+    @ApiModelProperty(value = "采购金额(总金额)")
+    private BigDecimal total;
 
-    @ApiModelProperty(value = "货品id")
-    private Long chargingStandard;
+    @ApiModelProperty(value = "收货标准id")
+    private Long standardId;
 
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date[] createTime;
 
     @ApiModelProperty(value = "经营主体")

@@ -3,27 +3,24 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="报价单编号" prop="quotationNo">
-        <el-input v-model="queryParams.quotationNo" placeholder="请输入报价单编号" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="报价单编号" prop="quoteId">
+        <el-input v-model="queryParams.quoteId" placeholder="请输入报价单编号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="报价单名称" prop="quotationName">
-        <el-input v-model="queryParams.quotationName" placeholder="请输入报价单名称" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="报价单名称" prop="quoteName">
+        <el-input v-model="queryParams.quoteName" placeholder="请输入报价单名称" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="采购商id" prop="purchaserId">
         <el-input v-model="queryParams.purchaserId" placeholder="请输入采购商id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="询价单id" prop="inquiryId">
-        <el-input v-model="queryParams.inquiryId" placeholder="请输入询价单id" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="询价单编号" prop="enquiryId">
+        <el-input v-model="queryParams.enquiryId" placeholder="请输入询价单编号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="询价单编号" prop="inquiryNo">
-        <el-input v-model="queryParams.inquiryNo" placeholder="请输入询价单编号" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="报价有效期" prop="quotationValidTime">
-        <el-date-picker v-model="queryParams.quotationValidTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
+      <el-form-item label="报价有效期" prop="indateDate">
+        <el-date-picker v-model="queryParams.indateDate" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
                         range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
-      <el-form-item label="是否提交 0：未提交 1：已提交" prop="isSubmit">
-        <el-select v-model="queryParams.isSubmit" placeholder="请选择是否提交 0：未提交 1：已提交" clearable size="small">
+      <el-form-item label="是否提交 0：未提交 1：已提交" prop="submitStatus">
+        <el-select v-model="queryParams.submitStatus" placeholder="请选择是否提交 0：未提交 1：已提交" clearable size="small">
           <el-option label="请选择字典生成" value="" />
         </el-select>
       </el-form-item>
@@ -56,13 +53,12 @@
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="报价单编号" align="center" prop="quotationNo" />
-      <el-table-column label="报价单名称" align="center" prop="quotationName" />
+      <el-table-column label="报价单编号" align="center" prop="quoteId" />
+      <el-table-column label="报价单名称" align="center" prop="quoteName" />
       <el-table-column label="采购商id" align="center" prop="purchaserId" />
-      <el-table-column label="询价单id" align="center" prop="inquiryId" />
-      <el-table-column label="询价单编号" align="center" prop="inquiryNo" />
-      <el-table-column label="报价有效期" align="center" prop="quotationValidTime" />
-      <el-table-column label="是否提交 0：未提交 1：已提交" align="center" prop="isSubmit" />
+      <el-table-column label="询价单编号" align="center" prop="enquiryId" />
+      <el-table-column label="报价有效期" align="center" prop="indateDate" />
+      <el-table-column label="是否提交 0：未提交 1：已提交" align="center" prop="submitStatus" />
       <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="经营主体" align="center" prop="subjectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -81,26 +77,23 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="报价单编号" prop="quotationNo">
-          <el-input v-model="form.quotationNo" placeholder="请输入报价单编号" />
+        <el-form-item label="报价单编号" prop="quoteId">
+          <el-input v-model="form.quoteId" placeholder="请输入报价单编号" />
         </el-form-item>
-        <el-form-item label="报价单名称" prop="quotationName">
-          <el-input v-model="form.quotationName" placeholder="请输入报价单名称" />
+        <el-form-item label="报价单名称" prop="quoteName">
+          <el-input v-model="form.quoteName" placeholder="请输入报价单名称" />
         </el-form-item>
         <el-form-item label="采购商id" prop="purchaserId">
           <el-input v-model="form.purchaserId" placeholder="请输入采购商id" />
         </el-form-item>
-        <el-form-item label="询价单id" prop="inquiryId">
-          <el-input v-model="form.inquiryId" placeholder="请输入询价单id" />
+        <el-form-item label="询价单编号" prop="enquiryId">
+          <el-input v-model="form.enquiryId" placeholder="请输入询价单编号" />
         </el-form-item>
-        <el-form-item label="询价单编号" prop="inquiryNo">
-          <el-input v-model="form.inquiryNo" placeholder="请输入询价单编号" />
+        <el-form-item label="报价有效期" prop="indateDate">
+          <el-date-picker clearable v-model="form.indateDate" type="date" value-format="timestamp" placeholder="选择报价有效期" />
         </el-form-item>
-        <el-form-item label="报价有效期" prop="quotationValidTime">
-          <el-date-picker clearable v-model="form.quotationValidTime" type="date" value-format="timestamp" placeholder="选择报价有效期" />
-        </el-form-item>
-        <el-form-item label="是否提交 0：未提交 1：已提交" prop="isSubmit">
-          <el-radio-group v-model="form.isSubmit">
+        <el-form-item label="是否提交 0：未提交 1：已提交" prop="submitStatus">
+          <el-radio-group v-model="form.submitStatus">
             <el-radio label="1">请选择字典生成</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -143,13 +136,12 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
-        quotationNo: null,
-        quotationName: null,
+        quoteId: null,
+        quoteName: null,
         purchaserId: null,
-        inquiryId: null,
-        inquiryNo: null,
-        quotationValidTime: [],
-        isSubmit: null,
+        enquiryId: null,
+        indateDate: [],
+        submitStatus: null,
         createTime: [],
         subjectId: null,
       },
@@ -157,11 +149,10 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        quotationNo: [{ required: true, message: "报价单编号不能为空", trigger: "blur" }],
-        quotationName: [{ required: true, message: "报价单名称不能为空", trigger: "blur" }],
+        quoteId: [{ required: true, message: "报价单编号不能为空", trigger: "blur" }],
+        quoteName: [{ required: true, message: "报价单名称不能为空", trigger: "blur" }],
         purchaserId: [{ required: true, message: "采购商id不能为空", trigger: "blur" }],
-        inquiryId: [{ required: true, message: "询价单id不能为空", trigger: "blur" }],
-        inquiryNo: [{ required: true, message: "询价单编号不能为空", trigger: "blur" }],
+        enquiryId: [{ required: true, message: "询价单编号不能为空", trigger: "blur" }],
         subjectId: [{ required: true, message: "经营主体不能为空", trigger: "blur" }],
       }
     };
@@ -189,13 +180,12 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        quotationNo: undefined,
-        quotationName: undefined,
+        quoteId: undefined,
+        quoteName: undefined,
         purchaserId: undefined,
-        inquiryId: undefined,
-        inquiryNo: undefined,
-        quotationValidTime: undefined,
-        isSubmit: undefined,
+        enquiryId: undefined,
+        indateDate: undefined,
+        submitStatus: undefined,
         subjectId: undefined,
       };
       this.resetForm("form");
