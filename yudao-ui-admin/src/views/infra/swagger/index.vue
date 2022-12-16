@@ -11,7 +11,7 @@ export default {
   components: { iFrame },
   data() {
     return {
-      url: process.env.VUE_APP_BASE_API + "/doc.html"
+      url: process.env.VUE_DOC + "/doc.html"
     };
   },
 };
