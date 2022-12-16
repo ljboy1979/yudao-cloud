@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>yudao</artifactId>
+        <groupId>cn.iocoder.cloud</groupId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>acsm-module-production</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>acsm-module-production-bases</module>
+		<module>acsm-module-production-tunnel</module>
+		<module>acsm-module-production-devices</module>
+		<module>acsm-module-production-facility</module>
+    </modules>
+    <name>${project.artifactId}</name>
+    <description>
+        production 模块:
+        bases: 基地
+        tunnel：地块
+    </description>
+
+</project>
