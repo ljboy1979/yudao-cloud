@@ -3,7 +3,6 @@ package cn.acsm.module.transaction.sales.service.specialmedicalfoodspecification
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.annotation.Resource;
 
@@ -14,19 +13,14 @@ import cn.acsm.module.transaction.sales.dal.dataobject.specialmedicalfoodspecifi
 import cn.acsm.module.transaction.sales.dal.mysql.specialmedicalfoodspecification.SpecialMedicalFoodSpecificationMapper;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
-import javax.annotation.Resource;
 import org.springframework.context.annotation.Import;
 import java.util.*;
-import java.time.LocalDateTime;
 
-import static cn.hutool.core.util.RandomUtil.*;
 import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.*;
 import static cn.iocoder.yudao.framework.test.core.util.AssertUtils.*;
 import static cn.iocoder.yudao.framework.test.core.util.RandomUtils.*;
 import static cn.iocoder.yudao.framework.common.util.object.ObjectUtils.*;
-import static cn.iocoder.yudao.framework.common.util.date.DateUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 /**
 * {@link SpecialMedicalFoodSpecificationServiceImpl} 的单元测试类
@@ -45,7 +39,7 @@ public class SpecialMedicalFoodSpecificationServiceImplTest extends BaseDbUnitTe
     @Test
     public void testCreateSpecialMedicalFoodSpecification_success() {
         // 准备参数
-        SpecialMedicalFoodSpecificationCreateReqVO reqVO = randomPojo(SpecialMedicalFoodSpecificationCreateReqVO.class);
+        SpecialMedicalFoodSpecCreateReqVO reqVO = randomPojo(SpecialMedicalFoodSpecCreateReqVO.class);
 
         // 调用
         CommonResult<String> result = specialMedicalFoodSpecificationService.createSpecialMedicalFoodSpecification(reqVO);
@@ -62,7 +56,7 @@ public class SpecialMedicalFoodSpecificationServiceImplTest extends BaseDbUnitTe
         SpecialMedicalFoodSpecificationDO dbSpecialMedicalFoodSpecification = randomPojo(SpecialMedicalFoodSpecificationDO.class);
         specialMedicalFoodSpecificationMapper.insert(dbSpecialMedicalFoodSpecification);// @Sql: 先插入出一条存在的数据
         // 准备参数
-        SpecialMedicalFoodSpecificationUpdateReqVO reqVO = randomPojo(SpecialMedicalFoodSpecificationUpdateReqVO.class, o -> {
+        SpecialMedicalFoodSpecUpdateReqVO reqVO = randomPojo(SpecialMedicalFoodSpecUpdateReqVO.class, o -> {
             o.setId(dbSpecialMedicalFoodSpecification.getId()); // 设置更新的 ID
         });
 
@@ -76,7 +70,7 @@ public class SpecialMedicalFoodSpecificationServiceImplTest extends BaseDbUnitTe
     @Test
     public void testUpdateSpecialMedicalFoodSpecification_notExists() {
         // 准备参数
-        SpecialMedicalFoodSpecificationUpdateReqVO reqVO = randomPojo(SpecialMedicalFoodSpecificationUpdateReqVO.class);
+        SpecialMedicalFoodSpecUpdateReqVO reqVO = randomPojo(SpecialMedicalFoodSpecUpdateReqVO.class);
 
         // 调用, 并断言异常
         assertServiceException(() -> specialMedicalFoodSpecificationService.updateSpecialMedicalFoodSpecification(reqVO), SPECIAL_MEDICAL_FOOD_SPECIFICATION_NOT_EXISTS);
@@ -126,7 +120,7 @@ public class SpecialMedicalFoodSpecificationServiceImplTest extends BaseDbUnitTe
        // 测试 createTime 不匹配
        specialMedicalFoodSpecificationMapper.insert(cloneIgnoreId(dbSpecialMedicalFoodSpecification, o -> o.setCreateTime(null)));
        // 准备参数
-       SpecialMedicalFoodSpecificationPageReqVO reqVO = new SpecialMedicalFoodSpecificationPageReqVO();
+       SpecialMedicalFoodSpecPageReqVO reqVO = new SpecialMedicalFoodSpecPageReqVO();
        reqVO.setFoodId(null);
        reqVO.setSpecificationsName(null);
        reqVO.setCreateTime((new Date[]{}));
@@ -156,7 +150,7 @@ public class SpecialMedicalFoodSpecificationServiceImplTest extends BaseDbUnitTe
        // 测试 createTime 不匹配
        specialMedicalFoodSpecificationMapper.insert(cloneIgnoreId(dbSpecialMedicalFoodSpecification, o -> o.setCreateTime(null)));
        // 准备参数
-       SpecialMedicalFoodSpecificationExportReqVO reqVO = new SpecialMedicalFoodSpecificationExportReqVO();
+       SpecialMedicalFoodSpecExportReqVO reqVO = new SpecialMedicalFoodSpecExportReqVO();
        reqVO.setFoodId(null);
        reqVO.setSpecificationsName(null);
        reqVO.setCreateTime((new Date[]{}));

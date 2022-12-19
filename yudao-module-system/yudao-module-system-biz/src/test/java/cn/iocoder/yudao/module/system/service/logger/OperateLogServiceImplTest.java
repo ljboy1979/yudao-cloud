@@ -106,7 +106,7 @@ public class OperateLogServiceImplTest extends BaseDbUnitTest {
         reqVO.setType(OperateTypeEnum.CREATE.getType());
         reqVO.setStartTime((new LocalDateTime[]{buildLocalDateTime(2021, 3, 5),
                 buildLocalDateTime(2021, 3, 7)}));
-        reqVO.setSuccess(true);
+        reqVO.setStatus(true);
 
         // 调用service方法
         PageResult<OperateLogDO> pageResult = operateLogServiceImpl.getOperateLogPage(reqVO);
@@ -157,7 +157,7 @@ public class OperateLogServiceImplTest extends BaseDbUnitTest {
         reqVO.setModule("order");
         reqVO.setType(OperateTypeEnum.CREATE.getType());
         reqVO.setStartTime((new LocalDateTime[]{buildLocalDateTime(2021, 3, 5),buildLocalDateTime(2021, 3, 7)}));
-        reqVO.setSuccess(true);
+        reqVO.setStatus(true);
 
         // 调用 service 方法
         List<OperateLogDO> list = operateLogServiceImpl.getOperateLogs(reqVO);

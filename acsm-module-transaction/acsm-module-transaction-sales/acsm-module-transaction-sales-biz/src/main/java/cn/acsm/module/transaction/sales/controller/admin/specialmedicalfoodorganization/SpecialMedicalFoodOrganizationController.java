@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.annotations.*;
 
-import javax.validation.constraints.*;
 import javax.validation.*;
 import javax.servlet.http.*;
 import java.util.*;
@@ -38,14 +37,14 @@ public class SpecialMedicalFoodOrganizationController {
     @PostMapping("/create")
     @ApiOperation("创建特医食品组成")
     @PreAuthorize("@ss.hasPermission('sales:special-medical-food-organization:create')")
-    public CommonResult<String> createSpecialMedicalFoodOrganization(@Valid @RequestBody SpecialMedicalFoodOrganizationCreateReqVO createReqVO) {
+    public CommonResult<String> createSpecialMedicalFoodOrganization(@Valid @RequestBody SpecialMedicalFoodOrganCreateReqVO createReqVO) {
         return success(specialMedicalFoodOrganizationService.createSpecialMedicalFoodOrganization(createReqVO));
     }
 
     @PutMapping("/update")
     @ApiOperation("更新特医食品组成")
     @PreAuthorize("@ss.hasPermission('sales:special-medical-food-organization:update')")
-    public CommonResult<Boolean> updateSpecialMedicalFoodOrganization(@Valid @RequestBody SpecialMedicalFoodOrganizationUpdateReqVO updateReqVO) {
+    public CommonResult<Boolean> updateSpecialMedicalFoodOrganization(@Valid @RequestBody SpecialMedicalFoodOrganUpdateReqVO updateReqVO) {
         specialMedicalFoodOrganizationService.updateSpecialMedicalFoodOrganization(updateReqVO);
         return success(true);
     }
@@ -89,7 +88,7 @@ public class SpecialMedicalFoodOrganizationController {
     @ApiOperation("导出特医食品组成 Excel")
     @PreAuthorize("@ss.hasPermission('sales:special-medical-food-organization:export')")
     @OperateLog(type = EXPORT)
-    public void exportSpecialMedicalFoodOrganizationExcel(@Valid SpecialMedicalFoodOrganizationExportReqVO exportReqVO,
+    public void exportSpecialMedicalFoodOrganizationExcel(@Valid SpecialMedicalFoodOrganExportReqVO exportReqVO,
               HttpServletResponse response) throws IOException {
         List<SpecialMedicalFoodOrganizationDO> list = specialMedicalFoodOrganizationService.getSpecialMedicalFoodOrganizationList(exportReqVO);
         // 导出 Excel

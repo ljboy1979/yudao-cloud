@@ -1,0 +1,92 @@
+package cn.acsm.module.production.devices.controller.admin.parameter.vo;
+
+import cn.iocoder.yudao.framework.common.pojo.PageParam;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
+
+@ApiModel("管理后台 - 设备表参数分页 Request VO")
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+public class ParameterPageReqVO extends PageParam {
+
+    @ApiModelProperty(value = "设备id")
+    private String deviceId;
+
+    @ApiModelProperty(value = "视频ip")
+    private String paramDeviceIp;
+
+    @ApiModelProperty(value = "视频http端口")
+    private String paramHttpPort;
+
+    @ApiModelProperty(value = "视频服务端口")
+    private String paramDevicePort;
+
+    @ApiModelProperty(value = "视频rtsp端口")
+    private String paramRtspPort;
+
+    @ApiModelProperty(value = "视频用户名")
+    private String paramDeviceUsername;
+
+    @ApiModelProperty(value = "视频密码")
+    private String paramDevicePassword;
+
+    @ApiModelProperty(value = "视频通道号")
+    private String paramChanelNum;
+
+    @ApiModelProperty(value = "组态王链接")
+    private String kingViewUrl;
+
+    @ApiModelProperty(value = "机构编码")
+    private String officeCode;
+
+    @ApiModelProperty(value = "机构名称")
+    private String officeName;
+
+    @ApiModelProperty(value = "公司编码")
+    private String companyCode;
+
+    @ApiModelProperty(value = "公司名称")
+    private String companyName;
+
+    @ApiModelProperty(value = "备注信息")
+    private String remarks;
+
+    @ApiModelProperty(value = "审核状态")
+    private String reviewStatus;
+
+    @ApiModelProperty(value = "审核人")
+    private String reviewer;
+
+    @ApiModelProperty(value = "审核时间")
+    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date[] reviewDate;
+
+    @ApiModelProperty(value = "审核内容")
+    private String reviewContent;
+
+    @ApiModelProperty(value = "租户代码")
+    private String corpCode;
+
+    @ApiModelProperty(value = "租户名称")
+    private String corpName;
+
+    @ApiModelProperty(value = "创建时间")
+    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date[] createTime;
+
+    @ApiModelProperty(value = "租户集合")
+    private Long source;
+
+    @ApiModelProperty(value = "经营主体ID")
+    private Long subjectId;
+
+}

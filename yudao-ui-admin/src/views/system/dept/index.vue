@@ -30,6 +30,7 @@
               :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
       <el-table-column prop="name" label="部门名称" width="260"></el-table-column>
       <el-table-column prop="leader" label="负责人" :formatter="userNicknameFormat" width="120"/>
+      <el-table-column prop="id" label="部门编号"  width="100"/>
       <el-table-column prop="sort" label="排序" width="200"></el-table-column>
       <el-table-column prop="status" label="状态" width="100">
         <template slot-scope="scope">
@@ -69,7 +70,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="显示排序" prop="sort">
-              <el-input-number v-model="form.sort" controls-position="right" :min="0" />
+              <el-input-number v-model="form.sort" controls-position="right" :min="0" :max="999999"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -153,10 +154,12 @@ export default {
       // 表单校验
       rules: {
         name: [
-          { required: true, message: "部门名称不能为空", trigger: "blur" }
+          { required: true, message: "部门名称不能为空", trigger: "blur" },
+          {min:1,max:15,message:'最大输入15',trigger: "blur"}
         ],
         sort: [
-          { required: true, message: "显示排序不能为空", trigger: "blur" }
+          { required: true, message: "显示排序不能为空", trigger: "blur" },
+          {pattern:/^[0-9]{1,8}$/,message:'最多输入8位数字',trigger: "blur"}
         ],
         email: [
           {

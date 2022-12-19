@@ -1,10 +1,15 @@
 package cn.acsm.module.transaction.sales.service.specialmedicalfoodorganization;
 
-import java.util.*;
-import javax.validation.*;
-import cn.acsm.module.transaction.sales.controller.admin.specialmedicalfoodorganization.vo.*;
+import cn.acsm.module.transaction.sales.controller.admin.specialmedicalfoodorganization.vo.SpecialMedicalFoodOrganUpdateReqVO;
+import cn.acsm.module.transaction.sales.controller.admin.specialmedicalfoodorganization.vo.SpecialMedicalFoodOrganCreateReqVO;
+import cn.acsm.module.transaction.sales.controller.admin.specialmedicalfoodorganization.vo.SpecialMedicalFoodOrganExportReqVO;
+import cn.acsm.module.transaction.sales.controller.admin.specialmedicalfoodorganization.vo.SpecialMedicalFoodOrganizationPageReqVO;
 import cn.acsm.module.transaction.sales.dal.dataobject.specialmedicalfoodorganization.SpecialMedicalFoodOrganizationDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+
+import javax.validation.Valid;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 特医食品组成 Service 接口
@@ -19,14 +24,14 @@ public interface SpecialMedicalFoodOrganizationService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createSpecialMedicalFoodOrganization(@Valid SpecialMedicalFoodOrganizationCreateReqVO createReqVO);
+    String createSpecialMedicalFoodOrganization(@Valid SpecialMedicalFoodOrganCreateReqVO createReqVO);
 
     /**
      * 更新特医食品组成
      *
      * @param updateReqVO 更新信息
      */
-    void updateSpecialMedicalFoodOrganization(@Valid SpecialMedicalFoodOrganizationUpdateReqVO updateReqVO);
+    void updateSpecialMedicalFoodOrganization(@Valid SpecialMedicalFoodOrganUpdateReqVO updateReqVO);
 
     /**
      * 删除特医食品组成
@@ -65,6 +70,6 @@ public interface SpecialMedicalFoodOrganizationService {
      * @param exportReqVO 查询条件
      * @return 特医食品组成列表
      */
-    List<SpecialMedicalFoodOrganizationDO> getSpecialMedicalFoodOrganizationList(SpecialMedicalFoodOrganizationExportReqVO exportReqVO);
+    List<SpecialMedicalFoodOrganizationDO> getSpecialMedicalFoodOrganizationList(SpecialMedicalFoodOrganExportReqVO exportReqVO);
 
 }

@@ -23,7 +23,7 @@ public class OperateLogExportReqVO {
     private Integer type;
 
     @ApiModelProperty(value = "操作状态", example = "true")
-    private Boolean success;
+    private Boolean status;
 
     @ApiModelProperty(value = "开始时间", example = "[2022-07-01 00:00:00,2022-07-01 23:59:59]")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)

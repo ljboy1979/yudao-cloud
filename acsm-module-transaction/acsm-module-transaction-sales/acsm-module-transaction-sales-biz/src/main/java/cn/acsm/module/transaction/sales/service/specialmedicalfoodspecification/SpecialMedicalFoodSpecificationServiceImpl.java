@@ -29,7 +29,7 @@ public class SpecialMedicalFoodSpecificationServiceImpl implements SpecialMedica
     private SpecialMedicalFoodSpecificationMapper specialMedicalFoodSpecificationMapper;
 
     @Override
-    public CommonResult<String> createSpecialMedicalFoodSpecification(SpecialMedicalFoodSpecificationCreateReqVO createReqVO) {
+    public CommonResult<String> createSpecialMedicalFoodSpecification(SpecialMedicalFoodSpecCreateReqVO createReqVO) {
         SpecialMedicalFoodSpecificationDO specialMedicalFoodSpecificationDO = new SpecialMedicalFoodSpecificationDO();
         specialMedicalFoodSpecificationDO.setFoodId(createReqVO.getFoodId());
         specialMedicalFoodSpecificationDO.setSpecificationsName(createReqVO.getSpecificationsName());
@@ -46,7 +46,7 @@ public class SpecialMedicalFoodSpecificationServiceImpl implements SpecialMedica
     }
 
     @Override
-    public CommonResult<String> updateSpecialMedicalFoodSpecification(SpecialMedicalFoodSpecificationUpdateReqVO updateReqVO) {
+    public CommonResult<String> updateSpecialMedicalFoodSpecification(SpecialMedicalFoodSpecUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateSpecialMedicalFoodSpecificationExists(updateReqVO.getId());
         SpecialMedicalFoodSpecificationDO specialMedicalFoodSpecificationDO = new SpecialMedicalFoodSpecificationDO();
@@ -90,12 +90,12 @@ public class SpecialMedicalFoodSpecificationServiceImpl implements SpecialMedica
     }
 
     @Override
-    public PageResult<SpecialMedicalFoodSpecificationDO> getSpecialMedicalFoodSpecificationPage(SpecialMedicalFoodSpecificationPageReqVO pageReqVO) {
+    public PageResult<SpecialMedicalFoodSpecificationDO> getSpecialMedicalFoodSpecificationPage(SpecialMedicalFoodSpecPageReqVO pageReqVO) {
         return specialMedicalFoodSpecificationMapper.selectPage(pageReqVO);
     }
 
     @Override
-    public List<SpecialMedicalFoodSpecificationDO> getSpecialMedicalFoodSpecificationList(SpecialMedicalFoodSpecificationExportReqVO exportReqVO) {
+    public List<SpecialMedicalFoodSpecificationDO> getSpecialMedicalFoodSpecificationList(SpecialMedicalFoodSpecExportReqVO exportReqVO) {
         return specialMedicalFoodSpecificationMapper.selectList(exportReqVO);
     }
 
