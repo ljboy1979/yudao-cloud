@@ -3,6 +3,7 @@ package cn.acsm.module.purchase.controller.admin.order;
 import cn.acsm.module.purchase.controller.admin.order.vo.*;
 import cn.acsm.module.purchase.convert.order.PurchaseOrderConvert;
 import cn.acsm.module.purchase.dal.dataobject.order.PurchaseOrderDO;
+import cn.acsm.module.purchase.group.PurchaseOrderCreateVO;
 import cn.acsm.module.purchase.service.order.PurchaseOrderService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -37,8 +38,8 @@ public class PurchaseOrderController {
     @PostMapping("/create")
     @ApiOperation("创建采购单")
     @PreAuthorize("@ss.hasPermission('purchase:order:create')")
-    public CommonResult<Long> createOrder(@Valid @RequestBody PurchaseOrderCreateReqVO createReqVO) {
-        return success(orderService.createOrder(createReqVO));
+    public CommonResult<String> createOrder(@Valid @Validated(PurchaseOrderCreateVO.class) @RequestBody PurchaseOrderCreateReqVO createReqVO) {
+        return orderService.createOrder(createReqVO);
     }
 
     @PutMapping("/update")
@@ -53,8 +54,8 @@ public class PurchaseOrderController {
     @ApiOperation("删除采购单")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermission('purchase:order:delete')")
-    public CommonResult<Boolean> deleteOrder(@RequestParam("id") Long id) {
-        orderService.deleteOrder(id);
+    public CommonResult<Boolean> deleteOrder(@Valid @RequestBody PurchaseOrderDelReqVO purchaseOrderDelReqVO) {
+        orderService.deleteOrder(purchaseOrderDelReqVO);
         return success(true);
     }
 
@@ -77,7 +78,7 @@ public class PurchaseOrderController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("获得采购单分页")
+    @ApiOperation("查询采购合同单")
     @PreAuthorize("@ss.hasPermission('purchase:order:query')")
     public CommonResult<PageResult<PurchaseOrderRespVO>> getOrderPage(@Valid PurchaseOrderPageReqVO pageVO) {
         PageResult<PurchaseOrderDO> pageResult = orderService.getOrderPage(pageVO);
@@ -94,6 +95,14 @@ public class PurchaseOrderController {
         // 导出 Excel
         List<PurchaseOrderExcelVO> datas = PurchaseOrderConvert.INSTANCE.convertList02(list);
         ExcelUtils.write(response, "采购单.xls", "数据", PurchaseOrderExcelVO.class, datas);
+    }
+
+    @PutMapping("/update/status")
+    @ApiOperation("变更采购状态")
+    @PreAuthorize("@ss.hasPermission('purchase:order:update:status')")
+    public CommonResult<Boolean> updateOrderStatus(@Valid @RequestBody PurchaseOrderUpdateStatusReqVO updateReqVO) {
+        orderService.updateOrderStatus(updateReqVO);
+        return success(true);
     }
 
 }

@@ -1,10 +1,8 @@
 package cn.acsm.module.purchase.service.order;
 
-import cn.acsm.module.purchase.controller.admin.order.vo.PurchaseOrderCreateReqVO;
-import cn.acsm.module.purchase.controller.admin.order.vo.PurchaseOrderExportReqVO;
-import cn.acsm.module.purchase.controller.admin.order.vo.PurchaseOrderPageReqVO;
-import cn.acsm.module.purchase.controller.admin.order.vo.PurchaseOrderUpdateReqVO;
+import cn.acsm.module.purchase.controller.admin.order.vo.*;
 import cn.acsm.module.purchase.dal.dataobject.order.PurchaseOrderDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 import javax.validation.Valid;
@@ -24,7 +22,7 @@ public interface PurchaseOrderService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    Long createOrder(@Valid PurchaseOrderCreateReqVO createReqVO);
+    CommonResult<String> createOrder(@Valid PurchaseOrderCreateReqVO createReqVO);
 
     /**
      * 更新采购单
@@ -38,7 +36,7 @@ public interface PurchaseOrderService {
      *
      * @param id 编号
      */
-    void deleteOrder(Long id);
+    void deleteOrder(PurchaseOrderDelReqVO purchaseOrderDelReqVO);
 
     /**
      * 获得采购单
@@ -71,5 +69,12 @@ public interface PurchaseOrderService {
      * @return 采购单列表
      */
     List<PurchaseOrderDO> getOrderList(PurchaseOrderExportReqVO exportReqVO);
+
+    /**
+     * 变更采购状态
+     *
+     * @param updateReqVO 更新信息
+     */
+    void updateOrderStatus(PurchaseOrderUpdateStatusReqVO updateReqVO);
 
 }

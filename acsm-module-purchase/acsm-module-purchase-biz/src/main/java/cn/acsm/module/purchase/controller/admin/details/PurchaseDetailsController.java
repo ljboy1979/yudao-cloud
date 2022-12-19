@@ -53,8 +53,8 @@ public class PurchaseDetailsController {
     @ApiOperation("删除采购单明细")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermission('purchase:details:delete')")
-    public CommonResult<Boolean> deleteDetails(@RequestParam("id") Long id) {
-        detailsService.deleteDetails(id);
+    public CommonResult<Boolean> deleteDetails(@Valid @RequestBody PurchaseDetailsDelReqVO purchaseDetailsDelReqVO) {
+        detailsService.deleteDetails(purchaseDetailsDelReqVO);
         return success(true);
     }
 

@@ -1,13 +1,15 @@
 package cn.acsm.module.purchase.dal.dataobject.details;
 
-import lombok.*;
-import java.util.*;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.*;
+import cn.acsm.module.purchase.group.PurchaseOrderCreateVO;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * 采购单明细 DO
@@ -89,5 +91,20 @@ public class PurchaseDetailsDO extends BaseDO {
      * 经营主体
      */
     private String subjectId;
+
+    /**
+     * 租户id
+     */
+    private String tenantId;
+
+    /**
+     * 用户id
+     */
+    private Long userId;
+
+    /**
+     * 租户集合
+     */
+    private Long sourceId;
 
 }
