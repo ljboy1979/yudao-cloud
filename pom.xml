@@ -24,6 +24,7 @@
         <module>acsm-module-service</module>
         <module>acsm-module-resource</module>
         <module>acsm-module-purchase</module>
+        <module>acsm-module-production</module>
         <!--        <module>yudao-module-pay</module>-->
     </modules>
 
