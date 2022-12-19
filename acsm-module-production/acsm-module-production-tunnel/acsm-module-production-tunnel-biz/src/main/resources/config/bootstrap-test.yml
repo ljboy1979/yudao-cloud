@@ -7,7 +7,7 @@ spring:
       # 注册中心
       discovery:
         server-addr: http://123.56.19.224:18848 #http://123.56.19.224:18848
-        namespace: dev # 命名空间。这里使用 dev 开发环境
+        namespace: test # 命名空间。这里使用 dev 开发环境
         metadata:
           version: 1.0.0 # 服务实例的版本号，可用于灰度发布
       # 配置中心
@@ -15,7 +15,7 @@ spring:
         # 本地启动
         server-addr: http://123.56.19.224:18848 #${spring.cloud.nacos.discovery.server-addr}
         file-extension: yaml
-        namespace: dev
+        namespace: test
 #        name: system-server
 #        group: DEFAULT_GROUP
         # 公共配置
