@@ -1,15 +1,10 @@
 package cn.iocoder.yudao.module.demo.framework.datapermission.config;
 
-import cn.iocoder.yudao.framework.datapermission.core.rule.dept.DeptDataPermissionRule;
 import cn.iocoder.yudao.framework.datapermission.core.rule.dept.DeptDataPermissionRuleCustomizer;
-import cn.iocoder.yudao.framework.security.core.LoginUser;
 import cn.iocoder.yudao.module.demo.dal.dataobject.notice.NoticeDO;
-import cn.iocoder.yudao.module.system.api.permission.PermissionApi;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
 
 /**
  * 基于部门的数据权限 AutoConfiguration
