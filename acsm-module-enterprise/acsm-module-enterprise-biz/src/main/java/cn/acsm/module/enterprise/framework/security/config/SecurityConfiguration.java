@@ -11,13 +11,13 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 /**
  * member signin 模块的 Security 配置
  */
-@Configuration("memberSecurityConfiguration")
+@Configuration("enterpriseSecurityConfiguration")
 public class SecurityConfiguration {
 
     @Value("${spring.boot.admin.context-path:''}")
     private String adminSeverContextPath;
 
-    @Bean("memberAuthorizeRequestsCustomizer")
+    @Bean("enterpriseAuthorizeRequestsCustomizer")
     public AuthorizeRequestsCustomizer authorizeRequestsCustomizer() {
         return new AuthorizeRequestsCustomizer() {
 
