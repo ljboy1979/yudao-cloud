@@ -1,14 +1,11 @@
 package cn.acsm.module.purchase.dal.dataobject.details;
 
-import cn.acsm.module.purchase.group.PurchaseOrderCreateVO;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -87,6 +84,7 @@ public class PurchaseDetailsDO extends BaseDO {
      * 收货标准id
      */
     private Long standardId;
+
     /**
      * 经营主体
      */

@@ -23,7 +23,7 @@ public class PurchaseQuotationElectronicPageReqVO extends PageParam {
     private Long quoteId;
 
     @ApiModelProperty(value = "询价单明细编号")
-    private Long enquiryId;
+    private Long inquiryDetailId;
 
     @ApiModelProperty(value = "商品id")
     private Long commodityId;

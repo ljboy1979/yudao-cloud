@@ -10,24 +10,38 @@ import java.util.Date;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
-@ApiModel(value = "管理后台 - 采购询价电子 Excel 导出 Request VO", description = "参数和 PurchaseInquiryPageReqVO 是一致的")
+@ApiModel(value = "管理后台 - 采购询价 Excel 导出 Request VO", description = "参数和 PurchaseInquiryPageReqVO 是一致的")
 @Data
 public class PurchaseInquiryExportReqVO {
 
-    @ApiModelProperty(value = "商品id")
-    private Long commodityId;
+    @ApiModelProperty(value = "询价单编号")
+    private String enquiryId;
 
-    @ApiModelProperty(value = "分类id")
-    private Long commodityCategoryId;
+    @ApiModelProperty(value = "询价单名称")
+    private String enquiryName;
 
-    @ApiModelProperty(value = "规格id")
-    private Long productSpecificationsId;
+    @ApiModelProperty(value = "供应商id")
+    private Long providerId;
 
-    @ApiModelProperty(value = "计划数量最低")
-    private String plannedQuantityMin;
+    @ApiModelProperty(value = "供应商名称")
+    private String providerName;
 
-    @ApiModelProperty(value = "计划数量最高")
-    private String plannedQuantityMax;
+    @ApiModelProperty(value = "发布状态（0未发布 1已发布）")
+    private String postStatus;
+
+    @ApiModelProperty(value = "询价情况（0已回复 1暂未回复）")
+    private String enquiryStatus;
+
+    @ApiModelProperty(value = "发布时间")
+    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date[] releaseTime;
+
+    @ApiModelProperty(value = "是否阅读（0未读 1已读）")
+    private String readStatus;
+
+    @ApiModelProperty(value = "uid")
+    private Long uid;
 
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
@@ -36,5 +50,11 @@ public class PurchaseInquiryExportReqVO {
 
     @ApiModelProperty(value = "经营主体")
     private String subjectId;
+
+    @ApiModelProperty(value = "用户id")
+    private Long userId;
+
+    @ApiModelProperty(value = "租户集合")
+    private Long sourceId;
 
 }

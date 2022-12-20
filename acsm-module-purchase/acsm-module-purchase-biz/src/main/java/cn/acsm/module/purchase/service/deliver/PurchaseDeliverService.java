@@ -1,13 +1,11 @@
 package cn.acsm.module.purchase.service.deliver;
 
-import cn.acsm.module.purchase.controller.admin.deliver.vo.PurchaseDeliverCreateReqVO;
-import cn.acsm.module.purchase.controller.admin.deliver.vo.PurchaseDeliverExportReqVO;
-import cn.acsm.module.purchase.controller.admin.deliver.vo.PurchaseDeliverPageReqVO;
-import cn.acsm.module.purchase.controller.admin.deliver.vo.PurchaseDeliverUpdateReqVO;
+import cn.acsm.module.purchase.controller.admin.deliver.vo.*;
 import cn.acsm.module.purchase.dal.dataobject.deliver.PurchaseDeliverDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -71,5 +69,13 @@ public interface PurchaseDeliverService {
      * @return 采购交付列表
      */
     List<PurchaseDeliverDO> getDeliverList(PurchaseDeliverExportReqVO exportReqVO);
+
+    /**
+     * 根据采购单明细id获取交付数量
+     *
+     * @param purchaseDetailsId 采购单明细id
+     * @return 采购交付列表
+     */
+    BigDecimal getDeliveryCount(PurchaseDeliverReqCountVO reqCountVO);
 
 }

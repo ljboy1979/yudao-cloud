@@ -96,4 +96,18 @@ public class PurchaseQuotationElectronicController {
         ExcelUtils.write(response, "采购报价单电子.xls", "数据", PurchaseQuotationElectronicExcelVO.class, datas);
     }
 
+    @GetMapping("/price-tag/detail")
+    @ApiOperation("价格牌明细")
+    @PreAuthorize("@ss.hasPermission('purchase:price-tag:detail')")
+    public CommonResult<PageResult<PurchaseQuotationElectronicDO>> getQuotationElectronicPage(@Valid PurchasePriceTagDetailVO pageVO) {
+        return success(quotationElectronicService.getQuotationElectronicPage(pageVO));
+    }
+
+    @GetMapping("/get/info")
+    @ApiOperation("3.6.2.45.查询采购报价明细")
+    @PreAuthorize("@ss.hasPermission('purchase:quotation-electronic:info')")
+    public CommonResult<PageResult<PurchaseQuotationElectronicDO>> getQuotationElectronicInfo(PurchaseQuotationInfoVO infoVO) {
+        return success(quotationElectronicService.getQuotationElectronicInfo(infoVO));
+    }
+
 }

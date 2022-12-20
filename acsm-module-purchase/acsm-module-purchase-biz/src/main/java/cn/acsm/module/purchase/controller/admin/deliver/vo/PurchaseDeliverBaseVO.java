@@ -22,6 +22,10 @@ public class PurchaseDeliverBaseVO {
     @NotNull(message = "采购单号不能为空")
     private String purchaseNumber;
 
+    @ApiModelProperty(value = "采购单明细id", required = true)
+    @NotNull(message = "采购单明细id")
+    private Long purchaseDetailsId;
+
     @ApiModelProperty(value = "交付批次号(系统自动生成)", required = true)
     @NotNull(message = "交付批次号(系统自动生成)不能为空")
     private String batchCode;
@@ -35,10 +39,10 @@ public class PurchaseDeliverBaseVO {
 
     @ApiModelProperty(value = "期望交付数量", required = true)
     @NotNull(message = "期望交付数量不能为空")
-    private Integer expectedDeliveryCount;
+    private Double expectedDeliveryCount;
 
     @ApiModelProperty(value = "实际交付数量")
-    private Integer actualDeliveryCount;
+    private Double actualDeliveryCount;
 
     @ApiModelProperty(value = "单位(字典id)", required = true)
     @NotNull(message = "单位(字典id)不能为空")
@@ -58,5 +62,14 @@ public class PurchaseDeliverBaseVO {
 
     @ApiModelProperty(value = "经营主体", required = true)
     private String subjectId;
+
+    @ApiModelProperty(value = "租户id", required = true)
+    private String tenantId;
+
+    @ApiModelProperty(value = "用户id", required = true)
+    private Long userId;
+
+    @ApiModelProperty(value = "租户集合", required = true)
+    private Long sourceId;
 
 }

@@ -12,7 +12,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 /**
- * 采购询价电子 Convert
+ * 采购询价 Convert
  *
  * @author 芋道源码
  */

@@ -77,4 +77,9 @@ public interface PurchaseOrderService {
      */
     void updateOrderStatus(PurchaseOrderUpdateStatusReqVO updateReqVO);
 
+    /**
+     * 3.6.2.5.查询采购合同单
+     */
+    PageResult<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderPageInfoVO pageReqVO);
+
 }

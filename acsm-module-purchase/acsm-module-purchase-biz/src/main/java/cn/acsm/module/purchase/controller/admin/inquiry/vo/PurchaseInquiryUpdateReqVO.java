@@ -1,14 +1,11 @@
 package cn.acsm.module.purchase.controller.admin.inquiry.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+import java.util.*;
+import io.swagger.annotations.*;
+import javax.validation.constraints.*;
 
-import javax.validation.constraints.NotNull;
-
-@ApiModel("管理后台 - 采购询价电子更新 Request VO")
+@ApiModel("管理后台 - 采购询价更新 Request VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)

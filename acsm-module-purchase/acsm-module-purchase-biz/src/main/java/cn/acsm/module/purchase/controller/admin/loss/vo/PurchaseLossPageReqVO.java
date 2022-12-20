@@ -9,6 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -77,7 +79,20 @@ public class PurchaseLossPageReqVO extends PageParam {
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] createTime;
 
-    @ApiModelProperty(value = "经营主体")
+    @ApiModelProperty(value = "经营主体", required = true)
+    @NotBlank(message = "经营主体不能为空")
     private String subjectId;
+
+    @ApiModelProperty(value = "租户编号", required = true)
+    @NotBlank(message = "租户编号不能为空")
+    private String tenantId;
+
+    @ApiModelProperty(value = "租户集合", required = true)
+    @NotNull(message = "租户集合不能为空")
+    private Long sourceId;
+
+    @ApiModelProperty(value = "用户id", required = true)
+    @NotNull(message = "用户id不能为空")
+    private Long userId;
 
 }

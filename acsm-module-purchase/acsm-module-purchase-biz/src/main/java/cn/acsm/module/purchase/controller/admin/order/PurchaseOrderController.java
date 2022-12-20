@@ -78,7 +78,7 @@ public class PurchaseOrderController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("查询采购合同单")
+    @ApiOperation("分页查询采购单")
     @PreAuthorize("@ss.hasPermission('purchase:order:query')")
     public CommonResult<PageResult<PurchaseOrderRespVO>> getOrderPage(@Valid PurchaseOrderPageReqVO pageVO) {
         PageResult<PurchaseOrderDO> pageResult = orderService.getOrderPage(pageVO);
@@ -103,6 +103,13 @@ public class PurchaseOrderController {
     public CommonResult<Boolean> updateOrderStatus(@Valid @RequestBody PurchaseOrderUpdateStatusReqVO updateReqVO) {
         orderService.updateOrderStatus(updateReqVO);
         return success(true);
+    }
+
+    @GetMapping("/page")
+    @ApiOperation("3.6.2.5.查询采购合同单")
+    @PreAuthorize("@ss.hasPermission('purchase:order:page')")
+    public CommonResult<PageResult<QueryPurchaseOrderPageInfoVO>> getOrderPageInfo(@Valid PurchaseOrderPageInfoVO pageVO) {
+        return success(orderService.getOrderPageInfo(pageVO));
     }
 
 }

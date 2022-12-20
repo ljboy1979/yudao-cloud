@@ -39,6 +39,9 @@ public interface PurchaseLossMapper extends BaseMapperX<PurchaseLossDO> {
                 .eqIfPresent(PurchaseLossDO::getInventoryRecordDetailsId, reqVO.getInventoryRecordDetailsId())
                 .betweenIfPresent(PurchaseLossDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(PurchaseLossDO::getSubjectId, reqVO.getSubjectId())
+                .eqIfPresent(PurchaseLossDO::getTenantId, reqVO.getTenantId())
+                .eqIfPresent(PurchaseLossDO::getSourceId, reqVO.getSourceId())
+                .eqIfPresent(PurchaseLossDO::getUserId, reqVO.getUserId())
                 .orderByDesc(PurchaseLossDO::getId));
     }
 

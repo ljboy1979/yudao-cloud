@@ -1,12 +1,16 @@
 package cn.acsm.module.purchase.dal.mysql.order;
 
 import cn.acsm.module.purchase.controller.admin.order.vo.PurchaseOrderExportReqVO;
+import cn.acsm.module.purchase.controller.admin.order.vo.PurchaseOrderPageInfoVO;
 import cn.acsm.module.purchase.controller.admin.order.vo.PurchaseOrderPageReqVO;
+import cn.acsm.module.purchase.controller.admin.order.vo.QueryPurchaseOrderPageInfoVO;
 import cn.acsm.module.purchase.dal.dataobject.order.PurchaseOrderDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -68,5 +72,13 @@ public interface PurchaseOrderMapper extends BaseMapperX<PurchaseOrderDO> {
                 .eqIfPresent(PurchaseOrderDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(PurchaseOrderDO::getId));
     }
+
+    /**
+     * 3.6.2.5.查询采购合同单
+     * @param page
+     * @param reqVO
+     * @return
+     */
+    PageResult<QueryPurchaseOrderPageInfoVO> selectPage(Page page, @Param("reqVO") PurchaseOrderPageInfoVO reqVO);
 
 }

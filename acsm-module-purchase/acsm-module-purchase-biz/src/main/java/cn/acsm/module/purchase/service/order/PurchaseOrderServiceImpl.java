@@ -11,6 +11,7 @@ import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -69,8 +70,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
             // 如果采购来源为集单采购，则需处理数据并创建采购单明细
             if(StringUtils.equalsIgnoreCase(createReqVO.getSource(),"3")) {
-                Map<Long, List<GoodInfos>> collect = createReqVO.getGoodInfos().stream().collect(Collectors
-                        .groupingBy(t -> t.getGoodsId()));
+                Map<Long, Map<Long, List<GoodInfos>>> collect = createReqVO.getGoodInfos().stream().collect(Collectors
+                        .groupingBy(t -> t.getGoodsId(), Collectors.groupingBy(t -> t.getPackagingSpecificationId())));
+
                 collect.forEach((k,v) -> {
                     PurchaseDetailsDO detailsDO = new PurchaseDetailsDO();
                     detailsDO.setPurchaseId(orderDO.getId());
@@ -80,14 +82,17 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                     detailsDO.setSourceId(createReqVO.getSourceId());
                     detailsDO.setTenantId(createReqVO.getTenantId());
                     detailsDO.setGoodsId(k);
-                    detailsDO.setGoodsName(v.get(0).getGoodsName());
-                    detailsDO.setPackagingSpecificationId(v.get(0).getPackagingSpecificationId());
-                    detailsDO.setPackagingSpecification(v.get(0).getPackagingSpecification());
-                    detailsDO.setUnit(v.get(0).getUnit());
-                    detailsDO.setPackagingType(v.get(0).getPackagingType());
-                    double sum = v.stream().map(s -> s.getBuyNumber()).mapToDouble(Double::doubleValue).sum();
-                    detailsDO.setBuyNumber(new BigDecimal(sum));
-                    purchaseDetailsMapper.insert(detailsDO);
+                    detailsDO.setGoodsName(v.get(0).get(0).getGoodsName());
+                    // 获取不同规格的商品累加
+                    v.forEach((key, val) -> {
+                        detailsDO.setPackagingSpecificationId(val.get(0).getPackagingSpecificationId());
+                        detailsDO.setPackagingSpecification(val.get(0).getPackagingSpecification());
+                        detailsDO.setUnit(val.get(0).getUnit());
+                        detailsDO.setPackagingType(val.get(0).getPackagingType());
+                        // 数量累加
+                        detailsDO.setBuyNumber(new BigDecimal(val.stream().map(s -> s.getBuyNumber()).mapToDouble(Double::doubleValue).sum()));
+                        purchaseDetailsMapper.insert(detailsDO);
+                    });
                 });
                 // 更新采购单汇总金额
                 QueryWrapper detailsQuery = new QueryWrapper();
@@ -252,6 +257,15 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         orderDO.setPurchaseStatus(updateReqVO.getPurchaseStatus());
         orderDO.setComplateTime(new Date());
         orderMapper.update(orderDO, orderWrapper);
+    }
+
+    /**
+     * 3.6.2.5.查询采购合同单
+     */
+    public PageResult<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderPageInfoVO pageReqVO) {
+        Page<QueryPurchaseOrderPageInfoVO> page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        PageResult<QueryPurchaseOrderPageInfoVO> result = orderMapper.selectPage(page, pageReqVO);
+        return result;
     }
 
 }

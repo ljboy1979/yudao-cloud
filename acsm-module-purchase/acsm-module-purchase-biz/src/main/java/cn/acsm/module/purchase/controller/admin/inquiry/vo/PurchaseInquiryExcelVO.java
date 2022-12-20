@@ -1,13 +1,12 @@
 package cn.acsm.module.purchase.controller.admin.inquiry.vo;
 
-import lombok.*;
-import java.util.*;
-import io.swagger.annotations.*;
-
 import com.alibaba.excel.annotation.ExcelProperty;
+import lombok.Data;
+
+import java.util.Date;
 
 /**
- * 采购询价电子 Excel VO
+ * 采购询价 Excel VO
  *
  * @author 芋道源码
  */
@@ -17,25 +16,43 @@ public class PurchaseInquiryExcelVO {
     @ExcelProperty("编号")
     private Long id;
 
-    @ExcelProperty("商品id")
-    private Long commodityId;
+    @ExcelProperty("询价单编号")
+    private String enquiryId;
 
-    @ExcelProperty("分类id")
-    private Long commodityCategoryId;
+    @ExcelProperty("询价单名称")
+    private String enquiryName;
 
-    @ExcelProperty("规格id")
-    private Long productSpecificationsId;
+    @ExcelProperty("供应商id")
+    private Long providerId;
 
-    @ExcelProperty("计划数量最低")
-    private String plannedQuantityMin;
+    @ExcelProperty("供应商名称")
+    private String providerName;
 
-    @ExcelProperty("计划数量最高")
-    private String plannedQuantityMax;
+    @ExcelProperty("发布状态（0未发布 1已发布）")
+    private String postStatus;
+
+    @ExcelProperty("询价情况（0已回复 1暂未回复）")
+    private String enquiryStatus;
+
+    @ExcelProperty("发布时间")
+    private Date releaseTime;
+
+    @ExcelProperty("是否阅读（0未读 1已读）")
+    private String readStatus;
+
+    @ExcelProperty("uid")
+    private Long uid;
 
     @ExcelProperty("创建时间")
     private Date createTime;
 
     @ExcelProperty("经营主体")
     private String subjectId;
+
+    @ExcelProperty("用户id")
+    private Long userId;
+
+    @ExcelProperty("租户集合")
+    private Long sourceId;
 
 }

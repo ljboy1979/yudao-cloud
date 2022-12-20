@@ -1,7 +1,9 @@
 package cn.acsm.module.purchase.dal.mysql.quotationelectronic;
 
+import cn.acsm.module.purchase.controller.admin.quotationelectronic.vo.PurchasePriceTagDetailVO;
 import cn.acsm.module.purchase.controller.admin.quotationelectronic.vo.PurchaseQuotationElectronicExportReqVO;
 import cn.acsm.module.purchase.controller.admin.quotationelectronic.vo.PurchaseQuotationElectronicPageReqVO;
+import cn.acsm.module.purchase.controller.admin.quotationelectronic.vo.PurchaseQuotationInfoVO;
 import cn.acsm.module.purchase.dal.dataobject.quotationelectronic.PurchaseQuotationElectronicDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
@@ -21,7 +23,7 @@ public interface PurchaseQuotationElectronicMapper extends BaseMapperX<PurchaseQ
     default PageResult<PurchaseQuotationElectronicDO> selectPage(PurchaseQuotationElectronicPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<PurchaseQuotationElectronicDO>()
                 .eqIfPresent(PurchaseQuotationElectronicDO::getQuoteId, reqVO.getQuoteId())
-                .eqIfPresent(PurchaseQuotationElectronicDO::getEnquiryId, reqVO.getEnquiryId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getInquiryDetailId, reqVO.getInquiryDetailId())
                 .eqIfPresent(PurchaseQuotationElectronicDO::getCommodityId, reqVO.getCommodityId())
                 .eqIfPresent(PurchaseQuotationElectronicDO::getCommodityCategoryId, reqVO.getCommodityCategoryId())
                 .eqIfPresent(PurchaseQuotationElectronicDO::getSpecificationsId, reqVO.getSpecificationsId())
@@ -36,10 +38,25 @@ public interface PurchaseQuotationElectronicMapper extends BaseMapperX<PurchaseQ
                 .orderByDesc(PurchaseQuotationElectronicDO::getId));
     }
 
+    default PageResult<PurchaseQuotationElectronicDO> selectPageInfo(PurchaseQuotationInfoVO reqVO) {
+        return selectPage(reqVO, new LambdaQueryWrapperX<PurchaseQuotationElectronicDO>()
+                .eqIfPresent(PurchaseQuotationElectronicDO::getQuotationId, reqVO.getQuotationId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getInquiryDetailId, reqVO.getInquiryDetailId())
+                .betweenIfPresent(PurchaseQuotationElectronicDO::getStartTime, reqVO.getStartTime())
+                .orderByDesc(PurchaseQuotationElectronicDO::getId));
+    }
+
+    default PageResult<PurchaseQuotationElectronicDO> selectPriceTag(PurchasePriceTagDetailVO reqVO) {
+        return selectPage(reqVO, new LambdaQueryWrapperX<PurchaseQuotationElectronicDO>()
+                .eqIfPresent(PurchaseQuotationElectronicDO::getCommodityId, reqVO.getCommodityId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getSpecificationsId, reqVO.getSpecificationsId())
+                .orderByDesc(PurchaseQuotationElectronicDO::getId));
+    }
+
     default List<PurchaseQuotationElectronicDO> selectList(PurchaseQuotationElectronicExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<PurchaseQuotationElectronicDO>()
                 .eqIfPresent(PurchaseQuotationElectronicDO::getQuoteId, reqVO.getQuoteId())
-                .eqIfPresent(PurchaseQuotationElectronicDO::getEnquiryId, reqVO.getEnquiryId())
+                .eqIfPresent(PurchaseQuotationElectronicDO::getInquiryDetailId, reqVO.getInquiryDetailId())
                 .eqIfPresent(PurchaseQuotationElectronicDO::getCommodityId, reqVO.getCommodityId())
                 .eqIfPresent(PurchaseQuotationElectronicDO::getCommodityCategoryId, reqVO.getCommodityCategoryId())
                 .eqIfPresent(PurchaseQuotationElectronicDO::getSpecificationsId, reqVO.getSpecificationsId())

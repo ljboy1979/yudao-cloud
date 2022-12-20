@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 创建采购询价电子
+// 创建采购询价
 export function createInquiry(data) {
   return request({
     url: '/purchase/inquiry/create',
@@ -9,7 +9,7 @@ export function createInquiry(data) {
   })
 }
 
-// 更新采购询价电子
+// 更新采购询价
 export function updateInquiry(data) {
   return request({
     url: '/purchase/inquiry/update',
@@ -18,7 +18,7 @@ export function updateInquiry(data) {
   })
 }
 
-// 删除采购询价电子
+// 删除采购询价
 export function deleteInquiry(id) {
   return request({
     url: '/purchase/inquiry/delete?id=' + id,
@@ -26,7 +26,7 @@ export function deleteInquiry(id) {
   })
 }
 
-// 获得采购询价电子
+// 获得采购询价
 export function getInquiry(id) {
   return request({
     url: '/purchase/inquiry/get?id=' + id,
@@ -34,7 +34,7 @@ export function getInquiry(id) {
   })
 }
 
-// 获得采购询价电子分页
+// 获得采购询价分页
 export function getInquiryPage(query) {
   return request({
     url: '/purchase/inquiry/page',
@@ -43,7 +43,7 @@ export function getInquiryPage(query) {
   })
 }
 
-// 导出采购询价电子 Excel
+// 导出采购询价 Excel
 export function exportInquiryExcel(query) {
   return request({
     url: '/purchase/inquiry/export-excel',
