@@ -79,7 +79,7 @@ public class DishesController {
     @GetMapping("/page")
     @ApiOperation("获得菜品分页")
     @PreAuthorize("@ss.hasPermission('sales:dishes:query')")
-    public CommonResult<PageResult<DishesRespVO>> getDishesPage(@Valid @RequestBody DishesPageReqVO pageVO) {
+    public CommonResult<PageResult<DishesRespVO>> getDishesPage(@Valid DishesPageReqVO pageVO) {
         PageResult<DishesDO> pageResult = dishesService.getDishesPage(pageVO);
         return success(DishesConvert.INSTANCE.convertPage(pageResult));
     }
