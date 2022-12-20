@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "priceTag/feign/MarketPrice")
 @Api(value = "MarketPriceController", description = "(价格牌)FeignController")
-public class MarketPriceController {
+public class MarketPriceFeignController {
 
     @Resource
     private MarketCommodityService marketCommodityService;
