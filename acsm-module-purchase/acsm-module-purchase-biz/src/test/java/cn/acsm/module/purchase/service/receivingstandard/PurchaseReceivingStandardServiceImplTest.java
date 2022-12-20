@@ -1,31 +1,31 @@
 package cn.acsm.module.purchase.service.receivingstandard;
 
+import cn.acsm.module.purchase.controller.admin.receivingstandard.vo.PurchaseReceivingStandardCreateReqVO;
+import cn.acsm.module.purchase.controller.admin.receivingstandard.vo.PurchaseReceivingStandardExportReqVO;
+import cn.acsm.module.purchase.controller.admin.receivingstandard.vo.PurchaseReceivingStandardPageReqVO;
+import cn.acsm.module.purchase.controller.admin.receivingstandard.vo.PurchaseReceivingStandardUpdateReqVO;
+import cn.acsm.module.purchase.dal.dataobject.receivingstandard.PurchaseReceivingStandardDO;
+import cn.acsm.module.purchase.dal.mysql.receivingstandard.PurchaseReceivingStandardMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.annotation.Resource;
 
-import cn.iocoder.yudao.module.infra.framework.test.core.ut.BaseDbUnitTest;
 
-import cn.iocoder.yudao.module.infra.module.purchase.controller.admin.receivingstandard.vo.*;
-import cn.iocoder.yudao.module.infra.module.purchase.dal.dataobject.receivingstandard.PurchaseReceivingStandardDO;
-import cn.iocoder.yudao.module.infra.module.purchase.dal.mysql.receivingstandard.PurchaseReceivingStandardMapper;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
-
-import javax.annotation.Resource;
 import org.springframework.context.annotation.Import;
-import java.util.*;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
-import static cn.hutool.core.util.RandomUtil.*;
-import static cn.iocoder.yudao.module.infra.module.purchase.enums.ErrorCodeConstants.*;
-import static cn.iocoder.yudao.module.infra.framework.test.core.util.AssertUtils.*;
-import static cn.iocoder.yudao.module.infra.framework.test.core.util.RandomUtils.*;
+import static cn.acsm.module.purchase.enums.ErrorCodeConstants.RECEIVING_STANDARD_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.util.object.ObjectUtils.*;
-import static cn.iocoder.yudao.framework.common.util.date.DateUtils.*;
+import static cn.iocoder.yudao.framework.test.core.util.AssertUtils.assertPojoEquals;
+import static cn.iocoder.yudao.framework.test.core.util.AssertUtils.assertServiceException;
+import static cn.iocoder.yudao.framework.test.core.util.RandomUtils.randomLongId;
+import static cn.iocoder.yudao.framework.test.core.util.RandomUtils.randomPojo;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 /**
 * {@link PurchaseReceivingStandardServiceImpl} 的单元测试类
@@ -135,7 +135,7 @@ public class PurchaseReceivingStandardServiceImplTest extends BaseDbUnitTest {
        reqVO.setUpperLimit(null);
        reqVO.setLowerLimit(null);
        reqVO.setUnit(null);
-       reqVO.setCreateTime((new LocalDateTime[]{}));
+       reqVO.setCreateTime((new Date[]{}));
        reqVO.setSubjectId(null);
 
        // 调用
@@ -177,7 +177,7 @@ public class PurchaseReceivingStandardServiceImplTest extends BaseDbUnitTest {
        reqVO.setUpperLimit(null);
        reqVO.setLowerLimit(null);
        reqVO.setUnit(null);
-       reqVO.setCreateTime((new LocalDateTime[]{}));
+       reqVO.setCreateTime((new Date[]{}));
        reqVO.setSubjectId(null);
 
        // 调用
