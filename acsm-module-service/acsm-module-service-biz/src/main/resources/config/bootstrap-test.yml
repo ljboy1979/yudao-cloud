@@ -16,8 +16,8 @@ spring:
         server-addr: http://123.56.19.224:18848 #${spring.cloud.nacos.discovery.server-addr}
         file-extension: yaml
         namespace: test
-#        name: system-server
-#        group: DEFAULT_GROUP
+        #        name: system-server
+        #        group: DEFAULT_GROUP
         # 公共配置
         shared-configs[0]:
           data-id: yudao-common.yaml
