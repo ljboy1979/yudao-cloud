@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.pricetag.controller.admin.marketinfo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
@@ -17,7 +18,7 @@ public class MarketInfoRespVO extends MarketInfoBaseVO {
     private String id;
 
     @ApiModelProperty(value = "创建时间", required = true)
-    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date createTime;
 
 }
