@@ -49,6 +49,21 @@ public class MarketInfoDO extends BaseDO {
      * 区县
      */
     private String countyCn;
+
+    /**
+     * 省ID
+     */
+    private String provCode;
+
+    /**
+     * 市ID
+     */
+    private String cityCode;
+
+    /**
+     * 区县ID
+     */
+    private String countyCode;
     /**
      * 经度
      */

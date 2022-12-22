@@ -147,8 +147,11 @@ public class CommodityBaseVO {
     @ApiModelProperty(value = "专家建议")
     private String expertAdvice;
 
+
+    @ApiModelProperty(value = "备注")
+    private String remark;
+
     @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
     private Integer status;
 
 }
