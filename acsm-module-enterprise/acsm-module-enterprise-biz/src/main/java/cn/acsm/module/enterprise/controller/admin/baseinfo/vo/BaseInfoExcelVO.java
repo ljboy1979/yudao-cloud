@@ -81,8 +81,8 @@ public class BaseInfoExcelVO {
     @DictFormat(DictTypeConstants.ENTERPRISE_STATUS)
     private String stauts;
 
-    @ExcelProperty("创建时间")
-    private LocalDateTime createTime;
+//    @ExcelProperty("创建时间")
+//    private LocalDateTime createTime;
     @ExcelProperty("更新时间")
     private LocalDateTime updateTime;
 
