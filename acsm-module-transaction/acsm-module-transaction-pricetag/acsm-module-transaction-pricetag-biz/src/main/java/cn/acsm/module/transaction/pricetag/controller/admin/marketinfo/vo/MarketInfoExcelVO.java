@@ -1,13 +1,12 @@
 package cn.acsm.module.transaction.pricetag.controller.admin.marketinfo.vo;
 
+import cn.acsm.module.transaction.pricetag.enums.DictTypeConstants;
 import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
 import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
-import cn.iocoder.yudao.module.infra.enums.DictTypeConstants;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import io.swagger.annotations.*;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 
@@ -47,7 +46,7 @@ public class MarketInfoExcelVO {
 //    private Double latitude;
 
     @ExcelProperty(value = "来源", converter = DictConvert.class)
-//    @DictFormat(DictTypeConstants.USER_TAG)
+    @DictFormat(DictTypeConstants.MARKET_SOURCE)
     private String source;
 
 //    @ExcelProperty("状态")
