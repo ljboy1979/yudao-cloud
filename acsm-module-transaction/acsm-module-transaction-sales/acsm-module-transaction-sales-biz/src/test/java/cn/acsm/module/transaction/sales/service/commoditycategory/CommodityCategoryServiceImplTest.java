@@ -124,7 +124,7 @@ public class CommodityCategoryServiceImplTest extends BaseDbUnitTest {
            o.setType(null);
            o.setState(null);
            o.setImgUrl(null);
-           o.setOrder(null);
+           o.setSort(null);
            o.setCommodityType(null);
            o.setStatus(null);
            o.setCreateTime(null);
@@ -153,7 +153,7 @@ public class CommodityCategoryServiceImplTest extends BaseDbUnitTest {
        // 测试 imgUrl 不匹配
        commodityCategoryMapper.insert(cloneIgnoreId(dbCommodityCategory, o -> o.setImgUrl(null)));
        // 测试 order 不匹配
-       commodityCategoryMapper.insert(cloneIgnoreId(dbCommodityCategory, o -> o.setOrder(null)));
+       commodityCategoryMapper.insert(cloneIgnoreId(dbCommodityCategory, o -> o.setSort(null)));
        // 测试 commodityType 不匹配
        commodityCategoryMapper.insert(cloneIgnoreId(dbCommodityCategory, o -> o.setCommodityType(null)));
        // 测试 status 不匹配
@@ -173,7 +173,7 @@ public class CommodityCategoryServiceImplTest extends BaseDbUnitTest {
        reqVO.setType(null);
        reqVO.setState(null);
        reqVO.setImgUrl(null);
-       reqVO.setOrder(null);
+       reqVO.setSort(null);
        reqVO.setCommodityType(null);
        reqVO.setStatus(null);
        reqVO.setCreateTime((new Date[]{}));
@@ -202,7 +202,7 @@ public class CommodityCategoryServiceImplTest extends BaseDbUnitTest {
            o.setType(null);
            o.setState(null);
            o.setImgUrl(null);
-           o.setOrder(null);
+           o.setSort(null);
            o.setCommodityType(null);
            o.setStatus(null);
            o.setCreateTime(null);
@@ -231,7 +231,7 @@ public class CommodityCategoryServiceImplTest extends BaseDbUnitTest {
        // 测试 imgUrl 不匹配
        commodityCategoryMapper.insert(cloneIgnoreId(dbCommodityCategory, o -> o.setImgUrl(null)));
        // 测试 order 不匹配
-       commodityCategoryMapper.insert(cloneIgnoreId(dbCommodityCategory, o -> o.setOrder(null)));
+       commodityCategoryMapper.insert(cloneIgnoreId(dbCommodityCategory, o -> o.setSort(null)));
        // 测试 commodityType 不匹配
        commodityCategoryMapper.insert(cloneIgnoreId(dbCommodityCategory, o -> o.setCommodityType(null)));
        // 测试 status 不匹配
