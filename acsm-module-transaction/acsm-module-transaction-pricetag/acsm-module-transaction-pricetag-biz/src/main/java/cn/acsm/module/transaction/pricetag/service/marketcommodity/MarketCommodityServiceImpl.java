@@ -2,7 +2,9 @@ package cn.acsm.module.transaction.pricetag.service.marketcommodity;
 
 import cn.acsm.module.transaction.pricetag.api.dto.MarketPriceDto;
 import cn.acsm.module.transaction.pricetag.dal.dataobject.marketcommodity.MarketPriceFeignDO;
+import cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.MarketPriceDO;
 import cn.acsm.module.transaction.pricetag.dal.mysql.marketcommodity.*;
+import cn.acsm.module.transaction.pricetag.dal.mysql.marketprice.MarketPriceMapper;
 import cn.acsm.module.transaction.pricetag.util.ConfigNumberUtil;
 import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
 import cn.acsm.module.transaction.shelves.api.dto.ShelvesRespDto;
@@ -39,6 +41,10 @@ public class MarketCommodityServiceImpl implements MarketCommodityService {
     private ShelvesApi shelvesApi;
     @Resource
     private ConfigNumberUtil configNumberUtil;
+
+    @Resource
+    private MarketPriceMapper marketPriceMapper;
+
     @Override
     public String createMarketCommodity(MarketCommodityCreateReqVO createReqVO) {
         Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
@@ -48,7 +54,18 @@ public class MarketCommodityServiceImpl implements MarketCommodityService {
         marketCommodity.setCommodityCode("SP"+number);
         marketCommodity.setId(UUID.randomUUID().toString());
         marketCommodityMapper.insert(marketCommodity);
-
+        number = configNumberUtil.getNumber("pricetag_market_price"+tenantId);
+        MarketPriceDO marketPriceDO = new MarketPriceDO();
+        marketPriceDO.setId(UUID.randomUUID().toString());
+        marketPriceDO.setCode("JG"+number);
+        marketPriceDO.setMarketCommodityId(marketCommodity.getId());
+        marketPriceDO.setMaxPrice(0F);
+        marketPriceDO.setMiddlePrice(0F);
+        marketPriceDO.setMinPrice(0F);
+        marketPriceDO.setMarketId(marketCommodity.getMarketId());
+        marketPriceDO.setSubjectId(marketCommodity.getSubjectId());
+        marketPriceDO.setSource(marketCommodity.getSource());
+        marketPriceMapper.insert(marketPriceDO);
         // 返回
         return marketCommodity.getId();
     }
