@@ -20,23 +20,32 @@
 
     <select id="findSpecifications" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
         select
-        id ,
-        specifications_name AS name,
-        packaging_type AS packagingType,
-        packaging_type_name AS packagingTypeName,
-        number,
-        unit,
-        unit_name AS unitName,
-        packaging,
-        packaging_name AS packagingName,
-        measurement_unit AS measurementUnit,
-        measurement_unit_name AS measurementUnitName,
-        purchase_price AS purchasePrice,
-        selling_price AS sellingPrice,
-        CONCAT(number,unit_name,"/",packaging_name) AS specifications
-        FROM sales_special_medical_food_specification
-        where deleted = 0
-        AND food_id=#{salesId}
+        ssmfs.id ,
+        ssmfs.specifications_name AS name,
+        ssmfs.packaging_type AS packagingType,
+        ssmfs.packaging_type_name AS packagingTypeName,
+        ssmfs.number,
+        ssmfs.unit,
+        ssmfs.unit_name AS unitName,
+        ssmfs.packaging,
+        ssmfs.packaging_name AS packagingName,
+        ssmfs.measurement_unit AS measurementUnit,
+        ssmfs.measurement_unit_name AS measurementUnitName,
+        ssmfs.purchase_price AS purchasePrice,
+        ssmfs.selling_price AS sellingPrice,
+        CONCAT(ssmfs.number,ssmfs.unit_name,"/",ssmfs.packaging_name) AS specifications,
+        ssmf.name AS salesName,
+        ssmfc.category_name AS classifyName
+        FROM sales_special_medical_food_specification ssmfs
+        LEFT FROM sales_special_medical_food ssmf on ssmfs.food_id = ssmf.id
+        LEFT FROM sales_special_medical_food_classify ssmfc on ssmfc.id = ssmf.classify
+        where ssmfs.deleted = 0 and ssmf.deleted=0
+        <if test=" salesId !=null and salesId!='' ">
+           AND ssmfs.food_id=#{salesId}
+        </if>
+        <if test=" salesName != null and salesName != '' ">
+            AND ssmf.name like CONCAT('%',#{salesName},'%')
+        </if>
         AND tenant_id =#{tenantId}
     </select>
 

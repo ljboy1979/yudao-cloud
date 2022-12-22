@@ -15,4 +15,7 @@ public class ShelvesSalesReqDto {
 
     @ApiModelProperty("租户编号")
     private String tenantId;
+
+    @ApiModelProperty("售品名称")
+    private String salesName;
 }

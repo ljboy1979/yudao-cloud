@@ -11,6 +11,12 @@ import java.math.BigDecimal;
 public class ShelvesSalesRespDo {
     @ApiModelProperty("id")
     private String id;
+    @ApiModelProperty("售品名称")
+    private String salesName;
+
+
+    @ApiModelProperty("分类名称")
+    private String classifyName;
     @ApiModelProperty("名称")
     private String name;
 
