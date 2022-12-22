@@ -15,7 +15,7 @@
         time,
         number
         from order_config_number where table_name =  #{tableName}
-        <if test ='configNumber!= null and configNumber.time !=null '>
+        <if test ='time!= null and time !=null '>
           and DATE_FORMAT( time,'%Y-%m-%d') = DATE_FORMAT(#{time}, '%Y-%m-%d')
         </if>
         ORDER BY time DESC
@@ -23,10 +23,10 @@
     </select>
 
     <update id="updateConfigNumber">
-        UPDATE order_config_number set number = #{configNumber.number}
-        where  table_name =  #{configNumber.tableName}
-        <if test ='configNumber!= null and configNumber.time !=null '>
-           and DATE_FORMAT( time,'%Y-%m-%d') = DATE_FORMAT(#{configNumber.time}, '%Y-%m-%d')
+        UPDATE order_config_number set number = #{number}
+        where  table_name =  #{tableName}
+        <if test ='time!= null and time !=null '>
+           and DATE_FORMAT( time,'%Y-%m-%d') = DATE_FORMAT(#{time}, '%Y-%m-%d')
         </if>
     </update>
 

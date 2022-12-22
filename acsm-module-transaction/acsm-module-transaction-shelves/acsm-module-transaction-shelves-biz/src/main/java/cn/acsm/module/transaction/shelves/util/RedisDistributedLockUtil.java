@@ -4,6 +4,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
 
 import java.util.Collections;
 
@@ -107,7 +108,12 @@ public class RedisDistributedLockUtil {
         //1.加锁
         String result = (String) redisTemplate.execute((RedisCallback<String>) connection -> {
             Object nativeConnection = connection.getNativeConnection();
+            if(nativeConnection instanceof JedisCluster) {
+                //集群模式
+                return ((JedisCluster) nativeConnection).set(lockKey, String.valueOf(Thread.currentThread().getId()), SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireMsecs);
+            }
             if(nativeConnection instanceof Jedis) {
+                //单机模式/哨兵模式
                 return ((Jedis) nativeConnection).set(lockKey, String.valueOf(Thread.currentThread().getId()), SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireMsecs);
             }
             return LOCK_NO_RESULT;
@@ -133,6 +139,9 @@ public class RedisDistributedLockUtil {
         //2.释放锁
         Object result = redisTemplate.execute((RedisCallback<Object>) connection -> {
             Object nativeConnection = connection.getNativeConnection();
+            if(nativeConnection instanceof JedisCluster) {
+                return ((JedisCluster) nativeConnection).eval(script, Collections.singletonList(lockKey), Collections.singletonList(String.valueOf(Thread.currentThread().getId())));
+            }
             if(nativeConnection instanceof Jedis) {
                 return ((Jedis) nativeConnection).eval(script, Collections.singletonList(lockKey), Collections.singletonList(String.valueOf(Thread.currentThread().getId())));
             }
