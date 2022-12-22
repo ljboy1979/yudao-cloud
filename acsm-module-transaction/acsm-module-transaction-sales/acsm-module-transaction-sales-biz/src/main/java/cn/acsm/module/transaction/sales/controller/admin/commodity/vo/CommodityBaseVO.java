@@ -73,7 +73,8 @@ public class CommodityBaseVO {
 
     @ApiModelProperty(value = "商品分类")
     private String commodityCategoryId;
-
+    @ApiModelProperty(value = "商品分类名称")
+    private String commodityCategoryName;
     @ApiModelProperty(value = "生产商")
     private String manufacturerName;
 

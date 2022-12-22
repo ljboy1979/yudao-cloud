@@ -2,8 +2,10 @@ package cn.acsm.module.transaction.pricetag.service.marketcommodity;
 
 import cn.acsm.module.transaction.pricetag.api.dto.MarketPriceDto;
 import cn.acsm.module.transaction.pricetag.dal.dataobject.marketcommodity.MarketPriceFeignDO;
+import cn.acsm.module.transaction.pricetag.dal.dataobject.marketinfo.MarketInfoDO;
 import cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.MarketPriceDO;
 import cn.acsm.module.transaction.pricetag.dal.mysql.marketcommodity.*;
+import cn.acsm.module.transaction.pricetag.dal.mysql.marketinfo.MarketInfoMapper;
 import cn.acsm.module.transaction.pricetag.dal.mysql.marketprice.MarketPriceMapper;
 import cn.acsm.module.transaction.pricetag.util.ConfigNumberUtil;
 import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
@@ -44,13 +46,17 @@ public class MarketCommodityServiceImpl implements MarketCommodityService {
 
     @Resource
     private MarketPriceMapper marketPriceMapper;
+    @Resource
+    private MarketInfoMapper marketInfoMapper;
 
     @Override
     public String createMarketCommodity(MarketCommodityCreateReqVO createReqVO) {
         Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
         String number = configNumberUtil.getNumber("pricetag_market_commodity"+tenantId);
+        MarketInfoDO marketInfoDO =  marketInfoMapper.selectById(createReqVO.getMarketId());
         // 插入
         MarketCommodityDO marketCommodity = MarketCommodityConvert.INSTANCE.convert(createReqVO);
+        marketCommodity.setMarketName(marketInfoDO.getMarketName());
         marketCommodity.setCommodityCode("SP"+number);
         marketCommodity.setId(UUID.randomUUID().toString());
         marketCommodityMapper.insert(marketCommodity);
@@ -58,6 +64,7 @@ public class MarketCommodityServiceImpl implements MarketCommodityService {
         MarketPriceDO marketPriceDO = new MarketPriceDO();
         marketPriceDO.setId(UUID.randomUUID().toString());
         marketPriceDO.setCode("JG"+number);
+        marketPriceDO.setMarketName(marketInfoDO.getMarketName());
         marketPriceDO.setMarketCommodityId(marketCommodity.getId());
         marketPriceDO.setMaxPrice(0F);
         marketPriceDO.setMiddlePrice(0F);

@@ -3,6 +3,7 @@ package cn.acsm.module.transaction.sales.dal.mysql.commodity;
 import java.util.*;
 
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
+import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityCustomDO;
 import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityDO;
 import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -129,4 +130,6 @@ public interface CommodityMapper extends BaseMapperX<CommodityDO> {
     List<ShelvesSalesRespDo> findSales(ShelvesSalesReqDto shelvesSalesReqDto);
 
     List<ShelvesSalesRespDo> findSpecifications(ShelvesSalesReqDto shelvesSalesReqDto);
+
+    CommodityCustomDO getCommodityById(String id);
 }

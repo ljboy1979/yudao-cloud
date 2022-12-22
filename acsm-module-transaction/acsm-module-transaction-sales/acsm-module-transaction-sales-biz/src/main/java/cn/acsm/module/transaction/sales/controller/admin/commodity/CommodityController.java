@@ -5,6 +5,7 @@ import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityE
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityPageReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityUpdateReqVO;
 import cn.acsm.module.transaction.sales.convert.commodity.CommodityConvert;
+import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityCustomDO;
 import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityDO;
 import cn.acsm.module.transaction.sales.service.commodity.CommodityService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
@@ -68,8 +69,8 @@ public class CommodityController {
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = String.class)
     @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
     public CommonResult<CommodityRespVO> getCommodity(@RequestParam("id") String id) {
-        CommodityDO commodity = commodityService.getCommodity(id);
-        return success(CommodityConvert.INSTANCE.convert(commodity));
+        CommodityCustomDO commodity = commodityService.getCommodityById(id);
+        return success(CommodityConvert.INSTANCE.convertCustom(commodity));
     }
 
     @GetMapping("/list")

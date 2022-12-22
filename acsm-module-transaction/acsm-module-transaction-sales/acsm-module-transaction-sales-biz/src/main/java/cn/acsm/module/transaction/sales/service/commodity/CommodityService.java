@@ -3,6 +3,7 @@ package cn.acsm.module.transaction.sales.service.commodity;
 import java.util.*;
 import javax.validation.*;
 
+import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityCustomDO;
 import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityDO;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.*;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
@@ -69,4 +70,5 @@ public interface CommodityService {
      */
     List<CommodityDO> getCommodityList(CommodityExportReqVO exportReqVO);
 
+    CommodityCustomDO getCommodityById(String id);
 }
