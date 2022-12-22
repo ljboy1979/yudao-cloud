@@ -197,6 +197,19 @@ export const constantRoutes = [
       },
 
     ]
+  },{
+    path: '/sales',
+    component: Layout,
+    hidden: true,
+    children: [{
+        path: '/sales/commodity/commodityDetail',
+        component: (resolve) => require(['@/views/sales/commodity/commodityDetail'], resolve),
+        name: '商品详情',
+        meta: {title: '商品详情', icon: 'form', activeMenu: '/sales/commodity/commodityDetail'}
+      },
+     
+
+    ]
   },
 ]
 
