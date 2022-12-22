@@ -107,7 +107,7 @@ public class RawMaterialClassifyController {
     @PostMapping("/treeList")
     @ApiOperation("树形分类列表")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:query')")
-    @Cacheable(value = "/sales/raw-material-classify/treeList",key = "#rawMaterialClassifyTreeVO.categoryName")
+    //@Cacheable(value = "/sales/raw-material-classify/treeList",key = "#rawMaterialClassifyTreeVO.categoryName")
     public CommonResult<List<TreeSelect>> treeList(@Valid RawMaterialClassifyTreeVO rawMaterialClassifyTreeVO) {
         List<TreeSelect> list = rawMaterialClassifyService.findTreeList(rawMaterialClassifyTreeVO);
         return success(list);
