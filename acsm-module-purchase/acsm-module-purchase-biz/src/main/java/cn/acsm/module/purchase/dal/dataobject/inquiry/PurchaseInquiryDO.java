@@ -1,12 +1,15 @@
 package cn.acsm.module.purchase.dal.dataobject.inquiry;
 
-import lombok.*;
-import java.util.*;
-import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
+
+import java.util.Date;
 
 /**
- * 采购询价电子 DO
+ * 采购询价 DO
  *
  * @author 芋道源码
  */
@@ -26,28 +29,52 @@ public class PurchaseInquiryDO extends BaseDO {
     @TableId
     private Long id;
     /**
-     * 商品id
+     * 询价单编号
      */
-    private Long commodityId;
+    private String enquiryId;
     /**
-     * 分类id
+     * 询价单名称
      */
-    private Long commodityCategoryId;
+    private String enquiryName;
     /**
-     * 规格id
+     * 供应商id
      */
-    private Long productSpecificationsId;
+    private Long providerId;
     /**
-     * 计划数量最低
+     * 供应商名称
      */
-    private String plannedQuantityMin;
+    private String providerName;
     /**
-     * 计划数量最高
+     * 发布状态（0未发布 1已发布）
      */
-    private String plannedQuantityMax;
+    private String postStatus;
+    /**
+     * 询价情况（0已回复 1暂未回复）
+     */
+    private String enquiryStatus;
+    /**
+     * 发布时间
+     */
+    private Date releaseTime;
+    /**
+     * 是否阅读（0未读 1已读）
+     */
+    private String readStatus;
+    /**
+     * uid
+     */
+    private Long uid;
     /**
      * 经营主体
      */
     private String subjectId;
+    /**
+     * 用户id
+     */
+    private Long userId;
+    /**
+     * 租户集合
+     */
+    private Long sourceId;
 
 }

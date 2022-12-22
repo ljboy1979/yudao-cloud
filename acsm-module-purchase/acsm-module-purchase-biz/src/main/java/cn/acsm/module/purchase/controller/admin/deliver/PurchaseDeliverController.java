@@ -19,6 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -94,6 +95,13 @@ public class PurchaseDeliverController {
         // 导出 Excel
         List<PurchaseDeliverExcelVO> datas = PurchaseDeliverConvert.INSTANCE.convertList02(list);
         ExcelUtils.write(response, "采购交付.xls", "数据", PurchaseDeliverExcelVO.class, datas);
+    }
+
+    @GetMapping("/delivery/count")
+    @ApiOperation("根据采购单id获取交付数量")
+    @PreAuthorize("@ss.hasPermission('purchase:deliver:count')")
+    public CommonResult<BigDecimal> exportDeliverExcel(@Valid @RequestBody PurchaseDeliverReqCountVO reqCountVO) throws IOException {
+        return success(deliverService.getDeliveryCount(reqCountVO));
     }
 
 }

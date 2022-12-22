@@ -1,9 +1,6 @@
 package cn.acsm.module.purchase.service.details;
 
-import cn.acsm.module.purchase.controller.admin.details.vo.PurchaseDetailsCreateReqVO;
-import cn.acsm.module.purchase.controller.admin.details.vo.PurchaseDetailsExportReqVO;
-import cn.acsm.module.purchase.controller.admin.details.vo.PurchaseDetailsPageReqVO;
-import cn.acsm.module.purchase.controller.admin.details.vo.PurchaseDetailsUpdateReqVO;
+import cn.acsm.module.purchase.controller.admin.details.vo.*;
 import cn.acsm.module.purchase.dal.dataobject.details.PurchaseDetailsDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
@@ -35,8 +32,11 @@ public interface PurchaseDetailsService {
 
     /**
      * 删除采购单明细
-     *
-     * @param id 编号
+     */
+    void deleteDetails(PurchaseDetailsDelReqVO purchaseDetailsDelReqVO);
+
+    /**
+     * 删除采购单明细
      */
     void deleteDetails(Long id);
 

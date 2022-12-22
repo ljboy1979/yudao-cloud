@@ -77,7 +77,7 @@ public class PurchaseLossController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("获得损耗分页")
+    @ApiOperation("3.6.2.49.查询损耗")
     @PreAuthorize("@ss.hasPermission('purchase:loss:query')")
     public CommonResult<PageResult<PurchaseLossRespVO>> getLossPage(@Valid PurchaseLossPageReqVO pageVO) {
         PageResult<PurchaseLossDO> pageResult = lossService.getLossPage(pageVO);

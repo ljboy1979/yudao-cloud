@@ -4,8 +4,8 @@ INSERT INTO system_menu(
     path, icon, component, status
 )
 VALUES (
-    '采购询价电子管理', '', 2, 0, 1314,
-    'inquiry', '', 'purchase/inquiry/index', 0
+    '采购询价电子表管理', '', 2, 0, 1314,
+    'inquiry-detail', '', 'purchase/inquiryDetail/index', 0
 );
 
 -- 按钮父菜单ID
@@ -18,7 +18,7 @@ INSERT INTO system_menu(
     path, icon, component, status
 )
 VALUES (
-    '采购询价电子查询', 'purchase:inquiry:query', 3, 1, @parentId,
+    '采购询价电子表查询', 'purchase:inquiry-detail:query', 3, 1, @parentId,
     '', '', '', 0
 );
 INSERT INTO system_menu(
@@ -26,7 +26,7 @@ INSERT INTO system_menu(
     path, icon, component, status
 )
 VALUES (
-    '采购询价电子创建', 'purchase:inquiry:create', 3, 2, @parentId,
+    '采购询价电子表创建', 'purchase:inquiry-detail:create', 3, 2, @parentId,
     '', '', '', 0
 );
 INSERT INTO system_menu(
@@ -34,7 +34,7 @@ INSERT INTO system_menu(
     path, icon, component, status
 )
 VALUES (
-    '采购询价电子更新', 'purchase:inquiry:update', 3, 3, @parentId,
+    '采购询价电子表更新', 'purchase:inquiry-detail:update', 3, 3, @parentId,
     '', '', '', 0
 );
 INSERT INTO system_menu(
@@ -42,7 +42,7 @@ INSERT INTO system_menu(
     path, icon, component, status
 )
 VALUES (
-    '采购询价电子删除', 'purchase:inquiry:delete', 3, 4, @parentId,
+    '采购询价电子表删除', 'purchase:inquiry-detail:delete', 3, 4, @parentId,
     '', '', '', 0
 );
 INSERT INTO system_menu(
@@ -50,6 +50,6 @@ INSERT INTO system_menu(
     path, icon, component, status
 )
 VALUES (
-    '采购询价电子导出', 'purchase:inquiry:export', 3, 5, @parentId,
+    '采购询价电子表导出', 'purchase:inquiry-detail:export', 3, 5, @parentId,
     '', '', '', 0
 );

@@ -31,7 +31,7 @@ public class PurchaseQuotationDO extends BaseDO {
     /**
      * 报价单编号
      */
-    private Long quoteId;
+    private String quoteId;
     /**
      * 报价单名称
      */
@@ -43,7 +43,7 @@ public class PurchaseQuotationDO extends BaseDO {
     /**
      * 询价单编号
      */
-    private Long enquiryId;
+    private String enquiryId;
     /**
      * 报价有效期
      */
@@ -56,5 +56,16 @@ public class PurchaseQuotationDO extends BaseDO {
      * 经营主体
      */
     private String subjectId;
-
+    /**
+     * 租户
+     */
+    private String tenantId;
+    /**
+     * userId
+     */
+    private String userId;
+    /**
+     * 租户集合
+     */
+    private String sourceId;
 }

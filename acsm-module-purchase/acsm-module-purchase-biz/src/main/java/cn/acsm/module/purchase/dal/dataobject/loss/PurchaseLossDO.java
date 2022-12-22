@@ -1,10 +1,13 @@
 package cn.acsm.module.purchase.dal.dataobject.loss;
 
-import lombok.*;
-import java.util.*;
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 损耗 DO
@@ -98,5 +101,19 @@ public class PurchaseLossDO extends BaseDO {
      * 经营主体
      */
     private String subjectId;
+    /**
+     * 租户编号
+     */
+    private String tenantId;
+
+    /**
+     * 租户集合
+     */
+    private Long sourceId;
+
+    /**
+     * 用户id
+     */
+    private Long userId;
 
 }

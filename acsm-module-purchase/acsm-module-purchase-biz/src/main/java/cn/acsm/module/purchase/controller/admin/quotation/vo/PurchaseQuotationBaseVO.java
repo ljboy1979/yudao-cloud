@@ -3,6 +3,7 @@ package cn.acsm.module.purchase.controller.admin.quotation.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -14,8 +15,8 @@ import java.util.Date;
 public class PurchaseQuotationBaseVO {
 
     @ApiModelProperty(value = "报价单编号", required = true)
-    @NotNull(message = "报价单编号不能为空")
-    private Long quoteId;
+    @NotBlank(message = "报价单编号不能为空")
+    private String quoteId;
 
     @ApiModelProperty(value = "报价单名称", required = true)
     @NotNull(message = "报价单名称不能为空")

@@ -3,6 +3,7 @@ package cn.acsm.module.purchase.controller.admin.quotation;
 import cn.acsm.module.purchase.controller.admin.quotation.vo.*;
 import cn.acsm.module.purchase.convert.quotation.PurchaseQuotationConvert;
 import cn.acsm.module.purchase.dal.dataobject.quotation.PurchaseQuotationDO;
+import cn.acsm.module.purchase.dal.dataobject.quotationelectronic.PurchaseQuotationElectronicDO;
 import cn.acsm.module.purchase.service.quotation.PurchaseQuotationService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -25,7 +26,7 @@ import java.util.List;
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
-@Api(tags = "管理后台 - 采购询价电子")
+@Api(tags = "管理后台 - 采购报价单")
 @RestController
 @RequestMapping("/purchase/quotation")
 @Validated
@@ -35,14 +36,14 @@ public class PurchaseQuotationController {
     private PurchaseQuotationService quotationService;
 
     @PostMapping("/create")
-    @ApiOperation("创建采购询价电子")
+    @ApiOperation("创建采购报价单")
     @PreAuthorize("@ss.hasPermission('purchase:quotation:create')")
     public CommonResult<Long> createQuotation(@Valid @RequestBody PurchaseQuotationCreateReqVO createReqVO) {
         return success(quotationService.createQuotation(createReqVO));
     }
 
     @PutMapping("/update")
-    @ApiOperation("更新采购询价电子")
+    @ApiOperation("更新采购报价单")
     @PreAuthorize("@ss.hasPermission('purchase:quotation:update')")
     public CommonResult<Boolean> updateQuotation(@Valid @RequestBody PurchaseQuotationUpdateReqVO updateReqVO) {
         quotationService.updateQuotation(updateReqVO);
@@ -50,7 +51,7 @@ public class PurchaseQuotationController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation("删除采购询价电子")
+    @ApiOperation("删除采购报价单")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermission('purchase:quotation:delete')")
     public CommonResult<Boolean> deleteQuotation(@RequestParam("id") Long id) {
@@ -59,7 +60,7 @@ public class PurchaseQuotationController {
     }
 
     @GetMapping("/get")
-    @ApiOperation("获得采购询价电子")
+    @ApiOperation("获得采购报价单")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermission('purchase:quotation:query')")
     public CommonResult<PurchaseQuotationRespVO> getQuotation(@RequestParam("id") Long id) {
@@ -68,7 +69,7 @@ public class PurchaseQuotationController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("获得采购询价电子列表")
+    @ApiOperation("获得采购报价单列表")
     @ApiImplicitParam(name = "ids", value = "编号列表", required = true, example = "1024,2048", dataTypeClass = List.class)
     @PreAuthorize("@ss.hasPermission('purchase:quotation:query')")
     public CommonResult<List<PurchaseQuotationRespVO>> getQuotationList(@RequestParam("ids") Collection<Long> ids) {
@@ -77,7 +78,7 @@ public class PurchaseQuotationController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("获得采购询价电子分页")
+    @ApiOperation("获得采购报价单分页")
     @PreAuthorize("@ss.hasPermission('purchase:quotation:query')")
     public CommonResult<PageResult<PurchaseQuotationRespVO>> getQuotationPage(@Valid PurchaseQuotationPageReqVO pageVO) {
         PageResult<PurchaseQuotationDO> pageResult = quotationService.getQuotationPage(pageVO);
@@ -85,7 +86,7 @@ public class PurchaseQuotationController {
     }
 
     @GetMapping("/export-excel")
-    @ApiOperation("导出采购询价电子 Excel")
+    @ApiOperation("导出采购报价单 Excel")
     @PreAuthorize("@ss.hasPermission('purchase:quotation:export')")
     @OperateLog(type = EXPORT)
     public void exportQuotationExcel(@Valid PurchaseQuotationExportReqVO exportReqVO,
@@ -93,7 +94,42 @@ public class PurchaseQuotationController {
         List<PurchaseQuotationDO> list = quotationService.getQuotationList(exportReqVO);
         // 导出 Excel
         List<PurchaseQuotationExcelVO> datas = PurchaseQuotationConvert.INSTANCE.convertList02(list);
-        ExcelUtils.write(response, "采购询价电子.xls", "数据", PurchaseQuotationExcelVO.class, datas);
+        ExcelUtils.write(response, "采购报价单.xls", "数据", PurchaseQuotationExcelVO.class, datas);
+    }
+
+    /**
+     * @param pageVO
+     * @return
+     */
+    @GetMapping("/price-tag")
+    @ApiOperation("价格牌")
+    @PreAuthorize("@ss.hasPermission('purchase:quotation:pricetag')")
+    public CommonResult<PageResult<PurchaseQuotationRespVO>> getPriceTag(@Valid PurchaseQuotationPageReqVO pageVO) {
+        PageResult<PurchaseQuotationDO> pageResult = quotationService.getQuotationPage(pageVO);
+        return success(PurchaseQuotationConvert.INSTANCE.convertPage(pageResult));
+    }
+
+    @DeleteMapping("/delete/detail")
+    @ApiOperation("3.6.2.40.删除采购报价单")
+    @PreAuthorize("@ss.hasPermission('purchase:quotation:deletedetail')")
+    public CommonResult<Boolean> deleteQuotation(@RequestParam("quoteId") String quoteId) {
+        quotationService.deleteQuotation(quoteId);
+        return success(true);
+    }
+
+    @PutMapping("/submit")
+    @ApiOperation("3.6.2.41.提交报价单")
+    @PreAuthorize("@ss.hasPermission('purchase:quotation:submit')")
+    public CommonResult<Boolean> submitQuotation(@RequestParam("quoteId") String quoteId) {
+        quotationService.updateQuotationSubmitStatus(quoteId);
+        return success(true);
+    }
+
+    @PutMapping("/quotation/info")
+    @ApiOperation("3.6.2.43.查看价格牌中的报价信息")
+    @PreAuthorize("@ss.hasPermission('purchase:quotation:info')")
+    public CommonResult<List<PurchaseQuotationElectronicDO>> queryQuotationInfo(@Valid @RequestBody PurchasePurchaserQuotationVO quotationVO) {
+        return success(quotationService.queryPriceTagInfo(quotationVO));
     }
 
 }

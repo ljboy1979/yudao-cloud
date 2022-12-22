@@ -1,11 +1,13 @@
 package cn.acsm.module.purchase.dal.dataobject.quotationelectronic;
 
-import lombok.*;
-import java.util.*;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 采购报价单电子 DO
@@ -28,13 +30,17 @@ public class PurchaseQuotationElectronicDO extends BaseDO {
     @TableId
     private Long id;
     /**
+     * 报价单id
+     */
+    private Long quotationId;
+    /**
      * 报价单编号
      */
-    private Long quoteId;
+    private String quoteId;
     /**
      * 询价单明细编号
      */
-    private Long enquiryId;
+    private Long inquiryDetailId;
     /**
      * 商品id
      */
@@ -75,5 +81,19 @@ public class PurchaseQuotationElectronicDO extends BaseDO {
      * 经营主体
      */
     private String subjectId;
+
+    /**
+     * 租户
+     */
+    private String tenantId;
+    /**
+     * userId
+     */
+    private String userId;
+
+    /**
+     * 租户集合
+     */
+    private String sourceId;
 
 }

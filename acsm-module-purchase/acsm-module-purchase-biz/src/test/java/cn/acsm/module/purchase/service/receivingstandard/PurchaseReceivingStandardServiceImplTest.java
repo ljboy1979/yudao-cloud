@@ -10,17 +10,14 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.Import;
 
 import javax.annotation.Resource;
-
-
-import org.springframework.context.annotation.Import;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 import static cn.acsm.module.purchase.enums.ErrorCodeConstants.RECEIVING_STANDARD_NOT_EXISTS;
-import static cn.iocoder.yudao.framework.common.util.object.ObjectUtils.*;
+import static cn.iocoder.yudao.framework.common.util.object.ObjectUtils.cloneIgnoreId;
 import static cn.iocoder.yudao.framework.test.core.util.AssertUtils.assertPojoEquals;
 import static cn.iocoder.yudao.framework.test.core.util.AssertUtils.assertServiceException;
 import static cn.iocoder.yudao.framework.test.core.util.RandomUtils.randomLongId;

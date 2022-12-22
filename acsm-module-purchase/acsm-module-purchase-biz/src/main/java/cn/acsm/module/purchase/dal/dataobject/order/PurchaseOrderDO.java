@@ -1,12 +1,13 @@
 package cn.acsm.module.purchase.dal.dataobject.order;
 
-import lombok.*;
-import java.util.*;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 采购单 DO
@@ -83,7 +84,7 @@ public class PurchaseOrderDO extends BaseDO {
     /**
      * 付款方式(0微信1银联2支付宝3现金)
      */
-    private String payWay;
+    private Integer payWay;
     /**
      * 采购人id
      */
@@ -135,7 +136,7 @@ public class PurchaseOrderDO extends BaseDO {
     /**
      * 采购状态(1.未开始 2.执行中 3.已完成 4.其他)
      */
-    private String purchaseStatus;
+    private Integer purchaseStatus;
     /**
      * 报价单id
      */
@@ -164,5 +165,20 @@ public class PurchaseOrderDO extends BaseDO {
      * 经营主体
      */
     private String subjectId;
+
+    /**
+     * 租户编号
+     */
+    private String tenantId;
+
+    /**
+     * 租户集合
+     */
+    private Long sourceId;
+
+    /**
+     * 用户id
+     */
+    private Long userId;
 
 }

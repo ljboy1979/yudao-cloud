@@ -2,11 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.acsm.module.purchase.dal.mysql.order.PurchaseOrderMapper">
 
-    <!--
-        一般情况下，尽可能使用 Mapper 进行 CRUD 增删改查即可。
-        无法满足的场景，例如说多表关联查询，才使用 XML 编写 SQL。
-        代码生成器暂时只生成 Mapper XML 文件本身，更多推荐 MybatisX 快速开发插件来生成查询。
-        文档可见：https://www.iocoder.cn/MyBatis/x-plugins/
-     -->
-
+    <!-- 3.6.2.5.查询采购合同单 -->
+    <select id="selectPage"
+            resultType="cn.acsm.module.purchase.controller.admin.order.vo.QueryPurchaseOrderPageInfoVO">
+        select
+            po.id,
+            po.purchaseNumber,
+            po.purchaseType,
+            po.providerId,
+            po.providerName,
+            po.providerPhone,
+            po.purchaseTime,
+            po.address,
+            pd.goodsId,
+            pd.goodsName,
+            pd.packagingSpecificationId,
+            pd.buyNumber,
+            pd.frequency
+        from purchase_order po
+        left join purchase_details pd on pd.purchase_id = po.id
+        <where>
+            1 = 1
+            <if test="reqVO.providerName != null and reqVO.providerName != ''">
+                and instr(po.provider_name, #{reqVO.providerName}) > 0
+            </if>
+            <if test="reqVO.providerPhone != null and reqVO.providerPhone != ''">
+                and po.provider_phone = #{reqVO.providerPhone}
+            </if>
+            <if test="reqVO.purchaseStartTime != null and reqVO.purchaseStartTime != ''">
+                and po.purchase_time > #{reqVO.purchaseStartTime}
+            </if>
+            <if test="reqVO.purchaseEndTime != null and reqVO.purchaseEndTime != ''">
+                and po.purchase_time &lt; #{reqVO.purchaseEndTime}
+            </if>
+            and po.tenant_id = #{reqVO.tenantId}
+            and po.subject_id = #{reqVO.subjectId}
+            and po.user_id = #{reqVO.userId}
+            and po.source_id = #{reqVO.sourceId}
+        </where>
+    </select>
 </mapper>

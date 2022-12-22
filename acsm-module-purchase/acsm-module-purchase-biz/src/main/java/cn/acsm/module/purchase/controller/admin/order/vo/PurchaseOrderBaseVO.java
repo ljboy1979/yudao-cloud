@@ -124,4 +124,10 @@ public class PurchaseOrderBaseVO {
     @ApiModelProperty(value = "经营主体", required = true)
     private String subjectId;
 
+    @ApiModelProperty(value = "用户id", required = true)
+    private Long user_id;
+
+    @ApiModelProperty(value = "来源", required = true)
+    private Long source_id;
+
 }

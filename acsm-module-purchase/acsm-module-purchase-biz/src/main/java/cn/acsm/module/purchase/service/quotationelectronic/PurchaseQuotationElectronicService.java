@@ -1,9 +1,6 @@
 package cn.acsm.module.purchase.service.quotationelectronic;
 
-import cn.acsm.module.purchase.controller.admin.quotationelectronic.vo.PurchaseQuotationElectronicCreateReqVO;
-import cn.acsm.module.purchase.controller.admin.quotationelectronic.vo.PurchaseQuotationElectronicExportReqVO;
-import cn.acsm.module.purchase.controller.admin.quotationelectronic.vo.PurchaseQuotationElectronicPageReqVO;
-import cn.acsm.module.purchase.controller.admin.quotationelectronic.vo.PurchaseQuotationElectronicUpdateReqVO;
+import cn.acsm.module.purchase.controller.admin.quotationelectronic.vo.*;
 import cn.acsm.module.purchase.dal.dataobject.quotationelectronic.PurchaseQuotationElectronicDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
@@ -72,4 +69,18 @@ public interface PurchaseQuotationElectronicService {
      */
     List<PurchaseQuotationElectronicDO> getQuotationElectronicList(PurchaseQuotationElectronicExportReqVO exportReqVO);
 
+
+    /**
+     * 价格牌明细
+     * @param tagDetailVO
+     */
+    PageResult<PurchaseQuotationElectronicDO> getQuotationElectronicPage(PurchasePriceTagDetailVO tagDetailVO);
+
+
+    /**
+     * 3.6.2.45.查询采购报价明细
+     *
+     * @param infoVO
+     */
+    PageResult<PurchaseQuotationElectronicDO> getQuotationElectronicInfo(PurchaseQuotationInfoVO infoVO);
 }

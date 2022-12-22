@@ -106,38 +106,62 @@ public class PurchaseInquiryServiceImplTest extends BaseDbUnitTest {
     public void testGetInquiryPage() {
        // mock 数据
        PurchaseInquiryDO dbInquiry = randomPojo(PurchaseInquiryDO.class, o -> { // 等会查询到
-           o.setCommodityId(null);
-           o.setCommodityCategoryId(null);
-           o.setProductSpecificationsId(null);
-           o.setPlannedQuantityMin(null);
-           o.setPlannedQuantityMax(null);
+           o.setEnquiryId(null);
+           o.setEnquiryName(null);
+           o.setProviderId(null);
+           o.setProviderName(null);
+           o.setPostStatus(null);
+           o.setEnquiryStatus(null);
+           o.setReleaseTime(null);
+           o.setReadStatus(null);
+           o.setUid(null);
            o.setCreateTime(null);
            o.setSubjectId(null);
+           o.setUserId(null);
+           o.setSourceId(null);
        });
        inquiryMapper.insert(dbInquiry);
-       // 测试 commodityId 不匹配
-       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setCommodityId(null)));
-       // 测试 commodityCategoryId 不匹配
-       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setCommodityCategoryId(null)));
-       // 测试 productSpecificationsId 不匹配
-       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setProductSpecificationsId(null)));
-       // 测试 plannedQuantityMin 不匹配
-       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setPlannedQuantityMin(null)));
-       // 测试 plannedQuantityMax 不匹配
-       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setPlannedQuantityMax(null)));
+       // 测试 enquiryId 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setEnquiryId(null)));
+       // 测试 enquiryName 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setEnquiryName(null)));
+       // 测试 providerId 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setProviderId(null)));
+       // 测试 providerName 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setProviderName(null)));
+       // 测试 postStatus 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setPostStatus(null)));
+       // 测试 enquiryStatus 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setEnquiryStatus(null)));
+       // 测试 releaseTime 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setReleaseTime(null)));
+       // 测试 readStatus 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setReadStatus(null)));
+       // 测试 uid 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setUid(null)));
        // 测试 createTime 不匹配
        inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setCreateTime(null)));
        // 测试 subjectId 不匹配
        inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setSubjectId(null)));
+       // 测试 userId 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setUserId(null)));
+       // 测试 sourceId 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setSourceId(null)));
        // 准备参数
        PurchaseInquiryPageReqVO reqVO = new PurchaseInquiryPageReqVO();
-       reqVO.setCommodityId(null);
-       reqVO.setCommodityCategoryId(null);
-       reqVO.setProductSpecificationsId(null);
-       reqVO.setPlannedQuantityMin(null);
-       reqVO.setPlannedQuantityMax(null);
+       reqVO.setEnquiryId(null);
+       reqVO.setEnquiryName(null);
+       reqVO.setProviderId(null);
+       reqVO.setProviderName(null);
+       reqVO.setPostStatus(null);
+       reqVO.setEnquiryStatus(null);
+       reqVO.setReleaseTime((new Date[]{}));
+       reqVO.setReadStatus(null);
+       reqVO.setUid(null);
        reqVO.setCreateTime((new Date[]{}));
        reqVO.setSubjectId(null);
+       reqVO.setUserId(null);
+       reqVO.setSourceId(null);
 
        // 调用
        PageResult<PurchaseInquiryDO> pageResult = inquiryService.getInquiryPage(reqVO);
@@ -152,38 +176,62 @@ public class PurchaseInquiryServiceImplTest extends BaseDbUnitTest {
     public void testGetInquiryList() {
        // mock 数据
        PurchaseInquiryDO dbInquiry = randomPojo(PurchaseInquiryDO.class, o -> { // 等会查询到
-           o.setCommodityId(null);
-           o.setCommodityCategoryId(null);
-           o.setProductSpecificationsId(null);
-           o.setPlannedQuantityMin(null);
-           o.setPlannedQuantityMax(null);
+           o.setEnquiryId(null);
+           o.setEnquiryName(null);
+           o.setProviderId(null);
+           o.setProviderName(null);
+           o.setPostStatus(null);
+           o.setEnquiryStatus(null);
+           o.setReleaseTime(null);
+           o.setReadStatus(null);
+           o.setUid(null);
            o.setCreateTime(null);
            o.setSubjectId(null);
+           o.setUserId(null);
+           o.setSourceId(null);
        });
        inquiryMapper.insert(dbInquiry);
-       // 测试 commodityId 不匹配
-       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setCommodityId(null)));
-       // 测试 commodityCategoryId 不匹配
-       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setCommodityCategoryId(null)));
-       // 测试 productSpecificationsId 不匹配
-       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setProductSpecificationsId(null)));
-       // 测试 plannedQuantityMin 不匹配
-       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setPlannedQuantityMin(null)));
-       // 测试 plannedQuantityMax 不匹配
-       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setPlannedQuantityMax(null)));
+       // 测试 enquiryId 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setEnquiryId(null)));
+       // 测试 enquiryName 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setEnquiryName(null)));
+       // 测试 providerId 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setProviderId(null)));
+       // 测试 providerName 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setProviderName(null)));
+       // 测试 postStatus 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setPostStatus(null)));
+       // 测试 enquiryStatus 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setEnquiryStatus(null)));
+       // 测试 releaseTime 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setReleaseTime(null)));
+       // 测试 readStatus 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setReadStatus(null)));
+       // 测试 uid 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setUid(null)));
        // 测试 createTime 不匹配
        inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setCreateTime(null)));
        // 测试 subjectId 不匹配
        inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setSubjectId(null)));
+       // 测试 userId 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setUserId(null)));
+       // 测试 sourceId 不匹配
+       inquiryMapper.insert(cloneIgnoreId(dbInquiry, o -> o.setSourceId(null)));
        // 准备参数
        PurchaseInquiryExportReqVO reqVO = new PurchaseInquiryExportReqVO();
-       reqVO.setCommodityId(null);
-       reqVO.setCommodityCategoryId(null);
-       reqVO.setProductSpecificationsId(null);
-       reqVO.setPlannedQuantityMin(null);
-       reqVO.setPlannedQuantityMax(null);
+       reqVO.setEnquiryId(null);
+       reqVO.setEnquiryName(null);
+       reqVO.setProviderId(null);
+       reqVO.setProviderName(null);
+       reqVO.setPostStatus(null);
+       reqVO.setEnquiryStatus(null);
+       reqVO.setReleaseTime((new Date[]{}));
+       reqVO.setReadStatus(null);
+       reqVO.setUid(null);
        reqVO.setCreateTime((new Date[]{}));
        reqVO.setSubjectId(null);
+       reqVO.setUserId(null);
+       reqVO.setSourceId(null);
 
        // 调用
        List<PurchaseInquiryDO> list = inquiryService.getInquiryList(reqVO);
