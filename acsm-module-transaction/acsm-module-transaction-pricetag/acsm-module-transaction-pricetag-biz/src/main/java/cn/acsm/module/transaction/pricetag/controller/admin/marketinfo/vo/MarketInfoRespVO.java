@@ -21,4 +21,8 @@ public class MarketInfoRespVO extends MarketInfoBaseVO {
     @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date createTime;
 
+    @ApiModelProperty(value = "更新时间", required = true)
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date updateTime;
+
 }
