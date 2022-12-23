@@ -6,6 +6,8 @@ import cn.acsm.module.purchase.dal.dataobject.details.PurchaseDetailsDO;
 import cn.acsm.module.purchase.dal.dataobject.order.PurchaseOrderDO;
 import cn.acsm.module.purchase.dal.mysql.details.PurchaseDetailsMapper;
 import cn.acsm.module.purchase.dal.mysql.order.PurchaseOrderMapper;
+import cn.acsm.module.purchase.feign.ShelvesApiFeignClient;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
 import cn.hutool.core.date.format.FastDateFormat;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -49,6 +51,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Resource
     private PurchaseDetailsMapper purchaseDetailsMapper;
+
+    @Resource
+    private ShelvesApiFeignClient shelvesApiFeignClient;
 
     @Override
     public CommonResult<String> createOrder(PurchaseOrderCreateReqVO createReqVO) {
@@ -272,6 +277,12 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
      */
     public Page<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderProductsVO pageReqVO) {
         String purchaseType = pageReqVO.getPurchaseType();
+
+        ShelvesReqDto reqDto = new ShelvesReqDto();
+//        reqDto.setSpecificationsId();
+
+//        shelvesApiFeignClient.findSpecificationsList();
+
         if(purchaseType == PURCHASE_TYPE_1) {
 
         } else if(purchaseType == PURCHASE_TYPE_2) {

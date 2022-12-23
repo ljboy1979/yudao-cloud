@@ -15,7 +15,6 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -62,7 +61,7 @@ public class StockInventoryRecordServiceImpl implements StockInventoryRecordServ
 
         // 插入盘点记录明细表
         StockInventoryRecordDetailCreateReqVO reqVO = new StockInventoryRecordDetailCreateReqVO();
-        reqVO.setStockBatchNo(createReqVO.getInventoryCode());
+        reqVO.setInventoryCode(createReqVO.getInventoryCode());
         BeanUtils.copyProperties(createReqVO, reqVO);
         detailService.createInventoryRecordDetail(reqVO);
 

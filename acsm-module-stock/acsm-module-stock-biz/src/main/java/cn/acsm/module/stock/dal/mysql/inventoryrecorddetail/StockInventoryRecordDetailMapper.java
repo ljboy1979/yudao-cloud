@@ -20,8 +20,8 @@ public interface StockInventoryRecordDetailMapper extends BaseMapperX<StockInven
 
     default PageResult<StockInventoryRecordDetailDO> selectPage(StockInventoryRecordDetailPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<StockInventoryRecordDetailDO>()
-                .eqIfPresent(StockInventoryRecordDetailDO::getStockRecordId, reqVO.getStockRecordId())
-                .eqIfPresent(StockInventoryRecordDetailDO::getStockBatchNo, reqVO.getStockBatchNo())
+                .eqIfPresent(StockInventoryRecordDetailDO::getInventoryRecordId, reqVO.getStockRecordId())
+                .eqIfPresent(StockInventoryRecordDetailDO::getInventoryCode, reqVO.getStockBatchNo())
                 .eqIfPresent(StockInventoryRecordDetailDO::getStockRecordDetailId, reqVO.getStockRecordDetailId())
                 .eqIfPresent(StockInventoryRecordDetailDO::getType, reqVO.getType())
                 .eqIfPresent(StockInventoryRecordDetailDO::getSecondaryClassification, reqVO.getSecondaryClassification())
@@ -47,8 +47,8 @@ public interface StockInventoryRecordDetailMapper extends BaseMapperX<StockInven
 
     default List<StockInventoryRecordDetailDO> selectList(StockInventoryRecordDetailExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<StockInventoryRecordDetailDO>()
-                .eqIfPresent(StockInventoryRecordDetailDO::getStockRecordId, reqVO.getStockRecordId())
-                .eqIfPresent(StockInventoryRecordDetailDO::getStockBatchNo, reqVO.getStockBatchNo())
+                .eqIfPresent(StockInventoryRecordDetailDO::getInventoryRecordId, reqVO.getStockRecordId())
+                .eqIfPresent(StockInventoryRecordDetailDO::getInventoryCode, reqVO.getStockBatchNo())
                 .eqIfPresent(StockInventoryRecordDetailDO::getStockRecordDetailId, reqVO.getStockRecordDetailId())
                 .eqIfPresent(StockInventoryRecordDetailDO::getType, reqVO.getType())
                 .eqIfPresent(StockInventoryRecordDetailDO::getSecondaryClassification, reqVO.getSecondaryClassification())

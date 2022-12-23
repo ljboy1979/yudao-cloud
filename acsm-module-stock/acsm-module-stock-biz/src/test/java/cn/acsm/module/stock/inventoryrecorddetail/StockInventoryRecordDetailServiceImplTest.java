@@ -107,8 +107,8 @@ public class StockInventoryRecordDetailServiceImplTest extends BaseDbUnitTest {
     public void testGetInventoryRecordDetailPage() {
        // mock 数据
        StockInventoryRecordDetailDO dbInventoryRecordDetail = randomPojo(StockInventoryRecordDetailDO.class, o -> { // 等会查询到
-           o.setStockRecordId(null);
-           o.setStockBatchNo(null);
+           o.setInventoryRecordId(null);
+           o.setInventoryCode(null);
            o.setStockRecordDetailId(null);
            o.setType(null);
            o.setSecondaryClassification(null);
@@ -132,9 +132,9 @@ public class StockInventoryRecordDetailServiceImplTest extends BaseDbUnitTest {
        });
        inventoryRecordDetailMapper.insert(dbInventoryRecordDetail);
        // 测试 stockRecordId 不匹配
-       inventoryRecordDetailMapper.insert(cloneIgnoreId(dbInventoryRecordDetail, o -> o.setStockRecordId(null)));
+       inventoryRecordDetailMapper.insert(cloneIgnoreId(dbInventoryRecordDetail, o -> o.setInventoryRecordId(null)));
        // 测试 stockBatchNo 不匹配
-       inventoryRecordDetailMapper.insert(cloneIgnoreId(dbInventoryRecordDetail, o -> o.setStockBatchNo(null)));
+       inventoryRecordDetailMapper.insert(cloneIgnoreId(dbInventoryRecordDetail, o -> o.setInventoryCode(null)));
        // 测试 stockRecordDetailId 不匹配
        inventoryRecordDetailMapper.insert(cloneIgnoreId(dbInventoryRecordDetail, o -> o.setStockRecordDetailId(null)));
        // 测试 type 不匹配
@@ -213,8 +213,8 @@ public class StockInventoryRecordDetailServiceImplTest extends BaseDbUnitTest {
     public void testGetInventoryRecordDetailList() {
        // mock 数据
        StockInventoryRecordDetailDO dbInventoryRecordDetail = randomPojo(StockInventoryRecordDetailDO.class, o -> { // 等会查询到
-           o.setStockRecordId(null);
-           o.setStockBatchNo(null);
+           o.setInventoryRecordId(null);
+           o.setInventoryCode(null);
            o.setStockRecordDetailId(null);
            o.setType(null);
            o.setSecondaryClassification(null);
@@ -238,9 +238,9 @@ public class StockInventoryRecordDetailServiceImplTest extends BaseDbUnitTest {
        });
        inventoryRecordDetailMapper.insert(dbInventoryRecordDetail);
        // 测试 stockRecordId 不匹配
-       inventoryRecordDetailMapper.insert(cloneIgnoreId(dbInventoryRecordDetail, o -> o.setStockRecordId(null)));
+       inventoryRecordDetailMapper.insert(cloneIgnoreId(dbInventoryRecordDetail, o -> o.setInventoryRecordId(null)));
        // 测试 stockBatchNo 不匹配
-       inventoryRecordDetailMapper.insert(cloneIgnoreId(dbInventoryRecordDetail, o -> o.setStockBatchNo(null)));
+       inventoryRecordDetailMapper.insert(cloneIgnoreId(dbInventoryRecordDetail, o -> o.setInventoryCode(null)));
        // 测试 stockRecordDetailId 不匹配
        inventoryRecordDetailMapper.insert(cloneIgnoreId(dbInventoryRecordDetail, o -> o.setStockRecordDetailId(null)));
        // 测试 type 不匹配

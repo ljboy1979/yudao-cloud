@@ -140,6 +140,11 @@
             <version>1.6.2-snapshot</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>acsm-module-transaction-shelves-api</artifactId>
+            <version>1.6.2-snapshot</version>
+        </dependency>
     </dependencies>
     <build>
         <!-- 设置构建的 jar 包名 -->
