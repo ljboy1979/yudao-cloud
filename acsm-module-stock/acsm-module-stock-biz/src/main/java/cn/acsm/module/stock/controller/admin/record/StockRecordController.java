@@ -36,21 +36,21 @@ public class StockRecordController {
     private StockRecordService recordService;
 
     @PostMapping("/create/warehousing")
-    @ApiOperation("3.7.2.9.创建入库记录")
+    @ApiOperation("3.7.2.9.创建入库信息")
     @PreAuthorize("@ss.hasPermission('stock:record:create')")
     public CommonResult<Long> createRecordWarehousing(@Valid @RequestBody StockRecordCreateReqVO createReqVO) {
         return success(recordService.createRecordWarehousing(createReqVO));
     }
 
     @PostMapping("/create/issue")
-    @ApiOperation("3.7.2.10.创建出库记录")
+    @ApiOperation("3.7.2.10.创建出库信息")
     @PreAuthorize("@ss.hasPermission('stock:record:create')")
     public CommonResult<Long> createRecordIssue(@Valid @RequestBody StockRecordCreateReqVO createReqVO) {
         return success(recordService.createRecordIssue(createReqVO));
     }
 
     @PutMapping("/update")
-    @ApiOperation("更新库存记录")
+    @ApiOperation("更新库存信息")
     @PreAuthorize("@ss.hasPermission('stock:record:update')")
     public CommonResult<Boolean> updateRecord(@Valid @RequestBody StockRecordUpdateReqVO updateReqVO) {
         recordService.updateRecord(updateReqVO);
@@ -58,7 +58,7 @@ public class StockRecordController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation("3.7.2.18.删除入库记录单")
+    @ApiOperation("3.7.2.18.删除入库信息")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermission('stock:record:delete')")
     public CommonResult<Boolean> deleteRecord(@RequestParam("id") Long id) {
@@ -67,7 +67,7 @@ public class StockRecordController {
     }
 
     @GetMapping("/get")
-    @ApiOperation("获得库存记录")
+    @ApiOperation("获得库存信息")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermission('stock:record:query')")
     public CommonResult<StockRecordRespVO> getRecord(@RequestParam("id") Long id) {
@@ -76,7 +76,7 @@ public class StockRecordController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("获得库存记录列表")
+    @ApiOperation("获得库存信息列表")
     @ApiImplicitParam(name = "ids", value = "编号列表", required = true, example = "1024,2048", dataTypeClass = List.class)
     @PreAuthorize("@ss.hasPermission('stock:record:query')")
     public CommonResult<List<StockRecordRespVO>> getRecordList(@RequestParam("ids") Collection<Long> ids) {
@@ -85,7 +85,7 @@ public class StockRecordController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("获得库存记录分页")
+    @ApiOperation("获得库存信息分页")
     @PreAuthorize("@ss.hasPermission('stock:record:query')")
     public CommonResult<PageResult<StockRecordRespVO>> getRecordPage(@Valid StockRecordPageReqVO pageVO) {
         PageResult<StockRecordDO> pageResult = recordService.getRecordPage(pageVO);
@@ -93,7 +93,7 @@ public class StockRecordController {
     }
 
     @GetMapping("/export-excel")
-    @ApiOperation("3.7.2.19.打印入/出库记录单")
+    @ApiOperation("3.7.2.19.打印入/出库信息")
     @PreAuthorize("@ss.hasPermission('stock:record:export')")
     @OperateLog(type = EXPORT)
     public void exportRecordExcel(@Valid StockRecordExportReqVO exportReqVO,
@@ -105,7 +105,7 @@ public class StockRecordController {
     }
 
     @GetMapping("/page/outorenter/record")
-    @ApiOperation("3.7.2.14.查询出/入库记录")
+    @ApiOperation("3.7.2.14.查询出/入库信息")
     @PreAuthorize("@ss.hasPermission('stock:record:query')")
     public CommonResult<Page<StockRecordDO>> getOutEnterRecordPage(@Valid StockRecordOutEnterVO pageVO) {
         return success(recordService.getRecordOutEnterPage(pageVO));

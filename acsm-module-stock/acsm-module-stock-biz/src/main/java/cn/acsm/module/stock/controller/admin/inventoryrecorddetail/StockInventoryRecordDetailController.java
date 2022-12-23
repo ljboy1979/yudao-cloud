@@ -26,7 +26,7 @@ import java.util.List;
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
-@Api(tags = "管理后台 - 盘点记录表子表-明细")
+@Api(tags = "管理后台 - 盘点详情")
 @RestController
 @RequestMapping("/stock/inventory-record-detail")
 @Validated
@@ -36,14 +36,14 @@ public class StockInventoryRecordDetailController {
     private StockInventoryRecordDetailService inventoryRecordDetailService;
 
     @PostMapping("/create")
-    @ApiOperation("创建盘点记录表子表-明细")
+    @ApiOperation("创建盘点详情")
     @PreAuthorize("@ss.hasPermission('stock:inventory-record-detail:create')")
     public CommonResult<Long> createInventoryRecordDetail(@Valid @RequestBody StockInventoryRecordDetailCreateReqVO createReqVO) {
         return success(inventoryRecordDetailService.createInventoryRecordDetail(createReqVO));
     }
 
     @PutMapping("/update")
-    @ApiOperation("更新盘点记录表子表-明细")
+    @ApiOperation("更新盘点详情")
     @PreAuthorize("@ss.hasPermission('stock:inventory-record-detail:update')")
     public CommonResult<Boolean> updateInventoryRecordDetail(@Valid @RequestBody StockInventoryRecordDetailUpdateReqVO updateReqVO) {
         inventoryRecordDetailService.updateInventoryRecordDetail(updateReqVO);
@@ -51,7 +51,7 @@ public class StockInventoryRecordDetailController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation("删除盘点记录表子表-明细")
+    @ApiOperation("删除盘点详情")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermission('stock:inventory-record-detail:delete')")
     public CommonResult<Boolean> deleteInventoryRecordDetail(@RequestParam("id") Long id) {
@@ -60,7 +60,7 @@ public class StockInventoryRecordDetailController {
     }
 
     @GetMapping("/get")
-    @ApiOperation("获得盘点记录表子表-明细")
+    @ApiOperation("获得盘点详情")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermission('stock:inventory-record-detail:query')")
     public CommonResult<StockInventoryRecordDetailRespVO> getInventoryRecordDetail(@RequestParam("id") Long id) {
@@ -69,7 +69,7 @@ public class StockInventoryRecordDetailController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("获得盘点记录表子表-明细列表")
+    @ApiOperation("获得盘点详情列表")
     @ApiImplicitParam(name = "ids", value = "编号列表", required = true, example = "1024,2048", dataTypeClass = List.class)
     @PreAuthorize("@ss.hasPermission('stock:inventory-record-detail:query')")
     public CommonResult<List<StockInventoryRecordDetailRespVO>> getInventoryRecordDetailList(@RequestParam("ids") Collection<Long> ids) {
@@ -78,7 +78,7 @@ public class StockInventoryRecordDetailController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("获得盘点记录表子表-明细分页")
+    @ApiOperation("获得盘点详情分页")
     @PreAuthorize("@ss.hasPermission('stock:inventory-record-detail:query')")
     public CommonResult<PageResult<StockInventoryRecordDetailRespVO>> getInventoryRecordDetailPage(@Valid StockInventoryRecordDetailPageReqVO pageVO) {
         PageResult<StockInventoryRecordDetailDO> pageResult = inventoryRecordDetailService.getInventoryRecordDetailPage(pageVO);
@@ -86,7 +86,7 @@ public class StockInventoryRecordDetailController {
     }
 
     @GetMapping("/export-excel")
-    @ApiOperation("导出盘点记录表子表-明细 Excel")
+    @ApiOperation("导出盘点详情 Excel")
     @PreAuthorize("@ss.hasPermission('stock:inventory-record-detail:export')")
     @OperateLog(type = EXPORT)
     public void exportInventoryRecordDetailExcel(@Valid StockInventoryRecordDetailExportReqVO exportReqVO,
@@ -98,7 +98,7 @@ public class StockInventoryRecordDetailController {
     }
 
     @GetMapping("/page/detail")
-    @ApiOperation("3.7.2.17.根据盘点记录id或批次号查询盘点明细")
+    @ApiOperation("3.7.2.17.获取盘点详情分页")
     @PreAuthorize("@ss.hasPermission('stock:inventory-record-detail:query')")
     public CommonResult<Page<StockInventoryRecordDetailDO>> getInventoryRecordDetailPage(@Valid StockInventoryRecordDetailPageVO pageVO) {
         Page<StockInventoryRecordDetailDO> pageResult = inventoryRecordDetailService.getInventoryRecordDetailPage(pageVO);
