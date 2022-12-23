@@ -4,6 +4,7 @@ import cn.acsm.module.purchase.controller.admin.order.vo.*;
 import cn.acsm.module.purchase.dal.dataobject.order.PurchaseOrderDO;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import javax.validation.Valid;
 import java.util.Collection;
@@ -81,5 +82,11 @@ public interface PurchaseOrderService {
      * 3.6.2.5.查询采购合同单
      */
     PageResult<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderPageInfoVO pageReqVO);
+
+    /**
+     * 3.6.2.5.查询采购合同单
+     */
+    Page<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderProductsVO pageReqVO);
+
 
 }

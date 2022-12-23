@@ -9,6 +9,7 @@ import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -105,10 +106,17 @@ public class PurchaseOrderController {
         return success(true);
     }
 
-    @GetMapping("/page")
+    @GetMapping("/page-order")
     @ApiOperation("3.6.2.5.查询采购合同单")
     @PreAuthorize("@ss.hasPermission('purchase:order:page')")
     public CommonResult<PageResult<QueryPurchaseOrderPageInfoVO>> getOrderPageInfo(@Valid PurchaseOrderPageInfoVO pageVO) {
+        return success(orderService.getOrderPageInfo(pageVO));
+    }
+
+    @GetMapping("/product-list")
+    @ApiOperation("3.6.2.3.获取采购产品列表")
+    @PreAuthorize("@ss.hasPermission('purchase:order:page')")
+    public CommonResult<Page<QueryPurchaseOrderPageInfoVO>> getOrderPageInfo(@Valid PurchaseOrderProductsVO pageVO) {
         return success(orderService.getOrderPageInfo(pageVO));
     }
 

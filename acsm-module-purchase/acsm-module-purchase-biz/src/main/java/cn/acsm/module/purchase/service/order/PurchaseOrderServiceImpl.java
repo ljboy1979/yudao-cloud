@@ -28,8 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static cn.acsm.module.purchase.constant.PurchaseOrderConstant.PURCHASE_STATUS_1;
-import static cn.acsm.module.purchase.constant.PurchaseOrderConstant.STATUS;
+import static cn.acsm.module.purchase.constant.PurchaseOrderConstant.*;
 import static cn.acsm.module.purchase.enums.ErrorCodeConstants.ORDER_CREATE_ERROR;
 import static cn.acsm.module.purchase.enums.ErrorCodeConstants.ORDER_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -266,6 +265,23 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         Page<QueryPurchaseOrderPageInfoVO> page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
         PageResult<QueryPurchaseOrderPageInfoVO> result = orderMapper.selectPage(page, pageReqVO);
         return result;
+    }
+
+    /**
+     * 3.6.2.5.查询采购合同单
+     */
+    public Page<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderProductsVO pageReqVO) {
+        String purchaseType = pageReqVO.getPurchaseType();
+        if(purchaseType == PURCHASE_TYPE_1) {
+
+        } else if(purchaseType == PURCHASE_TYPE_2) {
+
+        } else if(purchaseType == PURCHASE_TYPE_3) {
+
+        } else if(purchaseType == PURCHASE_TYPE_4) {
+
+        }
+        return null;
     }
 
 }
