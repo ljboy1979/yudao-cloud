@@ -1,15 +1,13 @@
 package cn.acsm.module.transaction.sales.service.inputclassify;
 
-import cn.acsm.module.transaction.sales.convert.rawmaterialclassify.RawMaterialClassifyConvert;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
-import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
-import org.apache.catalina.startup.UserConfig;
-import org.springframework.security.core.userdetails.User;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,8 +35,28 @@ public class InputClassifyServiceImpl implements InputClassifyService {
 
     @Override
     public String createInputClassify(InputClassifyCreateReqVO createReqVO) {
+        if (StringUtils.isNotEmpty(createReqVO.getParentCode())) {
+            InputClassifyDO parenMarketClassify = inputClassifyMapper.selectById(createReqVO.getParentCode());
+            createReqVO.setParentCodes(parenMarketClassify.getParentCodes()+createReqVO.getParentCode()+",");
+            createReqVO.setTreeSort(new BigDecimal(0));
+            createReqVO.setTreeSorts(parenMarketClassify.getTreeSorts()+"0,");
+            createReqVO.setTreeLeaf("0");
+            createReqVO.setTreeLevel(parenMarketClassify.getTreeLevel().add(new BigDecimal(1)));
+            createReqVO.setTreeNames(parenMarketClassify.getTreeNames()+"/"+createReqVO.getCategoryName());
+        }else {
+            createReqVO.setParentCode("0");
+            createReqVO.setParentCodes("0,");
+            createReqVO.setTreeSort(new BigDecimal(0));
+            createReqVO.setTreeSorts("0,");
+            createReqVO.setTreeLeaf("0");
+            createReqVO.setTreeLevel(new BigDecimal(0));
+            createReqVO.setTreeNames(createReqVO.getCategoryName());
+        }
+        Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
+        uuid = uuid < 0 ? -uuid : uuid;
         // 插入
         InputClassifyDO inputClassify = InputClassifyConvert.INSTANCE.convert(createReqVO);
+        inputClassify.setId(uuid.toString());
         inputClassifyMapper.insert(inputClassify);
         // 返回
         return inputClassify.getId();

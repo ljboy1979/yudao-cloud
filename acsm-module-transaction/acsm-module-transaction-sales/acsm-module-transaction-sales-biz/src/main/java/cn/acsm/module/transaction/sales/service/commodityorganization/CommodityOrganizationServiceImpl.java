@@ -55,15 +55,21 @@ public class CommodityOrganizationServiceImpl implements CommodityOrganizationSe
     @Override
     public CommonResult<String> createCommodityOrganization(CommodityOrganizationCreateReqVO createReqVO) {
 
-        if ("0".equals(createReqVO.getTag())){//原料新增
-            //商品组成验重
-            CommodityOrganizationDO commodityOrganizationDO = new CommodityOrganizationDO();
-            commodityOrganizationDO.setCommodityId(createReqVO.getCommodityId());
+        //商品组成验重
+        CommodityOrganizationDO commodityOrganizationDO = new CommodityOrganizationDO();
+        commodityOrganizationDO.setCommodityId(createReqVO.getCommodityId());
+        if ("0".equals(createReqVO.getTag())) {
             commodityOrganizationDO.setRawMaterialId(createReqVO.getRawMaterialId());
-            Long num =  commodityOrganizationMapper.findSelectCount(commodityOrganizationDO);
-            if (num!=null && num>0){
-                return CommonResult.error(ErrorCodeConstants.COMMODITY_ORGANIZATION_EXISTENCE);
-            }
+        }
+        if ("1".equals(createReqVO.getTag())) {
+            commodityOrganizationDO.setOrganizationName(createReqVO.getOrganizationName());
+        }
+        Long num =  commodityOrganizationMapper.findSelectCount(commodityOrganizationDO);
+        if (num!=null && num>0){
+            return CommonResult.error(ErrorCodeConstants.COMMODITY_ORGANIZATION_EXISTENCE);
+        }
+
+        if ("0".equals(createReqVO.getTag())){//原料新增
             //判断原料是否存在
             RawMaterialDO rawMaterialDO = rawMaterialMapper.selectById(createReqVO.getRawMaterialId());
             if (rawMaterialDO!=null){
