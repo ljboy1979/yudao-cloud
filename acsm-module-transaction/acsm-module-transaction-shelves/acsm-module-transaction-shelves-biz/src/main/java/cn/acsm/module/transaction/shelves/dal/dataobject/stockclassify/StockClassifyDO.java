@@ -70,7 +70,7 @@ public class StockClassifyDO extends BaseDO {
     /**
      * 排序序号
      */
-    private String order;
+    private String sort;
     /**
      * 状态
      */

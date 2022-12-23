@@ -113,7 +113,6 @@ public class MarketCommodityController {
     @PostMapping("/treeList")
     @ApiOperation("树形分类列表")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:query')")
-    @Cacheable(value = "/shelves/stock-classify/treeList")
     public CommonResult<List<TreeSelectVo>> treeList(@Valid ShelvesReqVo shelvesReqVO) {
         List<TreeSelectVo> list = marketCommodityService.findTreeList(shelvesReqVO);
         return success(list);

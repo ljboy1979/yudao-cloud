@@ -30,12 +30,6 @@ public class ShelvesRespDO {
     @ApiModelProperty(value = "计量单位")
     private String measurementUnit;
 
-    @ApiModelProperty(value = "采购价")
-    private BigDecimal purchasePrice;
-
-    @ApiModelProperty(value = "售出价")
-    private BigDecimal sellingPrice;
-
     @ApiModelProperty(value = "包装类型名称")
     private String packagingTypeName;
 
