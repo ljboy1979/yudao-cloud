@@ -17,6 +17,9 @@ public class CommodityOrganizationPageReqVO extends PageParam {
     @ApiModelProperty(value = "组成编号")
     private String organizationNumber;
 
+    @ApiModelProperty(value = "商品id")
+    private String commodityId;
+
     @ApiModelProperty(value = "组成名称")
     private String organizationName;
 
