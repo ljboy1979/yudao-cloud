@@ -70,6 +70,7 @@ public class MarketClassifyDO extends BaseDO {
     /**
      * 排序序号
      */
+    @TableField("`order`")
     private String order;
     /**
      * 状态
