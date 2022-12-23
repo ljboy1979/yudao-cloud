@@ -7,7 +7,8 @@ import cn.acsm.module.purchase.dal.dataobject.order.PurchaseOrderDO;
 import cn.acsm.module.purchase.dal.mysql.details.PurchaseDetailsMapper;
 import cn.acsm.module.purchase.dal.mysql.order.PurchaseOrderMapper;
 import cn.acsm.module.purchase.feign.ShelvesApiFeignClient;
-import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
 import cn.hutool.core.date.format.FastDateFormat;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -23,7 +24,6 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +55,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     @Resource
     private ShelvesApiFeignClient shelvesApiFeignClient;
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public CommonResult<String> createOrder(PurchaseOrderCreateReqVO createReqVO) {
         String purchaseNumber = null;
@@ -86,10 +87,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                     detailsDO.setSourceId(createReqVO.getSourceId());
                     detailsDO.setTenantId(createReqVO.getTenantId());
                     detailsDO.setGoodsId(k);
-                    detailsDO.setGoodsName(v.get(0).get(0).getGoodsName());
                     // 获取不同规格的商品累加
                     v.forEach((key, val) -> {
-                        detailsDO.setPackagingSpecificationId(val.get(0).getPackagingSpecificationId());
+                        detailsDO.setGoodsName(val.get(0).getGoodsName());
+                        detailsDO.setPackagingSpecificationId(Long.getLong(val.get(0).getPackagingSpecificationId().toString()));
                         detailsDO.setPackagingSpecification(val.get(0).getPackagingSpecification());
                         detailsDO.setUnit(val.get(0).getUnit());
                         detailsDO.setPackagingType(val.get(0).getPackagingType());
@@ -99,22 +100,24 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                     });
                 });
                 // 更新采购单汇总金额
-                QueryWrapper detailsQuery = new QueryWrapper();
-                detailsQuery.eq("purchase_number", createReqVO.getPurchaseNumber());
-                List<PurchaseDetailsDO> list = purchaseDetailsMapper.selectList(detailsQuery);
+//                QueryWrapper detailsQuery = new QueryWrapper();
+//                detailsQuery.eq("purchase_number", createReqVO.getPurchaseNumber());
+//                List<PurchaseDetailsDO> list = purchaseDetailsMapper.selectList(detailsQuery);
                 // 获取当前采购单的采购总额
-                BigDecimal priceSum = new BigDecimal(0);
-                for (PurchaseDetailsDO detailsDO1 : list) {
-                    priceSum = priceSum.add(detailsDO1.getTotal());
-                }
-
-                // 变更采购单汇总金额
-                UpdateWrapper orderWrapper = new UpdateWrapper();
-                orderWrapper.eq("purchase_number", createReqVO.getPurchaseNumber());
-                PurchaseOrderDO orderDO1 = new PurchaseOrderDO();
-                orderDO1.setPurchaseTotalAmount(priceSum);
-                orderDO1.setUpdateTime(LocalDateTime.now());
-                orderMapper.update(orderDO1, orderWrapper);
+//                PurchaseOrderDO orderDO1 = new PurchaseOrderDO();
+//                BigDecimal priceSum = new BigDecimal(0);
+//                if(!CollectionUtils.isEmpty(list)) {
+//                    for (PurchaseDetailsDO detailsDO1 : list) {
+//                        priceSum = priceSum.add(detailsDO1.getTotal());
+//                    }
+//                    orderDO1.setPurchaseTotalAmount(priceSum);
+//                }
+//
+//                // 变更采购单汇总金额
+//                UpdateWrapper orderWrapper = new UpdateWrapper();
+//                orderWrapper.eq("purchase_number", createReqVO.getPurchaseNumber());
+//                orderDO1.setUpdateTime(LocalDateTime.now());
+//                orderMapper.update(orderDO1, orderWrapper);
             }
         } catch (RuntimeException e) {
             log.error("采购单或采购单明细创建失败,单号：{}", purchaseNumber);
@@ -276,22 +279,12 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
      * 3.6.2.5.查询采购合同单
      */
     public Page<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderProductsVO pageReqVO) {
-        String purchaseType = pageReqVO.getPurchaseType();
+        ShelvesSalesReqDto reqDto = new ShelvesSalesReqDto();
+        reqDto.setType(pageReqVO.getPurchaseType());
+        CommonResult<List<ShelvesSalesRespDto>> specifications = shelvesApiFeignClient.findSpecifications(reqDto);
+        List<ShelvesSalesRespDto> data = specifications.getData();
+        //
 
-        ShelvesReqDto reqDto = new ShelvesReqDto();
-//        reqDto.setSpecificationsId();
-
-//        shelvesApiFeignClient.findSpecificationsList();
-
-        if(purchaseType == PURCHASE_TYPE_1) {
-
-        } else if(purchaseType == PURCHASE_TYPE_2) {
-
-        } else if(purchaseType == PURCHASE_TYPE_3) {
-
-        } else if(purchaseType == PURCHASE_TYPE_4) {
-
-        }
         return null;
     }
 

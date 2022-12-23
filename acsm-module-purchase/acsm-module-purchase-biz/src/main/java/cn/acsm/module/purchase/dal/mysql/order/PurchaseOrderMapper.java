@@ -36,7 +36,6 @@ public interface PurchaseOrderMapper extends BaseMapperX<PurchaseOrderDO> {
     default List<PurchaseOrderDO> selectList(PurchaseOrderExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<PurchaseOrderDO>()
                 .eqIfPresent(PurchaseOrderDO::getPurchaseType, reqVO.getPurchaseType())
-                .eqIfPresent(PurchaseOrderDO::getSecondaryClassification, reqVO.getSecondaryClassification())
                 .eqIfPresent(PurchaseOrderDO::getPurchaseNumber, reqVO.getPurchaseNumber())
                 .eqIfPresent(PurchaseOrderDO::getProviderId, reqVO.getProviderId())
                 .likeIfPresent(PurchaseOrderDO::getProviderName, reqVO.getProviderName())

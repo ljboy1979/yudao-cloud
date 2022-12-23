@@ -116,7 +116,7 @@ public class PurchaseOrderController {
     @GetMapping("/product-list")
     @ApiOperation("3.6.2.3.获取采购产品列表")
     @PreAuthorize("@ss.hasPermission('purchase:order:page')")
-    public CommonResult<Page<QueryPurchaseOrderPageInfoVO>> getOrderPageInfo(@Valid PurchaseOrderProductsVO pageVO) {
+    public CommonResult<Page<QueryPurchaseOrderPageInfoVO>> getOrderPageInfo(@Valid @RequestBody PurchaseOrderProductsVO pageVO) {
         return success(orderService.getOrderPageInfo(pageVO));
     }
 

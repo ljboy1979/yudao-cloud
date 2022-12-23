@@ -19,12 +19,9 @@ import java.util.List;
 @ToString(callSuper = true)
 public class PurchaseOrderCreateReqVO implements Serializable {
 
-    @ApiModelProperty(value = "采购类型(1:原料 2:投入品 3:成品 4:办公用品)")
+    @ApiModelProperty(value = "采购类型(0:原料 1:投入品 2:商品 3: 菜品 4:套餐 5:特医食品)")
     @NotNull(message = "采购类型不能为空", groups = { PurchaseOrderCreateVO.class })
     private String purchaseType;
-
-    @ApiModelProperty(value = "二级分类")
-    private String secondaryClassification;
 
     @ApiModelProperty(value = "采购单号", required = true)
     private String purchaseNumber;
@@ -41,8 +38,7 @@ public class PurchaseOrderCreateReqVO implements Serializable {
     @NotNull(message = "供应商联系方式不能为空", groups = { PurchaseOrderCreateVO.class })
     private String providerPhone;
 
-    @ApiModelProperty(value = "采购时间", required = true)
-    @NotNull(message = "采购时间不能为空", groups = { PurchaseOrderCreateVO.class })
+    @ApiModelProperty(value = "采购时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date purchaseTime;
 
@@ -106,7 +102,6 @@ public class PurchaseOrderCreateReqVO implements Serializable {
     private String tunnelId;
 
     @ApiModelProperty(value = "采购状态(1.未开始 2.执行中 3.已完成 4.其他)")
-    @NotBlank(message = "采购状态不能为空", groups = { PurchaseOrderCreateVO.class })
     private String purchaseStatus;
 
     @ApiModelProperty(value = "报价单id")
@@ -127,23 +122,19 @@ public class PurchaseOrderCreateReqVO implements Serializable {
     @ApiModelProperty(value = "状态(1.待生效 2.有效 3.无效)")
     private String status;
 
-    @ApiModelProperty(value = "租户编号", required = true)
-    @NotNull(message = "租户编号不能为空", groups = { PurchaseOrderCreateVO.class })
+    @ApiModelProperty(value = "租户编号")
     private String tenantId;
 
-    @ApiModelProperty(value = "经营主体", required = true)
-    @NotNull(message = "经营主体不能为空", groups = { PurchaseOrderCreateVO.class })
+    @ApiModelProperty(value = "经营主体")
     private String subjectId;
 
-    @ApiModelProperty(value = "用户id", required = true)
-    @NotNull(message = "用户id不能为空", groups = { PurchaseOrderCreateVO.class })
+    @ApiModelProperty(value = "用户id")
     private Long userId;
 
-    @ApiModelProperty(value = "租户集合", required = true)
-    @NotNull(message = "租户集合不能为空", groups = { PurchaseOrderCreateVO.class })
+    @ApiModelProperty(value = "租户集合")
     private Long sourceId;
 
-    @ApiModelProperty(value = "交易单货品", required = true)
+    @ApiModelProperty(value = "交易单货品")
     private List<GoodInfos> GoodInfos;
 
 }

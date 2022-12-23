@@ -26,7 +26,7 @@ import java.util.List;
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
-@Api(tags = "管理后台 - 库存记录")
+@Api(tags = "管理后台 - 库存记录【出库-入库】")
 @RestController
 @RequestMapping("/stock/record")
 @Validated
