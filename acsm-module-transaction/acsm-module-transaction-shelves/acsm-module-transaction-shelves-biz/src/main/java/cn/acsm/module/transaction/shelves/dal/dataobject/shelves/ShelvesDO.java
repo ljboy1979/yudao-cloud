@@ -90,7 +90,7 @@ public class ShelvesDO extends BaseDO {
     /**
      * 售品说明
      */
-    private String explain;
+    private String salesExplain;
     /**
      * 标签
      */
