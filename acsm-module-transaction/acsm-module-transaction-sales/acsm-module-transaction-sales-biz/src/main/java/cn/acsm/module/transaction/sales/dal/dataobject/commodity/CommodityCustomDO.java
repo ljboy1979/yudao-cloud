@@ -1,10 +1,14 @@
 package cn.acsm.module.transaction.sales.dal.dataobject.commodity;
 
-import lombok.*;
-import java.util.*;
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 商品 DO
@@ -19,7 +23,7 @@ import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommodityDO extends BaseDO {
+public class CommodityCustomDO extends BaseDO {
 
     /**
      * 商品id
@@ -102,6 +106,11 @@ public class CommodityDO extends BaseDO {
      * 商品分类
      */
     private String commodityCategoryId;
+
+    /**
+     * 商品分类名称
+     */
+    private String commodityCategoryName;
     /**
      * 生产商
      */

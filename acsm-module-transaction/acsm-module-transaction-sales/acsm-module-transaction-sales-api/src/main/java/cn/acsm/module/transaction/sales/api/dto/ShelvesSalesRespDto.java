@@ -12,9 +12,17 @@ import java.math.BigDecimal;
 public class ShelvesSalesRespDto {
     @ApiModelProperty("id")
     private String id;
+
+
+    @ApiModelProperty("售品名称")
+    private String salesName;
+
+
+    @ApiModelProperty("分类名称")
+    private String classifyName;
+
     @ApiModelProperty("名称")
     private String name;
-
 
     @ApiModelProperty(value = "包装类型(0定装1散装)")
     private String packagingType;

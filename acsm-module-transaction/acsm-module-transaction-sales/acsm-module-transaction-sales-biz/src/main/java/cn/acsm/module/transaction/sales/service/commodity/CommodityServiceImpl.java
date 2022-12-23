@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.sales.service.commodity;
 
+import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityCustomDO;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.acsm.module.transaction.sales.service.commodity.CommodityService;
 import cn.acsm.module.transaction.sales.util.ConfigNumberUtil;
@@ -91,6 +92,10 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public CommodityDO getCommodity(String id) {
         return commodityMapper.selectById(id);
+    }
+
+    public CommodityCustomDO getCommodityById(String id) {
+        return commodityMapper.getCommodityById(id);
     }
 
     @Override

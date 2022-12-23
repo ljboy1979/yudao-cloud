@@ -38,6 +38,10 @@ public class MarketPriceDO extends BaseDO {
      */
     private String marketId;
     /**
+     * 市场名称
+     */
+    private String marketName;
+    /**
      * 最高价
      */
     private Float maxPrice;

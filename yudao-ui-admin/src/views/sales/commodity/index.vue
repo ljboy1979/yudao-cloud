@@ -6,9 +6,9 @@
       <el-form-item label="商品编号" prop="commodityCode">
         <el-input v-model="queryParams.commodityCode" placeholder="请输入商品编号" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="商品名称" prop="commodityName">
+      <!-- <el-form-item label="商品名称" prop="commodityName">
         <el-input v-model="queryParams.commodityName" placeholder="请输入商品名称" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="商品分类" prop="commodityCategoryId">
         <el-input v-model="queryParams.commodityCategoryId" placeholder="请输入商品分类" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
@@ -37,12 +37,12 @@
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="商品id" align="center" prop="id" />
+      <!-- <el-table-column label="商品id" align="center" prop="id" /> -->
       <el-table-column label="商品编号" align="center" prop="commodityCode" />
-      <el-table-column label="序号" align="center" prop="articleNo" />
-      <el-table-column label="商品条码" align="center" prop="commodityBarCode" />
       <el-table-column label="商品名称" align="center" prop="commodityName" />
-      <el-table-column label="0 渠道商商品 1农资商城商品" align="center" prop="type" />
+      <!-- <el-table-column label="序号" align="center" prop="articleNo" /> -->
+      <el-table-column label="商品条码" align="center" prop="commodityBarCode" />
+      <!-- <el-table-column label="0 渠道商商品 1农资商城商品" align="center" prop="type" />
       <el-table-column label="排序权重" align="center" prop="sort" />
       <el-table-column label="关键字" align="center" prop="keyWord" />
       <el-table-column label="生产商" align="center" prop="manufacturer" />
@@ -78,13 +78,13 @@
       </el-table-column>
       <el-table-column label="0商品" align="center" prop="commodityType" />
       <el-table-column label="商品图片" align="center" prop="commodityImg" />
-      <el-table-column label="公示单价" align="center" prop="publicityPrice" />
+      <el-table-column label="公示单价" align="center" prop="publicityPrice" /> -->
       <el-table-column label="产地" align="center" prop="productionAddress" />
-      <el-table-column label="产地地址" align="center" prop="originPlace" />
+      <!-- <el-table-column label="产地地址" align="center" prop="originPlace" />
       <el-table-column label="商品别名" align="center" prop="antName" />
       <el-table-column label="创建的用户id" align="center" prop="createId" />
       <el-table-column label="视频连接" align="center" prop="videoUrl" />
-      <el-table-column label="状态" align="center" prop="status" />
+      <el-table-column label="状态" align="center" prop="status" /> -->
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
@@ -92,6 +92,8 @@
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
+          <el-button size="mini" type="text" icon="el-icon-edit" @click="handledetail(scope.row)"
+                     v-hasPermi="['sales:commodity:update']">管理</el-button>
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
                      v-hasPermi="['sales:commodity:update']">修改</el-button>
           <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
@@ -106,19 +108,17 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="商品编号" prop="commodityCode">
+        <!-- <el-form-item label="商品编号" prop="commodityCode">
           <el-input v-model="form.commodityCode" placeholder="请输入商品编号" />
         </el-form-item>
         <el-form-item label="序号" prop="articleNo">
           <el-input v-model="form.articleNo" placeholder="请输入序号" />
-        </el-form-item>
-        <el-form-item label="商品条码" prop="commodityBarCode">
-          <el-input v-model="form.commodityBarCode" placeholder="请输入商品条码" />
-        </el-form-item>
+        </el-form-item> -->
+        
         <el-form-item label="商品名称" prop="commodityName">
           <el-input v-model="form.commodityName" placeholder="请输入商品名称" />
         </el-form-item>
-        <el-form-item label="0 渠道商商品 1农资商城商品" prop="type">
+        <!-- <el-form-item label="0 渠道商商品 1农资商城商品" prop="type">
           <el-radio-group v-model="form.type">
             <el-radio label="1">请选择字典生成</el-radio>
           </el-radio-group>
@@ -161,11 +161,14 @@
         </el-form-item>
         <el-form-item label="包装单位 字典" prop="packageUnit">
           <el-input v-model="form.packageUnit" placeholder="请输入包装单位 字典" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="商品分类" prop="commodityCategoryId">
           <el-input v-model="form.commodityCategoryId" placeholder="请输入商品分类" />
         </el-form-item>
-        <el-form-item label="生产商" prop="manufacturerName">
+        <el-form-item label="商品条码" prop="commodityBarCode">
+          <el-input v-model="form.commodityBarCode" placeholder="请输入商品条码" />
+        </el-form-item>
+        <!-- <el-form-item label="生产商" prop="manufacturerName">
           <el-input v-model="form.manufacturerName" placeholder="请输入生产商" />
         </el-form-item>
         <el-form-item label="批发价格" prop="wholesalePrice">
@@ -222,17 +225,30 @@
           <el-select v-model="form.commodityType" placeholder="请选择0商品">
             <el-option label="请选择字典生成" value="" />
           </el-select>
-        </el-form-item>
-        <el-form-item label="商品图片" prop="commodityImg">
-          <el-input v-model="form.commodityImg" placeholder="请输入商品图片" />
-        </el-form-item>
-        <el-form-item label="公示单价" prop="publicityPrice">
-          <el-input v-model="form.publicityPrice" placeholder="请输入公示单价" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="产地" prop="productionAddress">
           <el-input v-model="form.productionAddress" placeholder="请输入产地" />
         </el-form-item>
-        <el-form-item label="产地地址" prop="originPlace">
+        <el-form-item label="商品图片" prop="commodityImg">
+          <!-- <el-input v-model="form.commodityImg" placeholder="请输入商品图片" /> -->
+          <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemovecertificatePhoto" :on-change="changecertificatePhoto" :class="{ hide: certificate }"
+            ref="certificatePhoto" :file-list="this.certificatePhoto"
+            :headers="upload.headers" :action="upload.url" :on-success="certificatePhotoSuccess"
+            >
+            <i class="el-icon-plus"></i>
+          </el-upload>
+          <div style="font-size: 14px;color:#AAA">最多1张 <span style="font-size: 12px;">仅支持扩展名".jpg/.jpeg/.png"</span>
+          </div>
+          <el-dialog :visible.sync="dialogVisible" append-to-body>
+            <img width="50%" height="50%" :src="dialogImageUrl" alt="">
+          </el-dialog>
+        </el-form-item>
+        <!-- <el-form-item label="公示单价" prop="publicityPrice">
+          <el-input v-model="form.publicityPrice" placeholder="请输入公示单价" />
+        </el-form-item> -->
+        
+        <!-- <el-form-item label="产地地址" prop="originPlace">
           <el-input v-model="form.originPlace" placeholder="请输入产地地址" />
         </el-form-item>
         <el-form-item label="商品别名" prop="antName">
@@ -248,7 +264,7 @@
           <el-radio-group v-model="form.status">
             <el-radio label="1">请选择字典生成</el-radio>
           </el-radio-group>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -260,7 +276,7 @@
 
 <script>
 import { createCommodity, updateCommodity, deleteCommodity, getCommodity, getCommodityPage, exportCommodityExcel } from "@/api/sales/commodity";
-
+import { getAccessToken } from "@/utils/auth";
 export default {
   name: "Commodity",
   components: {
@@ -334,8 +350,25 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        status: [{ required: true, message: "状态不能为空", trigger: "blur" }],
-      }
+        commodityCategoryId: [{ required: true, message: "状态不能为空", trigger: "blur" },
+        { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }
+      ],
+        commodityName: [{ required: true, message: "商品名称不能为空", trigger: "blur" },
+        { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }],
+      },
+      certificatePhoto: [],//经营许可证
+      certificate: false,//经营许可证是否可继续上传
+      dialogVisible: false,//是否开启预览
+      dialogImageUrl: '',//当前预览图片地址
+      // 图片上传参数
+      upload: {
+        open: false, // 是否显示弹出层
+        title: "", // 弹出层标题
+        isUploading: false, // 是否禁用上传
+        url: process.env.VUE_APP_BASE_API + "/admin-api/infra/file/upload", // 请求地址
+        headers: { Authorization: "Bearer " + getAccessToken() }, // 设置上传的请求头部
+        data: {} // 上传的额外数据，用于文件名
+      },
     };
   },
   created() {
@@ -458,13 +491,17 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const id = row.id;
+      const id = row.commodityCode;
       this.$modal.confirm('是否确认删除商品编号为"' + id + '"的数据项?').then(function() {
-          return deleteCommodity(id);
+          return deleteCommodity(row.id);
         }).then(() => {
           this.getList();
           this.$modal.msgSuccess("删除成功");
         }).catch(() => {});
+    },
+    /*  管理按钮 */
+    handledetail(row){
+      this.$router.push({ path: "/sales/commodity/commodityDetail", query: { id: row.id } });
     },
     /** 导出按钮操作 */
     handleExport() {
@@ -479,7 +516,51 @@ export default {
           this.$download.excel(response, '商品.xls');
           this.exportLoading = false;
         }).catch(() => {});
-    }
+    },
+    //移除企业经营许可证
+    handleRemovecertificatePhoto(file, fileList) {
+      this.certificatePhoto = fileList
+      fileList.length == 1 ? this.certificate = true : this.certificate = false
+      this.Logoimg = false;
+    },
+    //预览照片
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    //上传经营许可证，等于6张隐藏上传按钮
+    changecertificatePhoto(file, fileList) {
+      console.log(fileList)
+      let check = this.beforeAvatarUpload(file);
+      if (check) {
+        fileList.length == 1 ? this.certificate = true : ''
+        this.certificatePhoto = fileList
+        this.$refs.certificatePhoto.submit();
+      } else {
+        this.$refs.certificatePhoto.uploadFiles.splice(this.$refs.certificatePhoto.uploadFiles.length - 1, 1)
+      }
+    },
+    certificatePhotoSuccess(response){
+      this.certificatePhoto[this.certificatePhoto.length-1].url = response.data;
+      console.log(this.certificatePhoto)
+    },
+    //检验上传图片格式以及大小
+    beforeAvatarUpload(file) {
+      const isJPG = file.raw.type === 'image/jpeg' ? true : file.raw.type === 'image/jpg' ? true : file.raw.type === 'image/png' ? true : false;
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG) {
+        this.$message.error('上传图片只能是 JPG/JPEG/PNG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传图片大小不能超过 2MB!');
+      }
+      return isLt2M && isJPG;
+    },
   }
 };
 </script>
+<style scoped>
+.hide>>>.el-upload--picture-card {
+  display: none;
+}
+</style>

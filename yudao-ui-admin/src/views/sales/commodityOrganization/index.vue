@@ -34,9 +34,9 @@
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="id" align="center" prop="id" />
+      <!-- <el-table-column label="id" align="center" prop="id" />
       <el-table-column label="原料表id" align="center" prop="rawMaterialId" />
-      <el-table-column label="商品id" align="center" prop="commodityId" />
+      <el-table-column label="商品id" align="center" prop="commodityId" /> -->
       <el-table-column label="组成编号" align="center" prop="organizationNumber" />
       <el-table-column label="组成名称" align="center" prop="organizationName" />
       <el-table-column label="分类" align="center" prop="classify" />
@@ -59,19 +59,19 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="原料表id" prop="rawMaterialId">
+        <!-- <el-form-item label="原料表id" prop="rawMaterialId">
           <el-input v-model="form.rawMaterialId" placeholder="请输入原料表id" />
         </el-form-item>
         <el-form-item label="商品id" prop="commodityId">
           <el-input v-model="form.commodityId" placeholder="请输入商品id" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="组成编号" prop="organizationNumber">
           <el-input v-model="form.organizationNumber" placeholder="请输入组成编号" />
         </el-form-item>
         <el-form-item label="组成名称" prop="organizationName">
           <el-input v-model="form.organizationName" placeholder="请输入组成名称" />
         </el-form-item>
-        <el-form-item label="分类" prop="classify">
+        <!-- <el-form-item label="分类" prop="classify">
           <el-input v-model="form.classify" placeholder="请输入分类" />
         </el-form-item>
         <el-form-item label="产地" prop="origin">
@@ -87,7 +87,7 @@
         </el-form-item>
         <el-form-item label="source" prop="source">
           <el-input v-model="form.source" placeholder="请输入source" />
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -103,6 +103,13 @@ import { createCommodityOrganization, updateCommodityOrganization, deleteCommodi
 export default {
   name: "CommodityOrganization",
   components: {
+  },
+  /**接受父组件传值*/
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {

@@ -42,4 +42,7 @@ public class MarketPricePageReqVO extends PageParam {
     @ApiModelProperty(value = "经营主体id")
     private String subjectId;
 
+    @ApiModelProperty(value = "市场名称")
+    private String marketName;
+
 }

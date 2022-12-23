@@ -36,7 +36,6 @@ public class RawMaterialBaseVO {
     private String expertAdvice;
 
     @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
     private Integer status;
 
 }

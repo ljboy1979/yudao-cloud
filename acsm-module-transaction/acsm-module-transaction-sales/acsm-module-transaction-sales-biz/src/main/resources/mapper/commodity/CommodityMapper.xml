@@ -19,25 +19,97 @@
 
     <select id="findSpecifications" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
         select
-        id ,
-        specifications_name AS name,
-        packaging_type AS packagingType,
-        packaging_type_name AS packagingTypeName,
-        number,
-        unit,
-        unit_name AS unitName,
-        packaging,
-        packaging_name AS packagingName,
-        measurement_unit AS measurementUnit,
-        measurement_unit_name AS measurementUnitName,
-        purchase_price AS purchasePrice,
-        selling_price AS sellingPrice,
-        CONCAT(number,unit_name,"/",packaging_name) AS specifications
-        FROM sales_commodity_specification
-        where deleted = 0
-        AND commodity_id=#{salesId}
-        AND tenant_id =#{tenantId}
+        scs.id ,
+        scs.specifications_name AS name,
+        scs.packaging_type AS packagingType,
+        scs.packaging_type_name AS packagingTypeName,
+        scs.number,
+        scs.unit,
+        scs.unit_name AS unitName,
+        scs.packaging,
+        scs.packaging_name AS packagingName,
+        scs.measurement_unit AS measurementUnit,
+        scs.measurement_unit_name AS measurementUnitName,
+        scs.purchase_price AS purchasePrice,
+        scs.selling_price AS sellingPrice,
+        CONCAT(scs.number,scs.unit_name,"/",scs.packaging_name) AS specifications,
+        sc.commodity_name AS salesName,
+        scc.commodity_category_name AS classifyName
+        FROM sales_commodity_specification scs
+        LEFT FROM sales_commodity sc on scs.commodity_id = sc.id
+        LEFT FROM sales_commodity_category scc on scc.id = sc.commodity_category_id
+        where scs.deleted = 0 and sc.deleted=0
+        <if test=" salesId !=null and salesId!='' ">
+        AND scs.commodity_id=#{salesId}
+        </if>
+        <if test=" salesName !=null and salesName!='' ">
+            AND sd.commodity_name like CONCAT('%',#{salesName},'%')
+        </if>
+        AND scs.tenant_id =#{tenantId}
     </select>
 
+
+    <select id="getCommodityById" resultType="cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityCustomDO">
+        SELECT
+            sc.id,
+            sc.commodity_code,
+            sc.article_no,
+            sc.commodity_bar_code,
+            sc.commodity_name,
+            sc.type,
+            sc.sort,
+            sc.key_word,
+            sc.manufacturer,
+            sc.batch,
+            sc.available_num,
+            sc.provider_name,
+            sc.provider_id,
+            sc.old_provider_id,
+            sc.spec_num,
+            sc.lable_ids,
+            sc.warn_stock_num,
+            sc.weight_unit,
+            sc.package_unit,
+            sc.commodity_category_id,
+            sc.manufacturer_name,
+            sc.wholesale_price,
+            sc.retail_price,
+            sc.stock_num,
+            sc.sale_state,
+            sc.introduction,
+            sc.trace_status,
+            sc.plant_id,
+            sc.commodity_plant_id,
+            sc.sell_type,
+            sc.add_type,
+            sc.address,
+            sc.num,
+            sc.sync_status,
+            sc.arrive_date,
+            sc.commodity_type,
+            sc.commodity_img,
+            sc.publicity_price,
+            sc.production_address,
+            sc.origin_place,
+            sc.ant_name,
+            sc.create_id,
+            sc.video_url,
+            sc.expert_advice,
+            sc.STATUS,
+            sc.tenant_id,
+            sc.remark,
+            sc.create_time,
+            sc.update_time,
+            sc.creator,
+            sc.updater,
+            sc.deleted,
+            scc.commodity_category_name
+        FROM
+            sales_commodity sc
+        LEFT JOIN sales_commodity_category scc ON sc.commodity_category_id = scc.id
+        WHERE
+            sc.id = #{id}
+        AND sc.deleted = 0
+    </select>
 
 </mapper>

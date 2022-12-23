@@ -73,7 +73,7 @@ public class CommodityCategoryDO extends BaseDO {
     /**
      * 排序序号
      */
-    private String order;
+    private String sort;
     /**
      * 商品类型，1为农资商场
      */

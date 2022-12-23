@@ -3,13 +3,13 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="商品id" prop="commodityId">
+      <!-- <el-form-item label="商品id" prop="commodityId">
         <el-input v-model="queryParams.commodityId" placeholder="请输入商品id" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="规格名称" prop="specificationsName">
         <el-input v-model="queryParams.specificationsName" placeholder="请输入规格名称" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="包装类型(0定装1散装)" prop="packagingType">
+      <el-form-item label="包装类型" prop="packagingType">
         <el-select v-model="queryParams.packagingType" placeholder="请选择包装类型(0定装1散装)" clearable size="small">
           <el-option label="请选择字典生成" value="" />
         </el-select>
@@ -18,12 +18,12 @@
         <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
                         range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
       </el-form-item>
-      <el-form-item label="经营主体id" prop="subjectId">
+      <!-- <el-form-item label="经营主体id" prop="subjectId">
         <el-input v-model="queryParams.subjectId" placeholder="请输入经营主体id" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="source" prop="source">
         <el-input v-model="queryParams.source" placeholder="请输入source" clearable @keyup.enter.native="handleQuery"/>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
@@ -45,16 +45,18 @@
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
+      <el-table-column label="包装类型" align="center" prop="packagingType" />
       <el-table-column label="规格名称" align="center" prop="specificationsName" />
-      <el-table-column label="包装类型(0定装1散装)" align="center" prop="packagingType" />
-      <el-table-column label="规格数量" align="center" prop="number" />
-      <el-table-column label="单位" align="center" prop="unit" />
+      
+      <!-- <el-table-column label="规格数量" align="center" prop="number" /> -->
+      <!-- <el-table-column label="单位" align="center" prop="unit" /> -->
       <el-table-column label="包装单位" align="center" prop="packaging" />
       <el-table-column label="计量单位" align="center" prop="measurementUnit" />
-      <el-table-column label="采购价" align="center" prop="purchasePrice" />
       <el-table-column label="售出价" align="center" prop="sellingPrice" />
-      <el-table-column label="备注" align="center" prop="remark" />
-      <el-table-column label="状态" align="center" prop="status" />
+      <el-table-column label="采购价" align="center" prop="purchasePrice" />
+      
+      <!-- <el-table-column label="备注" align="center" prop="remark" />
+      <el-table-column label="状态" align="center" prop="status" /> -->
       <el-table-column label="创建时间" align="center" prop="createTime" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
@@ -72,9 +74,6 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="商品id" prop="commodityId">
-          <el-input v-model="form.commodityId" placeholder="请输入商品id" />
-        </el-form-item>
         <el-form-item label="规格名称" prop="specificationsName">
           <el-input v-model="form.specificationsName" placeholder="请输入规格名称" />
         </el-form-item>
@@ -83,7 +82,7 @@
             <el-option label="请选择字典生成" value="" />
           </el-select>
         </el-form-item>
-        <el-form-item label="规格数量" prop="number">
+        <!-- <el-form-item label="规格数量" prop="number">
           <el-input v-model="form.number" placeholder="请输入规格数量" />
         </el-form-item>
         <el-form-item label="单位" prop="unit">
@@ -91,7 +90,7 @@
         </el-form-item>
         <el-form-item label="包装单位" prop="packaging">
           <el-input v-model="form.packaging" placeholder="请输入包装单位" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="计量单位" prop="measurementUnit">
           <el-input v-model="form.measurementUnit" placeholder="请输入计量单位" />
         </el-form-item>
@@ -101,7 +100,7 @@
         <el-form-item label="售出价" prop="sellingPrice">
           <el-input v-model="form.sellingPrice" placeholder="请输入售出价" />
         </el-form-item>
-        <el-form-item label="备注" prop="remark">
+        <!-- <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" placeholder="请输入备注" />
         </el-form-item>
         <el-form-item label="状态" prop="status">
@@ -114,7 +113,7 @@
         </el-form-item>
         <el-form-item label="source" prop="source">
           <el-input v-model="form.source" placeholder="请输入source" />
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -130,6 +129,13 @@ import { createCommoditySpecification, updateCommoditySpecification, deleteCommo
 export default {
   name: "CommoditySpecification",
   components: {
+  },
+  /**接受父组件传值*/
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
@@ -162,7 +168,11 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        status: [{ required: true, message: "状态不能为空", trigger: "blur" }],
+        specificationsName: [{ required: true, message: "商品名称不能为空", trigger: "blur" },
+        { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }],
+        packagingType:[{ required: true, message: "商品名称不能为空", trigger: "blur" },
+        { min: 1, max: 50, message: '最大长度为50', trigger: 'blur' }],
+
       }
     };
   },

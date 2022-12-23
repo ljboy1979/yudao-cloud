@@ -22,6 +22,8 @@ public class MarketCommodityPageReqVO extends PageParam {
 
     @ApiModelProperty(value = "商品名称")
     private String commodityName;
+    @ApiModelProperty(value = "市场名称")
+    private String marketName;
 
     @ApiModelProperty(value = "规格名称")
     private String specificationsName;

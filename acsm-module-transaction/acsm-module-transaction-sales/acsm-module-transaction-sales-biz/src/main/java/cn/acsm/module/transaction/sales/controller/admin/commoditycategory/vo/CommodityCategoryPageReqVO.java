@@ -50,7 +50,7 @@ public class CommodityCategoryPageReqVO extends PageParam {
     private String imgUrl;
 
     @ApiModelProperty(value = "排序序号")
-    private String order;
+    private String sort;
 
     @ApiModelProperty(value = "商品类型，1为农资商场")
     private String commodityType;

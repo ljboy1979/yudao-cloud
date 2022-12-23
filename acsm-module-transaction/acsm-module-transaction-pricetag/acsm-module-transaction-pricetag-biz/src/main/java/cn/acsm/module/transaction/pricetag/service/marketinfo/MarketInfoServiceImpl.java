@@ -35,8 +35,6 @@ public class MarketInfoServiceImpl implements MarketInfoService {
     @Resource
     private ConfigNumberUtil configNumberUtil;
 
-    @Resource
-    private MarketPriceMapper marketPriceMapper;
 
     @Override
     @Transactional
@@ -48,18 +46,6 @@ public class MarketInfoServiceImpl implements MarketInfoService {
         marketInfo.setId(UUID.randomUUID().toString());
         marketInfo.setMarketCode("SC"+number);
         marketInfoMapper.insert(marketInfo);
-        number = configNumberUtil.getNumber("pricetag_market_price"+tenantId);
-        MarketPriceDO marketPriceDO = new MarketPriceDO();
-        marketPriceDO.setId(UUID.randomUUID().toString());
-        marketPriceDO.setCode("JG"+number);
-        marketPriceDO.setMarketCommodityId(marketInfo.getId());
-        marketPriceDO.setMaxPrice(0F);
-        marketPriceDO.setMiddlePrice(0F);
-        marketPriceDO.setMinPrice(0F);
-        marketPriceDO.setMarketId(marketInfo.getId());
-        marketPriceDO.setSubjectId(marketInfo.getSubjectId());
-        marketPriceDO.setSource(marketInfo.getSource());
-        marketPriceMapper.insert(marketPriceDO);
         // 返回
         return marketInfo.getId();
     }

@@ -23,15 +23,15 @@ public class CommoditySpecificationBaseVO {
     private String packagingType;
 
     @ApiModelProperty(value = "规格数量")
-    @NotNull(message = "规格数量不能为空")
+   // @NotNull(message = "规格数量不能为空")
     private String number;
 
     @ApiModelProperty(value = "单位")
-    @NotNull(message = "单位不能为空")
+   // @NotNull(message = "单位不能为空")
     private String unit;
 
     @ApiModelProperty(value = "包装单位")
-    @NotNull(message = "包装单位不能为空")
+    //@NotNull(message = "包装单位不能为空")
     private String packaging;
 
     @ApiModelProperty(value = "计量单位")
@@ -53,11 +53,11 @@ public class CommoditySpecificationBaseVO {
     private String packagingTypeName;
 
     @ApiModelProperty(value = "单位名称")
-    @NotNull(message = "单位名称名不能为空")
+    //@NotNull(message = "单位名称名不能为空")
     private String unitName;
 
     @ApiModelProperty(value = "包装单位名称")
-    @NotNull(message = "包装单位名称不能为空")
+   // @NotNull(message = "包装单位名称不能为空")
     private String packagingName;
 
     @ApiModelProperty(value = "计量单位名称")

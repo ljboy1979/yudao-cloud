@@ -19,24 +19,33 @@
 
     <select id="findSpecifications" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
         select
-        id ,
-        specifications_name AS name,
-        packaging_type AS packagingType,
-        packaging_type_name AS packagingTypeName,
-        number,
-        unit,
-        unit_name AS unitName,
-        packaging,
-        packaging_name AS packagingName,
-        measurement_unit AS measurementUnit,
-        measurement_unit_name AS measurementUnitName,
-        purchase_price AS purchasePrice,
-        selling_price AS sellingPrice,
-        CONCAT(number,unit_name,"/",packaging_name) AS specifications
-        FROM sales_inputs_info_specification
-        where deleted = 0
-        AND inputs_info_id=#{salesId}
-        AND tenant_id =#{tenantId}
+        siis.id ,
+        siis.specifications_name AS name,
+        siis.packaging_type AS packagingType,
+        siis.packaging_type_name AS packagingTypeName,
+        siis.number,
+        siis.unit,
+        siis.unit_name AS unitName,
+        siis.packaging,
+        siis.packaging_name AS packagingName,
+        siis.measurement_unit AS measurementUnit,
+        siis.measurement_unit_name AS measurementUnitName,
+        siis.purchase_price AS purchasePrice,
+        siis.selling_price AS sellingPrice,
+        CONCAT(siis.number,siis.unit_name,"/",siis.packaging_name) AS specifications,
+        sii.inputs_name AS salesName,
+        sic.category_name AS classifyName
+        FROM sales_inputs_info_specification siis
+        LEFT FROM sales_inputs_info sii on siis.inputs_info_id = sii.id
+        LEFT FROM sales_input_classify sic on sic.id = sii.inputs_kind
+        where siis.deleted = 0 and sii.deleted = 0
+        <if test=" salesId !=null and salesId!='' ">
+          AND siis.inputs_info_id=#{salesId}
+        </if>
+        <if test=" salesName != null and salesName != '' ">
+            AND sii.inputs_name like CONCAT('%',#{salesName},'%')
+        </if>
+        AND siis.tenant_id =#{tenantId}
     </select>
 
 </mapper>

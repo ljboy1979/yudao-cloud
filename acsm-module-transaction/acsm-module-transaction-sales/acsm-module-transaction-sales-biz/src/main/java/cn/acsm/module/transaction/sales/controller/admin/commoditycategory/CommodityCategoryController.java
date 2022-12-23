@@ -103,7 +103,7 @@ public class CommodityCategoryController {
     @PostMapping("/treeList")
     @ApiOperation("树形分类列表")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:query')")
-    @Cacheable(value = "/sales/commodity-category/treeList",key = "#commodityCategoryTreeVO.commodityCategoryName")
+    //@Cacheable(value = "/sales/commodity-category/treeList",key = "#commodityCategoryTreeVO.commodityCategoryName")
     public CommonResult<List<TreeSelect>> treeList(@Valid CommodityCategoryTreeVO commodityCategoryTreeVO) {
         List<TreeSelect> list = commodityCategoryService.findTreeList(commodityCategoryTreeVO);
         return success(list);

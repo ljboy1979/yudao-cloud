@@ -31,6 +31,15 @@ public class MarketInfoBaseVO {
     @ApiModelProperty(value = "区县")
     private String countyCn;
 
+    @ApiModelProperty(value = "省ID")
+    private String provCode;
+
+    @ApiModelProperty(value = "市ID")
+    private String cityCode;
+
+    @ApiModelProperty(value = "区县ID")
+    private String countyCode;
+
     @ApiModelProperty(value = "经度")
     private Double longitude;
 
@@ -41,7 +50,6 @@ public class MarketInfoBaseVO {
     private String source;
 
     @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
     private Integer status;
 
     @ApiModelProperty(value = "经营主体id")

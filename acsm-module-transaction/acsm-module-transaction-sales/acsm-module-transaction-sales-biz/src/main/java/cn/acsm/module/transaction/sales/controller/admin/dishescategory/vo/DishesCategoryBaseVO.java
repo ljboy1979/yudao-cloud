@@ -53,7 +53,7 @@ public class DishesCategoryBaseVO {
     private String imgUrl;
 
     @ApiModelProperty(value = "排序序号")
-    private String order;
+    private String sort;
 
     @ApiModelProperty(value = "状态", required = true)
     @NotNull(message = "状态不能为空")
