@@ -65,7 +65,11 @@ public class SpecificationsController {
     @PreAuthorize("@ss.hasPermission('shelves:specifications:query')")
     public CommonResult<SpecificationsRespVO> getSpecifications(@RequestParam("id") String id) {
         SpecificationsDO specifications = specificationsService.getSpecifications(id);
-        return success(SpecificationsConvert.INSTANCE.convert(specifications));
+        SpecificationsRespVO specificationsRespVO = SpecificationsConvert.INSTANCE.convert(specifications);
+        if ("0".equals(specificationsRespVO.getPackagingType())){
+            specificationsRespVO.setSpecifications(specificationsRespVO.getNumber()+specificationsRespVO.getUnitName()+"/"+specificationsRespVO.getPackagingName());
+        }
+        return success(specificationsRespVO);
     }
 
     @GetMapping("/list")
@@ -82,7 +86,13 @@ public class SpecificationsController {
     @PreAuthorize("@ss.hasPermission('shelves:specifications:query')")
     public CommonResult<PageResult<SpecificationsRespVO>> getSpecificationsPage(@Valid SpecificationsPageReqVO pageVO) {
         PageResult<SpecificationsDO> pageResult = specificationsService.getSpecificationsPage(pageVO);
-        return success(SpecificationsConvert.INSTANCE.convertPage(pageResult));
+        PageResult<SpecificationsRespVO> respVOPageResult = SpecificationsConvert.INSTANCE.convertPage(pageResult);
+        respVOPageResult.getList().stream().forEach(specificationsRespVO -> {
+            if ("0".equals(specificationsRespVO.getPackagingType())){
+                specificationsRespVO.setSpecifications(specificationsRespVO.getNumber()+specificationsRespVO.getUnitName()+"/"+specificationsRespVO.getPackagingName());
+            }
+        });
+        return success(respVOPageResult);
     }
 
     @GetMapping("/export-excel")
