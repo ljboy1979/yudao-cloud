@@ -16,8 +16,8 @@ import javax.validation.constraints.NotNull;
 @ToString(callSuper = true)
 public class PurchaseOrderProductsVO extends PageParam {
 
-    @ApiModelProperty(value = "采购类型(1:原料 2:投入品 3:成品 4:办公用品)")
+    @ApiModelProperty(value = "类型 0原料、1投入品、2商品、3菜品、4套餐 5特医食品")
     @NotNull(message = "采购类型不能为空", groups = { PurchaseOrderCreateVO.class })
-    private String purchaseType;
+    private Integer purchaseType;
 
 }

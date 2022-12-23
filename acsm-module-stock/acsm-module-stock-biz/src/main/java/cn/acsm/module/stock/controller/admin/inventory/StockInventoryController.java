@@ -25,7 +25,7 @@ import java.util.List;
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
-@Api(tags = "管理后台 - 库存清单")
+@Api(tags = "管理后台 - 库存清单【预警】")
 @RestController
 @RequestMapping("/stock/inventory")
 @Validated
@@ -42,7 +42,7 @@ public class StockInventoryController {
     }
 
     @PutMapping("/update")
-    @ApiOperation("更新库存清单")
+    @ApiOperation("更新库存清单【3.7.2.5.设置预警值】")
     @PreAuthorize("@ss.hasPermission('stock:inventory:update')")
     public CommonResult<Boolean> updateInventory(@Valid @RequestBody StockInventoryUpdateReqVO updateReqVO) {
         inventoryService.updateInventory(updateReqVO);

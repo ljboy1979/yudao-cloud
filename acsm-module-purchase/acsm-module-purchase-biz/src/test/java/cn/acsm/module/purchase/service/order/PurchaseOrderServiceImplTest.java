@@ -105,7 +105,6 @@ public class PurchaseOrderServiceImplTest extends BaseDbUnitTest {
        // mock 数据
        PurchaseOrderDO dbOrder = randomPojo(PurchaseOrderDO.class, o -> { // 等会查询到
            o.setPurchaseType(null);
-           o.setSecondaryClassification(null);
            o.setPurchaseNumber(null);
            o.setProviderId(null);
            o.setProviderName(null);
@@ -144,7 +143,6 @@ public class PurchaseOrderServiceImplTest extends BaseDbUnitTest {
        // 测试 purchaseType 不匹配
        orderMapper.insert(cloneIgnoreId(dbOrder, o -> o.setPurchaseType(null)));
        // 测试 secondaryClassification 不匹配
-       orderMapper.insert(cloneIgnoreId(dbOrder, o -> o.setSecondaryClassification(null)));
        // 测试 purchaseNumber 不匹配
        orderMapper.insert(cloneIgnoreId(dbOrder, o -> o.setPurchaseNumber(null)));
        // 测试 providerId 不匹配
@@ -234,7 +232,6 @@ public class PurchaseOrderServiceImplTest extends BaseDbUnitTest {
        // mock 数据
        PurchaseOrderDO dbOrder = randomPojo(PurchaseOrderDO.class, o -> { // 等会查询到
            o.setPurchaseType(null);
-           o.setSecondaryClassification(null);
            o.setPurchaseNumber(null);
            o.setProviderId(null);
            o.setProviderName(null);
@@ -272,8 +269,6 @@ public class PurchaseOrderServiceImplTest extends BaseDbUnitTest {
        orderMapper.insert(dbOrder);
        // 测试 purchaseType 不匹配
        orderMapper.insert(cloneIgnoreId(dbOrder, o -> o.setPurchaseType(null)));
-       // 测试 secondaryClassification 不匹配
-       orderMapper.insert(cloneIgnoreId(dbOrder, o -> o.setSecondaryClassification(null)));
        // 测试 purchaseNumber 不匹配
        orderMapper.insert(cloneIgnoreId(dbOrder, o -> o.setPurchaseNumber(null)));
        // 测试 providerId 不匹配

@@ -1,6 +1,6 @@
 package cn.acsm.module.purchase.feign;
 
-import cn.acsm.module.transaction.shelves.api.shelves.ShelvesApi;
+import cn.acsm.module.transaction.sales.api.shelves.ShelvesApi;
 import org.springframework.cloud.openfeign.FeignClient;
 
 /**
@@ -10,6 +10,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * 创建时间: 2022/12/23
  * <pre>
  */
-@FeignClient(name="shelves-server")
+@FeignClient(name="sales-server")
 public interface ShelvesApiFeignClient extends ShelvesApi {
 }

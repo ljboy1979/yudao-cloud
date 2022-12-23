@@ -30,13 +30,9 @@ public class PurchaseOrderDO extends BaseDO {
     @TableId
     private Long id;
     /**
-     * 采购类型(1:原料 2:投入品 3:成品 4:办公用品)
+     * 采购类型(0:原料 1:投入品 2:商品 3: 菜品 4:套餐 5:特医食品)
      */
     private String purchaseType;
-    /**
-     * 二级分类
-     */
-    private String secondaryClassification;
     /**
      * 采购单号
      */
