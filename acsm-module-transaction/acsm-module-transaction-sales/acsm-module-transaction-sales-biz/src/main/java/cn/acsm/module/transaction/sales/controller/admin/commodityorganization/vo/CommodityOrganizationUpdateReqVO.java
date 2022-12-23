@@ -21,4 +21,7 @@ public class CommodityOrganizationUpdateReqVO extends CommodityOrganizationBaseV
     @ApiModelProperty(value = "source")
     private String source;
 
+    @ApiModelProperty(value = "tag 0原料 1直接新增")
+    private String tag;
+
 }

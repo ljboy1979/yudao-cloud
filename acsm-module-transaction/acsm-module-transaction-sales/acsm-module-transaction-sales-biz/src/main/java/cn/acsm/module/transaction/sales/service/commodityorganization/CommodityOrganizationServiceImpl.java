@@ -95,7 +95,12 @@ public class CommodityOrganizationServiceImpl implements CommodityOrganizationSe
         CommodityOrganizationDO commodityOrganizationDO = new CommodityOrganizationDO();
         commodityOrganizationDO.setId(updateReqVO.getId());
         commodityOrganizationDO.setCommodityId(updateReqVO.getCommodityId());
-        commodityOrganizationDO.setRawMaterialId(updateReqVO.getRawMaterialId());
+        if ("0".equals(updateReqVO.getTag())) {
+            commodityOrganizationDO.setRawMaterialId(updateReqVO.getRawMaterialId());
+        }
+        if ("1".equals(updateReqVO.getTag())) {
+            commodityOrganizationDO.setOrganizationName(updateReqVO.getOrganizationName());
+        }
         Long num =  commodityOrganizationMapper.findSelectCount(commodityOrganizationDO);
         if (num!=null && num>0){
             return CommonResult.error(ErrorCodeConstants.COMMODITY_ORGANIZATION_EXISTENCE);
