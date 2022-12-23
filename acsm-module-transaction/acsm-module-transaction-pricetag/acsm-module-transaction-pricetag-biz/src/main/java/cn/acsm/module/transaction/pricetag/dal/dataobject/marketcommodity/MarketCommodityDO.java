@@ -45,6 +45,11 @@ public class MarketCommodityDO extends BaseDO {
      * 商品名称
      */
     private String commodityName;
+
+    /**
+     * 分类名称
+     */
+    private String categoryName;
     /**
      * 市场id
      */

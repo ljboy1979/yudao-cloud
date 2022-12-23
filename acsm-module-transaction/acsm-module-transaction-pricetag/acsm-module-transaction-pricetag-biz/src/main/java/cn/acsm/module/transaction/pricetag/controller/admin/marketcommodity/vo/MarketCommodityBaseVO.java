@@ -39,6 +39,9 @@ public class MarketCommodityBaseVO {
     @NotNull(message = "规格名称不能为空")
     private String specificationsName;
 
+    @ApiModelProperty(value = "分类名称")
+    private String categoryName;
+
     @ApiModelProperty(value = "包装类型(0定装1散装)")
     private String packagingType;
 

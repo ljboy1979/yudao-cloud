@@ -1,5 +1,7 @@
 package cn.acsm.module.transaction.pricetag.service.scheduledprice;
 
+import cn.acsm.module.transaction.pricetag.dal.dataobject.marketclassify.MarketClassifyDO;
+import cn.acsm.module.transaction.pricetag.dal.mysql.marketclassify.MarketClassifyMapper;
 import cn.acsm.module.transaction.pricetag.util.ConfigNumberUtil;
 import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
@@ -31,15 +33,19 @@ public class ScheduledPriceServiceImpl implements ScheduledPriceService {
     @Resource
     private ConfigNumberUtil configNumberUtil;
 
-
+    @Resource
+    private MarketClassifyMapper marketClassifyMapper;
     @Override
     public String createScheduledPrice(ScheduledPriceCreateReqVO createReqVO) {
         Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
         String number = configNumberUtil.getNumber("pricetag_scheduled_price"+tenantId);
+        MarketClassifyDO marketClassifyDO = marketClassifyMapper.selectById(createReqVO.getClassifyId());
+
         // 插入
         ScheduledPriceDO scheduledPrice = ScheduledPriceConvert.INSTANCE.convert(createReqVO);
         scheduledPrice.setId(UUID.randomUUID().toString());
         scheduledPrice.setCommodityCode("YD"+number);
+        scheduledPrice.setCategoryName(marketClassifyDO.getTreeNames());
         scheduledPriceMapper.insert(scheduledPrice);
         // 返回
         return scheduledPrice.getId();

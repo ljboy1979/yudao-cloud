@@ -89,4 +89,6 @@ public class ScheduledPriceBaseVO {
     @ApiModelProperty(value = "经营主体id")
     private String subjectId;
 
+    @ApiModelProperty(value = "分类名称")
+    private String categoryName;
 }
