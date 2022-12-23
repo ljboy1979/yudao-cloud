@@ -26,7 +26,7 @@ import java.util.List;
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
-@Api(tags = "管理后台 - 盘点记录")
+@Api(tags = "管理后台 - 盘点")
 @RestController
 @RequestMapping("/stock/inventory-record")
 @Validated
@@ -36,14 +36,14 @@ public class StockInventoryRecordController {
     private StockInventoryRecordService inventoryRecordService;
 
     @PostMapping("/create")
-    @ApiOperation("创建盘点记录")
+    @ApiOperation("创建盘点信息")
     @PreAuthorize("@ss.hasPermission('stock:inventory-record:create')")
     public CommonResult<Long> createInventoryRecord(@Valid @RequestBody StockInventoryRecordCreateReqVO createReqVO) {
         return success(inventoryRecordService.createInventoryRecord(createReqVO));
     }
 
     @PutMapping("/update")
-    @ApiOperation("更新盘点记录")
+    @ApiOperation("更新盘点信息")
     @PreAuthorize("@ss.hasPermission('stock:inventory-record:update')")
     public CommonResult<Boolean> updateInventoryRecord(@Valid @RequestBody StockInventoryRecordUpdateReqVO updateReqVO) {
         inventoryRecordService.updateInventoryRecord(updateReqVO);
@@ -51,7 +51,7 @@ public class StockInventoryRecordController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation("删除盘点记录")
+    @ApiOperation("删除盘点信息")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermission('stock:inventory-record:delete')")
     public CommonResult<Boolean> deleteInventoryRecord(@RequestParam("id") Long id) {
@@ -60,7 +60,7 @@ public class StockInventoryRecordController {
     }
 
     @GetMapping("/get")
-    @ApiOperation("获得盘点记录")
+    @ApiOperation("获得盘点信息")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermission('stock:inventory-record:query')")
     public CommonResult<StockInventoryRecordRespVO> getInventoryRecord(@RequestParam("id") Long id) {
@@ -69,7 +69,7 @@ public class StockInventoryRecordController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("获得盘点记录列表")
+    @ApiOperation("获得盘点信息列表")
     @ApiImplicitParam(name = "ids", value = "编号列表", required = true, example = "1024,2048", dataTypeClass = List.class)
     @PreAuthorize("@ss.hasPermission('stock:inventory-record:query')")
     public CommonResult<List<StockInventoryRecordRespVO>> getInventoryRecordList(@RequestParam("ids") Collection<Long> ids) {
@@ -86,7 +86,7 @@ public class StockInventoryRecordController {
     }
 
     @GetMapping("/export-excel")
-    @ApiOperation("导出盘点记录 Excel")
+    @ApiOperation("导出盘点信息 Excel")
     @PreAuthorize("@ss.hasPermission('stock:inventory-record:export')")
     @OperateLog(type = EXPORT)
     public void exportInventoryRecordExcel(@Valid StockInventoryRecordExportReqVO exportReqVO,
@@ -98,7 +98,7 @@ public class StockInventoryRecordController {
     }
 
     @GetMapping("/page/record")
-    @ApiOperation("3.7.2.16.查询盘点记录")
+    @ApiOperation("3.7.2.16.查询盘点信息")
     @PreAuthorize("@ss.hasPermission('stock:inventory-record:query')")
     public CommonResult<Page<StockInventoryRecordDO>> getInventoryRecordPage(@Valid StockInventoryRecordPageVO pageVO) {
         Page<StockInventoryRecordDO> pageResult = inventoryRecordService.getInventoryRecordPage(pageVO);

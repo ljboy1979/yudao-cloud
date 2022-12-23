@@ -25,7 +25,7 @@ import java.util.List;
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
-@Api(tags = "管理后台 - 库存清单【预警】")
+@Api(tags = "管理后台 - 预警 - 库存清单")
 @RestController
 @RequestMapping("/stock/inventory")
 @Validated
@@ -35,14 +35,14 @@ public class StockInventoryController {
     private StockInventoryService inventoryService;
 
     @PostMapping("/create")
-    @ApiOperation("创建库存清单")
+    @ApiOperation("创建预警信息")
     @PreAuthorize("@ss.hasPermission('stock:inventory:create')")
     public CommonResult<String> createInventory(@Valid @RequestBody StockInventoryCreateReqVO createReqVO) {
         return success(inventoryService.createInventory(createReqVO));
     }
 
     @PutMapping("/update")
-    @ApiOperation("更新库存清单【3.7.2.5.设置预警值】")
+    @ApiOperation("更新预警信息【3.7.2.5.设置预警值】")
     @PreAuthorize("@ss.hasPermission('stock:inventory:update')")
     public CommonResult<Boolean> updateInventory(@Valid @RequestBody StockInventoryUpdateReqVO updateReqVO) {
         inventoryService.updateInventory(updateReqVO);
@@ -50,7 +50,7 @@ public class StockInventoryController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation("删除库存清单")
+    @ApiOperation("删除预警信息")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = String.class)
     @PreAuthorize("@ss.hasPermission('stock:inventory:delete')")
     public CommonResult<Boolean> deleteInventory(@RequestParam("id") String id) {
@@ -59,7 +59,7 @@ public class StockInventoryController {
     }
 
     @GetMapping("/get")
-    @ApiOperation("获得库存清单")
+    @ApiOperation("获得预警信息")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = String.class)
     @PreAuthorize("@ss.hasPermission('stock:inventory:query')")
     public CommonResult<StockInventoryRespVO> getInventory(@RequestParam("id") String id) {
@@ -68,7 +68,7 @@ public class StockInventoryController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("获得库存清单列表")
+    @ApiOperation("获得预警信息列表")
     @ApiImplicitParam(name = "ids", value = "编号列表", required = true, example = "1024,2048", dataTypeClass = List.class)
     @PreAuthorize("@ss.hasPermission('stock:inventory:query')")
     public CommonResult<List<StockInventoryRespVO>> getInventoryList(@RequestParam("ids") Collection<String> ids) {
@@ -77,7 +77,7 @@ public class StockInventoryController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("3.7.2.3.查询 库存清单")
+    @ApiOperation("3.7.2.3.查询 预警信息")
     @PreAuthorize("@ss.hasPermission('stock:inventory:query')")
     public CommonResult<PageResult<StockInventoryRespVO>> getInventoryPage(@Valid @RequestBody StockInventoryPageReqVO pageVO) {
         PageResult<StockInventoryDO> pageResult = inventoryService.getInventoryPage(pageVO);
@@ -85,7 +85,7 @@ public class StockInventoryController {
     }
 
     @GetMapping("/export-excel")
-    @ApiOperation("导出库存清单 Excel")
+    @ApiOperation("导出预警信息 Excel")
     @PreAuthorize("@ss.hasPermission('stock:inventory:export')")
     @OperateLog(type = EXPORT)
     public void exportInventoryExcel(@Valid StockInventoryExportReqVO exportReqVO,
@@ -97,7 +97,7 @@ public class StockInventoryController {
     }
 
     @PutMapping("/update/inventory")
-    @ApiOperation("3.7.2.6.更新库存量")
+    @ApiOperation("3.7.2.6.更新预警库存量")
     @PreAuthorize("@ss.hasPermission('stock:update:inventory')")
     public CommonResult<Boolean> updateInventoryCount(@Valid @RequestBody StockInventoryUpdateCountVO updateReqVO) {
         inventoryService.updateInventoryCount(updateReqVO);
