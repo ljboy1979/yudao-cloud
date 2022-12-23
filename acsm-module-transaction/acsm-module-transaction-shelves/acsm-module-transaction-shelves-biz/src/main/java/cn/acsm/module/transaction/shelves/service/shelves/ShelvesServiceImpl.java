@@ -6,6 +6,7 @@ import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
 import cn.acsm.module.transaction.sales.api.shelves.ShelvesApi;
 import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
 import cn.acsm.module.transaction.shelves.api.dto.ShelvesRespDto;
+import cn.acsm.module.transaction.shelves.controller.admin.specifications.vo.SpecificationsCreateReqVO;
 import cn.acsm.module.transaction.shelves.convert.specifications.SpecificationsConvert;
 import cn.acsm.module.transaction.shelves.dal.dataobject.shelves.ShelvesRespDO;
 import cn.acsm.module.transaction.shelves.dal.dataobject.specifications.SpecificationsDO;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.math.BigDecimal;
 import java.util.*;
 import cn.acsm.module.transaction.shelves.controller.admin.shelves.vo.*;
 import cn.acsm.module.transaction.shelves.dal.dataobject.shelves.ShelvesDO;
@@ -54,6 +56,18 @@ public class ShelvesServiceImpl implements ShelvesService {
     public String createShelves(ShelvesCreateReqVO createReqVO) {
         Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
         String number = configNumberUtil.getNumber("shelves"+tenantId);
+
+        if (createReqVO.getSpecificationsCreateReqVOS()!=null && createReqVO.getSpecificationsCreateReqVOS().size()!=0){
+            BigDecimal addNum = new BigDecimal(0.00);
+            BigDecimal availableNum = new BigDecimal(0.00);
+            for (SpecificationsCreateReqVO specificationsCreateReqVO : createReqVO.getSpecificationsCreateReqVOS()) {
+                addNum = addNum.add(specificationsCreateReqVO.getAddNum());
+                availableNum = availableNum.add(specificationsCreateReqVO.getAddNum());
+            }
+            createReqVO.setAddNum(addNum);
+            createReqVO.setAvailableNum(availableNum);
+        }
+
         // 插入
         ShelvesDO shelves = ShelvesConvert.INSTANCE.convert(createReqVO);
         shelves.setNumber("HJ"+number);
