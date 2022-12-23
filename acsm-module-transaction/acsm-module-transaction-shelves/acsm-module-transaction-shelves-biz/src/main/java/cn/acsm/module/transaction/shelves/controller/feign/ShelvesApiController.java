@@ -50,7 +50,6 @@ public class ShelvesApiController {
 
     @PostMapping("/treeList")
     @ApiOperation("树形分类列表")
-    @Cacheable(value = "/shelves/stock-classify/treeList",key = "#stockClassifyTreeVO.classifyName")
     public CommonResult<List<TreeSelectDto>> treeList(@Valid ShelvesReqDto shelvesReqDto) {
         List<TreeSelect> list = stockClassifyService.findTreeList(null);
         List<TreeSelectDto > treeSelectDtos = list.stream().map(o -> StockClassifyConvert.convertListToTreeDto(o)).collect(Collectors.toList());
