@@ -54,7 +54,9 @@ public class MarketClassifyServiceImpl implements MarketClassifyService {
         }
         // 插入
         MarketClassifyDO marketClassify = MarketClassifyConvert.INSTANCE.convert(createReqVO);
-        marketClassify.setId(UUID.randomUUID().toString());
+        Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
+        uuid = uuid < 0 ? -uuid : uuid;
+        marketClassify.setId(uuid.toString());
         marketClassifyMapper.insert(marketClassify);
         // 返回
         return marketClassify.getId();
