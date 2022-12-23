@@ -6,6 +6,8 @@ import cn.acsm.module.purchase.dal.dataobject.details.PurchaseDetailsDO;
 import cn.acsm.module.purchase.dal.dataobject.order.PurchaseOrderDO;
 import cn.acsm.module.purchase.dal.mysql.details.PurchaseDetailsMapper;
 import cn.acsm.module.purchase.dal.mysql.order.PurchaseOrderMapper;
+import cn.acsm.module.purchase.feign.ShelvesApiFeignClient;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
 import cn.hutool.core.date.format.FastDateFormat;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -28,8 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static cn.acsm.module.purchase.constant.PurchaseOrderConstant.PURCHASE_STATUS_1;
-import static cn.acsm.module.purchase.constant.PurchaseOrderConstant.STATUS;
+import static cn.acsm.module.purchase.constant.PurchaseOrderConstant.*;
 import static cn.acsm.module.purchase.enums.ErrorCodeConstants.ORDER_CREATE_ERROR;
 import static cn.acsm.module.purchase.enums.ErrorCodeConstants.ORDER_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -50,6 +51,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Resource
     private PurchaseDetailsMapper purchaseDetailsMapper;
+
+    @Resource
+    private ShelvesApiFeignClient shelvesApiFeignClient;
 
     @Override
     public CommonResult<String> createOrder(PurchaseOrderCreateReqVO createReqVO) {
@@ -266,6 +270,29 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         Page<QueryPurchaseOrderPageInfoVO> page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
         PageResult<QueryPurchaseOrderPageInfoVO> result = orderMapper.selectPage(page, pageReqVO);
         return result;
+    }
+
+    /**
+     * 3.6.2.5.查询采购合同单
+     */
+    public Page<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderProductsVO pageReqVO) {
+        String purchaseType = pageReqVO.getPurchaseType();
+
+        ShelvesReqDto reqDto = new ShelvesReqDto();
+//        reqDto.setSpecificationsId();
+
+//        shelvesApiFeignClient.findSpecificationsList();
+
+        if(purchaseType == PURCHASE_TYPE_1) {
+
+        } else if(purchaseType == PURCHASE_TYPE_2) {
+
+        } else if(purchaseType == PURCHASE_TYPE_3) {
+
+        } else if(purchaseType == PURCHASE_TYPE_4) {
+
+        }
+        return null;
     }
 
 }

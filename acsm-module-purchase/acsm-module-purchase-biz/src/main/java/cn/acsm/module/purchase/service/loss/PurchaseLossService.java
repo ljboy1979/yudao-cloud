@@ -1,5 +1,6 @@
 package cn.acsm.module.purchase.service.loss;
 
+import cn.acsm.module.purchase.api.loss.dto.LossReqDTO;
 import cn.acsm.module.purchase.controller.admin.loss.vo.PurchaseLossCreateReqVO;
 import cn.acsm.module.purchase.controller.admin.loss.vo.PurchaseLossExportReqVO;
 import cn.acsm.module.purchase.controller.admin.loss.vo.PurchaseLossPageReqVO;
@@ -71,5 +72,13 @@ public interface PurchaseLossService {
      * @return 损耗列表
      */
     List<PurchaseLossDO> getLossList(PurchaseLossExportReqVO exportReqVO);
+
+    /**
+     * 创建损耗 【stock服务调用】
+     *
+     * @param reqDTO 创建信息
+     * @return boolean 成功 | 失败
+     */
+    boolean createLoss(@Valid LossReqDTO reqDTO);
 
 }

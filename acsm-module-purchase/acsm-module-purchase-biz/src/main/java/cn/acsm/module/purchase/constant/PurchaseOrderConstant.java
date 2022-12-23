@@ -20,4 +20,12 @@ public class PurchaseOrderConstant {
      */
     public static final Integer STATUS = 2;
 
+    /**
+     * 采购类型(1:原料 2:投入品 3:成品 4:办公用品)
+     */
+    public static final String PURCHASE_TYPE_1 = "1";
+    public static final String PURCHASE_TYPE_2 = "2";
+    public static final String PURCHASE_TYPE_3 = "3";
+    public static final String PURCHASE_TYPE_4 = "4";
+
 }
