@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.sales.dal.dataobject.specialmedicalfoodclassify;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import java.util.*;
 import java.math.BigDecimal;
@@ -84,4 +85,8 @@ public class SpecialMedicalFoodClassifyDO extends BaseDO {
      */
     private String source;
 
+    /**
+     * 备注
+     */
+    private String remarks;
 }

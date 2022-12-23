@@ -64,4 +64,6 @@ public class CommodityCategoryBaseVO {
     @NotNull(message = "状态不能为空")
     private Integer status;
 
+    @ApiModelProperty(value = "备注")
+    private String remarks;
 }

@@ -41,4 +41,6 @@ public class SpecialMedicalFoodOrganizationBaseVO {
     @ApiModelProperty(value = "source")
     private String source;
 
+    @ApiModelProperty(value = "备注", required = true)
+    private String remarks;
 }

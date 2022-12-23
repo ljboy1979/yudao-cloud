@@ -101,8 +101,8 @@ public class MarketClassifyController {
     @PostMapping("/treeList")
     @ApiOperation("树形分类列表")
     @PreAuthorize("@ss.hasPermission('pricetag:market-classify:query')")
-    @Cacheable(value = "/pricetag/market-classify/treeList",key = "#marketClassifyTreeVO.categoryName")
-    public CommonResult<List<TreeSelect>> treeList(@Valid MarketClassifyTreeVO marketClassifyTreeVO) {
+    //@Cacheable(value = "/pricetag/market-classify/treeList",key = "#marketClassifyTreeVO.categoryName")
+    public CommonResult<List<TreeSelect>> treeList(@RequestBody @Valid MarketClassifyTreeVO marketClassifyTreeVO) {
         List<TreeSelect> list = marketClassifyService.findTreeList(marketClassifyTreeVO);
         return success(list);
     }

@@ -25,6 +25,9 @@ public class SpecificationsBaseVO {
     @ApiModelProperty(value = "规格名称")
     private String specificationsName;
 
+    @ApiModelProperty(value = "规格")
+    private String specifications;
+
     @ApiModelProperty(value = "包装类型(0定装1散装)")
     private String packagingType;
 

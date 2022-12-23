@@ -40,6 +40,10 @@ public class ScheduledPriceDO extends BaseDO {
      */
     private String commodityName;
     /**
+     * 分类名称
+     */
+    private String categoryName;
+    /**
      * 市场id
      */
     private String marketId;

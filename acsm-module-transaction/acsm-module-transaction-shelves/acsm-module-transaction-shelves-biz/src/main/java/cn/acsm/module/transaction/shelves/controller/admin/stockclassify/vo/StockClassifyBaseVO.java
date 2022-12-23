@@ -65,4 +65,6 @@ public class StockClassifyBaseVO {
     @ApiModelProperty(value = "source")
     private String source;
 
+    @ApiModelProperty(value = "备注")
+    private String remarks;
 }

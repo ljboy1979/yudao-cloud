@@ -22,6 +22,7 @@ public interface CommodityOrganizationMapper extends BaseMapperX<CommodityOrgani
     default PageResult<CommodityOrganizationDO> selectPage(CommodityOrganizationPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<CommodityOrganizationDO>()
                 .eqIfPresent(CommodityOrganizationDO::getOrganizationNumber, reqVO.getOrganizationNumber())
+                .eqIfPresent(CommodityOrganizationDO::getCommodityId, reqVO.getCommodityId())
                 .likeIfPresent(CommodityOrganizationDO::getOrganizationName, reqVO.getOrganizationName())
                 .betweenIfPresent(CommodityOrganizationDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(CommodityOrganizationDO::getId));

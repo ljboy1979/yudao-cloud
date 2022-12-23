@@ -15,35 +15,35 @@ import javax.validation.constraints.*;
 public class MarketClassifyBaseVO {
 
     @ApiModelProperty(value = "分类名称", required = true)
-    @NotNull(message = "分类名称不能为空")
+    //@NotNull(message = "分类名称不能为空")
     private String categoryName;
 
     @ApiModelProperty(value = "父级编号", required = true)
-    @NotNull(message = "父级编号不能为空")
+    //NotNull(message = "父级编号不能为空")
     private String parentCode;
 
     @ApiModelProperty(value = "所有父级编号", required = true)
-    @NotNull(message = "所有父级编号不能为空")
+    //@NotNull(message = "所有父级编号不能为空")
     private String parentCodes;
 
     @ApiModelProperty(value = "本级排序号（升序）", required = true)
-    @NotNull(message = "本级排序号（升序）不能为空")
+   // @NotNull(message = "本级排序号（升序）不能为空")
     private BigDecimal treeSort;
 
     @ApiModelProperty(value = "所有级别排序号", required = true)
-    @NotNull(message = "所有级别排序号不能为空")
+    //@NotNull(message = "所有级别排序号不能为空")
     private String treeSorts;
 
     @ApiModelProperty(value = "是否最末级", required = true)
-    @NotNull(message = "是否最末级不能为空")
+    //@NotNull(message = "是否最末级不能为空")
     private String treeLeaf;
 
     @ApiModelProperty(value = "层次级别", required = true)
-    @NotNull(message = "层次级别不能为空")
+    //@NotNull(message = "层次级别不能为空")
     private BigDecimal treeLevel;
 
     @ApiModelProperty(value = "全节点名", required = true)
-    @NotNull(message = "全节点名不能为空")
+    //@NotNull(message = "全节点名不能为空")
     private String treeNames;
 
     @ApiModelProperty(value = "0单条新增1批量新增")
@@ -56,7 +56,6 @@ public class MarketClassifyBaseVO {
     private String order;
 
     @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
     private Integer status;
 
     @ApiModelProperty(value = "经营主体id")
@@ -64,5 +63,8 @@ public class MarketClassifyBaseVO {
 
     @ApiModelProperty(value = "source")
     private String source;
+
+    @ApiModelProperty(value = "备注")
+    private String remarks;
 
 }

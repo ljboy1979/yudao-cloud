@@ -82,5 +82,8 @@ public class RawMaterialClassifyDO extends BaseDO {
      * source
      */
     private String source;
-
+    /**
+     * 备注
+     */
+    private String remarks;
 }

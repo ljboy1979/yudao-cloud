@@ -26,7 +26,7 @@ public class CommodityOrganizationBaseVO {
     private String organizationName;
 
     @ApiModelProperty(value = "分类")
-    @NotNull(message = "分类不能为空")
+    //@NotNull(message = "分类不能为空")
     private String classify;
 
     @ApiModelProperty(value = "产地")
@@ -34,5 +34,8 @@ public class CommodityOrganizationBaseVO {
 
     @ApiModelProperty(value = "状态", required = true)
     private Integer status;
+
+    @ApiModelProperty(value = "备注", required = true)
+    private String remarks;
 
 }

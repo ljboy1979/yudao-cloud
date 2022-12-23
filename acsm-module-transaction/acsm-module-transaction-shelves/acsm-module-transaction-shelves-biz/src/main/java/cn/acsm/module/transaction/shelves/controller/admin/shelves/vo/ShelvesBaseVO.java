@@ -60,7 +60,7 @@ public class ShelvesBaseVO {
     private String videoUrl;
 
     @ApiModelProperty(value = "售品说明")
-    private String explain;
+    private String salesExplain;
 
     @ApiModelProperty(value = "标签")
     private String label;

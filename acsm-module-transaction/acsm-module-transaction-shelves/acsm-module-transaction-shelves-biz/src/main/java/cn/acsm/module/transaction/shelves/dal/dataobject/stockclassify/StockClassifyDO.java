@@ -84,4 +84,8 @@ public class StockClassifyDO extends BaseDO {
      */
     private String source;
 
+    /**
+     * 备注
+     */
+    private String remarks;
 }
