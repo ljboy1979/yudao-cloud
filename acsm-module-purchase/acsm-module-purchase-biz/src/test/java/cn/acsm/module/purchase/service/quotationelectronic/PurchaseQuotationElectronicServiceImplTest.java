@@ -107,7 +107,7 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
        // mock 数据
        PurchaseQuotationElectronicDO dbQuotationElectronic = randomPojo(PurchaseQuotationElectronicDO.class, o -> { // 等会查询到
            o.setQuoteId(null);
-           o.setEnquiryId(null);
+           o.setInquiryDetailId(null);
            o.setCommodityId(null);
            o.setCommodityCategoryId(null);
            o.setSpecificationsId(null);
@@ -124,7 +124,7 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
        // 测试 quoteId 不匹配
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setQuoteId(null)));
        // 测试 enquiryId 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setEnquiryId(null)));
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setInquiryDetailId(null)));
        // 测试 commodityId 不匹配
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setCommodityId(null)));
        // 测试 commodityCategoryId 不匹配
@@ -150,7 +150,7 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
        // 准备参数
        PurchaseQuotationElectronicPageReqVO reqVO = new PurchaseQuotationElectronicPageReqVO();
        reqVO.setQuoteId(null);
-       reqVO.setEnquiryId(null);
+       reqVO.setInquiryDetailId(null);
        reqVO.setCommodityId(null);
        reqVO.setCommodityCategoryId(null);
        reqVO.setSpecificationsId(null);
@@ -177,7 +177,7 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
        // mock 数据
        PurchaseQuotationElectronicDO dbQuotationElectronic = randomPojo(PurchaseQuotationElectronicDO.class, o -> { // 等会查询到
            o.setQuoteId(null);
-           o.setEnquiryId(null);
+           o.setInquiryDetailId(null);
            o.setCommodityId(null);
            o.setCommodityCategoryId(null);
            o.setSpecificationsId(null);
@@ -194,7 +194,7 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
        // 测试 quoteId 不匹配
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setQuoteId(null)));
        // 测试 enquiryId 不匹配
-       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setEnquiryId(null)));
+       quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setInquiryDetailId(null)));
        // 测试 commodityId 不匹配
        quotationElectronicMapper.insert(cloneIgnoreId(dbQuotationElectronic, o -> o.setCommodityId(null)));
        // 测试 commodityCategoryId 不匹配
@@ -220,7 +220,7 @@ public class PurchaseQuotationElectronicServiceImplTest extends BaseDbUnitTest {
        // 准备参数
        PurchaseQuotationElectronicExportReqVO reqVO = new PurchaseQuotationElectronicExportReqVO();
        reqVO.setQuoteId(null);
-       reqVO.setEnquiryId(null);
+       reqVO.setInquiryDetailId(null);
        reqVO.setCommodityId(null);
        reqVO.setCommodityCategoryId(null);
        reqVO.setSpecificationsId(null);
