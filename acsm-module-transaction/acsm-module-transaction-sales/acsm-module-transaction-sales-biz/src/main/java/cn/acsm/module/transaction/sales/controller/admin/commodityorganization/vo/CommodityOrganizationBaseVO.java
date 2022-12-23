@@ -35,4 +35,7 @@ public class CommodityOrganizationBaseVO {
     @ApiModelProperty(value = "状态", required = true)
     private Integer status;
 
+    @ApiModelProperty(value = "备注", required = true)
+    private String remarks;
+
 }
