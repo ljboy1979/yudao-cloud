@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.sales.dal.dataobject.commoditycategory;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import java.util.*;
 import java.math.BigDecimal;
@@ -91,6 +92,9 @@ public class CommodityCategoryDO extends BaseDO {
      * source
      */
     private String source;
-
+    /**
+     * 备注
+     */
+    private String remarks;
 
 }
