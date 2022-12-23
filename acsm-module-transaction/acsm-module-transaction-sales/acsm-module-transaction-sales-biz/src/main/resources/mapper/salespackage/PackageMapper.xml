@@ -14,7 +14,6 @@
         name as name
         FROM sales_package
         where deleted = 0
-        and tenant_id =#{tenantId}
     </select>
 
     <select id="findSpecifications" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
@@ -45,7 +44,6 @@
         <if test=" salesName != null and salesName != '' ">
             AND sp.name like CONCAT('%',#{salesName},'%')
         </if>
-        AND sps.tenant_id =#{tenantId}
     </select>
 
 </mapper>

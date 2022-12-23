@@ -15,7 +15,6 @@
         name
         FROM shelves
         where deleted = 0
-        and tenant_id =#{tenantId}
         <if test="classifyId!=null and classifyId!='' ">
         and classify_id = #{classifyId}
         </if>
@@ -40,7 +39,6 @@
         <if test="shelvesId!=null and shelvesId!='' ">
         AND shelves_id=#{shelvesId}
         </if>
-        AND tenant_id =#{tenantId}
         <if test="specificationsId!=null and specificationsId!='' ">
         AND id =#{specificationsId}
         </if>

@@ -14,7 +14,6 @@
         commodity_name as name
         FROM sales_commodity
         where deleted = 0
-        and tenant_id =#{tenantId}
     </select>
 
     <select id="findSpecifications" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
@@ -45,7 +44,6 @@
         <if test=" salesName !=null and salesName!='' ">
             AND sd.commodity_name like CONCAT('%',#{salesName},'%')
         </if>
-        AND scs.tenant_id =#{tenantId}
     </select>
 
 
