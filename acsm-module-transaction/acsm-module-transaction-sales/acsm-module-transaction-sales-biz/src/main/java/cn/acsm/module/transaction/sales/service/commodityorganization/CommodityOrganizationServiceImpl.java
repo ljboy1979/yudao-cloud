@@ -72,7 +72,7 @@ public class CommodityOrganizationServiceImpl implements CommodityOrganizationSe
         if ("0".equals(createReqVO.getTag())){//原料新增
             //判断原料是否存在
             RawMaterialDO rawMaterialDO = rawMaterialMapper.selectById(createReqVO.getRawMaterialId());
-            if (rawMaterialDO!=null){
+            if (rawMaterialDO==null){
                 return CommonResult.error(ErrorCodeConstants.RAW_MATERIAL_NOT_EXISTS);
             }
             createReqVO.setOrigin(rawMaterialDO.getOrigin());
