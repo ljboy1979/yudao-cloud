@@ -13,11 +13,13 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class RawMaterialSpecificationRespVO extends RawMaterialSpecificationBaseVO {
 
+    @ApiModelProperty(value = "id", required = true)
+    private String id;
     @ApiModelProperty(value = "创建时间", required = true)
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = "GMT+8")
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date createTime;
     @ApiModelProperty(value = "更新时间", required = true)
-    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = "GMT+8")
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date updateTime;
 
 }
