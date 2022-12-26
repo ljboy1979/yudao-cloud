@@ -8,6 +8,7 @@ import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -85,11 +86,11 @@ public class PurchaseInquiryController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("获得采购询价单分页")
+    @ApiOperation("3.6.2.25.查询询价单")
     @PreAuthorize("@ss.hasPermission('purchase:inquiry:query')")
-    public CommonResult<PageResult<PurchaseInquiryRespVO>> getInquiryPage(@Valid PurchaseInquiryPageReqVO pageVO) {
-        PageResult<PurchaseInquiryDO> pageResult = inquiryService.getInquiryPage(pageVO);
-        return success(PurchaseInquiryConvert.INSTANCE.convertPage(pageResult));
+    public CommonResult<Page<PurchaseInquiryDO>> getInquiryPage(@Valid PurchaseInquiryPageReqVO pageVO) {
+        Page<PurchaseInquiryDO> pageResult = inquiryService.getInquiryPage(pageVO);
+        return success(pageResult);
     }
 
     @GetMapping("/export-excel")

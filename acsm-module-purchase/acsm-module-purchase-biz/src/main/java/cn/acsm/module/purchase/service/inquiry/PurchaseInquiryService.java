@@ -3,6 +3,7 @@ package cn.acsm.module.purchase.service.inquiry;
 import cn.acsm.module.purchase.controller.admin.inquiry.vo.*;
 import cn.acsm.module.purchase.dal.dataobject.inquiry.PurchaseInquiryDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import javax.validation.Valid;
 import java.util.Collection;
@@ -66,7 +67,7 @@ public interface PurchaseInquiryService {
      * @param pageReqVO 分页查询
      * @return 采购询价分页
      */
-    PageResult<PurchaseInquiryDO> getInquiryPage(PurchaseInquiryPageReqVO pageReqVO);
+    Page<PurchaseInquiryDO> getInquiryPage(PurchaseInquiryPageReqVO pageReqVO);
 
     /**
      * 获得采购询价列表, 用于 Excel 导出

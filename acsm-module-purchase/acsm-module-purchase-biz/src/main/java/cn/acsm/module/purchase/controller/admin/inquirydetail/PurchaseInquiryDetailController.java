@@ -77,7 +77,7 @@ public class PurchaseInquiryDetailController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("获得采购询价电子表分页")
+    @ApiOperation("3.6.2.35.查询采购询价明细（基础方法）")
     @PreAuthorize("@ss.hasPermission('purchase:inquiry-detail:query')")
     public CommonResult<PageResult<PurchaseInquiryDetailRespVO>> getInquiryDetailPage(@Valid PurchaseInquiryDetailPageReqVO pageVO) {
         PageResult<PurchaseInquiryDetailDO> pageResult = inquiryDetailService.getInquiryDetailPage(pageVO);

@@ -10,6 +10,7 @@ import cn.acsm.module.purchase.utils.SnowFlakeUtil;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -140,8 +141,16 @@ public class PurchaseInquiryServiceImpl implements PurchaseInquiryService {
     }
 
     @Override
-    public PageResult<PurchaseInquiryDO> getInquiryPage(PurchaseInquiryPageReqVO pageReqVO) {
-        return inquiryMapper.selectPage(pageReqVO);
+    public Page<PurchaseInquiryDO> getInquiryPage(PurchaseInquiryPageReqVO pageReqVO) {
+        Page<PurchaseInquiryDO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq(StringUtils.isNotBlank(pageReqVO.getEnquiryId()), "enquiry_id", pageReqVO.getEnquiryId());
+        wrapper.like(StringUtils.isNotBlank(pageReqVO.getEnquiryName()), "enquiry_name", pageReqVO.getEnquiryName());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getProviderId()), "provider_id", pageReqVO.getProviderId());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getReleaseTime()), "release_time", pageReqVO.getReleaseTime());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getPostStatus()), "post_status", pageReqVO.getPostStatus());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getEnquiryStatus()), "enquiry_status", pageReqVO.getEnquiryStatus());
+        return inquiryMapper.selectPage(page, wrapper);
     }
 
     @Override
