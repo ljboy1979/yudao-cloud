@@ -93,4 +93,9 @@ public class MarketInfoServiceImpl implements MarketInfoService {
         return marketInfoMapper.selectList(exportReqVO);
     }
 
+    @Override
+    public List<MarketInfoDO> getList() {
+        return marketInfoMapper.selectList();
+    }
+
 }
