@@ -11,6 +11,9 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -66,6 +69,7 @@ public class PurchaseDeliverServiceImpl implements PurchaseDeliverService {
     }
 
     @Override
+    @CachePut(value = "deliver", key = "#updateReqVO.id")
     public void updateDeliver(PurchaseDeliverUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateDeliverExists(updateReqVO.getId());
@@ -80,6 +84,7 @@ public class PurchaseDeliverServiceImpl implements PurchaseDeliverService {
     }
 
     @Override
+    @CacheEvict(value = "deliver", key = "#id")
     public void deleteDeliver(Long id) {
         // 校验存在
         this.validateDeliverExists(id);
@@ -94,21 +99,25 @@ public class PurchaseDeliverServiceImpl implements PurchaseDeliverService {
     }
 
     @Override
+    @Cacheable(cacheNames = "deliver", key = "#id")
     public PurchaseDeliverDO getDeliver(Long id) {
         return deliverMapper.selectById(id);
     }
 
     @Override
+    @Cacheable(cacheNames = "deliver", key = "#ids")
     public List<PurchaseDeliverDO> getDeliverList(Collection<Long> ids) {
         return deliverMapper.selectBatchIds(ids);
     }
 
     @Override
+    @Cacheable(cacheNames = "deliver", key = "'getDeliverPage'.concat('-').concat(#pageReqVO.purchaseNumber)")
     public PageResult<PurchaseDeliverDO> getDeliverPage(PurchaseDeliverPageReqVO pageReqVO) {
         return deliverMapper.selectPage(pageReqVO);
     }
 
     @Override
+    @Cacheable(cacheNames = "deliver", key = "'export'.concat('-').concat(#pageReqVO.purchaseNumber)")
     public List<PurchaseDeliverDO> getDeliverList(PurchaseDeliverExportReqVO exportReqVO) {
         return deliverMapper.selectList(exportReqVO);
     }
@@ -119,6 +128,7 @@ public class PurchaseDeliverServiceImpl implements PurchaseDeliverService {
      * @param reqCountVO
      * @return 采购交付数量
      */
+    @Cacheable(cacheNames = "deliver", key = "'getDeliveryCount'.concat('-').concat(#pageReqVO.purchaseNumber)")
     @Override
     public BigDecimal getDeliveryCount(PurchaseDeliverReqCountVO reqCountVO) {
         // 验证当前采购单状态是否正常

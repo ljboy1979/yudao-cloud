@@ -18,6 +18,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -134,6 +137,7 @@ public class StockInventoryRecordServiceImpl implements StockInventoryRecordServ
         return prefix.concat(now).concat("00001");
     }
 
+    @CachePut(value = "inventoryRecord", key = "#updateReqVO.id")
     @Override
     public void updateInventoryRecord(StockInventoryRecordUpdateReqVO updateReqVO) {
         // 校验存在
@@ -143,6 +147,7 @@ public class StockInventoryRecordServiceImpl implements StockInventoryRecordServ
         inventoryRecordMapper.updateById(updateObj);
     }
 
+    @CacheEvict(value = "inventoryRecord", key = "#id")
     @Override
     public void deleteInventoryRecord(Long id) {
         // 校验存在
@@ -157,21 +162,25 @@ public class StockInventoryRecordServiceImpl implements StockInventoryRecordServ
         }
     }
 
+    @Cacheable(value = "inventoryRecord", key = "#id")
     @Override
     public StockInventoryRecordDO getInventoryRecord(Long id) {
         return inventoryRecordMapper.selectById(id);
     }
 
+    @Cacheable(value = "inventoryRecord", key = "#ids")
     @Override
     public List<StockInventoryRecordDO> getInventoryRecordList(Collection<Long> ids) {
         return inventoryRecordMapper.selectBatchIds(ids);
     }
 
+    @Cacheable(value = "inventoryRecord", key = "'getInventoryRecordPage'.concat(#pageReqVO.inventoryCode)")
     @Override
     public PageResult<StockInventoryRecordDO> getInventoryRecordPage(StockInventoryRecordPageReqVO pageReqVO) {
         return inventoryRecordMapper.selectPage(pageReqVO);
     }
 
+    @Cacheable(value = "inventoryRecord", key = "'getInventoryRecordList'.concat(#pageReqVO.type).concat(#pageReqVO.inventoryCode)")
     @Override
     public List<StockInventoryRecordDO> getInventoryRecordList(StockInventoryRecordExportReqVO exportReqVO) {
         return inventoryRecordMapper.selectList(exportReqVO);

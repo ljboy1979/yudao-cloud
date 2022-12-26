@@ -8,9 +8,16 @@ import cn.acsm.module.purchase.convert.inquirydetail.PurchaseInquiryDetailConver
 import cn.acsm.module.purchase.dal.dataobject.inquirydetail.PurchaseInquiryDetailDO;
 import cn.acsm.module.purchase.dal.mysql.inquiry.PurchaseInquiryMapper;
 import cn.acsm.module.purchase.dal.mysql.inquirydetail.PurchaseInquiryDetailMapper;
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
+import cn.acsm.module.transaction.sales.api.shelves.ShelvesApi;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -33,6 +40,9 @@ import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionU
 public class PurchaseInquiryDetailServiceImpl implements PurchaseInquiryDetailService {
 
     @Resource
+    private ShelvesApi shelvesApi;
+
+    @Resource
     private PurchaseInquiryDetailMapper inquiryDetailMapper;
 
     @Resource
@@ -47,6 +57,7 @@ public class PurchaseInquiryDetailServiceImpl implements PurchaseInquiryDetailSe
         return inquiryDetail.getId();
     }
 
+    @CachePut(value = "purchaseInquiryDetail", key = "#updateReqVO.id")
     @Override
     public void updateInquiryDetail(PurchaseInquiryDetailUpdateReqVO updateReqVO) {
         // 限制条件：【询价单表】中发布状态"未发布"可修改
@@ -63,6 +74,7 @@ public class PurchaseInquiryDetailServiceImpl implements PurchaseInquiryDetailSe
         inquiryDetailMapper.updateById(updateObj);
     }
 
+    @CacheEvict(value = "purchaseInquiryDetail", key = "#id")
     @Override
     public void deleteInquiryDetail(Long id) {
         // 校验存在
@@ -77,22 +89,33 @@ public class PurchaseInquiryDetailServiceImpl implements PurchaseInquiryDetailSe
         }
     }
 
+    @Cacheable(value = "purchaseInquiryDetail", key = "#id")
     @Override
     public PurchaseInquiryDetailDO getInquiryDetail(Long id) {
         return inquiryDetailMapper.selectById(id);
     }
 
+    @Cacheable(value = "purchaseInquiryDetail", key = "#ids")
     @Override
     public List<PurchaseInquiryDetailDO> getInquiryDetailList(Collection<Long> ids) {
         return inquiryDetailMapper.selectBatchIds(ids);
     }
 
+    /**
+     * 3.6.2.35.查询采购询价明细（基础方法）
+     * @param pageReqVO 分页查询
+     * @return
+     */
+    @Cacheable(value = "purchaseInquiryDetail", key = "'getInquiryDetailPage'.concat('-').concat(#pageReqVO.pageNo)" +
+            ".concat('-').concat(#pageReqVO.pageSize)")
     @Override
     public PageResult<PurchaseInquiryDetailDO> getInquiryDetailPage(PurchaseInquiryDetailPageReqVO pageReqVO) {
-
+        ShelvesSalesReqDto reqDto = new ShelvesSalesReqDto();
+        CommonResult<List<ShelvesSalesRespDto>> sales = shelvesApi.findSales(reqDto);
         return inquiryDetailMapper.selectPage(pageReqVO);
     }
 
+    @Cacheable(value = "purchaseInquiryDetail", key = "'getInquiryDetailList'.concat('-').concat(#exportReqVO.enquiryId)")
     @Override
     public List<PurchaseInquiryDetailDO> getInquiryDetailList(PurchaseInquiryDetailExportReqVO exportReqVO) {
         return inquiryDetailMapper.selectList(exportReqVO);

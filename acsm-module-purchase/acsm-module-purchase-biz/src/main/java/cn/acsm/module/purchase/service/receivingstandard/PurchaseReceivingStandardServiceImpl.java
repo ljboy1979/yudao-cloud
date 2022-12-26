@@ -8,6 +8,9 @@ import cn.acsm.module.purchase.convert.receivingstandard.PurchaseReceivingStanda
 import cn.acsm.module.purchase.dal.dataobject.receivingstandard.PurchaseReceivingStandardDO;
 import cn.acsm.module.purchase.dal.mysql.receivingstandard.PurchaseReceivingStandardMapper;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -39,6 +42,7 @@ public class PurchaseReceivingStandardServiceImpl implements PurchaseReceivingSt
         return receivingStandard.getId();
     }
 
+    @CachePut(value = "purchaseReceivingStandard", key = "#updateReqVO.id")
     @Override
     public void updateReceivingStandard(PurchaseReceivingStandardUpdateReqVO updateReqVO) {
         // 校验存在
@@ -48,6 +52,7 @@ public class PurchaseReceivingStandardServiceImpl implements PurchaseReceivingSt
         receivingStandardMapper.updateById(updateObj);
     }
 
+    @CacheEvict(value = "purchaseReceivingStandard", key = "#id")
     @Override
     public void deleteReceivingStandard(Long id) {
         // 校验存在
@@ -62,21 +67,26 @@ public class PurchaseReceivingStandardServiceImpl implements PurchaseReceivingSt
         }
     }
 
+    @Cacheable(value = "purchaseReceivingStandard", key = "#id")
     @Override
     public PurchaseReceivingStandardDO getReceivingStandard(Long id) {
         return receivingStandardMapper.selectById(id);
     }
 
+    @Cacheable(value = "purchaseReceivingStandard", key = "#ids")
     @Override
     public List<PurchaseReceivingStandardDO> getReceivingStandardList(Collection<Long> ids) {
         return receivingStandardMapper.selectBatchIds(ids);
     }
 
+    @Cacheable(value = "purchaseReceivingStandard", key = "'getReceivingStandardPage'.concat('-').concat(pageReqVO.pageNo)" +
+            ".concat('-').concat(pageReqVO.pageSize)")
     @Override
     public PageResult<PurchaseReceivingStandardDO> getReceivingStandardPage(PurchaseReceivingStandardPageReqVO pageReqVO) {
         return receivingStandardMapper.selectPage(pageReqVO);
     }
 
+    @Cacheable(value = "purchaseReceivingStandard", key = "'getReceivingStandardList'")
     @Override
     public List<PurchaseReceivingStandardDO> getReceivingStandardList(PurchaseReceivingStandardExportReqVO exportReqVO) {
         return receivingStandardMapper.selectList(exportReqVO);

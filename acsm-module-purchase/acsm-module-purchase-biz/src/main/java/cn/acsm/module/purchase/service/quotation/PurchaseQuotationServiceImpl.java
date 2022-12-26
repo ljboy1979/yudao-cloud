@@ -14,6 +14,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -102,6 +105,7 @@ public class PurchaseQuotationServiceImpl implements PurchaseQuotationService {
         return prefix.concat(now).concat("00001");
     }
 
+    @CachePut(value = "purchaseQuotation", key = "#updateReqVO.quoteId")
     @Override
     public void updateQuotation(PurchaseQuotationUpdateReqVO updateReqVO) {
         // 限制条件：是否提交"未提交"可修改
@@ -118,6 +122,7 @@ public class PurchaseQuotationServiceImpl implements PurchaseQuotationService {
         quotationMapper.updateById(updateObj);
     }
 
+    @CacheEvict(value = "purchaseQuotation", key = "#id")
     @Override
     public void deleteQuotation(Long id) {
         // 校验存在
@@ -132,21 +137,26 @@ public class PurchaseQuotationServiceImpl implements PurchaseQuotationService {
         }
     }
 
+    @Cacheable(value = "purchaseQuotation", key = "#id")
     @Override
     public PurchaseQuotationDO getQuotation(Long id) {
         return quotationMapper.selectById(id);
     }
 
+    @Cacheable(value = "purchaseQuotation", key = "#ids")
     @Override
     public List<PurchaseQuotationDO> getQuotationList(Collection<Long> ids) {
         return quotationMapper.selectBatchIds(ids);
     }
 
+    @Cacheable(value = "purchaseQuotation", key = "'getQuotationPage'.concat('-').concat(pageReqVO.pageNo)" +
+            ".concat('-').concat(pageReqVO.pageSize)")
     @Override
     public PageResult<PurchaseQuotationDO> getQuotationPage(PurchaseQuotationPageReqVO pageReqVO) {
         return quotationMapper.selectPage(pageReqVO);
     }
 
+    @Cacheable(value = "purchaseQuotation", key = "'getQuotationList'")
     @Override
     public List<PurchaseQuotationDO> getQuotationList(PurchaseQuotationExportReqVO exportReqVO) {
         return quotationMapper.selectList(exportReqVO);
@@ -157,6 +167,7 @@ public class PurchaseQuotationServiceImpl implements PurchaseQuotationService {
      *
      * @param quoteId 编号
      */
+    @CacheEvict(value = "purchaseQuotation", key = "#quoteId")
     public void deleteQuotation(String quoteId) {
         // 删除报价单
         UpdateWrapper wrapper = new UpdateWrapper();
@@ -204,6 +215,9 @@ public class PurchaseQuotationServiceImpl implements PurchaseQuotationService {
      *
      * @param quotationVO
      */
+    @Cacheable(value = "purchaseQuotation", key = "'queryPriceTagInfo'.concat('-').concat(#quotationVO.commodityId)" +
+            ".concat('-').concat(#quotationVO.specificationsId)")
+    @Override
     public List<PurchaseQuotationElectronicDO> queryPriceTagInfo(PurchasePurchaserQuotationVO quotationVO) {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq(ObjectUtils.isNotEmpty(quotationVO.getCommodityId()), "commodity_id", quotationVO.getCommodityId());

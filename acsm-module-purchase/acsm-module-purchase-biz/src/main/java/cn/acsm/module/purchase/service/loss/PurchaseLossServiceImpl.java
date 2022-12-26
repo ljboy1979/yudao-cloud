@@ -10,6 +10,9 @@ import cn.acsm.module.purchase.dal.dataobject.loss.PurchaseLossDO;
 import cn.acsm.module.purchase.dal.mysql.loss.PurchaseLossMapper;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -42,6 +45,7 @@ public class PurchaseLossServiceImpl implements PurchaseLossService {
         return loss.getId();
     }
 
+    @CachePut(value = "purchaseLoss", key = "#updateReqVO.id")
     @Override
     public void updateLoss(PurchaseLossUpdateReqVO updateReqVO) {
         // 校验存在
@@ -51,6 +55,7 @@ public class PurchaseLossServiceImpl implements PurchaseLossService {
         lossMapper.updateById(updateObj);
     }
 
+    @CacheEvict(value = "purchaseLoss", key = "#id")
     @Override
     public void deleteLoss(Long id) {
         // 校验存在
@@ -65,21 +70,26 @@ public class PurchaseLossServiceImpl implements PurchaseLossService {
         }
     }
 
+    @Cacheable(value = "purchaseLoss", key = "#id")
     @Override
     public PurchaseLossDO getLoss(Long id) {
         return lossMapper.selectById(id);
     }
 
+    @Cacheable(value = "purchaseLoss", key = "#ids")
     @Override
     public List<PurchaseLossDO> getLossList(Collection<Long> ids) {
         return lossMapper.selectBatchIds(ids);
     }
 
+    @Cacheable(value = "purchaseLoss", key = "'getLossPage'.concat('-').concat(#pageReqVO.pageNo)" +
+            ".concat('-').concat(#pageReqVO.pageSize)")
     @Override
     public PageResult<PurchaseLossDO> getLossPage(PurchaseLossPageReqVO pageReqVO) {
         return lossMapper.selectPage(pageReqVO);
     }
 
+    @Cacheable(value = "purchaseLoss", key = "'getLossList'")
     @Override
     public List<PurchaseLossDO> getLossList(PurchaseLossExportReqVO exportReqVO) {
         return lossMapper.selectList(exportReqVO);
