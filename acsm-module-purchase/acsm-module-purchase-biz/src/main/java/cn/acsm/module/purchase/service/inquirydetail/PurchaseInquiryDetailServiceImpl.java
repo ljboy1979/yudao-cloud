@@ -89,6 +89,7 @@ public class PurchaseInquiryDetailServiceImpl implements PurchaseInquiryDetailSe
 
     @Override
     public PageResult<PurchaseInquiryDetailDO> getInquiryDetailPage(PurchaseInquiryDetailPageReqVO pageReqVO) {
+
         return inquiryDetailMapper.selectPage(pageReqVO);
     }
 
