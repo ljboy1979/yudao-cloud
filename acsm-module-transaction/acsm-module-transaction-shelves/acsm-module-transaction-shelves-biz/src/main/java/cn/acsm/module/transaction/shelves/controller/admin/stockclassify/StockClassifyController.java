@@ -102,9 +102,18 @@ public class StockClassifyController {
     @PostMapping("/treeList")
     @ApiOperation("树形分类列表")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:query')")
-    @Cacheable(value = "/shelves/stock-classify/treeList",key = "#stockClassifyTreeVO.classifyName")
+    //@Cacheable(value = "/shelves/stock-classify/treeList",key = "#stockClassifyTreeVO.classifyName")
     public CommonResult<List<TreeSelect>> treeList(@Valid StockClassifyTreeVO stockClassifyTreeVO) {
         List<TreeSelect> list = stockClassifyService.findTreeList(stockClassifyTreeVO);
+        return success(list);
+    }
+
+    @PostMapping("/findClassifyList")
+    @ApiOperation("树形分类列表")
+    @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:query')")
+    //@Cacheable(value = "/shelves/stock-classify/treeList",key = "#stockClassifyTreeVO.classifyName")
+    public CommonResult<List<StockClassifyRespVO>> findClassifyList(@Valid @RequestBody StockClassifyTreeVO stockClassifyTreeVO) {
+        List<StockClassifyRespVO> list = stockClassifyService.findClassifyList(stockClassifyTreeVO);
         return success(list);
     }
 

@@ -113,4 +113,10 @@ public class StockClassifyServiceImpl implements StockClassifyService {
         return treeSelects;
     }
 
+    @Override
+    public List<StockClassifyRespVO> findClassifyList(StockClassifyTreeVO stockClassifyTreeVO) {
+        List<StockClassifyDO> classifyList =  stockClassifyMapper.findClassifyList(stockClassifyTreeVO);
+        return StockClassifyConvert.INSTANCE.convertList(classifyList);
+    }
+
 }

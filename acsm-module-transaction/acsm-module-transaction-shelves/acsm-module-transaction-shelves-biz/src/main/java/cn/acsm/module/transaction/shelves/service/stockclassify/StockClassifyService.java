@@ -69,4 +69,6 @@ public interface StockClassifyService {
     List<StockClassifyDO> getStockClassifyList(StockClassifyExportReqVO exportReqVO);
 
     List<TreeSelect> findTreeList(StockClassifyTreeVO stockClassifyTreeVO);
+
+    List<StockClassifyRespVO> findClassifyList(StockClassifyTreeVO stockClassifyTreeVO);
 }
