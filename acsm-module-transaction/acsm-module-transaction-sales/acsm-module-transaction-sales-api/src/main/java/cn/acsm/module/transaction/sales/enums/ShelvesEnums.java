@@ -32,7 +32,7 @@ public enum ShelvesEnums {
 
     public static ShelvesEnums getByType(Integer type) {
         for (ShelvesEnums shelvesEnums : ShelvesEnums.values()) {
-            if (shelvesEnums.type.equals(type)) {
+            if (shelvesEnums.type==type) {
                 return shelvesEnums;
             }
         }

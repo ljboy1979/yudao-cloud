@@ -17,7 +17,7 @@ public class ShelvesContext {
     Map<String, ShelvesService> strategyMap = new ConcurrentHashMap();
 
     public ShelvesService getService(String type){
-        ShelvesService shelvesService = strategyMap.get("");
+        ShelvesService shelvesService = strategyMap.get(type);
         if (shelvesService == null) {
             throw exception(STRATEGY_NOT_DEFINED);
         }
