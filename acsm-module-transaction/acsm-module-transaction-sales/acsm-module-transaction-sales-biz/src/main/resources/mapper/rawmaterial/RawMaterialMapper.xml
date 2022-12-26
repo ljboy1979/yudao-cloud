@@ -47,7 +47,7 @@
         </if>
     </select>
 
-    <select id="findList" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
+    <select id="findList" resultType="cn.acsm.module.transaction.sales.dal.dataobject.rawmaterial.RawMaterialDO">
         select
         id ,
         name as name
