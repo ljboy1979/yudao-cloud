@@ -1,5 +1,7 @@
 package cn.acsm.module.stock.service.inventory;
 
+import cn.acsm.module.stock.api.inventory.qo.InventoryQO;
+import cn.acsm.module.stock.api.inventory.vo.StockInventoryApiReqVO;
 import cn.acsm.module.stock.controller.admin.inventory.vo.*;
 import cn.acsm.module.stock.dal.dataobject.inventory.StockInventoryDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -82,4 +84,11 @@ public interface StockInventoryService {
      */
     void lossReporting(@Valid StockLossReportingVO reportingVO);
 
+//    --------------- 远程调用接口 ---------------
+    /**
+     * 根据条件获得库存清单列表
+     * @param apiReqVO 查询条件
+     * @return 库存清单列表
+     */
+    List<StockInventoryApiReqVO> getInventoryList(InventoryQO apiReqVO);
 }

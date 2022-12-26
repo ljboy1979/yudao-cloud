@@ -2,11 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.acsm.module.stock.dal.mysql.inventory.StockInventoryMapper">
 
-    <!--
-        一般情况下，尽可能使用 Mapper 进行 CRUD 增删改查即可。
-        无法满足的场景，例如说多表关联查询，才使用 XML 编写 SQL。
-        代码生成器暂时只生成 Mapper XML 文件本身，更多推荐 MybatisX 快速开发插件来生成查询。
-        文档可见：https://www.iocoder.cn/MyBatis/x-plugins/
-     -->
+    <select id="getList"
+            resultType="cn.acsm.module.stock.api.inventory.vo.StockInventoryApiReqVO">
+        select
+            goods_id,
+            goods_name,
+            goods_type,
+            packaging_type,
+            packing_specification,
+            inventory_quantity,
+            measure_unit
+        from
+            stock_inventory
+        where
+            type = #{qo.type}
+        AND (goodsId,packagingSpecificationId)
+        IN
+        <foreach collection="qo.goodMap" item="map" separator="," open="(" close=")">
+            (map.goodsId, map.packagingSpecificationId)
+        </foreach>
+    </select>
 
 </mapper>
