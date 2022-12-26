@@ -102,7 +102,7 @@ public class SpecialMedicalFoodClassifyController {
     @PostMapping("/treeList")
     @ApiOperation("树形分类列表")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:query')")
-    @Cacheable(value = "/sales/special-medical-food-classify/treeList",key = "#specialMedicalFoodClassifyTreeVO.categoryName")
+    //@Cacheable(value = "/sales/special-medical-food-classify/treeList",key = "#specialMedicalFoodClassifyTreeVO.categoryName")
     public CommonResult<List<TreeSelect>> treeList(@Valid SpecialMedicalFoodClassifyTreeVO specialMedicalFoodClassifyTreeVO) {
         List<TreeSelect> list = specialMedicalFoodClassifyService.findTreeList(specialMedicalFoodClassifyTreeVO);
         return success(list);
