@@ -1,5 +1,7 @@
 package cn.acsm.module.transaction.sales.service.rawmaterial;
 
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
+import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.acsm.module.transaction.sales.util.ConfigNumberUtil;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
@@ -7,7 +9,6 @@ import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.*;
@@ -106,6 +107,11 @@ public class RawMaterialServiceImpl implements RawMaterialService {
     @Override
     public List<RawMaterialDO> getRawMaterialList(RawMaterialExportReqVO exportReqVO) {
         return rawMaterialMapper.selectList(exportReqVO);
+    }
+
+    @Override
+    public List<RawMaterialDO> findList(RawMaterialReqVO rawMaterialReqVO) {
+        return rawMaterialMapper.findList(rawMaterialReqVO);
     }
 
 }

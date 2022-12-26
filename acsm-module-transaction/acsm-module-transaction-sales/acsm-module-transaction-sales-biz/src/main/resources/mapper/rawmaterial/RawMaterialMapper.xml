@@ -46,4 +46,15 @@
             AND srm.name like CONCAT('%',#{salesName},'%')
         </if>
     </select>
+
+    <select id="findList" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
+        select
+        id ,
+        name as name
+        FROM sales_raw_material
+        where deleted = 0
+        <if test=" classify !=null and classify!='' ">
+            AND classify=#{classify}
+        </if>
+    </select>
 </mapper>

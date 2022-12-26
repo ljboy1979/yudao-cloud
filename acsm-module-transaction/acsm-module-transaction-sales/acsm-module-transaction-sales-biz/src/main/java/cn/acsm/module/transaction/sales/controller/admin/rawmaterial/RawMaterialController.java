@@ -96,4 +96,12 @@ public class RawMaterialController {
         ExcelUtils.write(response, "原料.xls", "数据", RawMaterialExcelVO.class, datas);
     }
 
+    @GetMapping("/findList")
+    @ApiOperation("获得原料列表")
+    @PreAuthorize("@ss.hasPermission('sales:raw-material:query')")
+    public CommonResult<List<RawMaterialRespVO>> findList(@RequestBody RawMaterialReqVO rawMaterialReqVO) {
+        List<RawMaterialDO> list = rawMaterialService.findList(rawMaterialReqVO);
+        return success(RawMaterialConvert.INSTANCE.convertList(list));
+    }
+
 }
