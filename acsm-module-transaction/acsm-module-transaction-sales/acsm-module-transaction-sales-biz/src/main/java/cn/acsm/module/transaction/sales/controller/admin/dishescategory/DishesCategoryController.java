@@ -106,7 +106,7 @@ public class DishesCategoryController {
     @PostMapping("/treeList")
     @ApiOperation("树形分类列表")
     @PreAuthorize("@ss.hasPermission('sales:input-classify:query')")
-    @Cacheable(value = "/sales/dishes-category/treeList",key = "#dishesCategoryTreeVO.categoryName")
+    //@Cacheable(value = "/sales/dishes-category/treeList",key = "#dishesCategoryTreeVO.categoryName")
     public CommonResult<List<TreeSelect>> treeList(@Valid DishesCategoryTreeVO dishesCategoryTreeVO) {
         List<TreeSelect> list = dishesCategoryService.findTreeList(dishesCategoryTreeVO);
         return success(list);

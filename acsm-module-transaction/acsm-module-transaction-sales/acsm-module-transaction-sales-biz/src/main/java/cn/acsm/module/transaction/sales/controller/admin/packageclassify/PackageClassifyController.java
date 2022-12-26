@@ -102,7 +102,7 @@ public class PackageClassifyController {
     @PostMapping("/treeList")
     @ApiOperation("树形分类列表")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:query')")
-    @Cacheable(value = "/sales/package-classify/treeList",key = "#packageClassifyTreeVO.categoryName")
+    //@Cacheable(value = "/sales/package-classify/treeList",key = "#packageClassifyTreeVO.categoryName")
     public CommonResult<List<TreeSelect>> treeList(@Valid PackageClassifyTreeVO packageClassifyTreeVO) {
         List<TreeSelect> list = packageClassifyService.findTreeList(packageClassifyTreeVO);
         return success(list);
