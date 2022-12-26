@@ -13,6 +13,8 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class CommoditySpecificationRespVO extends CommoditySpecificationBaseVO {
 
+    @ApiModelProperty(value = "id")
+    private String id;
     @ApiModelProperty(value = "创建时间", required = true)
     @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date createTime;

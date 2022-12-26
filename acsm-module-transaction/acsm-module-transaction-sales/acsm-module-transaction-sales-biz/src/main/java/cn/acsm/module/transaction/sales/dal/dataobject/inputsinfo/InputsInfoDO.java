@@ -151,4 +151,10 @@ public class InputsInfoDO extends BaseDO {
      * 专家建议
      */
     private String expertAdvice;
+
+
+    /**
+     * 产地
+     */
+    private String origin;
 }

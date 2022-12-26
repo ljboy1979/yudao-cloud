@@ -14,6 +14,7 @@ import javax.validation.constraints.*;
 @Data
 public class CommoditySpecificationBaseVO {
 
+
     @ApiModelProperty(value = "规格名称")
     @NotNull(message = "规格名称不能为空")
     private String specificationsName;

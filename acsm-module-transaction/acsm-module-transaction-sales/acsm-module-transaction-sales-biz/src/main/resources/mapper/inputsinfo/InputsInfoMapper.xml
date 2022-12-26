@@ -14,6 +14,9 @@
         inputs_name as name
         FROM sales_inputs_info
         where deleted = 0
+        <if test=" salesName != null and salesName != '' ">
+            AND inputs_name like CONCAT('%',#{salesName},'%')
+        </if>
     </select>
 
     <select id="findSpecifications" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">

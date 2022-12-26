@@ -109,4 +109,8 @@ public class InputsInfoBaseVO {
     @ApiModelProperty(value = "专家建议")
     private String expertAdvice;
 
+
+    @ApiModelProperty(value = "产地")
+    private String origin;
+
 }
