@@ -97,4 +97,12 @@ public class MarketInfoController {
         ExcelUtils.write(response, "市场信息.xls", "数据", MarketInfoExcelVO.class, datas);
     }
 
+    @GetMapping("/getList")
+    @ApiOperation("获得市场信息列表")
+    @PreAuthorize("@ss.hasPermission('pricetag:market-info:query')")
+    public CommonResult<List<MarketInfoRespVO>> getList() {
+        List<MarketInfoDO> list = marketInfoService.getList();
+        return success(MarketInfoConvert.INSTANCE.convertList(list));
+    }
+
 }

@@ -15,7 +15,6 @@
         name as name
         FROM sales_raw_material
         where deleted = 0
-        and tenant_id =#{tenantId}
     </select>
 
     <select id="findSpecifications" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
@@ -46,6 +45,16 @@
         <if test=" salesName != null and salesName != '' ">
             AND srm.name like CONCAT('%',#{salesName},'%')
         </if>
-        AND srms.tenant_id =#{tenantId}
+    </select>
+
+    <select id="findList" resultType="cn.acsm.module.transaction.sales.dal.dataobject.rawmaterial.RawMaterialDO">
+        select
+        id ,
+        name as name
+        FROM sales_raw_material
+        where deleted = 0
+        <if test=" classify !=null and classify!='' ">
+            AND classify=#{classify}
+        </if>
     </select>
 </mapper>

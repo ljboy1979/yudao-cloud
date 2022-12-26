@@ -67,4 +67,5 @@ public interface MarketInfoService {
      */
     List<MarketInfoDO> getMarketInfoList(MarketInfoExportReqVO exportReqVO);
 
+    List<MarketInfoDO> getList();
 }

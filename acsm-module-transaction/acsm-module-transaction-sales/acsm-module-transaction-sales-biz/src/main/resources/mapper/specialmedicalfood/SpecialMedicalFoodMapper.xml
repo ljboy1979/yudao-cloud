@@ -15,7 +15,6 @@
         name as name
         FROM sales_special_medical_food
         where deleted = 0
-        and tenant_id =#{tenantId}
     </select>
 
     <select id="findSpecifications" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
@@ -46,7 +45,6 @@
         <if test=" salesName != null and salesName != '' ">
             AND ssmf.name like CONCAT('%',#{salesName},'%')
         </if>
-        AND tenant_id =#{tenantId}
     </select>
 
 </mapper>

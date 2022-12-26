@@ -68,4 +68,5 @@ public interface RawMaterialService {
      */
     List<RawMaterialDO> getRawMaterialList(RawMaterialExportReqVO exportReqVO);
 
+    List<RawMaterialDO> findList(RawMaterialReqVO rawMaterialReqVO);
 }

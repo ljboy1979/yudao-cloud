@@ -9,10 +9,12 @@ import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,8 +42,28 @@ public class DishesCategoryServiceImpl implements DishesCategoryService {
 
     @Override
     public String createDishesCategory(DishesCategoryCreateReqVO createReqVO) {
+        if (StringUtils.isNotEmpty(createReqVO.getParentCode())) {
+            DishesCategoryDO parenMarketClassify = dishesCategoryMapper.selectById(createReqVO.getParentCode());
+            createReqVO.setParentCodes(parenMarketClassify.getParentCodes()+createReqVO.getParentCode()+",");
+            createReqVO.setTreeSort(new BigDecimal(0));
+            createReqVO.setTreeSorts(parenMarketClassify.getTreeSorts()+"0,");
+            createReqVO.setTreeLeaf("0");
+            createReqVO.setTreeLevel(parenMarketClassify.getTreeLevel().add(new BigDecimal(1)));
+            createReqVO.setTreeNames(parenMarketClassify.getTreeNames()+"/"+createReqVO.getCategoryName());
+        }else {
+            createReqVO.setParentCode("0");
+            createReqVO.setParentCodes("0,");
+            createReqVO.setTreeSort(new BigDecimal(0));
+            createReqVO.setTreeSorts("0,");
+            createReqVO.setTreeLeaf("0");
+            createReqVO.setTreeLevel(new BigDecimal(0));
+            createReqVO.setTreeNames(createReqVO.getCategoryName());
+        }
+        Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
+        uuid = uuid < 0 ? -uuid : uuid;
         // 插入
         DishesCategoryDO dishesCategory = DishesCategoryConvert.INSTANCE.convert(createReqVO);
+        dishesCategory.setId(uuid.toString());
         dishesCategoryMapper.insert(dishesCategory);
         // 返回
         return dishesCategory.getId();
