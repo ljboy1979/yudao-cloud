@@ -20,6 +20,12 @@ public class InputsInfoSpecificationPageReqVO extends PageParam {
     @ApiModelProperty(value = "规格名称")
     private String specificationsName;
 
+    /**
+     * 包装类型(0定装1散装)
+     */
+    @ApiModelProperty(value = "包装类型")
+    private String packagingType;
+
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] createTime;

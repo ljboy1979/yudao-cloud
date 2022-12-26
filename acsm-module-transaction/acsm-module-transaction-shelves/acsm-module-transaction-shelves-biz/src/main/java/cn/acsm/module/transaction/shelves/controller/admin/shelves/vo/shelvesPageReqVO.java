@@ -20,6 +20,11 @@ public class shelvesPageReqVO extends PageParam {
     @ApiModelProperty(value = "分类id")
     private String classifyId;
 
+
+    @ApiModelProperty(value = "是否上架 0下架 1上架 2禁售")
+    private String saleState;
+
+
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] createTime;

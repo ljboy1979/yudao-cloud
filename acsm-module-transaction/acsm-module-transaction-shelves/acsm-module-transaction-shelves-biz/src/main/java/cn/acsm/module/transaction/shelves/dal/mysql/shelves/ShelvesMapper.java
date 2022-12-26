@@ -23,6 +23,7 @@ public interface ShelvesMapper extends BaseMapperX<ShelvesDO> {
         return selectPage(reqVO, new LambdaQueryWrapperX<ShelvesDO>()
                 .likeIfPresent(ShelvesDO::getName, reqVO.getName())
                 .eqIfPresent(ShelvesDO::getClassifyId, reqVO.getClassifyId())
+                .eqIfPresent(ShelvesDO::getSaleState, reqVO.getSaleState())
                 .betweenIfPresent(ShelvesDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(ShelvesDO::getId));
     }

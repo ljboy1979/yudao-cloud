@@ -23,6 +23,7 @@ public interface InputsInfoSpecificationMapper extends BaseMapperX<InputsInfoSpe
         return selectPage(reqVO, new LambdaQueryWrapperX<InputsInfoSpecificationDO>()
                 .likeIfPresent(InputsInfoSpecificationDO::getSpecificationsName, reqVO.getSpecificationsName())
                 .eqIfPresent(InputsInfoSpecificationDO::getInputsInfoId, reqVO.getInputsInfoId())
+                .eqIfPresent(InputsInfoSpecificationDO::getPackagingType, reqVO.getPackagingType())
                 .betweenIfPresent(InputsInfoSpecificationDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(InputsInfoSpecificationDO::getCreateTime));
     }
