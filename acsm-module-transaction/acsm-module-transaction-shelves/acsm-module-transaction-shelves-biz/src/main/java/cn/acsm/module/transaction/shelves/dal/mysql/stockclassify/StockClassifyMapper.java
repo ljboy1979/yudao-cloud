@@ -35,4 +35,13 @@ public interface StockClassifyMapper extends BaseMapperX<StockClassifyDO> {
         return selectList(new LambdaQueryWrapperX<StockClassifyDO>()
                 //.likeIfPresent(StockClassifyDO::getClassifyName, reqVO.getClassifyName())
                 .orderByDesc(StockClassifyDO::getId));
-    }}
+    }
+
+    default List<StockClassifyDO> findClassifyList(StockClassifyTreeVO reqVO) {
+        return selectList(new LambdaQueryWrapperX<StockClassifyDO>()
+                .likeIfPresent(StockClassifyDO::getClassifyName, reqVO.getClassifyName())
+                .eqIfPresent(StockClassifyDO::getTreeLevel,reqVO.getTreeLevel())
+                .orderByDesc(StockClassifyDO::getId));
+    }
+
+}
