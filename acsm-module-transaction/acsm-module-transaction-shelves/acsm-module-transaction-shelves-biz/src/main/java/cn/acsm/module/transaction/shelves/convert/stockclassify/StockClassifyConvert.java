@@ -38,6 +38,7 @@ public interface StockClassifyConvert {
         stockClassifyTreeVO.setId(Long.valueOf(bean.getId()));
         stockClassifyTreeVO.setName(bean.getClassifyName());
         stockClassifyTreeVO.setParentId(Long.valueOf(bean.getParentCode()));
+        stockClassifyTreeVO.setParentName(bean.getTreeNames());
         stockClassifyTreeVO.setSort(bean.getTreeSort().intValue());
         return stockClassifyTreeVO;
     };
