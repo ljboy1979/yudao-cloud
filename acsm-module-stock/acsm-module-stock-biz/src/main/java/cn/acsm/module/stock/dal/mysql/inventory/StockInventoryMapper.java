@@ -1,5 +1,7 @@
 package cn.acsm.module.stock.dal.mysql.inventory;
 
+import cn.acsm.module.stock.api.inventory.qo.InventoryQO;
+import cn.acsm.module.stock.api.inventory.vo.StockInventoryApiReqVO;
 import cn.acsm.module.stock.controller.admin.inventory.vo.StockInventoryExportReqVO;
 import cn.acsm.module.stock.controller.admin.inventory.vo.StockInventoryPageReqVO;
 import cn.acsm.module.stock.dal.dataobject.inventory.StockInventoryDO;
@@ -7,6 +9,7 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -67,5 +70,13 @@ public interface StockInventoryMapper extends BaseMapperX<StockInventoryDO> {
                 .eqIfPresent(StockInventoryDO::getSourceId, reqVO.getSourceId())
                 .orderByDesc(StockInventoryDO::getId));
     }
+
+    // 远程调用获取数据
+    /**
+     * 批量获取数据
+     * @param qo
+     * @return
+     */
+    List<StockInventoryApiReqVO> getList(@Param("qo") InventoryQO qo);
 
 }

@@ -84,7 +84,7 @@ public interface PurchaseOrderService {
     PageResult<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderPageInfoVO pageReqVO);
 
     /**
-     * 3.6.2.5.查询采购合同单
+     * 3.6.2.3.获取采购产品列表
      */
     Page<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderProductsVO pageReqVO);
 

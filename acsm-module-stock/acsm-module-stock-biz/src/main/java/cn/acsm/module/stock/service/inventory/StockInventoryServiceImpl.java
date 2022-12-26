@@ -1,6 +1,8 @@
 package cn.acsm.module.stock.service.inventory;
 
 import cn.acsm.module.purchase.api.loss.dto.LossReqDTO;
+import cn.acsm.module.stock.api.inventory.qo.InventoryQO;
+import cn.acsm.module.stock.api.inventory.vo.StockInventoryApiReqVO;
 import cn.acsm.module.stock.controller.admin.inventory.vo.*;
 import cn.acsm.module.stock.convert.inventory.StockInventoryConvert;
 import cn.acsm.module.stock.dal.dataobject.inventory.StockInventoryDO;
@@ -146,6 +148,16 @@ public class StockInventoryServiceImpl implements StockInventoryService {
         countVO.setInventoryQuantity(ObjectUtils.isNotEmpty(aDo) ? aDo.getInventoryQuantity() - reportingVO.getLossCount() : - reportingVO.getLossCount());
         countVO.setWarehouseId(reportingVO.getWarehouseId());
         updateInventoryCount(countVO);
+    }
+
+    //    --------------- 远程调用接口 ---------------
+    /**
+     * 根据条件获得库存清单列表
+     * @param apiReqVO 查询条件
+     * @return 库存清单列表
+     */
+    public List<StockInventoryApiReqVO> getInventoryList(InventoryQO apiReqVO) {
+        return inventoryMapper.getList(apiReqVO);
     }
 
 }

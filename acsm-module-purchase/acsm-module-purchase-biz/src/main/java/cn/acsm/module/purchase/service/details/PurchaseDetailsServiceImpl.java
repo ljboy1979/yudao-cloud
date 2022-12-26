@@ -38,6 +38,7 @@ public class PurchaseDetailsServiceImpl implements PurchaseDetailsService {
 
     @Override
     public Long createDetails(PurchaseDetailsCreateReqVO createReqVO) {
+
         // 插入
         PurchaseDetailsDO details = PurchaseDetailsConvert.INSTANCE.convert(createReqVO);
         detailsMapper.insert(details);

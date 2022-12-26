@@ -6,9 +6,9 @@ import cn.acsm.module.purchase.dal.dataobject.details.PurchaseDetailsDO;
 import cn.acsm.module.purchase.dal.dataobject.order.PurchaseOrderDO;
 import cn.acsm.module.purchase.dal.mysql.details.PurchaseDetailsMapper;
 import cn.acsm.module.purchase.dal.mysql.order.PurchaseOrderMapper;
-import cn.acsm.module.purchase.feign.ShelvesApiFeignClient;
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
+import cn.acsm.module.transaction.sales.api.shelves.ShelvesApi;
 import cn.hutool.core.date.format.FastDateFormat;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -30,7 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static cn.acsm.module.purchase.constant.PurchaseOrderConstant.*;
+import static cn.acsm.module.purchase.constant.PurchaseOrderConstant.PURCHASE_STATUS_1;
+import static cn.acsm.module.purchase.constant.PurchaseOrderConstant.STATUS;
 import static cn.acsm.module.purchase.enums.ErrorCodeConstants.ORDER_CREATE_ERROR;
 import static cn.acsm.module.purchase.enums.ErrorCodeConstants.ORDER_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -53,7 +54,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     private PurchaseDetailsMapper purchaseDetailsMapper;
 
     @Resource
-    private ShelvesApiFeignClient shelvesApiFeignClient;
+    private ShelvesApi shelvesApi;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -276,14 +277,18 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     /**
-     * 3.6.2.5.查询采购合同单
+     * 3.6.2.3.获取采购产品列表
      */
     public Page<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderProductsVO pageReqVO) {
         ShelvesSalesReqDto reqDto = new ShelvesSalesReqDto();
         reqDto.setType(pageReqVO.getPurchaseType());
-        CommonResult<List<ShelvesSalesRespDto>> specifications = shelvesApiFeignClient.findSpecifications(reqDto);
+        CommonResult<List<ShelvesSalesRespDto>> specifications = shelvesApi.findSpecifications(reqDto);
         List<ShelvesSalesRespDto> data = specifications.getData();
-        //
+        // 获取所有产品id
+        data.stream().map(dto -> {
+
+            return dto.getId();
+        }).collect(Collectors.toList());
 
         return null;
     }
