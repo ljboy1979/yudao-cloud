@@ -113,6 +113,7 @@ public class CommodityController {
     }
     @PostMapping("/findSpecifications")
     @ApiOperation("查询售品规格")
+    @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
     public CommonResult<List<ShelvesSalesRespVo>> findSpecifications(@RequestBody ShelvesSalesReqDto shelvesSalesReqDto) {
         List<ShelvesSalesRespDto> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findSpecifications(shelvesSalesReqDto);
         return CommonResult.success(CommodityCategoryConvert.INSTANCE.convertShelvesSalesRespVo(specifications));
