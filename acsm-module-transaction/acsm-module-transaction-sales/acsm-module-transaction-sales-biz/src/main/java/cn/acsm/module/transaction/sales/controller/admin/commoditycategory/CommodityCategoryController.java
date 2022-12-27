@@ -41,8 +41,6 @@ public class CommodityCategoryController {
     @Resource
     private CommodityCategoryService commodityCategoryService;
 
-    @Resource
-    private ShelvesContext shelvesContext;
 
     @PostMapping("/create")
     @ApiOperation("创建商品分类")
@@ -116,12 +114,6 @@ public class CommodityCategoryController {
         return success(list);
     }
 
-    @PostMapping("/findSpecifications")
-    @ApiOperation("查询售品规格")
-    public CommonResult<List<ShelvesSalesRespVo>> findSpecifications(@RequestBody ShelvesSalesReqDto shelvesSalesReqDto) {
-        List<ShelvesSalesRespDto> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findSpecifications(shelvesSalesReqDto);
-        return CommonResult.success(CommodityCategoryConvert.INSTANCE.convertShelvesSalesRespVo(specifications));
 
-    }
 
 }
