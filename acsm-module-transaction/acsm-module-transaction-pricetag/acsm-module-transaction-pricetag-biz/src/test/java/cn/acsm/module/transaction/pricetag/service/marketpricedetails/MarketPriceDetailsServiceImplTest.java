@@ -124,7 +124,7 @@ public class MarketPriceDetailsServiceImplTest extends BaseDbUnitTest {
        // 准备参数
        MarketPriceDetailsPageReqVO reqVO = new MarketPriceDetailsPageReqVO();
        reqVO.setMarketPriceId(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        PageResult<MarketPriceDetailsDO> pageResult = marketPriceDetailsService.getMarketPriceDetailsPage(reqVO);
@@ -150,7 +150,7 @@ public class MarketPriceDetailsServiceImplTest extends BaseDbUnitTest {
        // 准备参数
        MarketPriceDetailsExportReqVO reqVO = new MarketPriceDetailsExportReqVO();
        reqVO.setMarketPriceId(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        List<MarketPriceDetailsDO> list = marketPriceDetailsService.getMarketPriceDetailsList(reqVO);

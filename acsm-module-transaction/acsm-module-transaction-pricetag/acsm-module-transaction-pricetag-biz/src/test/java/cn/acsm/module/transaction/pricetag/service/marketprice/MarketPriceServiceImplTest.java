@@ -151,7 +151,7 @@ public class MarketPriceServiceImplTest extends BaseDbUnitTest {
        reqVO.setMiddlePrice(null);
        reqVO.setSource(null);
        reqVO.setStatus(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
        reqVO.setSubjectId(null);
 
        // 调用
@@ -205,7 +205,7 @@ public class MarketPriceServiceImplTest extends BaseDbUnitTest {
        reqVO.setMiddlePrice(null);
        reqVO.setSource(null);
        reqVO.setStatus(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
        reqVO.setSubjectId(null);
 
        // 调用
