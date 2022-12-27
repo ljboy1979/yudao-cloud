@@ -15,6 +15,7 @@ import cn.acsm.module.transaction.sales.enums.ShelvesEnums;
 import cn.acsm.module.transaction.sales.service.api.shelves.ShelvesContext;
 import cn.acsm.module.transaction.sales.service.commodity.CommodityService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -113,8 +114,8 @@ public class CommodityController {
     @PostMapping("/findSpecifications")
     @ApiOperation("查询售品规格")
     @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
-    public CommonResult<List<ShelvesSalesRespVO>> findSpecifications(@RequestBody ShelvesSalesReqVO shelvesSalesReqDto) {
-        List<ShelvesSalesRespVO> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findSpecificationsVo(shelvesSalesReqDto);
+    public CommonResult<PageResult<ShelvesSalesRespVO>> findSpecifications(@RequestBody ShelvesSalesReqVO shelvesSalesReqDto) {
+        PageResult<ShelvesSalesRespVO> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findSpecificationsVo(shelvesSalesReqDto);
         return CommonResult.success(specifications);
 
     }

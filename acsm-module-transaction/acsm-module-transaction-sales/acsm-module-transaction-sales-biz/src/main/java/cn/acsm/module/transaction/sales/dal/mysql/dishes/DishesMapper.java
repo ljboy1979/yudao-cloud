@@ -50,4 +50,6 @@ public interface DishesMapper extends BaseMapperX<DishesDO> {
     List<ShelvesSalesRespDo> findSpecifications(ShelvesSalesReqDto shelvesSalesReqDto);
 
     List<ShelvesSalesRespDo> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqDto);
+
+    Long findSpecificationsVoCount(ShelvesSalesReqVO shelvesSalesReqVO);
 }

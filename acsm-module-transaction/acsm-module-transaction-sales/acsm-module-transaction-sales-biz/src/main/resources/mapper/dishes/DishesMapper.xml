@@ -39,8 +39,8 @@
         sd.dishes_name AS salesName,
         sdc.category_name AS classifyName
         FROM sales_dishes_specification sds
-        LEFT FROM sales_dishes sd on sds.dishes_id = sd.id
-        LEFT FROM sales_dishes_category sdc on sdc.id = sd.menu_classification
+        LEFT JOIN sales_dishes sd on sds.dishes_id = sd.id
+        LEFT JOIN sales_dishes_category sdc on sdc.id = sd.menu_classification
         where sds.deleted = 0 and sd.deleted=0
         <if test=" salesId !=null and salesId!='' ">
             AND sds.dishes_id=#{salesId}
@@ -69,9 +69,22 @@
         sd.dishes_name AS salesName,
         sdc.category_name AS classifyName
         FROM sales_dishes_specification sds
-        LEFT FROM sales_dishes sd on sds.dishes_id = sd.id
-        LEFT FROM sales_dishes_category sdc on sdc.id = sd.menu_classification
-        where sds.deleted = 0 and sd.deleted=0
+        LEFT JOIN sales_dishes sd on sds.dishes_id = sd.id
+        LEFT JOIN sales_dishes_category sdc on sdc.id = sd.menu_classification
+        where sds.deleted = 0
+        <if test=" salesId !=null and salesId!='' ">
+            AND sds.dishes_id=#{salesId}
+        </if>
+        <if test=" salesName !=null and salesName!='' ">
+            AND sd.dishes_name like CONCAT('%',#{salesName},'%')
+        </if>
+        LIMIT #{pageNo} ,#{pageSize}
+    </select>
+    <select id="findSpecificationsVoCount" resultType="java.lang.Long">
+        select
+        count(1)
+        FROM sales_dishes_specification sds
+        where sds.deleted = 0
         <if test=" salesId !=null and salesId!='' ">
             AND sds.dishes_id=#{salesId}
         </if>
@@ -79,4 +92,5 @@
             AND sd.dishes_name like CONCAT('%',#{salesName},'%')
         </if>
     </select>
+
 </mapper>

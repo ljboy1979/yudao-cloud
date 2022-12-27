@@ -51,4 +51,6 @@ public interface SpecialMedicalFoodMapper extends BaseMapperX<SpecialMedicalFood
     List<ShelvesSalesRespDo> findSpecifications(ShelvesSalesReqDto shelvesSalesReqDto);
 
     List<ShelvesSalesRespDo> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqVO);
+
+    Long findSpecificationsVoCount(ShelvesSalesReqVO shelvesSalesReqVO);
 }

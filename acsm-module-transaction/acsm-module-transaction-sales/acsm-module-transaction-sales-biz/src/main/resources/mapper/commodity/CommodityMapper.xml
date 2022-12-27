@@ -38,8 +38,8 @@
         sc.commodity_name AS salesName,
         scc.commodity_category_name AS classifyName
         FROM sales_commodity_specification scs
-        LEFT FROM sales_commodity sc on scs.commodity_id = sc.id
-        LEFT FROM sales_commodity_category scc on scc.id = sc.commodity_category_id
+        LEFT JOIN sales_commodity sc on scs.commodity_id = sc.id
+        LEFT JOIN sales_commodity_category scc on scc.id = sc.commodity_category_id
         where scs.deleted = 0 and sc.deleted=0
         <if test=" salesId !=null and salesId!='' ">
         AND scs.commodity_id=#{salesId}
@@ -133,9 +133,23 @@
         sc.commodity_name AS salesName,
         scc.commodity_category_name AS classifyName
         FROM sales_commodity_specification scs
-        LEFT FROM sales_commodity sc on scs.commodity_id = sc.id
-        LEFT FROM sales_commodity_category scc on scc.id = sc.commodity_category_id
-        where scs.deleted = 0 and sc.deleted=0
+        LEFT JOIN sales_commodity sc on scs.commodity_id = sc.id
+        LEFT JOIN sales_commodity_category scc on scc.id = sc.commodity_category_id
+        where scs.deleted = 0
+        <if test=" salesId !=null and salesId!='' ">
+            AND scs.commodity_id=#{salesId}
+        </if>
+        <if test=" salesName !=null and salesName!='' ">
+            AND sd.commodity_name like CONCAT('%',#{salesName},'%')
+        </if>
+        LIMIT #{pageNo} ,#{pageSize}
+    </select>
+
+    <select id="findSpecificationsVoCount" resultType="java.lang.Long">
+        select
+        count(1)
+        FROM sales_commodity_specification scs
+        where scs.deleted = 0
         <if test=" salesId !=null and salesId!='' ">
             AND scs.commodity_id=#{salesId}
         </if>

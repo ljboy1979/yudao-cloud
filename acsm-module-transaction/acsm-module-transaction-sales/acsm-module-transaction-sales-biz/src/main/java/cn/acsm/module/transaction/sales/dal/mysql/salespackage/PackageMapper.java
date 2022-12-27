@@ -79,4 +79,6 @@ public interface PackageMapper extends BaseMapperX<PackageDO> {
     List<ShelvesSalesRespDo> findSpecifications(ShelvesSalesReqDto shelvesSalesReqDto);
 
     List<ShelvesSalesRespDo> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqVO);
+
+    Long findSpecificationsVoCount(ShelvesSalesReqVO shelvesSalesReqVO);
 }

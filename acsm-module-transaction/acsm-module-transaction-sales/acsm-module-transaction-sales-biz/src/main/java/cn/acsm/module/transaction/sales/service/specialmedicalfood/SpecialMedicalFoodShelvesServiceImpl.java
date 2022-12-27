@@ -9,10 +9,14 @@ import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespD
 import cn.acsm.module.transaction.sales.dal.mysql.commodity.CommodityMapper;
 import cn.acsm.module.transaction.sales.dal.mysql.specialmedicalfood.SpecialMedicalFoodMapper;
 import cn.acsm.module.transaction.sales.service.api.shelves.ShelvesService;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+@Service
 public class SpecialMedicalFoodShelvesServiceImpl implements ShelvesService {
 
     @Resource
@@ -32,8 +36,13 @@ public class SpecialMedicalFoodShelvesServiceImpl implements ShelvesService {
     }
 
     @Override
-    public List<ShelvesSalesRespVO> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqVO) {
+    public PageResult<ShelvesSalesRespVO> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqVO) {
+        shelvesSalesReqVO.setPageNo((shelvesSalesReqVO.getPageNo()-1)*shelvesSalesReqVO.getPageSize());
         List<ShelvesSalesRespDo> salesList = specialMedicalFoodMapper.findSpecificationsVo(shelvesSalesReqVO);
-        return CommodityConvert.INSTANCE.convertShelvesSalesRespVo(salesList);
+        List<ShelvesSalesRespVO> shelvesSalesRespVOS = CommodityConvert.INSTANCE.convertShelvesSalesRespVo(salesList);
+        PageResult<ShelvesSalesRespVO> page = new PageResult<>();
+        page.setList(shelvesSalesRespVOS);
+        page.setTotal(specialMedicalFoodMapper.findSpecificationsVoCount(shelvesSalesReqVO));
+        return page;
     }
 }

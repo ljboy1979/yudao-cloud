@@ -50,4 +50,5 @@ public interface InputsInfoMapper extends BaseMapperX<InputsInfoDO> {
 
     List<ShelvesSalesRespDo> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqDto);
 
+    Long findSpecificationsVoCount(ShelvesSalesReqVO shelvesSalesReqVO);
 }

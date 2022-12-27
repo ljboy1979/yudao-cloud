@@ -39,8 +39,8 @@
         ssmf.name AS salesName,
         ssmfc.category_name AS classifyName
         FROM sales_special_medical_food_specification ssmfs
-        LEFT FROM sales_special_medical_food ssmf on ssmfs.food_id = ssmf.id
-        LEFT FROM sales_special_medical_food_classify ssmfc on ssmfc.id = ssmf.classify
+        LEFT JOIN sales_special_medical_food ssmf on ssmfs.food_id = ssmf.id
+        LEFT JOIN sales_special_medical_food_classify ssmfc on ssmfc.id = ssmf.classify
         where ssmfs.deleted = 0 and ssmf.deleted=0
         <if test=" salesId !=null and salesId!='' ">
            AND ssmfs.food_id=#{salesId}
@@ -69,9 +69,23 @@
         ssmf.name AS salesName,
         ssmfc.category_name AS classifyName
         FROM sales_special_medical_food_specification ssmfs
-        LEFT FROM sales_special_medical_food ssmf on ssmfs.food_id = ssmf.id
-        LEFT FROM sales_special_medical_food_classify ssmfc on ssmfc.id = ssmf.classify
-        where ssmfs.deleted = 0 and ssmf.deleted=0
+        LEFT JOIN sales_special_medical_food ssmf on ssmfs.food_id = ssmf.id
+        LEFT JOIN sales_special_medical_food_classify ssmfc on ssmfc.id = ssmf.classify
+        where ssmfs.deleted = 0
+        <if test=" salesId !=null and salesId!='' ">
+            AND ssmfs.food_id=#{salesId}
+        </if>
+        <if test=" salesName != null and salesName != '' ">
+            AND ssmf.name like CONCAT('%',#{salesName},'%')
+        </if>
+        LIMIT #{pageNo} ,#{pageSize}
+    </select>
+
+    <select id="findSpecificationsVoCount" resultType="java.lang.Long">
+        select
+        count(1)
+        FROM sales_special_medical_food_specification ssmfs
+        where ssmfs.deleted = 0
         <if test=" salesId !=null and salesId!='' ">
             AND ssmfs.food_id=#{salesId}
         </if>
@@ -79,5 +93,6 @@
             AND ssmf.name like CONCAT('%',#{salesName},'%')
         </if>
     </select>
+
 
 </mapper>

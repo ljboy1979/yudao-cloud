@@ -38,8 +38,8 @@
         sii.inputs_name AS salesName,
         sic.category_name AS classifyName
         FROM sales_inputs_info_specification siis
-        LEFT FROM sales_inputs_info sii on siis.inputs_info_id = sii.id
-        LEFT FROM sales_input_classify sic on sic.id = sii.inputs_kind
+        LEFT JOIN sales_inputs_info sii on siis.inputs_info_id = sii.id
+        LEFT JOIN sales_input_classify sic on sic.id = sii.inputs_kind
         where siis.deleted = 0 and sii.deleted = 0
         <if test=" salesId !=null and salesId!='' ">
           AND siis.inputs_info_id=#{salesId}
@@ -68,9 +68,22 @@
         sii.inputs_name AS salesName,
         sic.category_name AS classifyName
         FROM sales_inputs_info_specification siis
-        LEFT FROM sales_inputs_info sii on siis.inputs_info_id = sii.id
-        LEFT FROM sales_input_classify sic on sic.id = sii.inputs_kind
-        where siis.deleted = 0 and sii.deleted = 0
+        LEFT JOIN sales_inputs_info sii on siis.inputs_info_id = sii.id
+        LEFT JOIN sales_input_classify sic on sic.id = sii.inputs_kind
+        where siis.deleted = 0
+        <if test=" salesId !=null and salesId!='' ">
+            AND siis.inputs_info_id=#{salesId}
+        </if>
+        <if test=" salesName != null and salesName != '' ">
+            AND sii.inputs_name like CONCAT('%',#{salesName},'%')
+        </if>
+        LIMIT #{pageNo} ,#{pageSize}
+    </select>
+    <select id="findSpecificationsVoCount" resultType="java.lang.Long">
+        select
+          count(1)
+        FROM sales_inputs_info_specification siis
+        where siis.deleted = 0
         <if test=" salesId !=null and salesId!='' ">
             AND siis.inputs_info_id=#{salesId}
         </if>
@@ -78,5 +91,4 @@
             AND sii.inputs_name like CONCAT('%',#{salesName},'%')
         </if>
     </select>
-
 </mapper>

@@ -8,6 +8,9 @@ import cn.acsm.module.transaction.sales.convert.commodity.CommodityConvert;
 import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo;
 import cn.acsm.module.transaction.sales.dal.mysql.commodity.CommodityMapper;
 import cn.acsm.module.transaction.sales.service.api.shelves.ShelvesService;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,8 +36,13 @@ public class CommodityShelvesServiceImpl implements ShelvesService {
     }
 
     @Override
-    public List<ShelvesSalesRespVO> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqVO) {
+    public PageResult<ShelvesSalesRespVO> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqVO) {
+        shelvesSalesReqVO.setPageNo((shelvesSalesReqVO.getPageNo()-1)*shelvesSalesReqVO.getPageSize());
         List<ShelvesSalesRespDo> salesList = commodityMapper.findSpecificationsVo(shelvesSalesReqVO);
-        return CommodityConvert.INSTANCE.convertShelvesSalesRespVo(salesList);
+        List<ShelvesSalesRespVO> shelvesSalesRespVOS = CommodityConvert.INSTANCE.convertShelvesSalesRespVo(salesList);
+        PageResult<ShelvesSalesRespVO> page = new PageResult<>();
+        page.setList(shelvesSalesRespVOS);
+        page.setTotal(commodityMapper.findSpecificationsVoCount(shelvesSalesReqVO));
+        return page;
     }
 }

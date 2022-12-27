@@ -54,4 +54,6 @@ public interface RawMaterialMapper extends BaseMapperX<RawMaterialDO> {
     List<RawMaterialDO> findList(RawMaterialReqVO rawMaterialReqVO);
 
     List<ShelvesSalesRespDo> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqVO);
+
+    Long findSpecificationsVoCount(ShelvesSalesReqVO shelvesSalesReqVO);
 }

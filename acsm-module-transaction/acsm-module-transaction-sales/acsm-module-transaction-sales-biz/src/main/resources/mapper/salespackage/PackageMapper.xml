@@ -38,8 +38,8 @@
         sp.name AS salesName,
         spc.category_name AS classifyName
         FROM sales_package_specification sps
-        LEFT FROM sales_package sp on sps.package_id = sp.id
-        LEFT FROM sales_package_classify spc on spc.id = sp.mini_classification_id_one
+        LEFT JOIN sales_package sp on sps.package_id = sp.id
+        LEFT JOIN sales_package_classify spc on spc.id = sp.mini_classification_id_one
         where sps.deleted = 0 and sp.deleted = 0
         <if test=" salesId !=null and salesId!='' ">
             AND sps.package_id=#{salesId}
@@ -68,9 +68,23 @@
         sp.name AS salesName,
         spc.category_name AS classifyName
         FROM sales_package_specification sps
-        LEFT FROM sales_package sp on sps.package_id = sp.id
-        LEFT FROM sales_package_classify spc on spc.id = sp.mini_classification_id_one
-        where sps.deleted = 0 and sp.deleted = 0
+        LEFT JOIN sales_package sp on sps.package_id = sp.id
+        LEFT JOIN sales_package_classify spc on spc.id = sp.mini_classification_id_one
+        where sps.deleted = 0
+        <if test=" salesId !=null and salesId!='' ">
+            AND sps.package_id=#{salesId}
+        </if>
+        <if test=" salesName != null and salesName != '' ">
+            AND sp.name like CONCAT('%',#{salesName},'%')
+        </if>
+        LIMIT #{pageNo} ,#{pageSize}
+    </select>
+
+    <select id="findSpecificationsVoCount" resultType="java.lang.Long">
+        select
+        COUNT(1)
+        FROM sales_package_specification sps
+        where sps.deleted = 0
         <if test=" salesId !=null and salesId!='' ">
             AND sps.package_id=#{salesId}
         </if>
@@ -78,5 +92,4 @@
             AND sp.name like CONCAT('%',#{salesName},'%')
         </if>
     </select>
-
 </mapper>

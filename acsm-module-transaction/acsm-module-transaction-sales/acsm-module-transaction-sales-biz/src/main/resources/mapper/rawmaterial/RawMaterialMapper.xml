@@ -39,8 +39,8 @@
         srm.name AS salesName,
         ssmfc.category_name AS classifyName
         FROM sales_raw_material_specification srms
-        LEFT FROM sales_raw_material srm on srms.raw_material_id = srm.id
-        LEFT FROM sales_raw_material_classify srmc on srmc.id = srm.classify
+        LEFT JOIN sales_raw_material srm on srms.raw_material_id = srm.id
+        LEFT JOIN sales_raw_material_classify srmc on srmc.id = srm.classify
         where srms.deleted = 0 and srm.deleted = 0
         <if test=" salesId !=null and salesId!='' ">
           AND srms.raw_material_id=#{salesId}
@@ -78,15 +78,28 @@
         srms.selling_price AS sellingPrice,
         CONCAT(srms.number,srms.unit_name,"/",srms.packaging_name) AS specifications,
         srm.name AS salesName,
-        ssmfc.category_name AS classifyName
+        srmc.category_name AS classifyName
         FROM sales_raw_material_specification srms
-        LEFT FROM sales_raw_material srm on srms.raw_material_id = srm.id
-        LEFT FROM sales_raw_material_classify srmc on srmc.id = srm.classify
-        where srms.deleted = 0 and srm.deleted = 0
-        <if test=" salesId !=null and salesId!='' ">
+        LEFT JOIN sales_raw_material srm on srms.raw_material_id = srm.id
+        LEFT JOIN sales_raw_material_classify srmc on srmc.id = srm.classify
+        where srms.deleted = 0
+        <if test="salesId !=null and salesId!='' ">
             AND srms.raw_material_id=#{salesId}
         </if>
-        <if test=" salesName != null and salesName != '' ">
+        <if test="salesName != null and salesName != '' ">
+            AND srm.name like CONCAT('%',#{salesName},'%')
+        </if>
+        LIMIT #{pageNo} ,#{pageSize}
+    </select>
+    <select id="findSpecificationsVoCount" resultType="java.lang.Long">
+        select
+          count(1)
+        FROM sales_raw_material_specification srms
+        where srms.deleted = 0
+        <if test="salesId !=null and salesId!='' ">
+            AND srms.raw_material_id=#{salesId}
+        </if>
+        <if test="salesName != null and salesName != '' ">
             AND srm.name like CONCAT('%',#{salesName},'%')
         </if>
     </select>
