@@ -22,13 +22,13 @@ public class MarketPriceDetailsPageReqVO extends PageParam {
     @ApiModelProperty(value = "最高价")
     private BigDecimal max;
 
-    @ApiModelProperty(value = "最低加")
+    @ApiModelProperty(value = "最低价")
     private String min;
 
     @ApiModelProperty(value = "0货架/1订单/2人工导入")
     private String priceSource;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "更新时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] updateTime;
 
