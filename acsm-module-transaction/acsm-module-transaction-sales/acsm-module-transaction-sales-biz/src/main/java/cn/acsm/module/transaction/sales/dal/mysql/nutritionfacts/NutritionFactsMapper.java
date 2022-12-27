@@ -24,10 +24,6 @@ public interface NutritionFactsMapper extends BaseMapperX<NutritionFactsDO> {
                 .eqIfPresent(NutritionFactsDO::getNumber, reqVO.getNumber())
                 .eqIfPresent(NutritionFactsDO::getNutritionFacts, reqVO.getNutritionFacts())
                 .likeIfPresent(NutritionFactsDO::getNutritionFactsName, reqVO.getNutritionFactsName())
-                .eqIfPresent(NutritionFactsDO::getContent, reqVO.getContent())
-                .eqIfPresent(NutritionFactsDO::getUnit, reqVO.getUnit())
-                .likeIfPresent(NutritionFactsDO::getUnitName, reqVO.getUnitName())
-                .eqIfPresent(NutritionFactsDO::getStatus, reqVO.getStatus())
                 .betweenIfPresent(NutritionFactsDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(NutritionFactsDO::getId));
     }
