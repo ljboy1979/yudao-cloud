@@ -124,7 +124,7 @@ public class MarketClassifyServiceImplTest extends BaseDbUnitTest {
        // 准备参数
        MarketClassifyPageReqVO reqVO = new MarketClassifyPageReqVO();
        reqVO.setCategoryName(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        PageResult<MarketClassifyDO> pageResult = marketClassifyService.getMarketClassifyPage(reqVO);
@@ -150,7 +150,7 @@ public class MarketClassifyServiceImplTest extends BaseDbUnitTest {
        // 准备参数
        MarketClassifyExportReqVO reqVO = new MarketClassifyExportReqVO();
        reqVO.setCategoryName(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        List<MarketClassifyDO> list = marketClassifyService.getMarketClassifyList(reqVO);

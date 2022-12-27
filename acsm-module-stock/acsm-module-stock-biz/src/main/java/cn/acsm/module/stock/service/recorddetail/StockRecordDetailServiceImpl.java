@@ -9,6 +9,9 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -42,6 +45,7 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
         return recordDetail.getId();
     }
 
+    @CachePut(value = "stockRecordDetail", key = "#updateReqVO.id")
     @Override
     public void updateRecordDetail(StockRecordDetailUpdateReqVO updateReqVO) {
         // 校验存在
@@ -51,6 +55,7 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
         recordDetailMapper.updateById(updateObj);
     }
 
+    @CacheEvict(value = "stockRecordDetail", key = "#id")
     @Override
     public void deleteRecordDetail(Long id) {
         // 校验存在
@@ -65,6 +70,7 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
         }
     }
 
+    @Cacheable(value = "stockRecord", key = "#id")
     @Override
     public StockRecordDetailDO getRecordDetail(Long id) {
         return recordDetailMapper.selectById(id);
@@ -80,6 +86,8 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
      * @param pageReqVO 分页查询
      * @return
      */
+    @Cacheable(value = "stockRecord", key = "'getRecordDetailPage'.concat('-').concat(#pageReqVO.goodsType)" +
+            ".concat('-').concat(#pageReqVO.stockBatchNo).concat('-').concat(#pageReqVO.goodsName)")
     @Override
     public Page<StockRecordDetailDO> getRecordDetailPage(StockRecordDetailPageReqVO pageReqVO) {
         Page<StockRecordDetailDO> page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
@@ -93,6 +101,8 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
         return recordDetailMapper.selectPage(page, wrapper);
     }
 
+    @Cacheable(value = "stockRecord", key = "'getRecordDetailList'.concat('-').concat(#exportReqVO.operationType)" +
+            ".concat('-').concat(#exportReqVO.stockBatchNo)")
     @Override
     public List<StockRecordDetailDO> getRecordDetailList(StockRecordDetailExportReqVO exportReqVO) {
         return recordDetailMapper.selectList(exportReqVO);
@@ -103,6 +113,8 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
      *
      * @param updateReqVO 更新信息
      */
+    @CachePut(value = "stockRecord", key = "#updateReqVO.id")
+    @Override
     public void updateRecordDetailOutEnter(@Valid StockRecordDetailOutEnterVO updateReqVO) {
         // 查询当前记录是出库还是入库
         QueryWrapper wrapper = new QueryWrapper();
@@ -130,6 +142,9 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
      * @param pageReqVO 分页查询
      * @return
      */
+    @Cacheable(value = "stockRecord", key = "'getRecordDetailPage'.concat('-').concat(#pageReqVO.stockBatchNo)" +
+            ".concat('-').concat(#pageReqVO.operationType).concat('-').concat(#pageReqVO.goodsType)")
+    @Override
     public Page<StockRecordDetailDO> getRecordDetailPage(StockRecordDetailPageVO pageReqVO) {
         Page<StockRecordDetailDO> page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
         QueryWrapper wrapper = new QueryWrapper();
@@ -146,6 +161,9 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
      * @param pageReqVO 分页查询
      * @return
      */
+    @Cacheable(value = "stockRecord", key = "'getRecordDetailPage'.concat('-').concat(#pageReqVO.maxOrmin)" +
+            ".concat('-').concat(#pageReqVO.pageNo).concat('-').concat(#pageReqVO.pageSize)")
+    @Override
     public Page<StockRecordDetailDO> getRecordDetailPage(StockRecordTempPageVO pageReqVO) {
         Page<StockRecordDetailDO> page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
         QueryWrapper wrapper = new QueryWrapper();

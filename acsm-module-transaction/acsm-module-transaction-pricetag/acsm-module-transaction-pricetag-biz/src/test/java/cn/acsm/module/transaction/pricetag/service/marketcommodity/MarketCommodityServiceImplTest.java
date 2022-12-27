@@ -136,7 +136,7 @@ public class MarketCommodityServiceImplTest extends BaseDbUnitTest {
        reqVO.setSpecificationId(null);
        reqVO.setCommodityName(null);
        reqVO.setSpecificationsName(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        PageResult<MarketCommodityDO> pageResult = marketCommodityService.getMarketCommodityPage(reqVO);
@@ -174,7 +174,7 @@ public class MarketCommodityServiceImplTest extends BaseDbUnitTest {
        reqVO.setSpecificationId(null);
        reqVO.setCommodityName(null);
        reqVO.setSpecificationsName(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        List<MarketCommodityDO> list = marketCommodityService.getMarketCommodityList(reqVO);

@@ -21,20 +21,22 @@ public interface MarketCommodityMapper extends BaseMapperX<MarketCommodityDO> {
     default PageResult<MarketCommodityDO> selectPage(MarketCommodityPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<MarketCommodityDO>()
                 .eqIfPresent(MarketCommodityDO::getShelvesId, reqVO.getShelvesId())
+                .eqIfPresent(MarketCommodityDO::getClassifyId, reqVO.getClassifyId())
                 .eqIfPresent(MarketCommodityDO::getSpecificationId, reqVO.getSpecificationId())
                 .likeIfPresent(MarketCommodityDO::getCommodityName, reqVO.getCommodityName())
                 .likeIfPresent(MarketCommodityDO::getSpecificationsName, reqVO.getSpecificationsName())
-                .betweenIfPresent(MarketCommodityDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketCommodityDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketCommodityDO::getId));
     }
 
     default List<MarketCommodityDO> selectList(MarketCommodityExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<MarketCommodityDO>()
                 .eqIfPresent(MarketCommodityDO::getShelvesId, reqVO.getShelvesId())
+                .eqIfPresent(MarketCommodityDO::getClassifyId, reqVO.getClassifyId())
                 .eqIfPresent(MarketCommodityDO::getSpecificationId, reqVO.getSpecificationId())
                 .likeIfPresent(MarketCommodityDO::getCommodityName, reqVO.getCommodityName())
                 .likeIfPresent(MarketCommodityDO::getSpecificationsName, reqVO.getSpecificationsName())
-                .betweenIfPresent(MarketCommodityDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketCommodityDO::getCreateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketCommodityDO::getId));
     }
 

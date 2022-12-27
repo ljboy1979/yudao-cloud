@@ -17,6 +17,9 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -196,6 +199,7 @@ public class StockRecordServiceImpl implements StockRecordService {
         return prefix.concat(now).concat("00001");
     }
 
+    @CachePut(value = "stockRecord", key = "#updateReqVO.id")
     @Override
     public void updateRecord(StockRecordUpdateReqVO updateReqVO) {
         // 校验存在
@@ -209,6 +213,7 @@ public class StockRecordServiceImpl implements StockRecordService {
      * 3.7.2.18.删除入库记录单
      * @param id 编号
      */
+    @CacheEvict(value = "stockRecord", key = "#id")
     @Transactional(rollbackFor = RuntimeException.class)
     @Override
     public void deleteRecord(Long id) {
@@ -262,21 +267,29 @@ public class StockRecordServiceImpl implements StockRecordService {
         }
     }
 
+    @Cacheable(value = "stockRecord", key = "#id")
     @Override
     public StockRecordDO getRecord(Long id) {
         return recordMapper.selectById(id);
     }
 
+    @Cacheable(value = "stockRecord", key = "#ids")
     @Override
     public List<StockRecordDO> getRecordList(Collection<Long> ids) {
         return recordMapper.selectBatchIds(ids);
     }
 
+    @Cacheable(value = "stockRecord", key = "'getRecordPage'.concat('-')" +
+            ".concat(#pageReqVO.type).concat('-').concat(#pageReqVO.operationType)" +
+            ".concat('-').concat(#pageReqVO.batchNo)")
     @Override
     public PageResult<StockRecordDO> getRecordPage(StockRecordPageReqVO pageReqVO) {
         return recordMapper.selectPage(pageReqVO);
     }
 
+    @Cacheable(value = "stockRecord", key = "'getRecordList'.concat('-')" +
+            ".concat(#exportReqVO.type).concat('-').concat(#exportReqVO.operationType)" +
+            ".concat('-').concat(#exportReqVO.batchNo)")
     @Override
     public List<StockRecordDO> getRecordList(StockRecordExportReqVO exportReqVO) {
         return recordMapper.selectList(exportReqVO);
@@ -288,6 +301,9 @@ public class StockRecordServiceImpl implements StockRecordService {
      * @param pageReqVO 分页查询
      * @return 库存记录分页
      */
+    @Cacheable(value = "stockRecord", key = "'getRecordOutEnterPage'.concat('-')" +
+            ".concat(#pageReqVO.type).concat('-').concat(#pageReqVO.batchNo)")
+    @Override
     public Page<StockRecordDO> getRecordOutEnterPage(StockRecordOutEnterVO pageReqVO) {
         Page<StockRecordDO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
 

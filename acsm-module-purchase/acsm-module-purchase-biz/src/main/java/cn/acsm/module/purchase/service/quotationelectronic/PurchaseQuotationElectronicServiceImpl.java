@@ -8,6 +8,9 @@ import cn.acsm.module.purchase.dal.mysql.quotationelectronic.PurchaseQuotationEl
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -44,6 +47,7 @@ public class PurchaseQuotationElectronicServiceImpl implements PurchaseQuotation
         return quotationElectronic.getId();
     }
 
+    @CachePut(value = "purchaseQuotationElectronic", key = "#updateReqVO.id")
     @Override
     public void updateQuotationElectronic(PurchaseQuotationElectronicUpdateReqVO updateReqVO) {
         // 限制条件：是否提交"未提交"可修改
@@ -60,6 +64,7 @@ public class PurchaseQuotationElectronicServiceImpl implements PurchaseQuotation
         quotationElectronicMapper.updateById(updateObj);
     }
 
+    @CacheEvict(value = "purchaseQuotationElectronic", key = "#id")
     @Override
     public void deleteQuotationElectronic(Long id) {
         // 校验存在
@@ -74,21 +79,26 @@ public class PurchaseQuotationElectronicServiceImpl implements PurchaseQuotation
         }
     }
 
+    @Cacheable(value = "purchaseQuotationElectronic", key = "#id")
     @Override
     public PurchaseQuotationElectronicDO getQuotationElectronic(Long id) {
         return quotationElectronicMapper.selectById(id);
     }
 
+    @Cacheable(value = "purchaseQuotationElectronic", key = "#ids")
     @Override
     public List<PurchaseQuotationElectronicDO> getQuotationElectronicList(Collection<Long> ids) {
         return quotationElectronicMapper.selectBatchIds(ids);
     }
 
+    @Cacheable(value = "purchaseQuotationElectronic", key = "'getQuotationElectronicPage'.concat('-').concat(#pageReqVO.pageNo)" +
+            ".concat('-').concat(#pageReqVO.pageSize)")
     @Override
     public PageResult<PurchaseQuotationElectronicDO> getQuotationElectronicPage(PurchaseQuotationElectronicPageReqVO pageReqVO) {
         return quotationElectronicMapper.selectPage(pageReqVO);
     }
 
+    @Cacheable(value = "purchaseQuotationElectronic", key = "'getQuotationElectronicList'")
     @Override
     public List<PurchaseQuotationElectronicDO> getQuotationElectronicList(PurchaseQuotationElectronicExportReqVO exportReqVO) {
         return quotationElectronicMapper.selectList(exportReqVO);
@@ -98,6 +108,9 @@ public class PurchaseQuotationElectronicServiceImpl implements PurchaseQuotation
      * 价格牌明细
      * @param tagDetailVO
      */
+    @Cacheable(value = "purchaseQuotationElectronic", key = "'getQuotationElectronicPage'.concat('-').concat(#tagDetailVO.commodityId)" +
+            ".concat('-').concat(#tagDetailVO.specificationsId)")
+    @Override
     public PageResult<PurchaseQuotationElectronicDO> getQuotationElectronicPage(PurchasePriceTagDetailVO tagDetailVO) {
         return quotationElectronicMapper.selectPriceTag(tagDetailVO);
     }
@@ -106,6 +119,9 @@ public class PurchaseQuotationElectronicServiceImpl implements PurchaseQuotation
      * 3.6.2.45.查询采购报价明细
      * @param infoVO
      */
+    @Cacheable(value = "getQuotationElectronicInfo", key = "'getQuotationElectronicInfo'.concat('-').concat(#infoVO.pageNo)" +
+            ".concat('-').concat(#infoVO.pageSize)")
+    @Override
     public PageResult<PurchaseQuotationElectronicDO> getQuotationElectronicInfo(PurchaseQuotationInfoVO infoVO) {
         return quotationElectronicMapper.selectPageInfo(infoVO);
     }

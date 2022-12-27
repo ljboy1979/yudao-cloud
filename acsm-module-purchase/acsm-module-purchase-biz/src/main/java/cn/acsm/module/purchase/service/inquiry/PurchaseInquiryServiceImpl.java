@@ -13,6 +13,9 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -73,6 +76,7 @@ public class PurchaseInquiryServiceImpl implements PurchaseInquiryService {
         return SnowFlakeUtil.getId().toString();
     }
 
+    @CachePut(value = "purchaseInquiry", key = "#updateReqVO.id")
     @Override
     public void updateInquiry(PurchaseInquiryUpdateReqVO updateReqVO) {
         // 校验存在
@@ -93,6 +97,7 @@ public class PurchaseInquiryServiceImpl implements PurchaseInquiryService {
         inquiryMapper.updateById(updateObj);
     }
 
+    @CacheEvict(value = "purchaseInquiry", key = "#id")
     @Override
     public void deleteInquiry(Long id) {
         // 校验存在
@@ -107,6 +112,7 @@ public class PurchaseInquiryServiceImpl implements PurchaseInquiryService {
      *
      * @param delReqVO
      */
+    @CacheEvict(value = "purchaseInquiry", key = "#delReqVO.id")
     public void deleteInquiry(PurchaseInquiryDelReqVO delReqVO) {
         // 校验存在
         this.validateInquiryExists(delReqVO.getId());
@@ -130,16 +136,20 @@ public class PurchaseInquiryServiceImpl implements PurchaseInquiryService {
         }
     }
 
+    @Cacheable(value = "purchaseInquiry", key = "#id")
     @Override
     public PurchaseInquiryDO getInquiry(Long id) {
         return inquiryMapper.selectById(id);
     }
 
+    @Cacheable(value = "purchaseInquiry", key = "#ids")
     @Override
     public List<PurchaseInquiryDO> getInquiryList(Collection<Long> ids) {
         return inquiryMapper.selectBatchIds(ids);
     }
 
+    @Cacheable(value = "purchaseInquiry", key = "'getInquiryPage'.concat('-').concat(#pageReqVO.pageNo)" +
+            ".concat('-').concat(#pageReqVO.pageSize)")
     @Override
     public Page<PurchaseInquiryDO> getInquiryPage(PurchaseInquiryPageReqVO pageReqVO) {
         Page<PurchaseInquiryDO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
@@ -153,6 +163,7 @@ public class PurchaseInquiryServiceImpl implements PurchaseInquiryService {
         return inquiryMapper.selectPage(page, wrapper);
     }
 
+    @Cacheable(value = "purchaseInquiry", key = "'getInquiryList'.concat('-').concat(#exportReqVO.enquiryId)")
     @Override
     public List<PurchaseInquiryDO> getInquiryList(PurchaseInquiryExportReqVO exportReqVO) {
         return inquiryMapper.selectList(exportReqVO);
@@ -163,6 +174,10 @@ public class PurchaseInquiryServiceImpl implements PurchaseInquiryService {
      * @param getVO 分页查询
      * @return 获取询价单
      */
+    @Cacheable(value = "purchaseInquiry", key = "'getInquiryByProvider'.concat('-').concat(#getVO.providerId)" +
+            ".concat('-').concat(#getVO.postStatus).concat('-').concat(#getVO.enquiryStatus)" +
+            ".concat('-').concat(#getVO.readStatus)")
+    @Override
     public PageResult<PurchaseInquiryDO> getInquiryByProvider(PurchaseInquiryGetVO getVO) {
         return inquiryMapper.selectPageByProivder(getVO);
     }
@@ -171,6 +186,7 @@ public class PurchaseInquiryServiceImpl implements PurchaseInquiryService {
      * 3.6.2.29.回复询价情况 - 3.6.2.30.阅读询价单
      * @param readOrReplyVO
      */
+    @Override
     public void replyOrReadInquiry(PurchaseInquiryReadOrReplyVO readOrReplyVO) {
         // 阅读
         if(StringUtils.isNotBlank(readOrReplyVO.getReadStatus())) {

@@ -8,6 +8,7 @@ import cn.acsm.module.purchase.dal.dataobject.inquiry.PurchaseInquiryDO;
 import cn.acsm.module.purchase.dal.mysql.inquiry.PurchaseInquiryMapper;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
@@ -164,11 +165,11 @@ public class PurchaseInquiryServiceImplTest extends BaseDbUnitTest {
        reqVO.setSourceId(null);
 
        // 调用
-       PageResult<PurchaseInquiryDO> pageResult = inquiryService.getInquiryPage(reqVO);
+       Page<PurchaseInquiryDO> pageResult = inquiryService.getInquiryPage(reqVO);
        // 断言
        assertEquals(1, pageResult.getTotal());
-       assertEquals(1, pageResult.getList().size());
-       assertPojoEquals(dbInquiry, pageResult.getList().get(0));
+       assertEquals(1, pageResult.getCurrent());
+       assertPojoEquals(dbInquiry, pageResult.getRecords().get(0));
     }
 
     @Test

@@ -18,6 +18,9 @@ public class MarketCommodityExportReqVO {
     @ApiModelProperty(value = "规格id")
     private String specificationId;
 
+    @ApiModelProperty(value = "分类id")
+    private String classifyId;
+
     @ApiModelProperty(value = "商品名称")
     private String commodityName;
 
@@ -26,6 +29,6 @@ public class MarketCommodityExportReqVO {
 
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    private Date[] createTime;
+    private Date[] updateTime;
 
 }

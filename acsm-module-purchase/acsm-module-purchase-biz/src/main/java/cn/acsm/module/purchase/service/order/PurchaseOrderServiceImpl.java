@@ -18,6 +18,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -165,6 +168,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return prefix.concat(now).concat("00001");
     }
 
+    @CachePut(value = "purchaseOrder", key = "#updateReqVO.id")
     @Override
     public void updateOrder(PurchaseOrderUpdateReqVO updateReqVO) {
         if(StringUtils.equalsIgnoreCase(updateReqVO.getPurchaseStatus(), PURCHASE_STATUS_1)) {
@@ -178,6 +182,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
     }
 
+    @CacheEvict(value = "purchaseOrder", key = "#purchaseOrderDelReqVO.id")
     @Override
     public void deleteOrder(PurchaseOrderDelReqVO purchaseOrderDelReqVO) {
         // 校验存在
@@ -201,16 +206,19 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
     }
 
+    @Cacheable(value = "purchaseOrder", key = "#id")
     @Override
     public PurchaseOrderDO getOrder(Long id) {
         return orderMapper.selectById(id);
     }
 
+    @Cacheable(value = "purchaseOrder", key = "#ids")
     @Override
     public List<PurchaseOrderDO> getOrderList(Collection<Long> ids) {
         return orderMapper.selectBatchIds(ids);
     }
 
+    @Cacheable(value = "purchaseOrder", key = "#pageReqVO.pageNo.concat('-').concat(#pageReqVO.pageSize)")
     @Override
     public PageResult<PurchaseOrderDO> getOrderPage(PurchaseOrderPageReqVO pageReqVO) {
         // 状态设置为正常
@@ -218,6 +226,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return orderMapper.selectPage(pageReqVO);
     }
 
+    @Cacheable(value = "purchaseOrder", key = "'getOrderList'")
     @Override
     public List<PurchaseOrderDO> getOrderList(PurchaseOrderExportReqVO exportReqVO) {
         return orderMapper.selectList(exportReqVO);
@@ -228,6 +237,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
      *
      * @param updateReqVO 更新信息
      */
+    @CachePut(value = "purchaseOrder", key = "'updateOrderStatus'.concat(#updateReqVO.purchaseNumber)")
+    @Override
     public void updateOrderStatus(PurchaseOrderUpdateStatusReqVO updateReqVO) {
         // 效验存在
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -270,6 +281,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**
      * 3.6.2.5.查询采购合同单
      */
+    @Cacheable(value = "purchaseOrder", key = "'getOrderPageInfo'.concat('-').concat(#pageReqVO.pageNo)" +
+            ".concat('-').concat(#pageReqVO.pageSize)")
+    @Override
     public PageResult<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderPageInfoVO pageReqVO) {
         Page<QueryPurchaseOrderPageInfoVO> page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
         PageResult<QueryPurchaseOrderPageInfoVO> result = orderMapper.selectPage(page, pageReqVO);
@@ -279,6 +293,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**
      * 3.6.2.3.获取采购产品列表
      */
+    @Cacheable(value = "purchaseOrder", key = "'getOrderPageInfo'.concat('-').concat(#pageReqVO.pageNo)" +
+            ".concat('-').concat(#pageReqVO.pageSize).concat('-').concat(#pageReqVO.purchaseType)")
+    @Override
     public Page<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderProductsVO pageReqVO) {
         ShelvesSalesReqDto reqDto = new ShelvesSalesReqDto();
         reqDto.setType(pageReqVO.getPurchaseType());

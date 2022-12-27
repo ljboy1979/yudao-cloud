@@ -9,6 +9,9 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -47,6 +50,7 @@ public class PurchaseDetailsServiceImpl implements PurchaseDetailsService {
     }
 
     @Override
+    @CachePut(value = "deliverDetails", key = "#updateReqVO.id")
     public void updateDetails(PurchaseDetailsUpdateReqVO updateReqVO) {
         // 限制条件，【采购单表】中采购状态为"未采购"，才可修改
         QueryWrapper wrapper = new QueryWrapper();
@@ -64,6 +68,7 @@ public class PurchaseDetailsServiceImpl implements PurchaseDetailsService {
     }
 
     @Override
+    @CacheEvict(value = "deliverDetails", key = "#purchaseDetailsDelReqVO.id")
     public void deleteDetails(PurchaseDetailsDelReqVO purchaseDetailsDelReqVO) {
         // 限制条件，【采购单表】中采购状态为"采购执行中"，才可删除
         QueryWrapper wrapper = new QueryWrapper();
@@ -81,6 +86,7 @@ public class PurchaseDetailsServiceImpl implements PurchaseDetailsService {
     /**
      * 删除采购单明细
      */
+    @CacheEvict(value = "deliverDetails", key = "#id")
     @Override
     public void deleteDetails(Long id) {
         validateDetailsExists(id);
@@ -94,21 +100,27 @@ public class PurchaseDetailsServiceImpl implements PurchaseDetailsService {
         }
     }
 
+    @Cacheable(value = "deliverDetails", key = "#id")
     @Override
     public PurchaseDetailsDO getDetails(Long id) {
         return detailsMapper.selectById(id);
     }
 
+    @Cacheable(value = "deliverDetails", key = "#ids")
     @Override
     public List<PurchaseDetailsDO> getDetailsList(Collection<Long> ids) {
         return detailsMapper.selectBatchIds(ids);
     }
 
+    @Cacheable(value = "deliverDetails", key = "'getDetailsPage'.concat('-').concat(#pageReqVO.pageNo)" +
+            ".concat('-').concat(#pageReqVO.pageSize)")
     @Override
     public PageResult<PurchaseDetailsDO> getDetailsPage(PurchaseDetailsPageReqVO pageReqVO) {
         return detailsMapper.selectPage(pageReqVO);
     }
 
+    @Cacheable(value = "deliverDetails", key = "'getDetailsList'.concat('-').concat(#exportReqVO.purchaseId)" +
+            ".concat('-').concat(#exportReqVO.purchaseNumber)")
     @Override
     public List<PurchaseDetailsDO> getDetailsList(PurchaseDetailsExportReqVO exportReqVO) {
         return detailsMapper.selectList(exportReqVO);

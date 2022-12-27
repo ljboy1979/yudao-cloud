@@ -124,7 +124,7 @@ public class MarketInfoServiceImplTest extends BaseDbUnitTest {
        // 准备参数
        MarketInfoPageReqVO reqVO = new MarketInfoPageReqVO();
        reqVO.setMarketName(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        PageResult<MarketInfoDO> pageResult = marketInfoService.getMarketInfoPage(reqVO);
@@ -150,7 +150,7 @@ public class MarketInfoServiceImplTest extends BaseDbUnitTest {
        // 准备参数
        MarketInfoExportReqVO reqVO = new MarketInfoExportReqVO();
        reqVO.setMarketName(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        List<MarketInfoDO> list = marketInfoService.getMarketInfoList(reqVO);

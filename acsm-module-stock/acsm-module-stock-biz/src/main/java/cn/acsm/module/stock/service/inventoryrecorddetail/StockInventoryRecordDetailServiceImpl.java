@@ -7,15 +7,15 @@ import cn.acsm.module.stock.dal.mysql.inventoryrecorddetail.StockInventoryRecord
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.List;
 
@@ -43,6 +43,7 @@ public class StockInventoryRecordDetailServiceImpl implements StockInventoryReco
         return inventoryRecordDetail.getId();
     }
 
+    @CachePut(value = "inventoryRecordDetail", key = "#updateReqVO.id")
     @Override
     public void updateInventoryRecordDetail(StockInventoryRecordDetailUpdateReqVO updateReqVO) {
         // 校验存在
@@ -52,6 +53,7 @@ public class StockInventoryRecordDetailServiceImpl implements StockInventoryReco
         inventoryRecordDetailMapper.updateById(updateObj);
     }
 
+    @CacheEvict(value = "inventoryRecordDetail", key = "#updateReqVO.id")
     @Override
     public void deleteInventoryRecordDetail(Long id) {
         // 校验存在
@@ -66,21 +68,25 @@ public class StockInventoryRecordDetailServiceImpl implements StockInventoryReco
         }
     }
 
+    @Cacheable(value = "inventoryRecordDetail", key = "#id")
     @Override
     public StockInventoryRecordDetailDO getInventoryRecordDetail(Long id) {
         return inventoryRecordDetailMapper.selectById(id);
     }
 
+    @Cacheable(value = "inventoryRecordDetail", key = "#ids")
     @Override
     public List<StockInventoryRecordDetailDO> getInventoryRecordDetailList(Collection<Long> ids) {
         return inventoryRecordDetailMapper.selectBatchIds(ids);
     }
 
+    @Cacheable(value = "inventoryRecordDetail", key = "'getInventoryRecordDetailPage'.concat('-').concat(#pageReqVO.stockRecordId).concat('-').concat(#pageReqVO.stockRecordDetailId)")
     @Override
     public PageResult<StockInventoryRecordDetailDO> getInventoryRecordDetailPage(StockInventoryRecordDetailPageReqVO pageReqVO) {
         return inventoryRecordDetailMapper.selectPage(pageReqVO);
     }
 
+    @Cacheable(value = "inventoryRecordDetail", key = "'getInventoryRecordDetailList'.concat('-').concat(#pageReqVO.stockRecordId).concat('-').concat(#pageReqVO.stockRecordDetailId)")
     @Override
     public List<StockInventoryRecordDetailDO> getInventoryRecordDetailList(StockInventoryRecordDetailExportReqVO exportReqVO) {
         return inventoryRecordDetailMapper.selectList(exportReqVO);
@@ -92,6 +98,8 @@ public class StockInventoryRecordDetailServiceImpl implements StockInventoryReco
      * @param pageReqVO 分页查询
      * @return 盘点记录表子表-明细分页
      */
+    @Cacheable(value = "inventoryRecordDetail", key = "'getInventoryRecordDetailPage'.concat('-').concat(#pageReqVO.inventoryRecordId).concat('-').concat(#pageReqVO.inventoryCode)")
+    @Override
     public Page<StockInventoryRecordDetailDO> getInventoryRecordDetailPage(StockInventoryRecordDetailPageVO pageReqVO) {
         Page<StockInventoryRecordDetailDO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
 
