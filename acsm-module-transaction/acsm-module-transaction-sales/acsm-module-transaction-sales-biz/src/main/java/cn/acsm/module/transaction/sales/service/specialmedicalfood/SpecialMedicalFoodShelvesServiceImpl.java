@@ -4,12 +4,15 @@ import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.ShelvesSalesReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.ShelvesSalesRespVO;
+import cn.acsm.module.transaction.sales.controller.admin.specialmedicalfoodclassify.vo.SpecialMedicalFoodClassifyTreeVO;
 import cn.acsm.module.transaction.sales.convert.commodity.CommodityConvert;
 import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo;
 import cn.acsm.module.transaction.sales.dal.mysql.commodity.CommodityMapper;
 import cn.acsm.module.transaction.sales.dal.mysql.specialmedicalfood.SpecialMedicalFoodMapper;
 import cn.acsm.module.transaction.sales.service.api.shelves.ShelvesService;
+import cn.acsm.module.transaction.sales.service.specialmedicalfoodclassify.SpecialMedicalFoodClassifyService;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,9 @@ public class SpecialMedicalFoodShelvesServiceImpl implements ShelvesService {
 
     @Resource
     private SpecialMedicalFoodMapper specialMedicalFoodMapper;
+
+    @Resource
+    private SpecialMedicalFoodClassifyService specialMedicalFoodClassifyService;
 
     @Override
     public List<ShelvesSalesRespDto> findSales(ShelvesSalesReqDto shelvesSalesReqDto) {
@@ -44,5 +50,11 @@ public class SpecialMedicalFoodShelvesServiceImpl implements ShelvesService {
         page.setList(shelvesSalesRespVOS);
         page.setTotal(specialMedicalFoodMapper.findSpecificationsVoCount(shelvesSalesReqVO));
         return page;
+    }
+
+    @Override
+    public List<TreeSelect> findClassify() {
+        SpecialMedicalFoodClassifyTreeVO specialMedicalFoodClassifyTreeVO = new SpecialMedicalFoodClassifyTreeVO();
+        return specialMedicalFoodClassifyService.findTreeList(specialMedicalFoodClassifyTreeVO);
     }
 }

@@ -50,6 +50,12 @@ public class ShelvesBaseVO {
     @ApiModelProperty(value = "供应日期")
     private Date supplyDate;
 
+    @ApiModelProperty(value = "供应结束日期")
+    private Date supplyEndDate;
+
+    @ApiModelProperty(value = "供应类型 0 日期 1 长期")
+    private Integer supplyType;
+
     @ApiModelProperty(value = "餐次 0早/1中/2晚")
     private Integer meals;
 

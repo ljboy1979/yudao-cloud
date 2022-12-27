@@ -22,6 +22,9 @@ public interface MarketPriceDetailsMapper extends BaseMapperX<MarketPriceDetails
     default PageResult<MarketPriceDetailsDO> selectPage(MarketPriceDetailsPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<MarketPriceDetailsDO>()
                 .eqIfPresent(MarketPriceDetailsDO::getMarketPriceId, reqVO.getMarketPriceId())
+                .eqIfPresent(MarketPriceDetailsDO::getPriceSource, reqVO.getPriceSource())
+                .ltIfPresent(MarketPriceDetailsDO::getPrice, reqVO.getMax())
+                .gtIfPresent(MarketPriceDetailsDO::getPrice, reqVO.getMin())
                 .betweenIfPresent(MarketPriceDetailsDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketPriceDetailsDO::getId));
     }
@@ -29,6 +32,9 @@ public interface MarketPriceDetailsMapper extends BaseMapperX<MarketPriceDetails
     default List<MarketPriceDetailsDO> selectList(MarketPriceDetailsExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<MarketPriceDetailsDO>()
                 .eqIfPresent(MarketPriceDetailsDO::getMarketPriceId, reqVO.getMarketPriceId())
+                .eqIfPresent(MarketPriceDetailsDO::getPriceSource, reqVO.getPriceSource())
+                .ltIfPresent(MarketPriceDetailsDO::getPrice, reqVO.getMax())
+                .gtIfPresent(MarketPriceDetailsDO::getPrice, reqVO.getMin())
                 .betweenIfPresent(MarketPriceDetailsDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketPriceDetailsDO::getId));
     }

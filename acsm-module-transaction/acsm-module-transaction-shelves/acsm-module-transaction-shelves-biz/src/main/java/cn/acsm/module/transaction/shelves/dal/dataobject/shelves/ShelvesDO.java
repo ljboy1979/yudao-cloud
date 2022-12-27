@@ -76,6 +76,14 @@ public class ShelvesDO extends BaseDO {
      */
     private Date supplyDate;
     /**
+     * 供应结束日期
+     */
+    private Date supplyEndDate;
+    /**
+     * 供应类型
+     */
+    private Integer supplyType;
+    /**
      * 餐次 0早/1中/2晚
      */
     private Integer meals;

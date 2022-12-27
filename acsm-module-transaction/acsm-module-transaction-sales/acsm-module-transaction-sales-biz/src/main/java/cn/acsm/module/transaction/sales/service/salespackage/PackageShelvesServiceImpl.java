@@ -4,14 +4,18 @@ import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.ShelvesSalesReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.ShelvesSalesRespVO;
+import cn.acsm.module.transaction.sales.controller.admin.packageclassify.vo.PackageClassifyTreeVO;
 import cn.acsm.module.transaction.sales.convert.commodity.CommodityConvert;
 import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo;
 import cn.acsm.module.transaction.sales.dal.mysql.commodity.CommodityMapper;
 import cn.acsm.module.transaction.sales.dal.mysql.salespackage.PackageMapper;
 import cn.acsm.module.transaction.sales.service.api.shelves.ShelvesService;
+import cn.acsm.module.transaction.sales.service.packageclassify.PackageClassifyService;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +26,9 @@ public class PackageShelvesServiceImpl implements ShelvesService {
 
     @Resource
     private PackageMapper packageMapper;
+
+    @Resource
+    private PackageClassifyService packageClassifyService;
 
     @Override
     public List<ShelvesSalesRespDto> findSales(ShelvesSalesReqDto shelvesSalesReqDto) {
@@ -44,5 +51,11 @@ public class PackageShelvesServiceImpl implements ShelvesService {
         page.setList(shelvesSalesRespVOS);
         page.setTotal(packageMapper.findSpecificationsVoCount(shelvesSalesReqVO));
         return page;
+    }
+
+    @Override
+    public List<TreeSelect> findClassify() {
+        PackageClassifyTreeVO packageClassifyTreeVO = new PackageClassifyTreeVO();
+        return packageClassifyService.findTreeList(packageClassifyTreeVO);
     }
 }
