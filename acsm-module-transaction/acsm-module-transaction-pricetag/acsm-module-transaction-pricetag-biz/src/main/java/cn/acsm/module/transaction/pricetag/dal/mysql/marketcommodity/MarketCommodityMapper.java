@@ -25,7 +25,7 @@ public interface MarketCommodityMapper extends BaseMapperX<MarketCommodityDO> {
                 .eqIfPresent(MarketCommodityDO::getSpecificationId, reqVO.getSpecificationId())
                 .likeIfPresent(MarketCommodityDO::getCommodityName, reqVO.getCommodityName())
                 .likeIfPresent(MarketCommodityDO::getSpecificationsName, reqVO.getSpecificationsName())
-                .betweenIfPresent(MarketCommodityDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketCommodityDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketCommodityDO::getId));
     }
 
@@ -36,7 +36,7 @@ public interface MarketCommodityMapper extends BaseMapperX<MarketCommodityDO> {
                 .eqIfPresent(MarketCommodityDO::getSpecificationId, reqVO.getSpecificationId())
                 .likeIfPresent(MarketCommodityDO::getCommodityName, reqVO.getCommodityName())
                 .likeIfPresent(MarketCommodityDO::getSpecificationsName, reqVO.getSpecificationsName())
-                .betweenIfPresent(MarketCommodityDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketCommodityDO::getCreateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketCommodityDO::getId));
     }
 
