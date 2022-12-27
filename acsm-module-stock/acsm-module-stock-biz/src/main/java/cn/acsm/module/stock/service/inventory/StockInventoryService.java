@@ -4,7 +4,7 @@ import cn.acsm.module.stock.api.inventory.qo.InventoryQO;
 import cn.acsm.module.stock.api.inventory.vo.StockInventoryApiReqVO;
 import cn.acsm.module.stock.controller.admin.inventory.vo.*;
 import cn.acsm.module.stock.dal.dataobject.inventory.StockInventoryDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import javax.validation.Valid;
 import java.util.Collection;
@@ -61,7 +61,7 @@ public interface StockInventoryService {
      * @param pageReqVO 分页查询
      * @return 库存清单分页
      */
-    PageResult<StockInventoryDO> getInventoryPage(StockInventoryPageReqVO pageReqVO);
+    Page<StockInventoryDO> getInventoryPage(StockInventoryPageReqVO pageReqVO);
 
     /**
      * 获得库存清单列表, 用于 Excel 导出

@@ -7,8 +7,8 @@ import cn.acsm.module.stock.controller.admin.inventory.vo.StockInventoryUpdateRe
 import cn.acsm.module.stock.dal.dataobject.inventory.StockInventoryDO;
 import cn.acsm.module.stock.dal.mysql.inventory.StockInventoryMapper;
 import cn.acsm.module.stock.service.inventory.StockInventoryServiceImpl;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
@@ -192,11 +192,11 @@ public class StockInventoryServiceImplTest extends BaseDbUnitTest {
        reqVO.setSourceId(null);
 
        // 调用
-       PageResult<StockInventoryDO> pageResult = inventoryService.getInventoryPage(reqVO);
+       Page<StockInventoryDO> pageResult = inventoryService.getInventoryPage(reqVO);
        // 断言
        assertEquals(1, pageResult.getTotal());
-       assertEquals(1, pageResult.getList().size());
-       assertPojoEquals(dbInventory, pageResult.getList().get(0));
+       assertEquals(1, pageResult.getTotal());
+       assertPojoEquals(dbInventory, pageResult.getRecords().get(0));
     }
 
     @Test

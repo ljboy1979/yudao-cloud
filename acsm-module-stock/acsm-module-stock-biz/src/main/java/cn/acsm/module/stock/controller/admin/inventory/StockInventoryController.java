@@ -5,9 +5,9 @@ import cn.acsm.module.stock.convert.inventory.StockInventoryConvert;
 import cn.acsm.module.stock.dal.dataobject.inventory.StockInventoryDO;
 import cn.acsm.module.stock.service.inventory.StockInventoryService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -79,9 +79,9 @@ public class StockInventoryController {
     @GetMapping("/page")
     @ApiOperation("3.7.2.3.查询 预警信息")
     @PreAuthorize("@ss.hasPermission('stock:inventory:query')")
-    public CommonResult<PageResult<StockInventoryRespVO>> getInventoryPage(@Valid @RequestBody StockInventoryPageReqVO pageVO) {
-        PageResult<StockInventoryDO> pageResult = inventoryService.getInventoryPage(pageVO);
-        return success(StockInventoryConvert.INSTANCE.convertPage(pageResult));
+    public CommonResult<Page<StockInventoryDO>> getInventoryPage(@Valid @RequestBody StockInventoryPageReqVO pageVO) {
+        Page<StockInventoryDO> pageResult = inventoryService.getInventoryPage(pageVO);
+        return success(pageResult);
     }
 
     @GetMapping("/export-excel")

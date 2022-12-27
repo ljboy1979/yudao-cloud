@@ -287,11 +287,11 @@ public class StockRecordServiceImpl implements StockRecordService {
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getOperationType()), "operation_type", pageReqVO.getOperationType());
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getWarehouseId()), "warehouse_id", pageReqVO.getWarehouseId());
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getWarehouseCode()), "warehouse_code", pageReqVO.getWarehouseCode());
-        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getWarehouseName()), "warehouse_name", pageReqVO.getWarehouseName());
+        wrapper.like(ObjectUtils.isNotEmpty(pageReqVO.getWarehouseName()), "warehouse_name", pageReqVO.getWarehouseName());
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getBatchNo()), "batch_no", pageReqVO.getBatchNo());
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getOperationTime()), "operation_time", pageReqVO.getOperationTime());
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getHeadId()), "head_id", pageReqVO.getHeadId());
-        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getHeadName()), "head_name", pageReqVO.getHeadName());
+        wrapper.like(ObjectUtils.isNotEmpty(pageReqVO.getHeadName()), "head_name", pageReqVO.getHeadName());
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getCreateTime()), "create_time", pageReqVO.getCreateTime());
         return recordMapper.selectPage(page, wrapper);
     }
