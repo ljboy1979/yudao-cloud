@@ -19,7 +19,7 @@ public class StockClassifyBaseVO {
     private String classifyName;
 
     @ApiModelProperty(value = "父级编号", required = true)
-    @NotNull(message = "父级编号不能为空")
+    //@NotNull(message = "父级编号不能为空")
     private String parentCode;
 
     @ApiModelProperty(value = "所有父级编号", required = true)
@@ -56,7 +56,7 @@ public class StockClassifyBaseVO {
     private String sort;
 
     @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
+    //@NotNull(message = "状态不能为空")
     private Integer status;
 
     @ApiModelProperty(value = "经营主体id")

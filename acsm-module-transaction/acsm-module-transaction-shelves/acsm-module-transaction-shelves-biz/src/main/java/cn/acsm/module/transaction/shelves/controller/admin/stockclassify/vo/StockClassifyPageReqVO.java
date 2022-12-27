@@ -1,6 +1,8 @@
 package cn.acsm.module.transaction.shelves.controller.admin.stockclassify.vo;
 
 import lombok.*;
+
+import java.math.BigDecimal;
 import java.util.*;
 import io.swagger.annotations.*;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
@@ -16,6 +18,9 @@ public class StockClassifyPageReqVO extends PageParam {
 
     @ApiModelProperty(value = "分类名称")
     private String classifyName;
+
+    @ApiModelProperty(value = "层次级别")
+    private BigDecimal treeLevel;
 
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)

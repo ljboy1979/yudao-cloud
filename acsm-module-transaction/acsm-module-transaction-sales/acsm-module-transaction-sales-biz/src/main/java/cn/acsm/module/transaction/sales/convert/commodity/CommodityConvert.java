@@ -40,4 +40,6 @@ public interface CommodityConvert {
 
 
     List<ShelvesSalesRespVO> convertShelvesSalesRespVo(List<ShelvesSalesRespDo> specifications);
+
+    List<ShelvesSalesRespVO> convertShelvesSalesRespVO(List<ShelvesSalesRespDto> salesList);
 }

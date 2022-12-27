@@ -78,7 +78,7 @@ public class ShelvesBaseVO {
     private String vendor;
 
     @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
+    //@NotNull(message = "状态不能为空")
     private Integer status;
 
     @ApiModelProperty(value = "经营主体id")
