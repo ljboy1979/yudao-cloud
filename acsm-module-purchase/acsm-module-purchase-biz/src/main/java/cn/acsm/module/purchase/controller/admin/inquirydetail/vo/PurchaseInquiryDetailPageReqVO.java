@@ -19,11 +19,17 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class PurchaseInquiryDetailPageReqVO extends PageParam {
 
+    @ApiModelProperty(value = "采购类型(0:原料 1:投入品 2:商品 3: 菜品 4:套餐 5:特医食品)")
+    private Integer type;
+
     @ApiModelProperty(value = "询价单编号")
     private String enquiryId;
 
     @ApiModelProperty(value = "商品id")
-    private Long commodityId;
+    private String commodityId;
+
+    @ApiModelProperty(value = "商品名称")
+    private String commodityName;
 
     @ApiModelProperty(value = "分类id")
     private Long commodityCategoryId;

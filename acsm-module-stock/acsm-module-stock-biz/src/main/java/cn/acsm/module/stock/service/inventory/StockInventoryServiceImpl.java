@@ -8,9 +8,9 @@ import cn.acsm.module.stock.convert.inventory.StockInventoryConvert;
 import cn.acsm.module.stock.dal.dataobject.inventory.StockInventoryDO;
 import cn.acsm.module.stock.dal.mysql.inventory.StockInventoryMapper;
 import cn.acsm.module.stock.feign.LossApiFeignClient;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -85,8 +85,12 @@ public class StockInventoryServiceImpl implements StockInventoryService {
     }
 
     @Override
-    public PageResult<StockInventoryDO> getInventoryPage(StockInventoryPageReqVO pageReqVO) {
-        return inventoryMapper.selectPage(pageReqVO);
+    public Page<StockInventoryDO> getInventoryPage(StockInventoryPageReqVO pageReqVO) {
+        Page<StockInventoryDO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getType()), "type", pageReqVO.getType());
+        wrapper.like(ObjectUtils.isNotEmpty(pageReqVO.getGoodsName()), "goodsName", pageReqVO.getGoodsName());
+        return inventoryMapper.selectPage(page, wrapper);
     }
 
     @Override

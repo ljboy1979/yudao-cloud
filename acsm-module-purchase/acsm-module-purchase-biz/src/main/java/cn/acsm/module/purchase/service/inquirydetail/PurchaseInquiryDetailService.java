@@ -5,7 +5,7 @@ import cn.acsm.module.purchase.controller.admin.inquirydetail.vo.PurchaseInquiry
 import cn.acsm.module.purchase.controller.admin.inquirydetail.vo.PurchaseInquiryDetailPageReqVO;
 import cn.acsm.module.purchase.controller.admin.inquirydetail.vo.PurchaseInquiryDetailUpdateReqVO;
 import cn.acsm.module.purchase.dal.dataobject.inquirydetail.PurchaseInquiryDetailDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import javax.validation.Valid;
 import java.util.Collection;
@@ -62,7 +62,7 @@ public interface PurchaseInquiryDetailService {
      * @param pageReqVO 分页查询
      * @return 采购询价电子表分页
      */
-    PageResult<PurchaseInquiryDetailDO> getInquiryDetailPage(PurchaseInquiryDetailPageReqVO pageReqVO);
+    Page<PurchaseInquiryDetailDO> getInquiryDetailPage(PurchaseInquiryDetailPageReqVO pageReqVO);
 
     /**
      * 获得采购询价电子表列表, 用于 Excel 导出

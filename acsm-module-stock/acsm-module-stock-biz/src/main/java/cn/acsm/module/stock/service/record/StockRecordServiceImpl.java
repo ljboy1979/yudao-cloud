@@ -11,7 +11,6 @@ import cn.acsm.module.stock.dal.mysql.record.StockRecordMapper;
 import cn.acsm.module.stock.dal.mysql.recorddetail.StockRecordDetailMapper;
 import cn.acsm.module.stock.service.inventory.StockInventoryService;
 import cn.hutool.core.date.format.FastDateFormat;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -279,12 +278,22 @@ public class StockRecordServiceImpl implements StockRecordService {
         return recordMapper.selectBatchIds(ids);
     }
 
-    @Cacheable(value = "stockRecord", key = "'getRecordPage'.concat('-')" +
-            ".concat(#pageReqVO.type).concat('-').concat(#pageReqVO.operationType)" +
-            ".concat('-').concat(#pageReqVO.batchNo)")
+//    @Cacheable(value = "stockRecord", key = "'getRecordPage'")
     @Override
-    public PageResult<StockRecordDO> getRecordPage(StockRecordPageReqVO pageReqVO) {
-        return recordMapper.selectPage(pageReqVO);
+    public Page<StockRecordDO> getRecordPage(StockRecordPageReqVO pageReqVO) {
+        Page<StockRecordDO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getType()), "type", pageReqVO.getType());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getOperationType()), "operation_type", pageReqVO.getOperationType());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getWarehouseId()), "warehouse_id", pageReqVO.getWarehouseId());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getWarehouseCode()), "warehouse_code", pageReqVO.getWarehouseCode());
+        wrapper.like(ObjectUtils.isNotEmpty(pageReqVO.getWarehouseName()), "warehouse_name", pageReqVO.getWarehouseName());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getBatchNo()), "batch_no", pageReqVO.getBatchNo());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getOperationTime()), "operation_time", pageReqVO.getOperationTime());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getHeadId()), "head_id", pageReqVO.getHeadId());
+        wrapper.like(ObjectUtils.isNotEmpty(pageReqVO.getHeadName()), "head_name", pageReqVO.getHeadName());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getCreateTime()), "create_time", pageReqVO.getCreateTime());
+        return recordMapper.selectPage(page, wrapper);
     }
 
     @Cacheable(value = "stockRecord", key = "'getRecordList'.concat('-')" +

@@ -12,18 +12,21 @@ import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
 import cn.acsm.module.transaction.sales.api.shelves.ShelvesApi;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static cn.acsm.module.purchase.constant.PurchaseInquiryConstant.POST_STATUS_0;
 import static cn.acsm.module.purchase.enums.ErrorCodeConstants.INQUIRY_DETAIL_NOT_EXISTS;
@@ -109,10 +112,22 @@ public class PurchaseInquiryDetailServiceImpl implements PurchaseInquiryDetailSe
     @Cacheable(value = "purchaseInquiryDetail", key = "'getInquiryDetailPage'.concat('-').concat(#pageReqVO.pageNo)" +
             ".concat('-').concat(#pageReqVO.pageSize)")
     @Override
-    public PageResult<PurchaseInquiryDetailDO> getInquiryDetailPage(PurchaseInquiryDetailPageReqVO pageReqVO) {
+    public Page<PurchaseInquiryDetailDO> getInquiryDetailPage(PurchaseInquiryDetailPageReqVO pageReqVO) {
+        Page<PurchaseInquiryDetailDO> page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+
         ShelvesSalesReqDto reqDto = new ShelvesSalesReqDto();
+        reqDto.setType(pageReqVO.getType());
+        reqDto.setSalesName(pageReqVO.getCommodityName());
         CommonResult<List<ShelvesSalesRespDto>> sales = shelvesApi.findSales(reqDto);
-        return inquiryDetailMapper.selectPage(pageReqVO);
+        List<String> commodityIds = new ArrayList<>();
+        if(!CollectionUtils.isEmpty(sales.getData())) {
+            commodityIds = sales.getData().stream().map(sa -> {
+                return sa.getId();
+            }).collect(Collectors.toList());
+        }
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.in(!CollectionUtils.isEmpty(commodityIds), "commodity_id", commodityIds);
+        return inquiryDetailMapper.selectPage(page, wrapper);
     }
 
     @Cacheable(value = "purchaseInquiryDetail", key = "'getInquiryDetailList'.concat('-').concat(#exportReqVO.enquiryId)")

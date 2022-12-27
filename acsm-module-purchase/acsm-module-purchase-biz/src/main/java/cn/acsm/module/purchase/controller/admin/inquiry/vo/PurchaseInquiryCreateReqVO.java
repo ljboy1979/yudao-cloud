@@ -36,8 +36,8 @@ public class PurchaseInquiryCreateReqVO implements Serializable {
     // ---------- 询价单明细表数据
 
     @ApiModelProperty(value = "商品id", required = true)
-    @NotNull(message = "商品id不能为空")
-    private Long commodityId;
+    @NotBlank(message = "商品id不能为空")
+    private String commodityId;
 
     @ApiModelProperty(value = "分类id", required = true)
     @NotNull(message = "分类id不能为空")

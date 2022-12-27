@@ -7,8 +7,8 @@ import cn.acsm.module.stock.controller.admin.record.vo.StockRecordUpdateReqVO;
 import cn.acsm.module.stock.dal.dataobject.record.StockRecordDO;
 import cn.acsm.module.stock.dal.mysql.record.StockRecordMapper;
 import cn.acsm.module.stock.service.record.StockRecordServiceImpl;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
@@ -165,11 +165,11 @@ public class StockRecordServiceImplTest extends BaseDbUnitTest {
        reqVO.setSourceId(null);
 
        // 调用
-       PageResult<StockRecordDO> pageResult = recordService.getRecordPage(reqVO);
+       Page<StockRecordDO> pageResult = recordService.getRecordPage(reqVO);
        // 断言
        assertEquals(1, pageResult.getTotal());
-       assertEquals(1, pageResult.getList().size());
-       assertPojoEquals(dbRecord, pageResult.getList().get(0));
+       assertEquals(1, pageResult.getTotal());
+       assertPojoEquals(dbRecord, pageResult.getRecords().get(0));
     }
 
     @Test
