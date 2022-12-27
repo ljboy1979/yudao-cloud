@@ -22,14 +22,14 @@ public interface MarketPriceDetailsMapper extends BaseMapperX<MarketPriceDetails
     default PageResult<MarketPriceDetailsDO> selectPage(MarketPriceDetailsPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<MarketPriceDetailsDO>()
                 .eqIfPresent(MarketPriceDetailsDO::getMarketPriceId, reqVO.getMarketPriceId())
-                .betweenIfPresent(MarketPriceDetailsDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketPriceDetailsDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketPriceDetailsDO::getId));
     }
 
     default List<MarketPriceDetailsDO> selectList(MarketPriceDetailsExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<MarketPriceDetailsDO>()
                 .eqIfPresent(MarketPriceDetailsDO::getMarketPriceId, reqVO.getMarketPriceId())
-                .betweenIfPresent(MarketPriceDetailsDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketPriceDetailsDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketPriceDetailsDO::getId));
     }
 
