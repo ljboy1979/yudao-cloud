@@ -5,9 +5,9 @@ import cn.acsm.module.purchase.convert.inquirydetail.PurchaseInquiryDetailConver
 import cn.acsm.module.purchase.dal.dataobject.inquirydetail.PurchaseInquiryDetailDO;
 import cn.acsm.module.purchase.service.inquirydetail.PurchaseInquiryDetailService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -79,9 +79,9 @@ public class PurchaseInquiryDetailController {
     @GetMapping("/page")
     @ApiOperation("3.6.2.35.查询采购询价明细（基础方法）")
     @PreAuthorize("@ss.hasPermission('purchase:inquiry-detail:query')")
-    public CommonResult<PageResult<PurchaseInquiryDetailRespVO>> getInquiryDetailPage(@Valid PurchaseInquiryDetailPageReqVO pageVO) {
-        PageResult<PurchaseInquiryDetailDO> pageResult = inquiryDetailService.getInquiryDetailPage(pageVO);
-        return success(PurchaseInquiryDetailConvert.INSTANCE.convertPage(pageResult));
+    public CommonResult<Page<PurchaseInquiryDetailDO>> getInquiryDetailPage(@Valid @RequestBody PurchaseInquiryDetailPageReqVO pageVO) {
+        Page<PurchaseInquiryDetailDO> pageResult = inquiryDetailService.getInquiryDetailPage(pageVO);
+        return success(pageResult);
     }
 
     @GetMapping("/export-excel")

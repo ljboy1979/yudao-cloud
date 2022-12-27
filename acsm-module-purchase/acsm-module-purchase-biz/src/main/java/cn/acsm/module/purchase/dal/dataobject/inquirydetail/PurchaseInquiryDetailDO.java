@@ -33,7 +33,7 @@ public class PurchaseInquiryDetailDO extends BaseDO {
     /**
      * 商品id
      */
-    private Long commodityId;
+    private String commodityId;
     /**
      * 分类id
      */

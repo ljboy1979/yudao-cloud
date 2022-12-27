@@ -5,7 +5,6 @@ import cn.acsm.module.stock.convert.record.StockRecordConvert;
 import cn.acsm.module.stock.dal.dataobject.record.StockRecordDO;
 import cn.acsm.module.stock.service.record.StockRecordService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -87,9 +86,9 @@ public class StockRecordController {
     @GetMapping("/page")
     @ApiOperation("获得库存信息分页")
     @PreAuthorize("@ss.hasPermission('stock:record:query')")
-    public CommonResult<PageResult<StockRecordRespVO>> getRecordPage(@Valid StockRecordPageReqVO pageVO) {
-        PageResult<StockRecordDO> pageResult = recordService.getRecordPage(pageVO);
-        return success(StockRecordConvert.INSTANCE.convertPage(pageResult));
+    public CommonResult<Page<StockRecordDO>> getRecordPage(@Valid StockRecordPageReqVO pageVO) {
+        Page<StockRecordDO> pageResult = recordService.getRecordPage(pageVO);
+        return success(pageResult);
     }
 
     @GetMapping("/export-excel")
