@@ -20,14 +20,14 @@ public interface MarketClassifyMapper extends BaseMapperX<MarketClassifyDO> {
     default PageResult<MarketClassifyDO> selectPage(MarketClassifyPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<MarketClassifyDO>()
                 .likeIfPresent(MarketClassifyDO::getCategoryName, reqVO.getCategoryName())
-                .betweenIfPresent(MarketClassifyDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketClassifyDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketClassifyDO::getId));
     }
 
     default List<MarketClassifyDO> selectList(MarketClassifyExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<MarketClassifyDO>()
                 .likeIfPresent(MarketClassifyDO::getCategoryName, reqVO.getCategoryName())
-                .betweenIfPresent(MarketClassifyDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketClassifyDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketClassifyDO::getId));
     }
 
