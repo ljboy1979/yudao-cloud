@@ -33,7 +33,7 @@ public class NutritionFactsServiceImpl implements NutritionFactsService {
 
     @Override
     public String createNutritionFacts(NutritionFactsCreateReqVO createReqVO) {
-        String number = configNumberUtil.getNumber("sales_nutrition_facts"+createReqVO.getSourceId());
+        String number = configNumberUtil.getNumber("sales_nutrition_facts"+createReqVO.getType());
         // 插入
         NutritionFactsDO nutritionFacts = NutritionFactsConvert.INSTANCE.convert(createReqVO);
         nutritionFacts.setNumber("YYCF"+number);
