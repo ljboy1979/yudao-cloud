@@ -17,4 +17,6 @@ public class ShelvesReqVO {
     @ApiModelProperty("售品id")
     private String salesId;
 
+    @ApiModelProperty("货架id")
+    private String shelvesId;
 }

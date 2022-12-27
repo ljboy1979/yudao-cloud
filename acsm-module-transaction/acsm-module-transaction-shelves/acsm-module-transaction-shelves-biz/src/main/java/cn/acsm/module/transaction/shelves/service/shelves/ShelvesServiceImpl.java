@@ -14,6 +14,7 @@ import cn.acsm.module.transaction.shelves.dal.mysql.specifications.Specification
 import cn.acsm.module.transaction.shelves.util.ConfigNumberUtil;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
@@ -138,6 +139,11 @@ public class ShelvesServiceImpl implements ShelvesService {
 
     @Override
     public List<ShelvesSalesRespVO> findSpecifications(ShelvesReqVO shelvesReqVO) {
+        if (StringUtils.isNotEmpty(shelvesReqVO.getShelvesId())){
+            ShelvesDO shelvesDO =  shelvesMapper.selectById(shelvesReqVO.getShelvesId());
+            shelvesReqVO.setType(shelvesDO.getType());
+            shelvesReqVO.setSalesId(shelvesDO.getSourceId());
+        }
         ShelvesSalesReqDto shelvesSalesReqDto = ShelvesConvert.INSTANCE.convertShelvesSalesReq(shelvesReqVO);
         CommonResult<List<ShelvesSalesRespDto>> shelvesSalesRespDtos = shelvesApi.findSpecifications(shelvesSalesReqDto);
         return ShelvesConvert.INSTANCE.convertShelvesSalesResp(shelvesSalesRespDtos.getData());
