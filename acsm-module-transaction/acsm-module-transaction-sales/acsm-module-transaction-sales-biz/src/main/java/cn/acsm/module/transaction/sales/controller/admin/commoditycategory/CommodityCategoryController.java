@@ -1,6 +1,10 @@
 package cn.acsm.module.transaction.sales.controller.admin.commoditycategory;
 
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
 import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.*;
+import cn.acsm.module.transaction.sales.enums.ShelvesEnums;
+import cn.acsm.module.transaction.sales.service.api.shelves.ShelvesContext;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
 import org.springframework.cache.annotation.Cacheable;
@@ -36,6 +40,9 @@ public class CommodityCategoryController {
 
     @Resource
     private CommodityCategoryService commodityCategoryService;
+
+    @Resource
+    private ShelvesContext shelvesContext;
 
     @PostMapping("/create")
     @ApiOperation("创建商品分类")
@@ -107,6 +114,14 @@ public class CommodityCategoryController {
     public CommonResult<List<TreeSelect>> treeList(@Valid CommodityCategoryTreeVO commodityCategoryTreeVO) {
         List<TreeSelect> list = commodityCategoryService.findTreeList(commodityCategoryTreeVO);
         return success(list);
+    }
+
+    @PostMapping("/findSpecifications")
+    @ApiOperation("查询售品规格")
+    public CommonResult<List<ShelvesSalesRespVo>> findSpecifications(@RequestBody ShelvesSalesReqDto shelvesSalesReqDto) {
+        List<ShelvesSalesRespDto> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findSpecifications(shelvesSalesReqDto);
+        return CommonResult.success(CommodityCategoryConvert.INSTANCE.convertShelvesSalesRespVo(specifications));
+
     }
 
 }
