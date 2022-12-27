@@ -60,4 +60,34 @@
             AND classify=#{classify}
         </if>
     </select>
+
+    <select id="findSpecificationsVo" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
+        select
+        srms.id ,
+        srms.specifications_name AS name,
+        srms.packaging_type AS packagingType,
+        srms.packaging_type_name AS packagingTypeName,
+        srms.number,
+        srms.unit,
+        srms.unit_name AS unitName,
+        srms.packaging,
+        srms.packaging_name AS packagingName,
+        srms.measurement_unit AS measurementUnit,
+        srms.measurement_unit_name AS measurementUnitName,
+        srms.purchase_price AS purchasePrice,
+        srms.selling_price AS sellingPrice,
+        CONCAT(srms.number,srms.unit_name,"/",srms.packaging_name) AS specifications,
+        srm.name AS salesName,
+        ssmfc.category_name AS classifyName
+        FROM sales_raw_material_specification srms
+        LEFT FROM sales_raw_material srm on srms.raw_material_id = srm.id
+        LEFT FROM sales_raw_material_classify srmc on srmc.id = srm.classify
+        where srms.deleted = 0 and srm.deleted = 0
+        <if test=" salesId !=null and salesId!='' ">
+            AND srms.raw_material_id=#{salesId}
+        </if>
+        <if test=" salesName != null and salesName != '' ">
+            AND srm.name like CONCAT('%',#{salesName},'%')
+        </if>
+    </select>
 </mapper>

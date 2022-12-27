@@ -1,12 +1,18 @@
 package cn.acsm.module.transaction.sales.controller.admin.commodity;
 
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityCreateReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityExportReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityPageReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityUpdateReqVO;
+import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.ShelvesSalesRespVO;
 import cn.acsm.module.transaction.sales.convert.commodity.CommodityConvert;
+import cn.acsm.module.transaction.sales.convert.commoditycategory.CommodityCategoryConvert;
 import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityCustomDO;
 import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityDO;
+import cn.acsm.module.transaction.sales.enums.ShelvesEnums;
+import cn.acsm.module.transaction.sales.service.api.shelves.ShelvesContext;
 import cn.acsm.module.transaction.sales.service.commodity.CommodityService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +21,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.annotations.*;
 
-import javax.validation.constraints.*;
 import javax.validation.*;
 import javax.servlet.http.*;
 import java.util.*;
@@ -39,6 +44,10 @@ public class CommodityController {
 
     @Resource
     private CommodityService commodityService;
+
+
+    @Resource
+    private ShelvesContext shelvesContext;
 
     @PostMapping("/create")
     @ApiOperation("创建商品")
@@ -100,6 +109,14 @@ public class CommodityController {
         // 导出 Excel
         List<CommodityExcelVO> datas = CommodityConvert.INSTANCE.convertList02(list);
         ExcelUtils.write(response, "商品.xls", "数据", CommodityExcelVO.class, datas);
+    }
+    @PostMapping("/findSpecifications")
+    @ApiOperation("查询售品规格")
+    @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
+    public CommonResult<List<ShelvesSalesRespVO>> findSpecifications(@RequestBody ShelvesSalesReqVO shelvesSalesReqDto) {
+        List<ShelvesSalesRespVO> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findSpecificationsVo(shelvesSalesReqDto);
+        return CommonResult.success(specifications);
+
     }
 
 }

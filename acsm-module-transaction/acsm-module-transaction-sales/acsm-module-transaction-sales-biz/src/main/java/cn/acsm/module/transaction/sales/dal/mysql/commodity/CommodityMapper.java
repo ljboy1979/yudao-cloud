@@ -132,4 +132,6 @@ public interface CommodityMapper extends BaseMapperX<CommodityDO> {
     List<ShelvesSalesRespDo> findSpecifications(ShelvesSalesReqDto shelvesSalesReqDto);
 
     CommodityCustomDO getCommodityById(String id);
+
+    List<ShelvesSalesRespDo> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqDto);
 }

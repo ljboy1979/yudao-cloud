@@ -49,4 +49,34 @@
             AND sd.dishes_name like CONCAT('%',#{salesName},'%')
         </if>
     </select>
+
+    <select id="findSpecificationsVo" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
+        select
+        sds.id ,
+        sds.specifications_name AS name,
+        sds. AS packagingType,
+        sds.packaging_type_name AS packagingTypeName,
+        sds.number,
+        sds.unit,
+        sds.unit_name AS unitName,
+        sds.packaging,
+        sds.packaging_name AS packagingName,
+        sds.measurement_unit AS measurementUnit,
+        sds.measurement_unit_name AS measurementUnitName,
+        sds.purchase_price AS purchasePrice,
+        sds.selling_price AS sellingPrice,
+        CONCAT(sds.number,sds.unit_name,"/",sds.packaging_name) AS specifications,
+        sd.dishes_name AS salesName,
+        sdc.category_name AS classifyName
+        FROM sales_dishes_specification sds
+        LEFT FROM sales_dishes sd on sds.dishes_id = sd.id
+        LEFT FROM sales_dishes_category sdc on sdc.id = sd.menu_classification
+        where sds.deleted = 0 and sd.deleted=0
+        <if test=" salesId !=null and salesId!='' ">
+            AND sds.dishes_id=#{salesId}
+        </if>
+        <if test=" salesName !=null and salesName!='' ">
+            AND sd.dishes_name like CONCAT('%',#{salesName},'%')
+        </if>
+    </select>
 </mapper>
