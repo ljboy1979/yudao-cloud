@@ -25,7 +25,7 @@ public class DishesBaseVO {
     private String cuisine;
 
     @ApiModelProperty(value = "烹饪方式")
-    private Boolean cookingStyle;
+    private String cookingStyle;
 
     @ApiModelProperty(value = "状态", required = true)
     @NotNull(message = "状态不能为空")
