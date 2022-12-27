@@ -6,7 +6,7 @@ import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityC
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityExportReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityPageReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.CommodityUpdateReqVO;
-import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.ShelvesSalesRespVo;
+import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.ShelvesSalesRespVO;
 import cn.acsm.module.transaction.sales.convert.commodity.CommodityConvert;
 import cn.acsm.module.transaction.sales.convert.commoditycategory.CommodityCategoryConvert;
 import cn.acsm.module.transaction.sales.dal.dataobject.commodity.CommodityCustomDO;
@@ -21,7 +21,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.annotations.*;
 
-import javax.validation.constraints.*;
 import javax.validation.*;
 import javax.servlet.http.*;
 import java.util.*;
@@ -114,9 +113,9 @@ public class CommodityController {
     @PostMapping("/findSpecifications")
     @ApiOperation("查询售品规格")
     @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
-    public CommonResult<List<ShelvesSalesRespVo>> findSpecifications(@RequestBody ShelvesSalesReqDto shelvesSalesReqDto) {
-        List<ShelvesSalesRespDto> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findSpecifications(shelvesSalesReqDto);
-        return CommonResult.success(CommodityCategoryConvert.INSTANCE.convertShelvesSalesRespVo(specifications));
+    public CommonResult<List<ShelvesSalesRespVO>> findSpecifications(@RequestBody ShelvesSalesReqVO shelvesSalesReqDto) {
+        List<ShelvesSalesRespVO> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findSpecificationsVo(shelvesSalesReqDto);
+        return CommonResult.success(specifications);
 
     }
 

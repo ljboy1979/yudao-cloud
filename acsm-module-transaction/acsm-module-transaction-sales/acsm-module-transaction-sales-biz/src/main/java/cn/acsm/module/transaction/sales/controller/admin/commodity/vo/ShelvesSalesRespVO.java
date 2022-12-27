@@ -1,4 +1,4 @@
-package cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo;
+package cn.acsm.module.transaction.sales.controller.admin.commodity.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @ApiModel("货架响应DTO")
 @Data
-public class ShelvesSalesRespVo {
+public class ShelvesSalesRespVO {
     @ApiModelProperty("id")
     private String id;
 

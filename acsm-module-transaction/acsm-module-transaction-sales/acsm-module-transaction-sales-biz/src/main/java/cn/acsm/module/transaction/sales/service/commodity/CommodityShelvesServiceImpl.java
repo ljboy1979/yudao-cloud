@@ -2,6 +2,8 @@ package cn.acsm.module.transaction.sales.service.commodity;
 
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
+import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.ShelvesSalesReqVO;
+import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.ShelvesSalesRespVO;
 import cn.acsm.module.transaction.sales.convert.commodity.CommodityConvert;
 import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo;
 import cn.acsm.module.transaction.sales.dal.mysql.commodity.CommodityMapper;
@@ -28,5 +30,11 @@ public class CommodityShelvesServiceImpl implements ShelvesService {
         List<ShelvesSalesRespDo> salesList = commodityMapper.findSpecifications(shelvesSalesReqDto);
         return CommodityConvert.INSTANCE.convertShelvesSales(salesList);
 
+    }
+
+    @Override
+    public List<ShelvesSalesRespVO> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqVO) {
+        List<ShelvesSalesRespDo> salesList = commodityMapper.findSpecificationsVo(shelvesSalesReqVO);
+        return CommodityConvert.INSTANCE.convertShelvesSalesRespVo(salesList);
     }
 }

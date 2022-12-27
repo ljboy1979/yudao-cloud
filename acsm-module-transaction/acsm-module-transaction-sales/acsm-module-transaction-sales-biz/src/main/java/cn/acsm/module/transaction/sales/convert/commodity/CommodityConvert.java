@@ -35,5 +35,9 @@ public interface CommodityConvert {
     List<CommodityExcelVO> convertList02(List<CommodityDO> list);
 
     List<ShelvesSalesRespDto> convertShelvesSales(List<ShelvesSalesRespDo> bean);
+
     CommodityRespVO convertCustom(CommodityCustomDO bean);
+
+
+    List<ShelvesSalesRespVO> convertShelvesSalesRespVo(List<ShelvesSalesRespDo> specifications);
 }
