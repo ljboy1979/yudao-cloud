@@ -31,6 +31,7 @@
 
     </select>
 
+
     <select id="findPriceTrend" resultType="cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.PriceTrendDO">
         SELECT
         z.time,
@@ -50,7 +51,7 @@
         AND DATE_FORMAT(create_time,'%Y-%m') = DATE_FORMAT(NOW(),'%Y-%m')
         GROUP BY DATE_FORMAT(create_time,'%Y-%m-%d'))y
         RIGHT JOIN
-        (SELECT DATE_FORMAT( DATE_ADD(CONCAT(DATE_FORMAT(NOW(), '%Y-%m' ),"-1"), INTERVAL  @i := @i + 1 DAY ), '%Y-%m-%d' )  time
+        (SELECT DATE_FORMAT(DATE_ADD(CONCAT(DATE_FORMAT(NOW(), '%Y-%m'),'-1'), INTERVAL  (@i := @i + 1) DAY), '%Y-%m-%d' )  time
         FROM
         (SELECT a from
         (SELECT '0'a UNION SELECT '1' UNION SELECT '2' UNION SELECT '3') a
@@ -60,5 +61,8 @@
         on z.time = y.time
 
     </select>
+
+
+
 
 </mapper>
