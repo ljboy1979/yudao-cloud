@@ -15,6 +15,7 @@ import cn.acsm.module.transaction.sales.enums.ShelvesEnums;
 import cn.acsm.module.transaction.sales.service.api.shelves.ShelvesContext;
 import cn.acsm.module.transaction.sales.service.commodity.CommodityService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -116,6 +117,15 @@ public class CommodityController {
     @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
     public CommonResult<PageResult<ShelvesSalesRespVO>> findSpecifications(@RequestBody ShelvesSalesReqVO shelvesSalesReqDto) {
         PageResult<ShelvesSalesRespVO> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findSpecificationsVo(shelvesSalesReqDto);
+        return CommonResult.success(specifications);
+
+    }
+
+    @PostMapping("/findClassify")
+    @ApiOperation("查询售品分类")
+    @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
+    public CommonResult<List<TreeSelect>> findClassify(@RequestBody ShelvesSalesReqVO shelvesSalesReqDto) {
+        List<TreeSelect> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findClassify();
         return CommonResult.success(specifications);
 
     }
