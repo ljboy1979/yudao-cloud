@@ -35,6 +35,9 @@ public class MarketCommodityBaseVO {
     @NotNull(message = "市场id不能为空")
     private String marketId;
 
+    @ApiModelProperty(value = "市场名称", required = true)
+    private String marketName;
+
     @ApiModelProperty(value = "规格名称")
     @NotNull(message = "规格名称不能为空")
     private String specificationsName;
@@ -76,7 +79,6 @@ public class MarketCommodityBaseVO {
     private String source;
 
     @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
     private Integer status;
 
     @ApiModelProperty(value = "经营主体id")

@@ -124,7 +124,7 @@ public class ScheduledPriceServiceImplTest extends BaseDbUnitTest {
        // 准备参数
        ScheduledPricePageReqVO reqVO = new ScheduledPricePageReqVO();
        reqVO.setCommodityName(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        PageResult<ScheduledPriceDO> pageResult = scheduledPriceService.getScheduledPricePage(reqVO);
@@ -150,7 +150,7 @@ public class ScheduledPriceServiceImplTest extends BaseDbUnitTest {
        // 准备参数
        ScheduledPriceExportReqVO reqVO = new ScheduledPriceExportReqVO();
        reqVO.setCommodityName(null);
-       reqVO.setCreateTime((new Date[]{}));
+       reqVO.setUpdateTime((new Date[]{}));
 
        // 调用
        List<ScheduledPriceDO> list = scheduledPriceService.getScheduledPriceList(reqVO);

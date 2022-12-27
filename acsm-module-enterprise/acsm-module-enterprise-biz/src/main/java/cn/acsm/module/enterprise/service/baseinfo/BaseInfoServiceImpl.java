@@ -10,6 +10,9 @@ import cn.acsm.module.enterprise.dal.mysql.baseinfo.BaseInfoMapper;
 import cn.acsm.module.enterprise.enums.enterprisebaseinfo.EnterpriseStatusEnum;
 import cn.acsm.module.enterprise.utils.generator.EnterpriseCodeGenerator;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -46,6 +49,7 @@ public class BaseInfoServiceImpl implements BaseInfoService {
     }
 
     @Override
+    @CachePut(value = "enterpriseBaseInfo", key = "#updateReqVO.id")
     public void updateBaseInfo(BaseInfoUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateBaseInfoExists(updateReqVO.getId());
@@ -55,6 +59,7 @@ public class BaseInfoServiceImpl implements BaseInfoService {
     }
 
     @Override
+    @CacheEvict(value = "enterpriseBaseInfo", key = "#id")
     public void deleteBaseInfo(Long id) {
         // 校验存在
         this.validateBaseInfoExists(id);
@@ -80,6 +85,7 @@ public class BaseInfoServiceImpl implements BaseInfoService {
     }
 
     @Override
+    @Cacheable(value = "enterpriseBaseInfo", key = "#id")
     public BaseInfoDO getBaseInfo(Long id) {
         return baseInfoMapper.selectById(id);
     }

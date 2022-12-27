@@ -3,6 +3,7 @@ package cn.acsm.module.transaction.sales.dal.mysql.dishes;
 import java.util.*;
 
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
+import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.ShelvesSalesReqVO;
 import cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
@@ -48,4 +49,7 @@ public interface DishesMapper extends BaseMapperX<DishesDO> {
 
     List<ShelvesSalesRespDo> findSpecifications(ShelvesSalesReqDto shelvesSalesReqDto);
 
+    List<ShelvesSalesRespDo> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqDto);
+
+    Long findSpecificationsVoCount(ShelvesSalesReqVO shelvesSalesReqVO);
 }

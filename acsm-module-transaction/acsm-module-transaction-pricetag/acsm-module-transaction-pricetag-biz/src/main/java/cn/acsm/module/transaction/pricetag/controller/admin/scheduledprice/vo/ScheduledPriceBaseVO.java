@@ -26,7 +26,6 @@ public class ScheduledPriceBaseVO {
     private String commodityName;
 
     @ApiModelProperty(value = "市场id", required = true)
-    @NotNull(message = "市场id不能为空")
     private String marketId;
 
     @ApiModelProperty(value = "规格名称")

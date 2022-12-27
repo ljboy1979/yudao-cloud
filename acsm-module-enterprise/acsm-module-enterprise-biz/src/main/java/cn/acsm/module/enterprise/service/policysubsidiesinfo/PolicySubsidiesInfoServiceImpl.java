@@ -8,6 +8,9 @@ import cn.acsm.module.enterprise.convert.policysubsidiesinfo.PolicySubsidiesInfo
 import cn.acsm.module.enterprise.dal.dataobject.policysubsidiesinfo.PolicySubsidiesInfoDO;
 import cn.acsm.module.enterprise.dal.mysql.policysubsidiesinfo.PolicySubsidiesInfoMapper;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -40,6 +43,7 @@ public class PolicySubsidiesInfoServiceImpl implements PolicySubsidiesInfoServic
     }
 
     @Override
+    @CachePut(value = "enterprisePolicySubsidiesInfo", key = "#updateReqVO.id")
     public void updatePolicySubsidiesInfo(PolicySubsidiesInfoUpdateReqVO updateReqVO) {
         // 校验存在
         this.validatePolicySubsidiesInfoExists(updateReqVO.getId());
@@ -49,6 +53,7 @@ public class PolicySubsidiesInfoServiceImpl implements PolicySubsidiesInfoServic
     }
 
     @Override
+    @CacheEvict(value = "enterprisePolicySubsidiesInfo", key = "#id")
     public void deletePolicySubsidiesInfo(Long id) {
         // 校验存在
         this.validatePolicySubsidiesInfoExists(id);
@@ -63,6 +68,7 @@ public class PolicySubsidiesInfoServiceImpl implements PolicySubsidiesInfoServic
     }
 
     @Override
+    @Cacheable(value = "enterprisePolicySubsidiesInfo", key = "#id")
     public PolicySubsidiesInfoDO getPolicySubsidiesInfo(Long id) {
         return policySubsidiesInfoMapper.selectById(id);
     }

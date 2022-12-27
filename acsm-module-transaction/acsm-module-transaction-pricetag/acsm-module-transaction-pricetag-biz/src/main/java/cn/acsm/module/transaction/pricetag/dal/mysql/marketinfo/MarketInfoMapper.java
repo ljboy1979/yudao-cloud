@@ -20,14 +20,14 @@ public interface MarketInfoMapper extends BaseMapperX<MarketInfoDO> {
     default PageResult<MarketInfoDO> selectPage(MarketInfoPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<MarketInfoDO>()
                 .likeIfPresent(MarketInfoDO::getMarketName, reqVO.getMarketName())
-                .betweenIfPresent(MarketInfoDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketInfoDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketInfoDO::getId));
     }
 
     default List<MarketInfoDO> selectList(MarketInfoExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<MarketInfoDO>()
                 .likeIfPresent(MarketInfoDO::getMarketName, reqVO.getMarketName())
-                .betweenIfPresent(MarketInfoDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketInfoDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(MarketInfoDO::getId));
     }
 

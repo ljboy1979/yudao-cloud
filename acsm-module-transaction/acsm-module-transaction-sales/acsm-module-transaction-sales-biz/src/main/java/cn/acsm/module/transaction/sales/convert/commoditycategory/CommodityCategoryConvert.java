@@ -2,6 +2,8 @@ package cn.acsm.module.transaction.sales.convert.commoditycategory;
 
 import java.util.*;
 
+import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
+import cn.acsm.module.transaction.sales.controller.admin.commodity.vo.ShelvesSalesRespVO;
 import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.*;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
@@ -39,5 +41,6 @@ public interface CommodityCategoryConvert {
         commodityCategoryTreeVO.setSort(bean.getTreeSort().intValue());
         return commodityCategoryTreeVO;
     };
+
 
 }

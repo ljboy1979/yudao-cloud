@@ -28,7 +28,7 @@ public interface MarketPriceMapper extends BaseMapperX<MarketPriceDO> {
                 .eqIfPresent(MarketPriceDO::getMiddlePrice, reqVO.getMiddlePrice())
                 .eqIfPresent(MarketPriceDO::getSource, reqVO.getSource())
                 .eqIfPresent(MarketPriceDO::getStatus, reqVO.getStatus())
-                .betweenIfPresent(MarketPriceDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketPriceDO::getUpdateTime, reqVO.getUpdateTime())
                 .eqIfPresent(MarketPriceDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(MarketPriceDO::getId));
     }
@@ -42,7 +42,7 @@ public interface MarketPriceMapper extends BaseMapperX<MarketPriceDO> {
                 .eqIfPresent(MarketPriceDO::getMiddlePrice, reqVO.getMiddlePrice())
                 .eqIfPresent(MarketPriceDO::getSource, reqVO.getSource())
                 .eqIfPresent(MarketPriceDO::getStatus, reqVO.getStatus())
-                .betweenIfPresent(MarketPriceDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(MarketPriceDO::getUpdateTime, reqVO.getUpdateTime())
                 .eqIfPresent(MarketPriceDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(MarketPriceDO::getId));
     }

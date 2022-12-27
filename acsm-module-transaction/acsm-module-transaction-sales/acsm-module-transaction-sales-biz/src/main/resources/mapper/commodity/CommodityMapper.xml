@@ -38,8 +38,8 @@
         sc.commodity_name AS salesName,
         scc.commodity_category_name AS classifyName
         FROM sales_commodity_specification scs
-        LEFT FROM sales_commodity sc on scs.commodity_id = sc.id
-        LEFT FROM sales_commodity_category scc on scc.id = sc.commodity_category_id
+        LEFT JOIN sales_commodity sc on scs.commodity_id = sc.id
+        LEFT JOIN sales_commodity_category scc on scc.id = sc.commodity_category_id
         where scs.deleted = 0 and sc.deleted=0
         <if test=" salesId !=null and salesId!='' ">
         AND scs.commodity_id=#{salesId}
@@ -111,6 +111,51 @@
         WHERE
             sc.id = #{id}
         AND sc.deleted = 0
+    </select>
+
+
+    <select id="findSpecificationsVo" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
+        select
+        scs.id ,
+        scs.specifications_name AS name,
+        scs.packaging_type AS packagingType,
+        scs.packaging_type_name AS packagingTypeName,
+        scs.number,
+        scs.unit,
+        scs.unit_name AS unitName,
+        scs.packaging,
+        scs.packaging_name AS packagingName,
+        scs.measurement_unit AS measurementUnit,
+        scs.measurement_unit_name AS measurementUnitName,
+        scs.purchase_price AS purchasePrice,
+        scs.selling_price AS sellingPrice,
+        CONCAT(scs.number,scs.unit_name,"/",scs.packaging_name) AS specifications,
+        sc.commodity_name AS salesName,
+        scc.commodity_category_name AS classifyName
+        FROM sales_commodity_specification scs
+        LEFT JOIN sales_commodity sc on scs.commodity_id = sc.id
+        LEFT JOIN sales_commodity_category scc on scc.id = sc.commodity_category_id
+        where scs.deleted = 0
+        <if test=" salesId !=null and salesId!='' ">
+            AND scs.commodity_id=#{salesId}
+        </if>
+        <if test=" salesName !=null and salesName!='' ">
+            AND sd.commodity_name like CONCAT('%',#{salesName},'%')
+        </if>
+        LIMIT #{pageNo} ,#{pageSize}
+    </select>
+
+    <select id="findSpecificationsVoCount" resultType="java.lang.Long">
+        select
+        count(1)
+        FROM sales_commodity_specification scs
+        where scs.deleted = 0
+        <if test=" salesId !=null and salesId!='' ">
+            AND scs.commodity_id=#{salesId}
+        </if>
+        <if test=" salesName !=null and salesName!='' ">
+            AND sd.commodity_name like CONCAT('%',#{salesName},'%')
+        </if>
     </select>
 
 </mapper>

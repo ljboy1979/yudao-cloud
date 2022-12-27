@@ -7,6 +7,9 @@ import cn.acsm.module.enterprise.controller.admin.othercertificateinfo.vo.OtherC
 import cn.acsm.module.enterprise.dal.dataobject.othercertificateinfo.OtherCertificateInfoDO;
 import cn.acsm.module.enterprise.dal.mysql.othercertificateinfo.OtherCertificateInfoMapper;
 import cn.acsm.module.enterprise.convert.othercertificateinfo.OtherCertificateInfoConvert;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -40,6 +43,7 @@ public class OtherCertificateInfoServiceImpl implements OtherCertificateInfoServ
     }
 
     @Override
+    @CachePut(value = "enterpriseOtherCertificateInfo", key = "#updateReqVO.id")
     public void updateOtherCertificateInfo(OtherCertificateInfoUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateOtherCertificateInfoExists(updateReqVO.getId());
@@ -49,6 +53,7 @@ public class OtherCertificateInfoServiceImpl implements OtherCertificateInfoServ
     }
 
     @Override
+    @CacheEvict(value = "enterpriseOtherCertificateInfo", key = "#id")
     public void deleteOtherCertificateInfo(Long id) {
         // 校验存在
         this.validateOtherCertificateInfoExists(id);
@@ -63,6 +68,7 @@ public class OtherCertificateInfoServiceImpl implements OtherCertificateInfoServ
     }
 
     @Override
+    @Cacheable(value = "enterpriseOtherCertificateInfo", key = "#id")
     public OtherCertificateInfoDO getOtherCertificateInfo(Long id) {
         return otherCertificateInfoMapper.selectById(id);
     }

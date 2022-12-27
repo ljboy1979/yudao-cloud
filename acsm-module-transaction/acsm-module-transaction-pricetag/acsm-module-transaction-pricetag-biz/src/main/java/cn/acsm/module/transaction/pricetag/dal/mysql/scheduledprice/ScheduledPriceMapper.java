@@ -20,14 +20,14 @@ public interface ScheduledPriceMapper extends BaseMapperX<ScheduledPriceDO> {
     default PageResult<ScheduledPriceDO> selectPage(ScheduledPricePageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<ScheduledPriceDO>()
                 .likeIfPresent(ScheduledPriceDO::getCommodityName, reqVO.getCommodityName())
-                .betweenIfPresent(ScheduledPriceDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(ScheduledPriceDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(ScheduledPriceDO::getId));
     }
 
     default List<ScheduledPriceDO> selectList(ScheduledPriceExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<ScheduledPriceDO>()
                 .likeIfPresent(ScheduledPriceDO::getCommodityName, reqVO.getCommodityName())
-                .betweenIfPresent(ScheduledPriceDO::getCreateTime, reqVO.getCreateTime())
+                .betweenIfPresent(ScheduledPriceDO::getUpdateTime, reqVO.getUpdateTime())
                 .orderByDesc(ScheduledPriceDO::getId));
     }
 

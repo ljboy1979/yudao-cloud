@@ -6,6 +6,8 @@ import io.swagger.annotations.*;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
+
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 @ApiModel("管理后台 - 市场商品分页 Request VO")
@@ -20,6 +22,9 @@ public class MarketCommodityPageReqVO extends PageParam {
     @ApiModelProperty(value = "规格id")
     private String specificationId;
 
+    @ApiModelProperty(value = "分类id")
+    private String classifyId;
+
     @ApiModelProperty(value = "商品名称")
     private String commodityName;
     @ApiModelProperty(value = "市场名称")
@@ -30,6 +35,6 @@ public class MarketCommodityPageReqVO extends PageParam {
 
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    private Date[] createTime;
+    private Date[] updateTime;
 
 }
