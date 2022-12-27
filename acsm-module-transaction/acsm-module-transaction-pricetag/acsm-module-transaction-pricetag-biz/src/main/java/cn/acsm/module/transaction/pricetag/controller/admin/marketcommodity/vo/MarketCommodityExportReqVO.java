@@ -18,6 +18,9 @@ public class MarketCommodityExportReqVO {
     @ApiModelProperty(value = "规格id")
     private String specificationId;
 
+    @ApiModelProperty(value = "分类id")
+    private String classifyId;
+
     @ApiModelProperty(value = "商品名称")
     private String commodityName;
 

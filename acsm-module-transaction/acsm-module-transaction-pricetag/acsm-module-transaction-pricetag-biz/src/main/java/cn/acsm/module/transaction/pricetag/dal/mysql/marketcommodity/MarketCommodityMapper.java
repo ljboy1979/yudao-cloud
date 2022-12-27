@@ -21,6 +21,7 @@ public interface MarketCommodityMapper extends BaseMapperX<MarketCommodityDO> {
     default PageResult<MarketCommodityDO> selectPage(MarketCommodityPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<MarketCommodityDO>()
                 .eqIfPresent(MarketCommodityDO::getShelvesId, reqVO.getShelvesId())
+                .eqIfPresent(MarketCommodityDO::getClassifyId, reqVO.getClassifyId())
                 .eqIfPresent(MarketCommodityDO::getSpecificationId, reqVO.getSpecificationId())
                 .likeIfPresent(MarketCommodityDO::getCommodityName, reqVO.getCommodityName())
                 .likeIfPresent(MarketCommodityDO::getSpecificationsName, reqVO.getSpecificationsName())
@@ -31,6 +32,7 @@ public interface MarketCommodityMapper extends BaseMapperX<MarketCommodityDO> {
     default List<MarketCommodityDO> selectList(MarketCommodityExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<MarketCommodityDO>()
                 .eqIfPresent(MarketCommodityDO::getShelvesId, reqVO.getShelvesId())
+                .eqIfPresent(MarketCommodityDO::getClassifyId, reqVO.getClassifyId())
                 .eqIfPresent(MarketCommodityDO::getSpecificationId, reqVO.getSpecificationId())
                 .likeIfPresent(MarketCommodityDO::getCommodityName, reqVO.getCommodityName())
                 .likeIfPresent(MarketCommodityDO::getSpecificationsName, reqVO.getSpecificationsName())

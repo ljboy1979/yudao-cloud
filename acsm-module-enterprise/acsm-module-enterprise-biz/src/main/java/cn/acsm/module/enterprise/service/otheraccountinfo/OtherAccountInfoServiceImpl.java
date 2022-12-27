@@ -7,6 +7,9 @@ import cn.acsm.module.enterprise.controller.admin.otheraccountinfo.vo.OtherAccou
 import cn.acsm.module.enterprise.convert.otheraccountinfo.OtherAccountInfoConvert;
 import cn.acsm.module.enterprise.dal.dataobject.otheraccountinfo.OtherAccountInfoDO;
 import cn.acsm.module.enterprise.dal.mysql.otheraccountinfo.OtherAccountInfoMapper;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -40,6 +43,7 @@ public class OtherAccountInfoServiceImpl implements OtherAccountInfoService {
     }
 
     @Override
+    @CachePut(value = "enterpriseOtherAccountInfo", key = "#updateReqVO.id")
     public void updateOtherAccountInfo(OtherAccountInfoUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateOtherAccountInfoExists(updateReqVO.getId());
@@ -49,6 +53,7 @@ public class OtherAccountInfoServiceImpl implements OtherAccountInfoService {
     }
 
     @Override
+    @CacheEvict(value = "enterpriseOtherAccountInfo", key = "#id")
     public void deleteOtherAccountInfo(Long id) {
         // 校验存在
         this.validateOtherAccountInfoExists(id);
@@ -63,6 +68,7 @@ public class OtherAccountInfoServiceImpl implements OtherAccountInfoService {
     }
 
     @Override
+    @Cacheable(value = "enterpriseOtherAccountInfo", key = "#id")
     public OtherAccountInfoDO getOtherAccountInfo(Long id) {
         return otherAccountInfoMapper.selectById(id);
     }
