@@ -22,15 +22,8 @@ public interface MarketPriceMapper extends BaseMapperX<MarketPriceDO> {
 
     default PageResult<MarketPriceDO> selectPage(MarketPricePageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<MarketPriceDO>()
-                .eqIfPresent(MarketPriceDO::getCode, reqVO.getCode())
                 .eqIfPresent(MarketPriceDO::getMarketCommodityId, reqVO.getMarketCommodityId())
-                .eqIfPresent(MarketPriceDO::getMaxPrice, reqVO.getMaxPrice())
-                .eqIfPresent(MarketPriceDO::getMinPrice, reqVO.getMinPrice())
-                .eqIfPresent(MarketPriceDO::getMiddlePrice, reqVO.getMiddlePrice())
-                .eqIfPresent(MarketPriceDO::getSource, reqVO.getSource())
-                .eqIfPresent(MarketPriceDO::getStatus, reqVO.getStatus())
                 .betweenIfPresent(MarketPriceDO::getUpdateTime, reqVO.getUpdateTime())
-                .eqIfPresent(MarketPriceDO::getSubjectId, reqVO.getSubjectId())
                 .orderByDesc(MarketPriceDO::getId));
     }
 
@@ -51,4 +44,8 @@ public interface MarketPriceMapper extends BaseMapperX<MarketPriceDO> {
     List<PriceTrendDO> findPriceTrend(@Param("id") String id);
 
     MarketPriceInfoDO getMarketPriceInfo(@Param("id")String id);
+
+    List<MarketPriceInfoDO> findMarketPriceInfoList(MarketPricePageReqVO pageReqVO);
+
+    Long findMarketPriceInfoCount(MarketPricePageReqVO pageReqVO);
 }

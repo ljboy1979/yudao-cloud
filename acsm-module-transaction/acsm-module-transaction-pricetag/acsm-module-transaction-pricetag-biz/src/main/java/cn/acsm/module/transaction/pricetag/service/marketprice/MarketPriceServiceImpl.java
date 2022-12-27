@@ -73,8 +73,14 @@ public class MarketPriceServiceImpl implements MarketPriceService {
     }
 
     @Override
-    public PageResult<MarketPriceDO> getMarketPricePage(MarketPricePageReqVO pageReqVO) {
-        return marketPriceMapper.selectPage(pageReqVO);
+    public PageResult<MarketPriceInfoDO> getMarketPricePage(MarketPricePageReqVO pageReqVO) {
+        PageResult<MarketPriceInfoDO> page = new PageResult<>();
+        pageReqVO.setPageNo((pageReqVO.getPageNo()-1)*pageReqVO.getPageSize());
+
+        List<MarketPriceInfoDO> marketPriceDOS = marketPriceMapper.findMarketPriceInfoList(pageReqVO);
+        page.setList(marketPriceDOS);
+        page.setTotal(marketPriceMapper.findMarketPriceInfoCount(pageReqVO));
+        return page;
     }
 
     @Override

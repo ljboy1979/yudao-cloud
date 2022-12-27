@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.pricetag.service.marketprice;
 
+import cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.MarketPriceInfoDO;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -144,18 +145,11 @@ public class MarketPriceServiceImplTest extends BaseDbUnitTest {
        marketPriceMapper.insert(cloneIgnoreId(dbMarketPrice, o -> o.setSubjectId(null)));
        // 准备参数
        MarketPricePageReqVO reqVO = new MarketPricePageReqVO();
-       reqVO.setCode(null);
        reqVO.setMarketCommodityId(null);
-       reqVO.setMaxPrice(null);
-       reqVO.setMinPrice(null);
-       reqVO.setMiddlePrice(null);
-       reqVO.setSource(null);
-       reqVO.setStatus(null);
        reqVO.setUpdateTime((new Date[]{}));
-       reqVO.setSubjectId(null);
 
        // 调用
-       PageResult<MarketPriceDO> pageResult = marketPriceService.getMarketPricePage(reqVO);
+       PageResult<MarketPriceInfoDO> pageResult = marketPriceService.getMarketPricePage(reqVO);
        // 断言
        assertEquals(1, pageResult.getTotal());
        assertEquals(1, pageResult.getList().size());

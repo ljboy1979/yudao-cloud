@@ -64,5 +64,61 @@
 
 
 
+    <select id="findMarketPriceInfoList" resultType="cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.MarketPriceInfoDO">
+        SELECT
+        mp.id,
+        mp.code,
+        mc.commodity_name as commodityName,
+        mcc.tree_names as  categoryName,
+        mc.specifications_name as specificationsName,
+        mp.max_price as maxPrice,
+        mp.min_price as minPrice,
+        mp.middle_price as middlePrice,
+        mc.measurement_unit_name as measurementUnitName,
+        mi.market_name as marketName,
+        mp.update_time as  updateTime
+        FROM
+        pricetag_market_price mp
+        LEFT JOIN pricetag_market_commodity mc ON mp.market_commodity_id = mc.id
+        LEFT JOIN pricetag_market_classify mcc ON mc.classify_id = mcc.id
+        LEFT JOIN pricetag_market_info mi ON mi.id = mp.market_id
+        WHERE mp.deleted =0
+        <if test=" classifyId !=null and classifyId!='' ">
+            AND mc.classify_id=#{classifyId}
+        </if>
+        <if test=" updateTime !=null ">
+            AND mp.update_time BETWEEN #{updateTime[0]} and #{updateTime[1]}
+        </if>
+        <if test=" name != null and name != '' ">
+            AND mc.commodity_name like CONCAT('%',#{name},'%')
+        </if>
+        <if test=" marketName != null and marketName != '' ">
+            AND mi.market_name like CONCAT('%',#{marketName},'%')
+        </if>
+        LIMIT #{pageNo} ,#{pageSize}
+    </select>
+
+    <select id="findMarketPriceInfoCount" resultType="java.lang.Long">
+        SELECT
+        count(1)
+        FROM
+        pricetag_market_price mp
+        LEFT JOIN pricetag_market_commodity mc ON mp.market_commodity_id = mc.id
+        LEFT JOIN pricetag_market_classify mcc ON mc.classify_id = mcc.id
+        LEFT JOIN pricetag_market_info mi ON mi.id = mp.market_id
+        WHERE mp.deleted =0
+        <if test=" classifyId !=null and classifyId!='' ">
+            AND mc.classify_id=#{classifyId}
+        </if>
+        <if test=" updateTime !=null ">
+            AND mp.update_time BETWEEN #{updateTime[0]} and #{updateTime[1]}
+        </if>
+        <if test=" name != null and name != '' ">
+            AND mc.commodity_name like CONCAT('%',#{name},'%')
+        </if>
+        <if test=" marketName != null and marketName != '' ">
+            AND mi.market_name like CONCAT('%',#{marketName},'%')
+        </if>
+    </select>
 
 </mapper>

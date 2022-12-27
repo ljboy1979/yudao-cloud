@@ -36,4 +36,6 @@ public interface MarketPriceConvert {
     MarketPriceInfoVo convertPriceInfoDO(MarketPriceInfoDO marketPriceInfo);
 
     List<PriceTrendVO> convertPriceTrendDO(List<PriceTrendDO> priceTrendDOS);
+
+    PageResult<MarketPriceRespVO> convertPageMarketPriceInfoDO(PageResult<MarketPriceInfoDO> pageResult);
 }
