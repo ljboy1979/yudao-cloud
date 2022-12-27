@@ -7,6 +7,7 @@ import cn.acsm.module.stock.dal.mysql.recorddetail.StockRecordDetailMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheEvict;
@@ -109,6 +110,19 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
     }
 
     /**
+     * 获得库存记录字表-明细列表, 用于连接打印机打印
+     *
+     * @param printVO 查询条件
+     * @return 库存记录字表-明细列表
+     */
+    public List<StockRecordDetailDO> getRecordDetailList(StockRecordDetailPrintVO printVO) {
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("stock_batch_no",printVO.getStockBatchNo());
+        wrapper.eq("operation_type",printVO.getOperationType());
+        return recordDetailMapper.selectList(wrapper);
+    }
+
+    /**
      * 3.7.2.13.修改出/入库记录
      *
      * @param updateReqVO 更新信息
@@ -142,15 +156,15 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
      * @param pageReqVO 分页查询
      * @return
      */
-    @Cacheable(value = "stockRecord", key = "'getRecordDetailPage'.concat('-').concat(#pageReqVO.stockBatchNo)" +
-            ".concat('-').concat(#pageReqVO.operationType).concat('-').concat(#pageReqVO.goodsType)")
+//    @Cacheable(value = "stockRecord", key = "'getRecordDetailPage'.concat('-').concat(#pageReqVO.stockBatchNo)" +
+//            ".concat('-').concat(#pageReqVO.operationType).concat('-').concat(#pageReqVO.goodsType)")
     @Override
     public Page<StockRecordDetailDO> getRecordDetailPage(StockRecordDetailPageVO pageReqVO) {
         Page<StockRecordDetailDO> page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("stock_batch_no", pageReqVO.getStockBatchNo());
         wrapper.like(StringUtils.isNotBlank(pageReqVO.getGoodsName()), "goods_name", pageReqVO.getGoodsName());
-        wrapper.eq("goods_type", pageReqVO.getGoodsType());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getGoodsType()), "goods_type", pageReqVO.getGoodsType());
         wrapper.eq("operation_type", pageReqVO.getOperationType());
         wrapper.orderByAsc("create_time");
         return recordDetailMapper.selectPage(page, wrapper);

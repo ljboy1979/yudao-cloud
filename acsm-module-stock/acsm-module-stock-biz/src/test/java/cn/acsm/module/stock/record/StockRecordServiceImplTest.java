@@ -156,7 +156,7 @@ public class StockRecordServiceImplTest extends BaseDbUnitTest {
        reqVO.setWarehouseCode(null);
        reqVO.setWarehouseName(null);
        reqVO.setBatchNo(null);
-       reqVO.setOperationTime((new Date[]{}));
+//       reqVO.setOperationTime((new Date[]{}));
        reqVO.setHeadId(null);
        reqVO.setHeadName(null);
        reqVO.setCreateTime((new Date[]{}));

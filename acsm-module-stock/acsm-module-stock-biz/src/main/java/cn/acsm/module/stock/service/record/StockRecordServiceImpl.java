@@ -220,44 +220,49 @@ public class StockRecordServiceImpl implements StockRecordService {
         this.validateRecordExists(id);
         // 先判断要删除的记录是否有出库记录，如果有，提示”已有出库记录，不可删除“；如果没有执行2、3、4
         QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq("id", id);
+        wrapper.eq("record_id", id);
         List<StockRecordDetailDO> list = detailMapper.selectList(wrapper);
         // 查看是否有对应出库记录
         List<StockRecordDetailDO> collect = list.stream().filter(detil -> detil.getOperationType() == true).collect(Collectors.toList());
         if(!CollectionUtils.isEmpty(collect)) {
             exception(RECORD_DETAIL_EXISTS);
         }
-        // 获取入库的总数量
-        Integer sum = list.stream().map(s -> s.getReceiptQuantity()).mapToInt(Integer::intValue).sum();
+
+        // 获取所有要删除的详情id【用于批量删除】
+        List<Long> detailIds = list.stream().map(de -> {
+            return de.getId();
+        }).collect(Collectors.toList());
+
+        // 获取仓库id
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("id", id);
+        StockRecordDO stockRecordDO = recordMapper.selectOne(queryWrapper);
 
         // 逻辑删除明细数据
-        UpdateWrapper updateWrapper = new UpdateWrapper();
-        updateWrapper.eq("record_id", id);
-        StockRecordDetailDO detailDO = new StockRecordDetailDO();
-        detailDO.setDeleted(true);
-        detailMapper.update(detailDO, updateWrapper);
+        detailMapper.deleteBatchIds(detailIds);
 
         // 逻辑删除库存
         recordMapper.deleteById(id);
 
-        // 获取仓库id
-        StockRecordDO stockRecordDO = recordMapper.selectOne(wrapper);
-
         // 调用更新库存量方法（货品id、规格id、仓库id、-数量）
-        QueryWrapper inventoryQueryWrapper = new QueryWrapper();
-        inventoryQueryWrapper.eq("goods_id", detailDO.getGoodsId());
-        inventoryQueryWrapper.eq("packing_specification", detailDO.getPackingSpecification());
-        inventoryQueryWrapper.eq("warehouse_id", stockRecordDO.getWarehouseId());
-        StockInventoryDO inventoryDO1 = inventoryMapper.selectOne(inventoryQueryWrapper);
+        list.stream().forEach(ls -> {
+            QueryWrapper inventoryQueryWrapper = new QueryWrapper();
+            inventoryQueryWrapper.eq("goods_id", ls.getGoodsId());
+            inventoryQueryWrapper.eq("packing_specification", ls.getPackingSpecification());
+            inventoryQueryWrapper.eq("warehouse_id", stockRecordDO.getWarehouseId());
+            StockInventoryDO inventoryDO1 = inventoryMapper.selectOne(inventoryQueryWrapper);
+            UpdateWrapper inventoryWrapper = new UpdateWrapper();
+            inventoryWrapper.eq("goods_id", ls.getGoodsId());
+            inventoryWrapper.eq("packing_specification", ls.getPackingSpecification());
+            inventoryWrapper.eq("warehouse_id", stockRecordDO.getWarehouseId());
 
-        UpdateWrapper inventoryWrapper = new UpdateWrapper();
-        inventoryWrapper.eq("goods_id", detailDO.getGoodsId());
-        inventoryWrapper.eq("packing_specification", detailDO.getPackingSpecification());
-        inventoryWrapper.eq("warehouse_id", stockRecordDO.getWarehouseId());
-
-        StockInventoryDO inventoryDO = new StockInventoryDO();
-        inventoryDO.setInventoryQuantity(inventoryDO1.getInventoryQuantity() - sum);
-        inventoryMapper.update(inventoryDO, inventoryWrapper);
+            StockInventoryDO inventoryDO = new StockInventoryDO();
+            // 获取入库的总数量
+            Integer sum = list.stream().filter(sd -> sd.getGoodsId() == ls.getGoodsId())
+                    .map(s -> s.getReceiptQuantity()).mapToInt(Integer::intValue).sum();
+            inventoryDO.setInventoryQuantity(inventoryDO1.getInventoryQuantity() - sum);
+            inventoryMapper.update(inventoryDO, inventoryWrapper);
+        });
     }
 
     private void validateRecordExists(Long id) {
@@ -289,7 +294,8 @@ public class StockRecordServiceImpl implements StockRecordService {
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getWarehouseCode()), "warehouse_code", pageReqVO.getWarehouseCode());
         wrapper.like(ObjectUtils.isNotEmpty(pageReqVO.getWarehouseName()), "warehouse_name", pageReqVO.getWarehouseName());
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getBatchNo()), "batch_no", pageReqVO.getBatchNo());
-        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getOperationTime()), "operation_time", pageReqVO.getOperationTime());
+        wrapper.gt(ObjectUtils.isNotEmpty(pageReqVO.getOperationStartTime()), "operation_time", pageReqVO.getOperationStartTime());
+        wrapper.lt(ObjectUtils.isNotEmpty(pageReqVO.getOperationEndTime()), "operation_time", pageReqVO.getOperationEndTime());
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getHeadId()), "head_id", pageReqVO.getHeadId());
         wrapper.like(ObjectUtils.isNotEmpty(pageReqVO.getHeadName()), "head_name", pageReqVO.getHeadName());
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getCreateTime()), "create_time", pageReqVO.getCreateTime());

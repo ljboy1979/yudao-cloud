@@ -36,9 +36,13 @@ public class StockRecordPageReqVO extends PageParam {
     @ApiModelProperty(value = "批次号")
     private String batchNo;
 
-    @ApiModelProperty(value = "操作时间")
+    @ApiModelProperty(value = "操作开始时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    private Date[] operationTime;
+    private Date[] operationStartTime;
+
+    @ApiModelProperty(value = "操作结束时间")
+    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date[] operationEndTime;
 
     @ApiModelProperty(value = "负责人id")
     private Long headId;

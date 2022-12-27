@@ -1,14 +1,13 @@
 package cn.acsm.module.stock.controller.admin.recorddetail.vo;
 
-import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * <pre>
@@ -19,9 +18,8 @@ import javax.validation.constraints.NotNull;
  */
 @ApiModel("管理后台 - 库存记录字表-明细分页 Request VO")
 @Data
-@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class StockRecordDetailPageVO extends PageParam {
+public class StockRecordDetailPrintVO implements Serializable {
 
     @ApiModelProperty(value = "库存批次号")
     @NotBlank(message = "库存批次号不能为空")
@@ -30,11 +28,5 @@ public class StockRecordDetailPageVO extends PageParam {
     @ApiModelProperty(value = "操作类型(0.入库 1.出库)")
     @NotNull(message = "操作类型不能为空")
     private Boolean operationType;
-
-    @ApiModelProperty(value = "货品名称")
-    private String goodsName;
-
-    @ApiModelProperty(value = "货品类型")
-    private String goodsType;
 
 }

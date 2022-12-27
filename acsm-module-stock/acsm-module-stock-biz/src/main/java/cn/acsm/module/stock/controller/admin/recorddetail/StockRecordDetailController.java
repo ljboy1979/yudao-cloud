@@ -107,7 +107,7 @@ public class StockRecordDetailController {
     @GetMapping("/page/detail")
     @ApiOperation("3.7.2.15.根据库存id或批次号查询库存详情")
     @PreAuthorize("@ss.hasPermission('stock:record-detail:page')")
-    public CommonResult<Page<StockRecordDetailDO>> getRecordDetailPage(@Valid @RequestBody StockRecordDetailPageVO pageVO) {
+    public CommonResult<Page<StockRecordDetailDO>> getRecordDetailPage(@Valid StockRecordDetailPageVO pageVO) {
         Page<StockRecordDetailDO> pageResult = recordDetailService.getRecordDetailPage(pageVO);
         return success(pageResult);
     }
@@ -118,6 +118,14 @@ public class StockRecordDetailController {
     public CommonResult<Page<StockRecordDetailDO>> getRecordByTemporaryPage(@Valid @RequestBody StockRecordTempPageVO pageVO) {
         Page<StockRecordDetailDO> pageResult = recordDetailService.getRecordDetailPage(pageVO);
         return success(pageResult);
+    }
+
+    @PostMapping("/print-list")
+    @ApiOperation("打印库存详情列表")
+    @PreAuthorize("@ss.hasPermission('stock:record-detail:print')")
+    public CommonResult<List<StockRecordDetailDO>> getRecordDetailList(@RequestBody StockRecordDetailPrintVO printVO) {
+        List<StockRecordDetailDO> list = recordDetailService.getRecordDetailList(printVO);
+        return success(list);
     }
 
 }
