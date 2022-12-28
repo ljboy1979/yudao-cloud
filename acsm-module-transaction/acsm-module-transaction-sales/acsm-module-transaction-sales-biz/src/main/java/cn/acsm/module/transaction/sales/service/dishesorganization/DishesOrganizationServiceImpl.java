@@ -5,6 +5,7 @@ import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterial.RawMaterialDO;
 import cn.acsm.module.transaction.sales.dal.mysql.rawmaterial.RawMaterialMapper;
 import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -62,8 +63,18 @@ public class DishesOrganizationServiceImpl implements DishesOrganizationService 
     public void updateDishesOrganization(DishesOrganizationUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateDishesOrganizationExists(updateReqVO.getId());
-        // 更新
         DishesOrganizationDO updateObj = DishesOrganizationConvert.INSTANCE.convert(updateReqVO);
+
+        if (StringUtils.isNotEmpty(updateReqVO.getRawMaterialId())) {
+            RawMaterialDO rawMaterialDO = rawMaterialMapper.selectById(updateReqVO.getRawMaterialId());
+            if (rawMaterialDO == null) {
+                return ;
+            }
+            updateObj.setOrigin(rawMaterialDO.getOrigin());
+            updateObj.setClassify(rawMaterialDO.getClassify());
+            updateObj.setOrganizationName(rawMaterialDO.getName());
+        }
+        // 更新
         dishesOrganizationMapper.updateById(updateObj);
     }
 
