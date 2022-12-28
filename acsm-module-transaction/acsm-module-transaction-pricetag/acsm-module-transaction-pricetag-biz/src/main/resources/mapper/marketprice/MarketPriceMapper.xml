@@ -87,7 +87,10 @@
             AND mc.classify_id=#{classifyId}
         </if>
         <if test=" updateTime !=null ">
-            AND mp.update_time BETWEEN #{updateTime[0]} and #{updateTime[1]}
+            AND mp.update_time BETWEEN
+            <foreach item='time' collection='updateTime' separator='and'  index=''>
+            #{time}
+            </foreach>
         </if>
         <if test=" name != null and name != '' ">
             AND mc.commodity_name like CONCAT('%',#{name},'%')
@@ -111,7 +114,10 @@
             AND mc.classify_id=#{classifyId}
         </if>
         <if test=" updateTime !=null ">
-            AND mp.update_time BETWEEN #{updateTime[0]} and #{updateTime[1]}
+            AND mp.update_time BETWEEN
+            <foreach item='time' collection='updateTime' separator='and'  index=''>
+                #{time}
+            </foreach>
         </if>
         <if test=" name != null and name != '' ">
             AND mc.commodity_name like CONCAT('%',#{name},'%')

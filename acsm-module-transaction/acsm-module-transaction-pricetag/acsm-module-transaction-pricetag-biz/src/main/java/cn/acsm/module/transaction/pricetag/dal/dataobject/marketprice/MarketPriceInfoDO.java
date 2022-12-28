@@ -10,8 +10,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 /**
  * 市场价格 DO
@@ -61,12 +64,10 @@ public class MarketPriceInfoDO{
      * 市场名称
      */
     private String marketName;
-    /**
-     * 最后更新时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
 
+    @ApiModelProperty(value = "更新时间", required = true)
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date updateTime;
 
 
 }
