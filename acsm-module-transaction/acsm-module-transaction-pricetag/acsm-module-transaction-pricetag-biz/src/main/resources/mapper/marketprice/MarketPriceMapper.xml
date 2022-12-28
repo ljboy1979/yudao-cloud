@@ -34,7 +34,7 @@
 
     <select id="findPriceTrend" resultType="cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.PriceTrendDO">
         SELECT
-        z.time,
+        DATE_FORMAT(z.time,'%m-%d') as time,
         ROUND(IFNULL(y.maxPrice,0),2) AS maxPrice,
         ROUND(IFNULL(y.minPrice,0),2) AS minPrice ,
         ROUND(IFNULL(y.middlePrice,0),2) AS middlePrice
