@@ -40,7 +40,7 @@ public class DishesOrganizationServiceImpl implements DishesOrganizationService 
     public CommonResult<String> createDishesOrganization(DishesOrganizationCreateReqVO createReqVO) {
         if ("0".equals(createReqVO.getTag())) {
             RawMaterialDO rawMaterialDO = rawMaterialMapper.selectById(createReqVO.getRawMaterialId());
-            if (rawMaterialDO != null) {
+            if (rawMaterialDO == null) {
                 return CommonResult.error(RAW_MATERIAL_NOT_EXISTS);
             }
             createReqVO.setOrigin(rawMaterialDO.getOrigin());
