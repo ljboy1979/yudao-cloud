@@ -44,7 +44,7 @@ public class DishesDO extends BaseDO {
     /**
      * 烹饪方式
      */
-    private Boolean cookingStyle;
+    private String cookingStyle;
     /**
      * 状态
      */

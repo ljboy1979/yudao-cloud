@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.pricetag.controller.admin.marketprice;
 
+import cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.MarketPriceInfoDO;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -81,8 +82,8 @@ public class MarketPriceController {
     @ApiOperation("获得市场价格分页")
     @PreAuthorize("@ss.hasPermission('pricetag:market-price:query')")
     public CommonResult<PageResult<MarketPriceRespVO>> getMarketPricePage(@Valid MarketPricePageReqVO pageVO) {
-        PageResult<MarketPriceDO> pageResult = marketPriceService.getMarketPricePage(pageVO);
-        return success(MarketPriceConvert.INSTANCE.convertPage(pageResult));
+        PageResult<MarketPriceInfoDO> pageResult = marketPriceService.getMarketPricePage(pageVO);
+        return success(MarketPriceConvert.INSTANCE.convertPageMarketPriceInfoDO(pageResult));
     }
 
     @GetMapping("/export-excel")

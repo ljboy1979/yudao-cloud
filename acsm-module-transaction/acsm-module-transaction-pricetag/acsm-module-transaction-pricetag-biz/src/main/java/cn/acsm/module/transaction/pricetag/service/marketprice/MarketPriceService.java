@@ -4,6 +4,7 @@ import java.util.*;
 import javax.validation.*;
 import cn.acsm.module.transaction.pricetag.controller.admin.marketprice.vo.*;
 import cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.MarketPriceDO;
+import cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.MarketPriceInfoDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 /**
@@ -58,7 +59,7 @@ public interface MarketPriceService {
      * @param pageReqVO 分页查询
      * @return 市场价格分页
      */
-    PageResult<MarketPriceDO> getMarketPricePage(MarketPricePageReqVO pageReqVO);
+    PageResult<MarketPriceInfoDO> getMarketPricePage(MarketPricePageReqVO pageReqVO);
 
     /**
      * 获得市场价格列表, 用于 Excel 导出

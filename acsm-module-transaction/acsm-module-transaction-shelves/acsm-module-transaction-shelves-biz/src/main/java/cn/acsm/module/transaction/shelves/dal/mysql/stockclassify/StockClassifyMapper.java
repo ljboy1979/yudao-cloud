@@ -21,6 +21,7 @@ public interface StockClassifyMapper extends BaseMapperX<StockClassifyDO> {
         return selectPage(reqVO, new LambdaQueryWrapperX<StockClassifyDO>()
                 .likeIfPresent(StockClassifyDO::getClassifyName, reqVO.getClassifyName())
                 .betweenIfPresent(StockClassifyDO::getCreateTime, reqVO.getCreateTime())
+                .eqIfPresent(StockClassifyDO::getTreeLevel,reqVO.getTreeLevel())
                 .orderByDesc(StockClassifyDO::getId));
     }
 

@@ -16,6 +16,33 @@ public class MarketPriceRespVO extends MarketPriceBaseVO {
     @ApiModelProperty(value = "id", required = true)
     private String id;
 
+    /**
+     * 市场商品名称
+     */
+    @ApiModelProperty(value = "市场商品名称", required = true)
+    private String commodityName;
+    /**
+     * 分类名称
+     */
+    @ApiModelProperty(value = "分类名称", required = true)
+    private String categoryName;
+    /**
+     * 规格名称
+     */
+    @ApiModelProperty(value = "规格名称", required = true)
+    private String specificationsName;
+    /**
+     * 计量单位名称
+     */
+    @ApiModelProperty(value = "计量单位名称", required = true)
+    private String measurementUnitName;
+    /**
+     * 市场名称
+     */
+    @ApiModelProperty(value = "市场名称", required = true)
+    private String marketName;
+
+
     @ApiModelProperty(value = "创建时间", required = true)
     @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date createTime;

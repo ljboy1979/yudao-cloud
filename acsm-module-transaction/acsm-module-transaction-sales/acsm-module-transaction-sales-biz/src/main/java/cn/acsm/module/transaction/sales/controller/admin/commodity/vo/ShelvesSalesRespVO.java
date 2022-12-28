@@ -55,4 +55,7 @@ public class ShelvesSalesRespVO {
 
     @ApiModelProperty(value = "计量单位名称")
     private String measurementUnitName;
+
+    @ApiModelProperty(value = "规格")
+    private String specifications;
 }

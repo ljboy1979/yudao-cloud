@@ -121,6 +121,13 @@ public class CommodityController {
 
     }
 
+    @PostMapping("/findSales")
+    @ApiOperation("查询售品")
+    public CommonResult<List<ShelvesSalesRespVO>> findSales(@RequestBody ShelvesSalesReqDto shelvesSalesReqDto) {
+        List<ShelvesSalesRespDto> salesList = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findSales(shelvesSalesReqDto);
+        return CommonResult.success( CommodityConvert.INSTANCE.convertShelvesSalesRespVO(salesList));
+    }
+
     @PostMapping("/findClassify")
     @ApiOperation("查询售品分类")
     @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
