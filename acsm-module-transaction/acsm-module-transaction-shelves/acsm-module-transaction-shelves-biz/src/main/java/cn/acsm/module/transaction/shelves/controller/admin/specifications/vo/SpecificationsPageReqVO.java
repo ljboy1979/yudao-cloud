@@ -20,6 +20,9 @@ public class SpecificationsPageReqVO extends PageParam {
     @ApiModelProperty(value = "包装类型(0定装1散装)")
     private String packagingType;
 
+    @ApiModelProperty(value = "货架id")
+    private String shelvesId;
+
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] createTime;
