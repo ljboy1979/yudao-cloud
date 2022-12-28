@@ -46,7 +46,7 @@ public class PackageOrganizationDO extends BaseDO {
     /**
      * 规格名称
      */
-    private String specificationsName;
+    private String specificationName;
     /**
      * 分类
      */

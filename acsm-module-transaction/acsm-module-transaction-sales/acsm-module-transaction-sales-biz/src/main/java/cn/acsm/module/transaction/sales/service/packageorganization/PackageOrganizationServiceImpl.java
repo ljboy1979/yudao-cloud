@@ -77,7 +77,7 @@ public class PackageOrganizationServiceImpl implements PackageOrganizationServic
         shelvesSalesReqVO.setSpecificationsId(createReqVO.getSpecificationId());
         PageResult<ShelvesSalesRespVO> specifications = shelvesContext.getService(ShelvesEnums.getByType(type).getValue()).findSpecificationsVo(shelvesSalesReqVO);
         ShelvesSalesRespVO shelvesRespDto = specifications.getList().get(0);
-        packageOrganization.setSpecificationsName(shelvesRespDto.getName());
+        packageOrganization.setSpecificationName(shelvesRespDto.getName());
         packageOrganization.setPackagingType(shelvesRespDto.getPackagingType());
         packageOrganization.setPackagingTypeName(shelvesRespDto.getPackagingTypeName());
         packageOrganization.setNumber(shelvesRespDto.getNumber());
@@ -135,7 +135,7 @@ public class PackageOrganizationServiceImpl implements PackageOrganizationServic
         shelvesSalesReqVO.setSpecificationsId(updateReqVO.getSpecificationId());
         PageResult<ShelvesSalesRespVO> specifications = shelvesContext.getService(ShelvesEnums.getByType(type).getValue()).findSpecificationsVo(shelvesSalesReqVO);
         ShelvesSalesRespVO shelvesRespDto = specifications.getList().get(0);
-        updateObj.setSpecificationsName(shelvesRespDto.getName());
+        updateObj.setSpecificationName(shelvesRespDto.getName());
         updateObj.setPackagingType(shelvesRespDto.getPackagingType());
         updateObj.setPackagingTypeName(shelvesRespDto.getPackagingTypeName());
         updateObj.setNumber(shelvesRespDto.getNumber());
