@@ -41,7 +41,7 @@ public interface PackageOrganizationMapper extends BaseMapperX<PackageOrganizati
                 .eqIfPresent(PackageOrganizationDO::getSourceId, packageOrganizationDO.getSourceId())
                 .eqIfPresent(PackageOrganizationDO::getSpecificationId, packageOrganizationDO.getSpecificationId())
                 .eqIfPresent(PackageOrganizationDO::getClassify, packageOrganizationDO.getClassify())
-                .eqIfPresent(PackageOrganizationDO::getId, packageOrganizationDO.getId())
+                .notIn(PackageOrganizationDO::getId, packageOrganizationDO.getId())
                 .orderByDesc(PackageOrganizationDO::getId));
     }
 

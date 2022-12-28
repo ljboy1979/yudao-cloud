@@ -60,6 +60,7 @@ public interface CommodityCategoryMapper extends BaseMapperX<CommodityCategoryDO
     default List<CommodityCategoryDO> selectListToTree(CommodityCategoryTreeVO commodityCategoryTreeVO) {
         return selectList(new LambdaQueryWrapperX<CommodityCategoryDO>()
                 .likeIfPresent(CommodityCategoryDO::getCommodityCategoryName, commodityCategoryTreeVO.getCommodityCategoryName())
+                .eqIfPresent(CommodityCategoryDO::getId,commodityCategoryTreeVO.getId())
                 .orderByAsc(CommodityCategoryDO::getId));
     }
 }

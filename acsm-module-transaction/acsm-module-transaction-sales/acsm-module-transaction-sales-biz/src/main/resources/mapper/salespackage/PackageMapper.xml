@@ -17,6 +17,9 @@
         <if test=" salesName != null and salesName != '' ">
             AND name like CONCAT('%',#{salesName},'%')
         </if>
+        <if test=" salesId !=null and salesId!='' ">
+            AND id =#{salesId}
+        </if>
     </select>
 
     <select id="findSpecifications" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
@@ -47,6 +50,9 @@
         <if test=" salesName != null and salesName != '' ">
             AND sp.name like CONCAT('%',#{salesName},'%')
         </if>
+        <if test=" specificationsId !=null and specificationsId!='' ">
+            AND sps.id =#{specificationsId}
+        </if>
     </select>
 
     <select id="findSpecificationsVo" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">
@@ -76,6 +82,9 @@
         </if>
         <if test=" salesName != null and salesName != '' ">
             AND sp.name like CONCAT('%',#{salesName},'%')
+        </if>
+        <if test=" specificationsId !=null and specificationsId!='' ">
+            AND sps.id =#{specificationsId}
         </if>
         LIMIT #{pageNo} ,#{pageSize}
     </select>

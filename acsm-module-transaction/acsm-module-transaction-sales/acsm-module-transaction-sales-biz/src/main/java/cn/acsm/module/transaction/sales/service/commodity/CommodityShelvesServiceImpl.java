@@ -53,8 +53,9 @@ public class CommodityShelvesServiceImpl implements ShelvesService {
     }
 
     @Override
-    public List<TreeSelect> findClassify() {
+    public List<TreeSelect> findClassify(ShelvesSalesReqVO shelvesSalesReqDto) {
         CommodityCategoryTreeVO commodityCategoryTreeVO = new CommodityCategoryTreeVO();
+        commodityCategoryTreeVO.setId(shelvesSalesReqDto.getClassify());
         return commodityCategoryService.findTreeList(commodityCategoryTreeVO);
     }
 }

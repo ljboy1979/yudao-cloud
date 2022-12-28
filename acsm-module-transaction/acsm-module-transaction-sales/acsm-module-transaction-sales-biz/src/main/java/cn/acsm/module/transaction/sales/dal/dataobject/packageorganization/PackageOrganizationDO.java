@@ -42,10 +42,20 @@ public class PackageOrganizationDO extends BaseDO {
      * 规格id
      */
     private String specificationId;
+
+    /**
+     * 规格名称
+     */
+    private String specificationsName;
     /**
      * 分类
      */
     private String classify;
+
+    /**
+     * 分类名称
+     */
+    private String classifyName;
     /**
      * 组成编号
      */

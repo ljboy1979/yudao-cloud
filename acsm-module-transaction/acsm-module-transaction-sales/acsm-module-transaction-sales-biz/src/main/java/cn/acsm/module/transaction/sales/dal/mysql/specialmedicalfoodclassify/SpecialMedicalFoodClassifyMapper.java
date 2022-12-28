@@ -34,6 +34,7 @@ public interface SpecialMedicalFoodClassifyMapper extends BaseMapperX<SpecialMed
     default List<SpecialMedicalFoodClassifyDO> selectListToTree(SpecialMedicalFoodClassifyTreeVO reqVO) {
         return selectList(new LambdaQueryWrapperX<SpecialMedicalFoodClassifyDO>()
                 .likeIfPresent(SpecialMedicalFoodClassifyDO::getCategoryName, reqVO.getCategoryName())
+                .eqIfPresent(SpecialMedicalFoodClassifyDO::getId,reqVO.getId())
                 .orderByDesc(SpecialMedicalFoodClassifyDO::getId));
     }
 

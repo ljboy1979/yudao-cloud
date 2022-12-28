@@ -53,8 +53,9 @@ public class SpecialMedicalFoodShelvesServiceImpl implements ShelvesService {
     }
 
     @Override
-    public List<TreeSelect> findClassify() {
+    public List<TreeSelect> findClassify(ShelvesSalesReqVO shelvesSalesReqDto) {
         SpecialMedicalFoodClassifyTreeVO specialMedicalFoodClassifyTreeVO = new SpecialMedicalFoodClassifyTreeVO();
+        specialMedicalFoodClassifyTreeVO.setId(shelvesSalesReqDto.getClassify());
         return specialMedicalFoodClassifyService.findTreeList(specialMedicalFoodClassifyTreeVO);
     }
 }

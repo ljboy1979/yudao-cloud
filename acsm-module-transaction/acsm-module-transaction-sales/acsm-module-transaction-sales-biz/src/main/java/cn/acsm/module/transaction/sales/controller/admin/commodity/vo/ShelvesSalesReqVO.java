@@ -14,6 +14,12 @@ public class ShelvesSalesReqVO extends PageParam {
     @ApiModelProperty("售品id")
     private String salesId;
 
+    @ApiModelProperty("规格id")
+    private String specificationsId;
+
+    @ApiModelProperty("分类")
+    private Long classify;
+
     @ApiModelProperty("售品名称")
     private String salesName;
 }

@@ -18,6 +18,9 @@
         <if test=" salesName != null and salesName != '' ">
             AND name like CONCAT('%',#{salesName},'%')
         </if>
+        <if test=" salesId !=null and salesId!='' ">
+            AND id =#{salesId}
+        </if>
     </select>
 
     <select id="findSpecifications" resultType="cn.acsm.module.transaction.sales.dal.dataobject.shelves.ShelvesSalesRespDo">

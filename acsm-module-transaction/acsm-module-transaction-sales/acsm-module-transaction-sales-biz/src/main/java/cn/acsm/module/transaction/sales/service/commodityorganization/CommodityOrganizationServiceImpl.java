@@ -79,6 +79,7 @@ public class CommodityOrganizationServiceImpl implements CommodityOrganizationSe
             createReqVO.setOrigin(rawMaterialDO.getOrigin());
             createReqVO.setClassify(rawMaterialDO.getClassify());
             createReqVO.setOrganizationName(rawMaterialDO.getName());
+
         }
 
         Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();

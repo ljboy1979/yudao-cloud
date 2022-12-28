@@ -70,6 +70,7 @@ public class MarketCommodityServiceImpl implements MarketCommodityService {
         marketCommodity.setCategoryName(marketClassifyDO.getTreeNames());
         marketCommodity.setCommodityCode("SP"+number);
         marketCommodity.setId(UUID.randomUUID().toString());
+        marketCommodity.setSpecificationsName(shelvesRespDto.getName());
         marketCommodity.setPackagingType(shelvesRespDto.getPackagingType());
         marketCommodity.setPackagingTypeName(shelvesRespDto.getPackagingTypeName());
         marketCommodity.setNumber(shelvesRespDto.getNumber());
@@ -101,9 +102,29 @@ public class MarketCommodityServiceImpl implements MarketCommodityService {
     public void updateMarketCommodity(MarketCommodityUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateMarketCommodityExists(updateReqVO.getId());
+
+        MarketInfoDO marketInfoDO =  marketInfoMapper.selectById(updateReqVO.getMarketId());
+        MarketClassifyDO marketClassifyDO = marketClassifyMapper.selectById(updateReqVO.getClassifyId());
+        ShelvesReqDto shelvesReqDto = new ShelvesReqDto();
+        shelvesReqDto.setSpecificationsId(updateReqVO.getSpecificationId());
+        CommonResult<List<ShelvesRespDto>> result =  shelvesApi.findSpecificationsList(shelvesReqDto);
+        List<ShelvesRespDto> shelvesRespDtos = result.getData();
+        ShelvesRespDto shelvesRespDto =  shelvesRespDtos.get(0);
         // 更新
-        MarketCommodityDO updateObj = MarketCommodityConvert.INSTANCE.convert(updateReqVO);
-        marketCommodityMapper.updateById(updateObj);
+        MarketCommodityDO marketCommodity = MarketCommodityConvert.INSTANCE.convert(updateReqVO);
+        marketCommodity.setMarketName(marketInfoDO.getMarketName());
+        marketCommodity.setCategoryName(marketClassifyDO.getTreeNames());
+        marketCommodity.setSpecificationsName(shelvesRespDto.getName());
+        marketCommodity.setPackagingType(shelvesRespDto.getPackagingType());
+        marketCommodity.setPackagingTypeName(shelvesRespDto.getPackagingTypeName());
+        marketCommodity.setNumber(shelvesRespDto.getNumber());
+        marketCommodity.setUnit(shelvesRespDto.getUnit());
+        marketCommodity.setUnitName(shelvesRespDto.getUnitName());
+        marketCommodity.setPackaging(shelvesRespDto.getPackaging());
+        marketCommodity.setPackagingName(shelvesRespDto.getPackagingName());
+        marketCommodity.setMeasurementUnit(shelvesRespDto.getMeasurementUnit());
+        marketCommodity.setMeasurementUnitName(shelvesRespDto.getMeasurementUnitName());
+        marketCommodityMapper.updateById(marketCommodity);
     }
 
     @Override
