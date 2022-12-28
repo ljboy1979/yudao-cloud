@@ -58,13 +58,8 @@ public class PackageOrganizationServiceImpl implements PackageOrganizationServic
             return CommonResult.error(ErrorCodeConstants.PACKAGE_ORGANIZATION_EXISTENCE);
         }
         PackageOrganizationDO packageOrganization = PackageOrganizationConvert.INSTANCE.convert(createReqVO);
-        Integer type=null;
-        if("0".equals(createReqVO.getType())){
-            type = 2;
-        }
-        if("1".equals(createReqVO.getType())){
-            type = 3;
-        }
+        Integer type=Integer.valueOf(createReqVO.getType());
+
         ShelvesSalesReqVO shelvesSalesReqVO = new ShelvesSalesReqVO();
         shelvesSalesReqVO.setClassify(Long.valueOf(createReqVO.getClassify()));
         List<TreeSelect> classifyList = shelvesContext.getService(ShelvesEnums.getByType(type).getValue()).findClassify(shelvesSalesReqVO);

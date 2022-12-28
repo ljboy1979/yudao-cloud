@@ -17,7 +17,7 @@ public class PackageOrganizationBaseVO {
     @NotNull(message = "套餐id不能为空")
     private String packageId;
 
-    @ApiModelProperty(value = "0商品 1菜品", required = true)
+    @ApiModelProperty(value = "2商品 3菜品", required = true)
     @NotNull(message = "0商品 1菜品不能为空")
     private String type;
 
