@@ -21,6 +21,7 @@ public interface PackageOrganizationMapper extends BaseMapperX<PackageOrganizati
         return selectPage(reqVO, new LambdaQueryWrapperX<PackageOrganizationDO>()
                 .eqIfPresent(PackageOrganizationDO::getPackageId, reqVO.getPackageId())
                 .eqIfPresent(PackageOrganizationDO::getType, reqVO.getType())
+                .eqIfPresent(PackageOrganizationDO::getOrganizationNumber, reqVO.getOrganizationNumber())
                 .betweenIfPresent(PackageOrganizationDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(PackageOrganizationDO::getId));
     }
