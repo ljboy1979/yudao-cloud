@@ -89,10 +89,20 @@ public class MarketPriceServiceImpl implements MarketPriceService {
     }
     @Override
     public MarketPriceInfoVo getMarketPriceInfo(String id) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        int max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
         MarketPriceInfoDO marketPriceInfo =  marketPriceMapper.getMarketPriceInfo(id);
         MarketPriceInfoVo marketPriceInfoVo = MarketPriceConvert.INSTANCE.convertPriceInfoDO(marketPriceInfo);
         List<PriceTrendDO> priceTrendDOS = marketPriceMapper.findPriceTrend(id);
-        List<PriceTrendVO> priceTrendVOS = MarketPriceConvert.INSTANCE.convertPriceTrendDO(priceTrendDOS);
+
+        List<PriceTrendDO> priceTrendDOList = new ArrayList<>(max);
+        for (int i = 0; i <max ; i++) {
+            priceTrendDOList.add(priceTrendDOS.get(i));
+        }
+        List<PriceTrendVO> priceTrendVOS = MarketPriceConvert.INSTANCE.convertPriceTrendDO(priceTrendDOList);
+
         marketPriceInfoVo.setPriceTrendS(priceTrendVOS);
         return marketPriceInfoVo;
     }
