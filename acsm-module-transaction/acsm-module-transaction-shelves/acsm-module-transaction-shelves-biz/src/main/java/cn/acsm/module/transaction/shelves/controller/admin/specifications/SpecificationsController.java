@@ -107,7 +107,7 @@ public class SpecificationsController {
         ExcelUtils.write(response, "货架规格.xls", "数据", SpecificationsExcelVO.class, datas);
     }
 
-    @PutMapping("/updateSpecificationsStatus")
+    @PostMapping("/updateSpecificationsStatus")
     @ApiOperation("修改上下架")
     @PreAuthorize("@ss.hasPermission('shelves:specifications:update')")
     public CommonResult<Boolean> updateSpecificationsStatus(@Valid @RequestBody SpecificationsUpdateReqVO updateReqVO) {
