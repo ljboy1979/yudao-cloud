@@ -3,6 +3,10 @@ package cn.acsm.module.transaction.pricetag.service.scheduledprice;
 import cn.acsm.module.transaction.pricetag.dal.dataobject.marketclassify.MarketClassifyDO;
 import cn.acsm.module.transaction.pricetag.dal.mysql.marketclassify.MarketClassifyMapper;
 import cn.acsm.module.transaction.pricetag.util.ConfigNumberUtil;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesReqDto;
+import cn.acsm.module.transaction.shelves.api.dto.ShelvesRespDto;
+import cn.acsm.module.transaction.shelves.api.shelves.ShelvesApi;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -32,7 +36,8 @@ public class ScheduledPriceServiceImpl implements ScheduledPriceService {
     private ScheduledPriceMapper scheduledPriceMapper;
     @Resource
     private ConfigNumberUtil configNumberUtil;
-
+    @Resource
+    private ShelvesApi shelvesApi;
     @Resource
     private MarketClassifyMapper marketClassifyMapper;
     @Override
@@ -40,12 +45,26 @@ public class ScheduledPriceServiceImpl implements ScheduledPriceService {
         Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
         String number = configNumberUtil.getNumber("pricetag_scheduled_price"+tenantId);
         MarketClassifyDO marketClassifyDO = marketClassifyMapper.selectById(createReqVO.getClassifyId());
+        ShelvesReqDto shelvesReqDto = new ShelvesReqDto();
+        shelvesReqDto.setSpecificationsId(createReqVO.getSpecificationId());
+        CommonResult<List<ShelvesRespDto>> result =  shelvesApi.findSpecificationsList(shelvesReqDto);
+        List<ShelvesRespDto> shelvesRespDtos = result.getData();
+        ShelvesRespDto shelvesRespDto =  shelvesRespDtos.get(0);
 
         // 插入
         ScheduledPriceDO scheduledPrice = ScheduledPriceConvert.INSTANCE.convert(createReqVO);
         scheduledPrice.setId(UUID.randomUUID().toString());
         scheduledPrice.setCommodityCode("YD"+number);
         scheduledPrice.setCategoryName(marketClassifyDO.getTreeNames());
+        scheduledPrice.setPackagingType(shelvesRespDto.getPackagingType());
+        scheduledPrice.setPackagingTypeName(shelvesRespDto.getPackagingTypeName());
+        scheduledPrice.setNumber(shelvesRespDto.getNumber());
+        scheduledPrice.setUnit(shelvesRespDto.getUnit());
+        scheduledPrice.setUnitName(shelvesRespDto.getUnitName());
+        scheduledPrice.setPackaging(shelvesRespDto.getPackaging());
+        scheduledPrice.setPackagingName(shelvesRespDto.getPackagingName());
+        scheduledPrice.setMeasurementUnit(shelvesRespDto.getMeasurementUnit());
+        scheduledPrice.setMeasurementUnitName(shelvesRespDto.getMeasurementUnitName());
         scheduledPriceMapper.insert(scheduledPrice);
         // 返回
         return scheduledPrice.getId();

@@ -82,6 +82,7 @@ public class ScheduledPriceBaseVO {
     @ApiModelProperty(value = "来源")
     private String source;
 
+
     @ApiModelProperty(value = "状态", required = true)
     private Integer status;
 
@@ -90,4 +91,8 @@ public class ScheduledPriceBaseVO {
 
     @ApiModelProperty(value = "分类名称")
     private String categoryName;
+
+
+    @ApiModelProperty(value = "规格id")
+    private String specificationId;
 }
