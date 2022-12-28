@@ -86,8 +86,8 @@ public class StockRecordController {
     @GetMapping("/page")
     @ApiOperation("获得库存信息分页")
     @PreAuthorize("@ss.hasPermission('stock:record:query')")
-    public CommonResult<Page<StockRecordDO>> getRecordPage(@Valid StockRecordPageReqVO pageVO) {
-        Page<StockRecordDO> pageResult = recordService.getRecordPage(pageVO);
+    public CommonResult<Page<StockRecordFeignVO>> getRecordPage(@Valid StockRecordPageReqVO pageVO) {
+        Page<StockRecordFeignVO> pageResult = recordService.getRecordPage(pageVO);
         return success(pageResult);
     }
 

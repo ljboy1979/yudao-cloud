@@ -13,8 +13,8 @@ import java.util.Date;
 @Data
 public class StockRecordBaseVO {
 
-    @ApiModelProperty(value = "库存类型(1.原料 2.投入品 3.成品 4.办公用品)", required = true)
-    @NotNull(message = "库存类型(1.原料 2.投入品 3.成品 4.办公用品)不能为空")
+    @ApiModelProperty(value = "库存类型(0:原料 1:投入品 2:商品 3: 菜品 4:套餐 5:特医食品)", required = true)
+    @NotNull(message = "库存类型(0:原料 1:投入品 2:商品 3: 菜品 4:套餐 5:特医食品)不能为空")
     private Integer type;
 
     @ApiModelProperty(value = "操作类型(0.入库 1.出库)", required = true)

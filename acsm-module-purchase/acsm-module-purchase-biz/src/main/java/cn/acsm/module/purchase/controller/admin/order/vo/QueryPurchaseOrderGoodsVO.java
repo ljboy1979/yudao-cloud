@@ -3,17 +3,16 @@ package cn.acsm.module.purchase.controller.admin.order.vo;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * <pre>
- * 对象功能: QueryPurchaseOrderPageInfoVO.java
+ * 对象功能: QueryPurchaseOrderGoodsVO.java
  * 开发人员: 崔高杰
- * 创建时间: 2022/12/20
+ * 创建时间: 2022/12/28
  * <pre>
  */
 @Data
-public class QueryPurchaseOrderPageInfoVO implements Serializable {
+public class QueryPurchaseOrderGoodsVO implements Serializable {
 
     /**
      * 货品编号
@@ -51,13 +50,13 @@ public class QueryPurchaseOrderPageInfoVO implements Serializable {
     private String specifications;
 
     /**
-     * 采购数量/重量
+     * 库存数量
      */
-    private BigDecimal buyNumber;
+    private Integer inventoryQuantity;
 
     /**
-     * 期望到货频次
+     * 计量单位
      */
-    private String frequency;
+    private String measureUnit;
 
 }

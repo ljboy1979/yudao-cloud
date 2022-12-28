@@ -30,8 +30,11 @@ public class StockInventoryApiReqVO implements Serializable {
     @ApiModelProperty(value = "规格类型")
     private String packagingType;
 
+    @ApiModelProperty(value = "包装规格")
+    private String specifications;
+
     @ApiModelProperty(value = "库存数量")
-    private String inventoryQuantity;
+    private Integer inventoryQuantity;
 
     @ApiModelProperty(value = "计量单位")
     private String measureUnit;

@@ -1,36 +1,24 @@
-package cn.acsm.module.stock.dal.dataobject.record;
+package cn.acsm.module.stock.controller.admin.record.vo;
 
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
-/**
- * 库存记录 DO
- *
- * @author 芋道源码
- */
-@TableName("stock_record")
-@KeySequence("stock_record_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@ApiModel("管理后台 - 获得库存信息分页 Request VO")
 @Data
-@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class StockRecordDO extends BaseDO {
+public class StockRecordFeignVO implements Serializable {
 
     /**
      * 库存记录id
      */
-    @TableId
     private Long id;
     /**
      * 库存类型(1.原料 2.投入品 3.成品 4.办公用品)
@@ -44,10 +32,6 @@ public class StockRecordDO extends BaseDO {
      * 仓库id
      */
     private String warehouseId;
-    /**
-     * 仓库编号
-     */
-    private String warehouseCode;
     /**
      * 仓库名称
      */
@@ -74,6 +58,10 @@ public class StockRecordDO extends BaseDO {
      * 部门id
      */
     private Long departmentId;
+    /**
+     * 部门名称
+     */
+    private String departmentName;
     /**
      * 经营主体
      */

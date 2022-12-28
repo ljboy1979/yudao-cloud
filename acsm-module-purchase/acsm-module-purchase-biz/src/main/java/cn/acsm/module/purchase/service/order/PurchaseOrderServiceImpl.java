@@ -303,7 +303,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 //            ".concat('-').concat(#pageReqVO.pageSize).concat('-').concat(#pageReqVO.purchaseType)")
     @Override
     public Page<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderProductsVO pageReqVO) {
-        Page<QueryPurchaseOrderPageInfoVO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        Page<QueryPurchaseOrderGoodsVO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
         // 商品类型
         Integer type = pageReqVO.getPurchaseType();
         ShelvesSalesReqDto reqDto = new ShelvesSalesReqDto();
@@ -312,23 +312,22 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         List<ShelvesSalesRespDto> data = specifications.getData();
 
         // 获取所有产品id
-        List<String> goodIds = data.stream().map(dto -> {
+        List<QueryPurchaseOrderGoodsVO> orderGoodsVOS = data.stream().map(dto -> {
             InventoryQO qo = new InventoryQO();
             qo.setGoodsId(dto.getId());
             qo.setType(Long.valueOf(type));
             qo.setPackingSpecification(dto.getName());
             StockInventoryApiReqVO inventorys = inventoryApi.getInventorys(qo);
-            QueryPurchaseOrderPageInfoVO infoVO = new QueryPurchaseOrderPageInfoVO();
+            QueryPurchaseOrderGoodsVO infoVO = new QueryPurchaseOrderGoodsVO();
             infoVO.setGoodsName(inventorys.getGoodsName());
             infoVO.setGoodsType(inventorys.getGoodsType());
             infoVO.setPackagingSpecificationName(inventorys.getPackingSpecification());
             infoVO.setPackagingType(inventorys.getPackagingType());
-//            infoVO.set(dto.getClassifyName()get());
-
-
-            return dto.getId();
-        }).collect(Collectors.toList());
-
+            infoVO.setSpecifications(inventorys.getSpecifications());
+            infoVO.setInventoryQuantity(inventorys.getInventoryQuantity());
+            infoVO.setMeasureUnit(inventorys.getMeasureUnit());
+            return infoVO;
+        }).skip(pageReqVO.getPageNo()).limit((pageReqVO.getPageNo()-1)*pageReqVO.getPageSize()).collect(Collectors.toList());
         return null;
     }
 

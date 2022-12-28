@@ -103,6 +103,10 @@ public class StockRecordDetailDO extends BaseDO {
      */
     private BigDecimal unitPrice;
     /**
+     * 优惠
+     */
+    private BigDecimal discountPrice;
+    /**
      * 计量单位
      */
     private String unit;
