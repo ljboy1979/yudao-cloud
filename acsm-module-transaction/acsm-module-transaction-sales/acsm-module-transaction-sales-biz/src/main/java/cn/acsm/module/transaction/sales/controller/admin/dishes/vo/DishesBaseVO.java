@@ -36,4 +36,20 @@ public class DishesBaseVO {
     @ApiModelProperty(value = "source")
     private String source;
 
+    /**
+     * 专家建议
+     */
+    @ApiModelProperty(value = "专家建议")
+    private String expertAdvice;
+    /**
+     * 图片
+     */
+    @ApiModelProperty(value = "图片")
+    private String img;
+    /**
+     * 备注
+     */
+    @ApiModelProperty(value = "备注")
+    private String remark;
+
 }
