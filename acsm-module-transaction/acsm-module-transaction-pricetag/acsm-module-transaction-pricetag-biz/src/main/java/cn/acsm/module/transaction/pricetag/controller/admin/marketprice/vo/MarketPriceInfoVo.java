@@ -9,7 +9,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 /**
  * 市场价格 vo
@@ -17,7 +20,7 @@ import java.util.List;
  * @author 芋道源码
  */
 @Data
-public class MarketPriceInfoVo extends BaseDO{
+public class MarketPriceInfoVo{
 
     /**
      * id
@@ -70,13 +73,12 @@ public class MarketPriceInfoVo extends BaseDO{
     @ApiModelProperty(value = "市场名称", required = true)
     private String marketName;
 
-    /**
-     * 最后更新时间
-     */
-    @ApiModelProperty(value = "最后更新时间", required = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
-
+    @ApiModelProperty(value = "创建时间", required = true)
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date createTime;
+    @ApiModelProperty(value = "更新时间", required = true)
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    private Date updateTime;
     /**
      * 价格趋势
      */

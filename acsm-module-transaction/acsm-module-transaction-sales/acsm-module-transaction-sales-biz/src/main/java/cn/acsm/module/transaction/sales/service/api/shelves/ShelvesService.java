@@ -18,5 +18,5 @@ public interface ShelvesService {
 
     PageResult<ShelvesSalesRespVO> findSpecificationsVo(ShelvesSalesReqVO shelvesSalesReqVO);
 
-    List<TreeSelect> findClassify();
+    List<TreeSelect> findClassify(ShelvesSalesReqVO shelvesSalesReqVO);
 }

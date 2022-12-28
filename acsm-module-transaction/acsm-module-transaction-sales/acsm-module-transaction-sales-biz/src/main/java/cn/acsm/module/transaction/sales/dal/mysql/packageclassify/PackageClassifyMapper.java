@@ -33,6 +33,7 @@ public interface PackageClassifyMapper extends BaseMapperX<PackageClassifyDO> {
     default List<PackageClassifyDO> selectListToTree(PackageClassifyTreeVO reqVO) {
         return selectList(new LambdaQueryWrapperX<PackageClassifyDO>()
                 .likeIfPresent(PackageClassifyDO::getCategoryName, reqVO.getCategoryName())
+                .eqIfPresent(PackageClassifyDO::getId,reqVO.getId())
                 .orderByDesc(PackageClassifyDO::getId));
     }
 

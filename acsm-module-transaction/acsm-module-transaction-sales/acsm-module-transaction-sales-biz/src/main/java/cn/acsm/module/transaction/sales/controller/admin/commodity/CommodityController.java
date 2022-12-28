@@ -132,7 +132,7 @@ public class CommodityController {
     @ApiOperation("查询售品分类")
     @PreAuthorize("@ss.hasPermission('sales:commodity:query')")
     public CommonResult<List<TreeSelect>> findClassify(@RequestBody ShelvesSalesReqVO shelvesSalesReqDto) {
-        List<TreeSelect> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findClassify();
+        List<TreeSelect> specifications = shelvesContext.getService(ShelvesEnums.getByType(shelvesSalesReqDto.getType()).getValue()).findClassify(shelvesSalesReqDto);
         return CommonResult.success(specifications);
 
     }

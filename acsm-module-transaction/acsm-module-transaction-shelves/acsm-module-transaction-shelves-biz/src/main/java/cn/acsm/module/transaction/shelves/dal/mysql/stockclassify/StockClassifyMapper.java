@@ -22,7 +22,8 @@ public interface StockClassifyMapper extends BaseMapperX<StockClassifyDO> {
                 .likeIfPresent(StockClassifyDO::getClassifyName, reqVO.getClassifyName())
                 .betweenIfPresent(StockClassifyDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(StockClassifyDO::getTreeLevel,reqVO.getTreeLevel())
-                .orderByDesc(StockClassifyDO::getId));
+                .eqIfPresent(StockClassifyDO::getParentCode,reqVO.getParentCode())
+                .orderByDesc(StockClassifyDO::getSort));
     }
 
     default List<StockClassifyDO> selectList(StockClassifyExportReqVO reqVO) {

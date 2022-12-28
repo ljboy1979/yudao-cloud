@@ -36,6 +36,7 @@ public interface InputClassifyMapper extends BaseMapperX<InputClassifyDO> {
     default List<InputClassifyDO> selectListToTree(InputClassifyTreeVO inputClassifyTreeVO){
         return selectList(new LambdaQueryWrapperX<InputClassifyDO>()
                 .likeIfPresent(InputClassifyDO::getCategoryName, inputClassifyTreeVO.getCategoryName())
+                .eqIfPresent(InputClassifyDO::getId,inputClassifyTreeVO.getId())
                 .orderByDesc(InputClassifyDO::getId));
     }
 }

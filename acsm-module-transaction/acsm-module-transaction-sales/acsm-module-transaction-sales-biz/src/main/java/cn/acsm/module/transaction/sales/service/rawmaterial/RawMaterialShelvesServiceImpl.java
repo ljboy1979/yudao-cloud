@@ -52,8 +52,9 @@ public class RawMaterialShelvesServiceImpl implements ShelvesService {
     }
 
     @Override
-    public List<TreeSelect> findClassify() {
+    public List<TreeSelect> findClassify(ShelvesSalesReqVO shelvesSalesReqDto) {
         RawMaterialClassifyTreeVO rawMaterialClassifyTreeVO = new RawMaterialClassifyTreeVO();
+        rawMaterialClassifyTreeVO.setId(shelvesSalesReqDto.getClassify());
         return rawMaterialClassifyService.findTreeList(rawMaterialClassifyTreeVO);
     }
 }

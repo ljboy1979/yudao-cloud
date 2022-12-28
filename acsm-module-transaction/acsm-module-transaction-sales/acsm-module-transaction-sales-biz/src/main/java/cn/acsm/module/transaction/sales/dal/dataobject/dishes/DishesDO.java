@@ -58,4 +58,18 @@ public class DishesDO extends BaseDO {
      */
     private String source;
 
+
+    /**
+     * 专家建议
+     */
+    private String expertAdvice;
+    /**
+     * 图片
+     */
+    private String img;
+    /**
+     * 备注
+     */
+    private String remark;
+
 }

@@ -2,6 +2,7 @@ package cn.acsm.module.transaction.sales.dal.mysql.rawmaterialclassify;
 
 import java.util.*;
 
+import cn.acsm.module.transaction.sales.dal.dataobject.specialmedicalfoodclassify.SpecialMedicalFoodClassifyDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
@@ -32,6 +33,7 @@ public interface RawMaterialClassifyMapper extends BaseMapperX<RawMaterialClassi
     default List<RawMaterialClassifyDO> selectListToTree(RawMaterialClassifyTreeVO rawMaterialClassifyTreeVO) {
         return selectList(new LambdaQueryWrapperX<RawMaterialClassifyDO>()
                 .likeIfPresent(RawMaterialClassifyDO::getCategoryName, rawMaterialClassifyTreeVO.getCategoryName())
+                .eqIfPresent(RawMaterialClassifyDO::getId,rawMaterialClassifyTreeVO.getId())
                 .orderByAsc(RawMaterialClassifyDO::getId));
     }
 }

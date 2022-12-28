@@ -54,8 +54,9 @@ public class PackageShelvesServiceImpl implements ShelvesService {
     }
 
     @Override
-    public List<TreeSelect> findClassify() {
+    public List<TreeSelect> findClassify(ShelvesSalesReqVO shelvesSalesReqDto) {
         PackageClassifyTreeVO packageClassifyTreeVO = new PackageClassifyTreeVO();
+        packageClassifyTreeVO.setId(shelvesSalesReqDto.getClassify());
         return packageClassifyService.findTreeList(packageClassifyTreeVO);
     }
 }

@@ -37,6 +37,7 @@ public interface DishesCategoryMapper extends BaseMapperX<DishesCategoryDO> {
     default List<DishesCategoryDO> selectListToTree(DishesCategoryTreeVO dishesCategoryTreeVO) {
         return selectList(new LambdaQueryWrapperX<DishesCategoryDO>()
                 .likeIfPresent(DishesCategoryDO::getCategoryName, dishesCategoryTreeVO.getCategoryName())
+                .eqIfPresent(DishesCategoryDO::getId,dishesCategoryTreeVO.getId())
                 .orderByAsc(DishesCategoryDO::getId));
     }
 }

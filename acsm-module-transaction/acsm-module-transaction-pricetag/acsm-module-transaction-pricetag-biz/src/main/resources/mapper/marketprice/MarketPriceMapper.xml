@@ -34,7 +34,7 @@
 
     <select id="findPriceTrend" resultType="cn.acsm.module.transaction.pricetag.dal.dataobject.marketprice.PriceTrendDO">
         SELECT
-        z.time,
+        DATE_FORMAT(z.time,'%m-%d') as time,
         ROUND(IFNULL(y.maxPrice,0),2) AS maxPrice,
         ROUND(IFNULL(y.minPrice,0),2) AS minPrice ,
         ROUND(IFNULL(y.middlePrice,0),2) AS middlePrice
@@ -87,7 +87,10 @@
             AND mc.classify_id=#{classifyId}
         </if>
         <if test=" updateTime !=null ">
-            AND mp.update_time BETWEEN #{updateTime[0]} and #{updateTime[1]}
+            AND mp.update_time BETWEEN
+            <foreach item='time' collection='updateTime' separator='and'  index=''>
+            #{time}
+            </foreach>
         </if>
         <if test=" name != null and name != '' ">
             AND mc.commodity_name like CONCAT('%',#{name},'%')
@@ -111,7 +114,10 @@
             AND mc.classify_id=#{classifyId}
         </if>
         <if test=" updateTime !=null ">
-            AND mp.update_time BETWEEN #{updateTime[0]} and #{updateTime[1]}
+            AND mp.update_time BETWEEN
+            <foreach item='time' collection='updateTime' separator='and'  index=''>
+                #{time}
+            </foreach>
         </if>
         <if test=" name != null and name != '' ">
             AND mc.commodity_name like CONCAT('%',#{name},'%')

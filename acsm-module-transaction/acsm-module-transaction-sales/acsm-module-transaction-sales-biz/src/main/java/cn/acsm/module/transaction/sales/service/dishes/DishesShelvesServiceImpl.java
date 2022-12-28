@@ -51,8 +51,9 @@ public class DishesShelvesServiceImpl implements ShelvesService {
     }
 
     @Override
-    public List<TreeSelect> findClassify() {
+    public List<TreeSelect> findClassify(ShelvesSalesReqVO shelvesSalesReqDto) {
         DishesCategoryTreeVO dishesCategoryTreeVO = new DishesCategoryTreeVO();
+        dishesCategoryTreeVO.setId(shelvesSalesReqDto.getClassify());
         return dishesCategoryService.findTreeList(dishesCategoryTreeVO);
     }
 }

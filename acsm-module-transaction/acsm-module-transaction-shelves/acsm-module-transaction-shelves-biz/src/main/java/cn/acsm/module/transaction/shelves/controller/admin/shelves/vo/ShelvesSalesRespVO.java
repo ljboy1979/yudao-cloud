@@ -47,4 +47,7 @@ public class ShelvesSalesRespVO {
 
     @ApiModelProperty(value = "计量单位名称")
     private String measurementUnitName;
+
+    @ApiModelProperty(value = "库存数量")
+    private String stockNum;
 }
