@@ -1,12 +1,12 @@
 package cn.iocoder.yudao.module.system.api.user;
 
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.framework.tenant.core.aop.TenantIgnore;
 import cn.iocoder.yudao.module.system.api.user.dto.AdminUserRespDTO;
 import cn.iocoder.yudao.module.system.convert.user.UserConvert;
 import cn.iocoder.yudao.module.system.dal.dataobject.user.AdminUserDO;
 import cn.iocoder.yudao.module.system.service.user.AdminUserService;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +26,7 @@ public class AdminUserApiImpl implements AdminUserApi {
     @Resource
     private AdminUserService userService;
 
+    @TenantIgnore
     @Override
     public CommonResult<AdminUserRespDTO> getUser(Long id) {
         AdminUserDO user = userService.getUser(id);
