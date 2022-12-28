@@ -4,6 +4,9 @@ import cn.acsm.module.stock.controller.admin.recorddetail.vo.*;
 import cn.acsm.module.stock.convert.recorddetail.StockRecordDetailConvert;
 import cn.acsm.module.stock.dal.dataobject.recorddetail.StockRecordDetailDO;
 import cn.acsm.module.stock.dal.mysql.recorddetail.StockRecordDetailMapper;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.module.system.api.dept.DeptApi;
+import cn.iocoder.yudao.module.system.api.dept.dto.DeptRespDTO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -21,6 +24,7 @@ import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static cn.acsm.module.stock.enums.ErrorCodeConstants.RECORD_DETAIL_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -36,6 +40,9 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
 
     @Resource
     private StockRecordDetailMapper recordDetailMapper;
+
+    @Resource
+    private DeptApi deptApi;
 
     @Override
     public Long createRecordDetail(StockRecordDetailCreateReqVO createReqVO) {
@@ -115,11 +122,20 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
      * @param printVO 查询条件
      * @return 库存记录字表-明细列表
      */
-    public List<StockRecordDetailDO> getRecordDetailList(StockRecordDetailPrintVO printVO) {
+    public List<StockRecordDetailPrintRespVO> getRecordDetailList(StockRecordDetailPrintVO printVO) {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("stock_batch_no",printVO.getStockBatchNo());
         wrapper.eq("operation_type",printVO.getOperationType());
-        return recordDetailMapper.selectList(wrapper);
+        List<StockRecordDetailDO> list = recordDetailMapper.selectList(wrapper);
+        List<StockRecordDetailPrintRespVO> respVOS = list.stream().map(sv -> {
+            StockRecordDetailPrintRespVO respVO = new StockRecordDetailPrintRespVO();
+            BeanUtils.copyProperties(sv, respVO);
+            Long id = Long.valueOf(sv.getDepartmentId());
+            CommonResult<DeptRespDTO> dept = deptApi.getDept(id);
+            respVO.setDepartmentName(dept.getCheckedData().getName());
+            return respVO;
+        }).collect(Collectors.toList());
+        return respVOS;
     }
 
     /**

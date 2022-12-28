@@ -6,6 +6,9 @@ import cn.acsm.module.purchase.dal.dataobject.details.PurchaseDetailsDO;
 import cn.acsm.module.purchase.dal.dataobject.order.PurchaseOrderDO;
 import cn.acsm.module.purchase.dal.mysql.details.PurchaseDetailsMapper;
 import cn.acsm.module.purchase.dal.mysql.order.PurchaseOrderMapper;
+import cn.acsm.module.stock.api.inventory.StockInventoryApi;
+import cn.acsm.module.stock.api.inventory.qo.InventoryQO;
+import cn.acsm.module.stock.api.inventory.vo.StockInventoryApiReqVO;
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesReqDto;
 import cn.acsm.module.transaction.sales.api.dto.ShelvesSalesRespDto;
 import cn.acsm.module.transaction.sales.api.shelves.ShelvesApi;
@@ -55,6 +58,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Resource
     private PurchaseDetailsMapper purchaseDetailsMapper;
+
+    @Resource
+    private StockInventoryApi inventoryApi;
 
     @Resource
     private ShelvesApi shelvesApi;
@@ -293,16 +299,32 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**
      * 3.6.2.3.获取采购产品列表
      */
-    @Cacheable(value = "purchaseOrder", key = "'getOrderPageInfo'.concat('-').concat(#pageReqVO.pageNo)" +
-            ".concat('-').concat(#pageReqVO.pageSize).concat('-').concat(#pageReqVO.purchaseType)")
+//    @Cacheable(value = "purchaseOrder", key = "'getOrderPageInfo'.concat('-').concat(#pageReqVO.pageNo)" +
+//            ".concat('-').concat(#pageReqVO.pageSize).concat('-').concat(#pageReqVO.purchaseType)")
     @Override
     public Page<QueryPurchaseOrderPageInfoVO> getOrderPageInfo(PurchaseOrderProductsVO pageReqVO) {
+        Page<QueryPurchaseOrderPageInfoVO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        // 商品类型
+        Integer type = pageReqVO.getPurchaseType();
         ShelvesSalesReqDto reqDto = new ShelvesSalesReqDto();
-        reqDto.setType(pageReqVO.getPurchaseType());
+        reqDto.setType(type);
         CommonResult<List<ShelvesSalesRespDto>> specifications = shelvesApi.findSpecifications(reqDto);
         List<ShelvesSalesRespDto> data = specifications.getData();
+
         // 获取所有产品id
-        data.stream().map(dto -> {
+        List<String> goodIds = data.stream().map(dto -> {
+            InventoryQO qo = new InventoryQO();
+            qo.setGoodsId(dto.getId());
+            qo.setType(Long.valueOf(type));
+            qo.setPackingSpecification(dto.getName());
+            StockInventoryApiReqVO inventorys = inventoryApi.getInventorys(qo);
+            QueryPurchaseOrderPageInfoVO infoVO = new QueryPurchaseOrderPageInfoVO();
+            infoVO.setGoodsName(inventorys.getGoodsName());
+            infoVO.setGoodsType(inventorys.getGoodsType());
+            infoVO.setPackagingSpecificationName(inventorys.getPackingSpecification());
+            infoVO.setPackagingType(inventorys.getPackagingType());
+//            infoVO.set(dto.getClassifyName()get());
+
 
             return dto.getId();
         }).collect(Collectors.toList());

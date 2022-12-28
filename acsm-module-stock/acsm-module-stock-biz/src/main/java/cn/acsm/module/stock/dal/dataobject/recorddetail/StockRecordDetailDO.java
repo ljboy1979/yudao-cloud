@@ -176,4 +176,14 @@ public class StockRecordDetailDO extends BaseDO {
      */
     private Long sourceId;
 
+    /**
+     * 公司id
+     */
+    private String companyId;
+
+    /**
+     * 所属部门id
+     */
+    private String departmentId;
+
 }

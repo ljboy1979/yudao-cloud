@@ -77,6 +77,6 @@ public interface StockInventoryMapper extends BaseMapperX<StockInventoryDO> {
      * @param qo
      * @return
      */
-    List<StockInventoryApiReqVO> getList(@Param("qo") InventoryQO qo);
+    StockInventoryApiReqVO getList(@Param("qo") InventoryQO qo);
 
 }

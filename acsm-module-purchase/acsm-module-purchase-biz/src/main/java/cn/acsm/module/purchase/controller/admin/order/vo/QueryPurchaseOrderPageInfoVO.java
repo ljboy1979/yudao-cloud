@@ -1,11 +1,9 @@
 package cn.acsm.module.purchase.controller.admin.order.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * <pre>
@@ -20,7 +18,6 @@ public class QueryPurchaseOrderPageInfoVO implements Serializable {
     /**
      * 编号
      */
-    @TableId
     private Long id;
 
     /**
@@ -34,39 +31,9 @@ public class QueryPurchaseOrderPageInfoVO implements Serializable {
     private Integer purchaseType;
 
     /**
-     * 供应商(用户id)
-     */
-    private Long providerId;
-
-    /**
-     * 供应商名称
-     */
-    private String providerName;
-
-    /**
-     * 供应商联系方式
-     */
-    private String providerPhone;
-
-    /**
-     * 采购时间【开始时间】
-     */
-    private Date purchaseStartTime;
-
-    /**
-     * 采购时间【结束时间】
-     */
-    private Date purchaseEndTime;
-
-    /**
-     * 产地
-     */
-    private String address;
-
-    /**
      * 货品编号
      */
-    private Long goodsId;
+    private String goodsId;
 
     /**
      * 货品名称
@@ -74,9 +41,24 @@ public class QueryPurchaseOrderPageInfoVO implements Serializable {
     private String goodsName;
 
     /**
+     * 商品类型
+     */
+    private String goodsType;
+
+    /**
      * 包装规格id
      */
-    private Long packagingSpecificationId;
+    private String packagingSpecificationId;
+
+    /**
+     * 包装规格名称
+     */
+    private String packagingSpecificationName;
+
+    /**
+     * 包装规格类型
+     */
+    private String packagingType;
 
     /**
      * 采购数量/重量

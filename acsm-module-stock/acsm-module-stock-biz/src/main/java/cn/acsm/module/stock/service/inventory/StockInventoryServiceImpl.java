@@ -160,7 +160,7 @@ public class StockInventoryServiceImpl implements StockInventoryService {
      * @param apiReqVO 查询条件
      * @return 库存清单列表
      */
-    public List<StockInventoryApiReqVO> getInventoryList(InventoryQO apiReqVO) {
+    public StockInventoryApiReqVO getInventory(InventoryQO apiReqVO) {
         return inventoryMapper.getList(apiReqVO);
     }
 

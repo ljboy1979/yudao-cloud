@@ -16,11 +16,9 @@
             stock_inventory
         where
             type = #{qo.type}
-        AND (goodsId,packagingSpecificationId)
-        IN
-        <foreach collection="qo.goodMap" item="map" separator="," open="(" close=")">
-            (map.goodsId, map.packagingSpecificationId)
-        </foreach>
+        AND deleted = 0
+        AND goods_id = #{qo.goodsId}
+        AND packing_specification = #{qo.packingSpecification}
     </select>
 
 </mapper>

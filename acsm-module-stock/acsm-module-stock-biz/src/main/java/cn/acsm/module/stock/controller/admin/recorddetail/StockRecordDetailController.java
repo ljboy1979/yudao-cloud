@@ -123,8 +123,8 @@ public class StockRecordDetailController {
     @PostMapping("/print-list")
     @ApiOperation("打印库存详情列表")
     @PreAuthorize("@ss.hasPermission('stock:record-detail:print')")
-    public CommonResult<List<StockRecordDetailDO>> getRecordDetailList(@RequestBody StockRecordDetailPrintVO printVO) {
-        List<StockRecordDetailDO> list = recordDetailService.getRecordDetailList(printVO);
+    public CommonResult<List<StockRecordDetailPrintRespVO>> getRecordDetailList(@RequestBody StockRecordDetailPrintVO printVO) {
+        List<StockRecordDetailPrintRespVO> list = recordDetailService.getRecordDetailList(printVO);
         return success(list);
     }
 

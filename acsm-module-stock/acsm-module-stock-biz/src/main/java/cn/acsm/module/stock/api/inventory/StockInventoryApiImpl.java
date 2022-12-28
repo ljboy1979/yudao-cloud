@@ -32,7 +32,7 @@ public class StockInventoryApiImpl implements StockInventoryApi {
     private StockInventoryService inventoryService;
 
     @Override
-    public List<StockInventoryApiReqVO> getInventorys(InventoryQO reqQO) {
-        return inventoryService.getInventoryList(reqQO);
+    public StockInventoryApiReqVO getInventorys(InventoryQO reqQO) {
+        return inventoryService.getInventory(reqQO);
     }
 }

@@ -9,8 +9,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
-
 /**
  * <pre>
  * 对象功能: StockInventoryApi.java
@@ -24,6 +22,6 @@ public interface StockInventoryApi {
 
     @PostMapping("/get/inventorys")
     @ApiOperation("获取库存清单数据")
-    List<StockInventoryApiReqVO> getInventorys(@RequestBody InventoryQO inventoryQO);
+    StockInventoryApiReqVO getInventorys(@RequestBody InventoryQO inventoryQO);
 
 }

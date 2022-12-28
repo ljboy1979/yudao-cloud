@@ -74,7 +74,7 @@ public interface StockRecordDetailService {
      * @param printVO 查询条件
      * @return 库存记录字表-明细列表
      */
-    List<StockRecordDetailDO> getRecordDetailList(StockRecordDetailPrintVO printVO);
+    List<StockRecordDetailPrintRespVO> getRecordDetailList(StockRecordDetailPrintVO printVO);
 
     /**
      * 3.7.2.13.修改出/入库记录

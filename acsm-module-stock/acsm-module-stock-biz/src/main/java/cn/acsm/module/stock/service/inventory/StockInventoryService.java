@@ -90,5 +90,5 @@ public interface StockInventoryService {
      * @param apiReqVO 查询条件
      * @return 库存清单列表
      */
-    List<StockInventoryApiReqVO> getInventoryList(InventoryQO apiReqVO);
+    StockInventoryApiReqVO getInventory(InventoryQO apiReqVO);
 }

@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
 
 /**
  * <pre>
@@ -26,15 +26,12 @@ public class InventoryQO {
     @NotNull(message = "库存类型(0:原料 1:投入品 2:商品 3: 菜品 4:套餐 5:特医食品)不能为空")
     private Long type;
 
-    @ApiModelProperty(value = "货品信息", required = true)
-    private HashMap<Long, Long> goodMap;
+    @ApiModelProperty(value = "货品id", required = true)
+    @NotBlank(message = "货品id不能为空")
+    private String goodsId;
 
-//    @ApiModelProperty(value = "货品id", required = true)
-//    @NotNull(message = "货品id不能为空")
-//    private Long goodsId;
-//
-//    @ApiModelProperty(value = "规格id", required = true)
-//    @NotNull(message = "规格id不能为空")
-//    private Long packagingSpecificationId;
+    @ApiModelProperty(value = "规格名称", required = true)
+    @NotBlank(message = "规格名称不能为空")
+    private String packingSpecification;
 
 }

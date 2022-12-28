@@ -145,6 +145,11 @@
             <artifactId>acsm-module-transaction-sales-api</artifactId>
             <version>1.6.2-snapshot</version>
         </dependency>
+        <dependency>
+            <groupId>cn.iocoder.cloud</groupId>
+            <artifactId>acsm-module-stock-api</artifactId>
+            <version>1.6.2-snapshot</version>
+        </dependency>
     </dependencies>
     <build>
         <!-- 设置构建的 jar 包名 -->
