@@ -17,7 +17,7 @@ public class MarketInfoPageReqVO extends PageParam {
     @ApiModelProperty(value = "市场名称")
     private String marketName;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "更新时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] updateTime;
 
