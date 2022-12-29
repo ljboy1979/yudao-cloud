@@ -24,6 +24,16 @@ public class PackageOrganizationBaseVO {
     @ApiModelProperty(value = "来源id(商品id/菜品id)", required = true)
     @NotNull(message = "来源id(商品id/菜品id)不能为空")
     private String sourceId;
+    /**
+     * 规格名称
+     */
+    @ApiModelProperty(value = "规格名称", required = true)
+    private String specificationName;
+    /**
+     * 分类名称
+     */
+    @ApiModelProperty(value = "分类名称", required = true)
+    private String classifyName;
 
     @ApiModelProperty(value = "规格id", required = true)
     @NotNull(message = "规格id不能为空")
