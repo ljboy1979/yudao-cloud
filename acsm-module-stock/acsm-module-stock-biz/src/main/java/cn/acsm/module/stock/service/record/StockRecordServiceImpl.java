@@ -1,5 +1,7 @@
 package cn.acsm.module.stock.service.record;
 
+import cn.acsm.module.purchase.api.orderdetails.OrderDetailsApi;
+import cn.acsm.module.purchase.api.orderdetails.vo.OrderDetailsApiVO;
 import cn.acsm.module.stock.controller.admin.inventory.vo.StockInventoryUpdateCountVO;
 import cn.acsm.module.stock.controller.admin.record.vo.*;
 import cn.acsm.module.stock.convert.record.StockRecordConvert;
@@ -66,6 +68,9 @@ public class StockRecordServiceImpl implements StockRecordService {
 
     @Resource
     private DeptApi deptApi;
+
+    @Resource
+    private OrderDetailsApi detailsApi;
 
     @Override
     public Long createRecordWarehousing(StockRecordCreateReqVO createReqVO) {
@@ -339,7 +344,7 @@ public class StockRecordServiceImpl implements StockRecordService {
             CommonResult<AdminUserRespDTO> user = userApi.getUser(sp.getHeadId());
             feignVO.setHeadName(user.getData().getNickname());
 
-            // 获取仓库名称
+            // 获取仓库名称-【暂无对外API接口】
 
 
             // 获取部门名称
@@ -381,6 +386,25 @@ public class StockRecordServiceImpl implements StockRecordService {
         wrapper.lt(ObjectUtils.isNotEmpty(pageReqVO.getOperationEndTime()), "operation_time", pageReqVO.getOperationEndTime());
         wrapper.orderByDesc("create_time");
         return recordMapper.selectPage(page, wrapper);
+    }
+
+//    @Cacheable(value = "stockRecord", key = "#treasurySource")
+    @Override
+    public List<OrderDetailsApiVO> getRecord(String treasurySource, Integer id) {
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("id", id);
+        StockRecordDetailDO detailDO = detailMapper.selectOne(wrapper);
+        if(StringUtils.equalsIgnoreCase(treasurySource,"1")) {
+            // 获取采收记录信息
+            String harvestBatchId = detailDO.getHarvestBatchId();
+            // 此处需远程调用获取采收记录信息
+        } else if(StringUtils.equalsIgnoreCase(treasurySource,"2")) {
+            // 获取采购记录信息
+            String purchaseNumber = detailDO.getPurchaseNumber();
+            List<OrderDetailsApiVO> orderDetails = detailsApi.getOrderDetails(purchaseNumber);
+            return orderDetails;
+        }
+        return null;
     }
 
 }

@@ -1,5 +1,6 @@
 package cn.acsm.module.stock.controller.admin.record;
 
+import cn.acsm.module.purchase.api.orderdetails.vo.OrderDetailsApiVO;
 import cn.acsm.module.stock.controller.admin.record.vo.*;
 import cn.acsm.module.stock.convert.record.StockRecordConvert;
 import cn.acsm.module.stock.dal.dataobject.record.StockRecordDO;
@@ -108,6 +109,14 @@ public class StockRecordController {
     @PreAuthorize("@ss.hasPermission('stock:record:query')")
     public CommonResult<Page<StockRecordDO>> getOutEnterRecordPage(@Valid StockRecordOutEnterVO pageVO) {
         return success(recordService.getRecordOutEnterPage(pageVO));
+    }
+
+    @GetMapping("/get/record/detail")
+    @ApiOperation("根据入库来源获取来源批次")
+    @PreAuthorize("@ss.hasPermission('stock:record:source')")
+    public CommonResult<List<OrderDetailsApiVO>> getRecord(@RequestParam("treasurySource") String treasurySource, @RequestParam("id") Integer id) {
+        List<OrderDetailsApiVO> record = recordService.getRecord(treasurySource, id);
+        return success(record);
     }
 
 }

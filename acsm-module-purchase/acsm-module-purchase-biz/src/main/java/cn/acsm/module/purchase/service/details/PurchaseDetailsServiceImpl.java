@@ -1,5 +1,6 @@
 package cn.acsm.module.purchase.service.details;
 
+import cn.acsm.module.purchase.api.orderdetails.vo.OrderDetailsApiVO;
 import cn.acsm.module.purchase.controller.admin.details.vo.*;
 import cn.acsm.module.purchase.convert.details.PurchaseDetailsConvert;
 import cn.acsm.module.purchase.dal.dataobject.details.PurchaseDetailsDO;
@@ -9,6 +10,7 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static cn.acsm.module.purchase.constant.PurchaseOrderConstant.*;
 import static cn.acsm.module.purchase.enums.ErrorCodeConstants.*;
@@ -124,6 +127,22 @@ public class PurchaseDetailsServiceImpl implements PurchaseDetailsService {
     @Override
     public List<PurchaseDetailsDO> getDetailsList(PurchaseDetailsExportReqVO exportReqVO) {
         return detailsMapper.selectList(exportReqVO);
+    }
+
+    /**
+     * 获得采购单明细信息
+     *
+     * @param purchaseNumber 查询条件
+     * @return 采购单明细列表信息
+     */
+    public List<OrderDetailsApiVO> getDetailsList(String purchaseNumber) {
+        QueryWrapper<PurchaseDetailsDO> wrapper = new QueryWrapper();
+        wrapper.eq("purchase_number", purchaseNumber);
+        return detailsMapper.selectList(wrapper).stream().map(detail -> {
+            OrderDetailsApiVO apiVO = new OrderDetailsApiVO();
+            BeanUtils.copyProperties(detail, apiVO);
+            return apiVO;
+        }).collect(Collectors.toList());
     }
 
 }

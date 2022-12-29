@@ -1,5 +1,6 @@
 package cn.acsm.module.purchase.service.details;
 
+import cn.acsm.module.purchase.api.orderdetails.vo.OrderDetailsApiVO;
 import cn.acsm.module.purchase.controller.admin.details.vo.*;
 import cn.acsm.module.purchase.dal.dataobject.details.PurchaseDetailsDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -71,5 +72,13 @@ public interface PurchaseDetailsService {
      * @return 采购单明细列表
      */
     List<PurchaseDetailsDO> getDetailsList(PurchaseDetailsExportReqVO exportReqVO);
+
+    /**
+     * 获得采购单明细信息
+     *
+     * @param purchaseNumber 查询条件
+     * @return 采购单明细列表信息
+     */
+    List<OrderDetailsApiVO> getDetailsList(String purchaseNumber);
 
 }

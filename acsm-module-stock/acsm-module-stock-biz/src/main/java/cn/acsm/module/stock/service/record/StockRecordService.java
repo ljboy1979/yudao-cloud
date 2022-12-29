@@ -1,8 +1,8 @@
 package cn.acsm.module.stock.service.record;
 
+import cn.acsm.module.purchase.api.orderdetails.vo.OrderDetailsApiVO;
 import cn.acsm.module.stock.controller.admin.record.vo.*;
 import cn.acsm.module.stock.dal.dataobject.record.StockRecordDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import javax.validation.Valid;
@@ -85,5 +85,13 @@ public interface StockRecordService {
      * @return 库存记录分页
      */
     Page<StockRecordDO> getRecordOutEnterPage(StockRecordOutEnterVO pageReqVO);
+
+    /**
+     * 获得库存记录
+     *
+     * @param treasurySource 入库来源
+     * @return 库存记录
+     */
+    List<OrderDetailsApiVO> getRecord(String treasurySource, Integer id);
 
 }
