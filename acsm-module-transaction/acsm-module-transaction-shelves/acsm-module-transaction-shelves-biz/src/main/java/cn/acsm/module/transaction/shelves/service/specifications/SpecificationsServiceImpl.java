@@ -43,7 +43,8 @@ public class SpecificationsServiceImpl implements SpecificationsService {
         // 插入
         SpecificationsDO specifications = SpecificationsConvert.INSTANCE.convert(createReqVO);
         specifications.setId(UUID.randomUUID().toString());
-
+        specifications.setAddNum(createReqVO.getAddNum());
+        specifications.setAvailableNum(createReqVO.getAddNum());
         specificationsMapper.insert(specifications);
         // 返回
         return specifications.getId();
