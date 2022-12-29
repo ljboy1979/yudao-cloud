@@ -16,6 +16,12 @@ public class StockRecordRespVO extends StockRecordBaseVO {
     @ApiModelProperty(value = "id", required = true)
     private String id;
 
+    @ApiModelProperty(value = "创建人", required = true)
+    private String creator;
+    @ApiModelProperty(value = "货架规格名称")
+    private String specificationsName;
+
+
     @ApiModelProperty(value = "创建时间", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;

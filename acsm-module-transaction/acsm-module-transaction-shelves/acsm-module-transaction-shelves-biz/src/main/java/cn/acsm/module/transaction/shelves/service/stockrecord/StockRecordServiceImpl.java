@@ -2,8 +2,10 @@ package cn.acsm.module.transaction.shelves.service.stockrecord;
 
 import cn.acsm.module.transaction.shelves.dal.dataobject.shelves.ShelvesDO;
 import cn.acsm.module.transaction.shelves.dal.dataobject.specifications.SpecificationsDO;
+import cn.acsm.module.transaction.shelves.dal.dataobject.stockrecord.StockRecordInfoDO;
 import cn.acsm.module.transaction.shelves.dal.mysql.shelves.ShelvesMapper;
 import cn.acsm.module.transaction.shelves.dal.mysql.specifications.SpecificationsMapper;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
@@ -40,6 +42,7 @@ public class StockRecordServiceImpl implements StockRecordService {
     @Override
     @Transactional
     public String createStockRecord(StockRecordCreateReqVO createReqVO) {
+        //Long tenantId = SecurityFrameworkUtils.getLoginUser().getTenantId();
         // 插入
         StockRecordDO stockRecord = StockRecordConvert.INSTANCE.convert(createReqVO);
         stockRecord.setId(UUID.randomUUID().toString());
@@ -61,6 +64,7 @@ public class StockRecordServiceImpl implements StockRecordService {
         specificationsDO.setAvailableNum(amount);
         specificationsMapper.updateById(specificationsDO);
         shelvesDO.setAvailableNum(shelvesAmount);
+        //shelvesDO.setCreator()
         shelvesMapper.updateById(shelvesDO);
         // 返回
         return stockRecord.getId();
@@ -107,6 +111,16 @@ public class StockRecordServiceImpl implements StockRecordService {
     @Override
     public List<StockRecordDO> getStockRecordList(StockRecordExportReqVO exportReqVO) {
         return stockRecordMapper.selectList(exportReqVO);
+    }
+
+    @Override
+    public PageResult<StockRecordInfoDO> findStockRecordPage(StockRecordPageReqVO pageVO) {
+        PageResult<StockRecordInfoDO> page = new PageResult<>();
+        pageVO.setPageNo((pageVO.getPageNo()-1)*pageVO.getPageSize());
+        List<StockRecordInfoDO> stockRecordInfoDOS =  stockRecordMapper.findStockRecordList(pageVO);
+        page.setList(stockRecordInfoDOS);
+        page.setTotal(stockRecordMapper.findStockRecordCount(pageVO));
+        return page;
     }
 
 }

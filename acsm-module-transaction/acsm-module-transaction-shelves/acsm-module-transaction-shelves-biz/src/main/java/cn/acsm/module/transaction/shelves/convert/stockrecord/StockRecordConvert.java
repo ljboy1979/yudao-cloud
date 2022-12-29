@@ -2,6 +2,7 @@ package cn.acsm.module.transaction.shelves.convert.stockrecord;
 
 import java.util.*;
 
+import cn.acsm.module.transaction.shelves.dal.dataobject.stockrecord.StockRecordInfoDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 import org.mapstruct.Mapper;
@@ -31,4 +32,5 @@ public interface StockRecordConvert {
 
     List<StockRecordExcelVO> convertList02(List<StockRecordDO> list);
 
+    PageResult<StockRecordRespVO> convertInfoPage(PageResult<StockRecordInfoDO> pageResult);
 }

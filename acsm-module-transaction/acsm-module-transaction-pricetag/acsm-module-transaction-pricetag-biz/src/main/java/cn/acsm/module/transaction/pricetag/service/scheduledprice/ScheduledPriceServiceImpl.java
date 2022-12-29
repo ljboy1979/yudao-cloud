@@ -47,16 +47,16 @@ public class ScheduledPriceServiceImpl implements ScheduledPriceService {
         MarketClassifyDO marketClassifyDO = marketClassifyMapper.selectById(createReqVO.getClassifyId());
         ShelvesReqDto shelvesReqDto = new ShelvesReqDto();
         shelvesReqDto.setSpecificationsId(createReqVO.getSpecificationId());
-        CommonResult<List<ShelvesRespDto>> result =  shelvesApi.findSpecificationsList(shelvesReqDto);
+    /*    CommonResult<List<ShelvesRespDto>> result =  shelvesApi.findSpecificationsList(shelvesReqDto);
         List<ShelvesRespDto> shelvesRespDtos = result.getData();
-        ShelvesRespDto shelvesRespDto =  shelvesRespDtos.get(0);
+        ShelvesRespDto shelvesRespDto =  shelvesRespDtos.get(0);*/
 
         // 插入
         ScheduledPriceDO scheduledPrice = ScheduledPriceConvert.INSTANCE.convert(createReqVO);
         scheduledPrice.setId(UUID.randomUUID().toString());
         scheduledPrice.setCommodityCode("YD"+number);
         scheduledPrice.setCategoryName(marketClassifyDO.getTreeNames());
-        scheduledPrice.setPackagingType(shelvesRespDto.getPackagingType());
+       /* scheduledPrice.setPackagingType(shelvesRespDto.getPackagingType());
         scheduledPrice.setPackagingTypeName(shelvesRespDto.getPackagingTypeName());
         scheduledPrice.setNumber(shelvesRespDto.getNumber());
         scheduledPrice.setUnit(shelvesRespDto.getUnit());
@@ -64,7 +64,7 @@ public class ScheduledPriceServiceImpl implements ScheduledPriceService {
         scheduledPrice.setPackaging(shelvesRespDto.getPackaging());
         scheduledPrice.setPackagingName(shelvesRespDto.getPackagingName());
         scheduledPrice.setMeasurementUnit(shelvesRespDto.getMeasurementUnit());
-        scheduledPrice.setMeasurementUnitName(shelvesRespDto.getMeasurementUnitName());
+        scheduledPrice.setMeasurementUnitName(shelvesRespDto.getMeasurementUnitName());*/
         scheduledPriceMapper.insert(scheduledPrice);
         // 返回
         return scheduledPrice.getId();

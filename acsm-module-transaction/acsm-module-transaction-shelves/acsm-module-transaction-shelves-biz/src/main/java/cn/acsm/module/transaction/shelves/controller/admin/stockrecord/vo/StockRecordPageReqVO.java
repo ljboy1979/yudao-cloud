@@ -16,29 +16,18 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class StockRecordPageReqVO extends PageParam {
 
-    @ApiModelProperty(value = "货架规格id")
-    private String specificationsId;
+    @ApiModelProperty(value = "货架规格名称")
+    private String specificationsName;
 
     @ApiModelProperty(value = "类型 0 上架 1下架 2销售 3报损 4退货")
     private String type;
 
-    @ApiModelProperty(value = "操作量")
-    private BigDecimal amount;
-
-    @ApiModelProperty(value = "备注")
-    private String remark;
-
-    @ApiModelProperty(value = "状态")
-    private Integer status;
 
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] createTime;
 
-    @ApiModelProperty(value = "经营主体id")
-    private String subjectId;
-
-    @ApiModelProperty(value = "source")
-    private String source;
+    @ApiModelProperty(value = "创建人")
+    private String creator;
 
 }
