@@ -116,7 +116,7 @@ public class SpecificationsController {
     }
 
     @PostMapping("/findSpecifications")
-    @ApiOperation("查询售品规格")
+    @ApiOperation("查询货架规格")
     @PreAuthorize("@ss.hasPermission('shelves:shelves:query')")
     public CommonResult<List<SpecificationsRespVO>> findSpecifications(@Valid @RequestBody SpecificationsPageReqVO specificationsPageReqVO) {
         return success(specificationsService.findSpecifications(specificationsPageReqVO));
