@@ -35,9 +35,6 @@
                 #{time}
             </foreach>
         </if>
-        <if test=" type !=null and type!='' ">
-            AND ssr.type = #{type}
-        </if>
         LIMIT #{pageNo} ,#{pageSize}
     </select>
 
@@ -61,9 +58,6 @@
             <foreach item='time' collection='createTime' separator='and'  index=''>
                 #{time}
             </foreach>
-        </if>
-        <if test=" type !=null and type!='' ">
-            AND ssr.type = #{type}
         </if>
     </select>
 
