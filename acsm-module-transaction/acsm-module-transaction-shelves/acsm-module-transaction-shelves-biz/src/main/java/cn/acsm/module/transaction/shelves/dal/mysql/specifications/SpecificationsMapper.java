@@ -34,4 +34,12 @@ public interface SpecificationsMapper extends BaseMapperX<SpecificationsDO> {
                 .orderByDesc(SpecificationsDO::getId));
     }
 
+    default List<SpecificationsDO> findSpecifications(SpecificationsPageReqVO reqVO) {
+        return selectList(new LambdaQueryWrapperX<SpecificationsDO>()
+                .likeIfPresent(SpecificationsDO::getSpecificationsName, reqVO.getSpecificationsName())
+                .eqIfPresent(SpecificationsDO::getPackagingType, reqVO.getPackagingType())
+                .eqIfPresent(SpecificationsDO::getShelvesId, reqVO.getShelvesId())
+                .betweenIfPresent(SpecificationsDO::getCreateTime, reqVO.getCreateTime())
+                .orderByDesc(SpecificationsDO::getId));
+    }
 }

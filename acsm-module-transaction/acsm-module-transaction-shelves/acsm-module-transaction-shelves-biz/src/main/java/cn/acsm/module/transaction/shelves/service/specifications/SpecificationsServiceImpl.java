@@ -109,4 +109,10 @@ public class SpecificationsServiceImpl implements SpecificationsService {
         return specificationsMapper.selectList(exportReqVO);
     }
 
+    @Override
+    public List<SpecificationsRespVO> findSpecifications(SpecificationsPageReqVO specificationsPageReqVO) {
+        List<SpecificationsDO>  specificationsDOS = specificationsMapper.findSpecifications(specificationsPageReqVO);
+        return SpecificationsConvert.INSTANCE.convertList(specificationsDOS);
+    }
+
 }
