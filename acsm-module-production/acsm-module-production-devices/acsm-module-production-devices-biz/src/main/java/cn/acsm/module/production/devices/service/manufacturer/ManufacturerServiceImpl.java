@@ -1,19 +1,24 @@
 package cn.acsm.module.production.devices.service.manufacturer;
 
+import cn.acsm.module.production.devices.controller.admin.manufacturer.vo.ManufacturerCreateReqVO;
+import cn.acsm.module.production.devices.controller.admin.manufacturer.vo.ManufacturerExportReqVO;
+import cn.acsm.module.production.devices.controller.admin.manufacturer.vo.ManufacturerPageReqVO;
+import cn.acsm.module.production.devices.controller.admin.manufacturer.vo.ManufacturerUpdateReqVO;
+import cn.acsm.module.production.devices.convert.manufacturer.ManufacturerConvert;
+import cn.acsm.module.production.devices.dal.dataobject.manufacturer.ManufacturerDO;
+import cn.acsm.module.production.devices.dal.mysql.manufacturer.ManufacturerMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.devices.controller.admin.manufacturer.vo.*;
-import cn.acsm.module.production.devices.dal.dataobject.manufacturer.ManufacturerDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.devices.convert.manufacturer.ManufacturerConvert;
-import cn.acsm.module.production.devices.dal.mysql.manufacturer.ManufacturerMapper;
-
+import static cn.acsm.module.production.devices.enums.ErrorCodeConstants.MANUFACTURER_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.acsm.module.production.devices.enums.ErrorCodeConstants.*;
 
 /**
  * 设备厂家 Service 实现类
@@ -37,6 +42,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
+    @CacheEvict(value = "devices-manufacturer", key = "#updateReqVO.id")
     public void updateManufacturer(ManufacturerUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateManufacturerExists(updateReqVO.getId());
@@ -46,6 +52,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
+    @CacheEvict(value = "devices-manufacturer", key = "#id")
     public void deleteManufacturer(Long id) {
         // 校验存在
         this.validateManufacturerExists(id);
@@ -60,6 +67,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
+    @Cacheable(value = "devices-manufacturer", key = "#id")
     public ManufacturerDO getManufacturer(Long id) {
         return manufacturerMapper.selectById(id);
     }

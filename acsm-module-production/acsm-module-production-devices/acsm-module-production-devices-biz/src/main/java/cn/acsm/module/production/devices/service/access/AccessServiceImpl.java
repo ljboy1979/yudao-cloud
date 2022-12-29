@@ -1,19 +1,24 @@
 package cn.acsm.module.production.devices.service.access;
 
+import cn.acsm.module.production.devices.controller.admin.access.vo.AccessCreateReqVO;
+import cn.acsm.module.production.devices.controller.admin.access.vo.AccessExportReqVO;
+import cn.acsm.module.production.devices.controller.admin.access.vo.AccessPageReqVO;
+import cn.acsm.module.production.devices.controller.admin.access.vo.AccessUpdateReqVO;
+import cn.acsm.module.production.devices.convert.access.AccessConvert;
+import cn.acsm.module.production.devices.dal.dataobject.access.AccessDO;
+import cn.acsm.module.production.devices.dal.mysql.access.AccessMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.devices.controller.admin.access.vo.*;
-import cn.acsm.module.production.devices.dal.dataobject.access.AccessDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.devices.convert.access.AccessConvert;
-import cn.acsm.module.production.devices.dal.mysql.access.AccessMapper;
-
+import static cn.acsm.module.production.devices.enums.ErrorCodeConstants.ACCESS_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.acsm.module.production.devices.enums.ErrorCodeConstants.*;
 
 /**
  * 设备允许访问名单信息 Service 实现类
@@ -37,6 +42,7 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
+    @CacheEvict(value = "devicesAccess", key = "#updateReqVO.id")
     public void updateAccess(AccessUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateAccessExists(updateReqVO.getId());
@@ -46,6 +52,7 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
+    @CacheEvict(value = "devicesAccess", key = "#id")
     public void deleteAccess(Long id) {
         // 校验存在
         this.validateAccessExists(id);
@@ -60,6 +67,7 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
+    @Cacheable(value = "devicesAccess", key = "#id")
     public AccessDO getAccess(Long id) {
         return accessMapper.selectById(id);
     }

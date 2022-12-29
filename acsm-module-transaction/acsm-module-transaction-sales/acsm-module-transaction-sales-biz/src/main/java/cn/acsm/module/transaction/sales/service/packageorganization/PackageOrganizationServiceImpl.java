@@ -58,13 +58,8 @@ public class PackageOrganizationServiceImpl implements PackageOrganizationServic
             return CommonResult.error(ErrorCodeConstants.PACKAGE_ORGANIZATION_EXISTENCE);
         }
         PackageOrganizationDO packageOrganization = PackageOrganizationConvert.INSTANCE.convert(createReqVO);
-        Integer type=null;
-        if("0".equals(createReqVO.getType())){
-            type = 2;
-        }
-        if("1".equals(createReqVO.getType())){
-            type = 3;
-        }
+        Integer type=Integer.valueOf(createReqVO.getType());
+
         ShelvesSalesReqVO shelvesSalesReqVO = new ShelvesSalesReqVO();
         shelvesSalesReqVO.setClassify(Long.valueOf(createReqVO.getClassify()));
         List<TreeSelect> classifyList = shelvesContext.getService(ShelvesEnums.getByType(type).getValue()).findClassify(shelvesSalesReqVO);
@@ -77,7 +72,7 @@ public class PackageOrganizationServiceImpl implements PackageOrganizationServic
         shelvesSalesReqVO.setSpecificationsId(createReqVO.getSpecificationId());
         PageResult<ShelvesSalesRespVO> specifications = shelvesContext.getService(ShelvesEnums.getByType(type).getValue()).findSpecificationsVo(shelvesSalesReqVO);
         ShelvesSalesRespVO shelvesRespDto = specifications.getList().get(0);
-        packageOrganization.setSpecificationsName(shelvesRespDto.getName());
+        packageOrganization.setSpecificationName(shelvesRespDto.getName());
         packageOrganization.setPackagingType(shelvesRespDto.getPackagingType());
         packageOrganization.setPackagingTypeName(shelvesRespDto.getPackagingTypeName());
         packageOrganization.setNumber(shelvesRespDto.getNumber());
@@ -135,7 +130,7 @@ public class PackageOrganizationServiceImpl implements PackageOrganizationServic
         shelvesSalesReqVO.setSpecificationsId(updateReqVO.getSpecificationId());
         PageResult<ShelvesSalesRespVO> specifications = shelvesContext.getService(ShelvesEnums.getByType(type).getValue()).findSpecificationsVo(shelvesSalesReqVO);
         ShelvesSalesRespVO shelvesRespDto = specifications.getList().get(0);
-        updateObj.setSpecificationsName(shelvesRespDto.getName());
+        updateObj.setSpecificationName(shelvesRespDto.getName());
         updateObj.setPackagingType(shelvesRespDto.getPackagingType());
         updateObj.setPackagingTypeName(shelvesRespDto.getPackagingTypeName());
         updateObj.setNumber(shelvesRespDto.getNumber());

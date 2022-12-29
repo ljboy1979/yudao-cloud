@@ -1,19 +1,24 @@
 package cn.acsm.module.production.devices.service.time;
 
+import cn.acsm.module.production.devices.controller.admin.time.vo.TimeCreateReqVO;
+import cn.acsm.module.production.devices.controller.admin.time.vo.TimeExportReqVO;
+import cn.acsm.module.production.devices.controller.admin.time.vo.TimePageReqVO;
+import cn.acsm.module.production.devices.controller.admin.time.vo.TimeUpdateReqVO;
+import cn.acsm.module.production.devices.convert.time.TimeConvert;
+import cn.acsm.module.production.devices.dal.dataobject.time.TimeDO;
+import cn.acsm.module.production.devices.dal.mysql.time.TimeMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.devices.controller.admin.time.vo.*;
-import cn.acsm.module.production.devices.dal.dataobject.time.TimeDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.devices.convert.time.TimeConvert;
-import cn.acsm.module.production.devices.dal.mysql.time.TimeMapper;
-
+import static cn.acsm.module.production.devices.enums.ErrorCodeConstants.TIME_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.acsm.module.production.devices.enums.ErrorCodeConstants.*;
 
 /**
  * 设备运行时间 Service 实现类
@@ -37,6 +42,7 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
+    @CacheEvict(value = "device-time", key = "#updateReqVO.id")
     public void updateTime(TimeUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateTimeExists(updateReqVO.getId());
@@ -46,6 +52,7 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
+    @CacheEvict(value = "device-time", key = "#id")
     public void deleteTime(Integer id) {
         // 校验存在
         this.validateTimeExists(id);
@@ -60,6 +67,7 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
+    @Cacheable(value = "device-time", key = "#id")
     public TimeDO getTime(Integer id) {
         return timeMapper.selectById(id);
     }

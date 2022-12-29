@@ -31,7 +31,7 @@ public class PackageOrganizationDO extends BaseDO {
      */
     private String packageId;
     /**
-     * 0商品 1菜品
+     * 2商品 3菜品
      */
     private String type;
     /**
@@ -46,7 +46,7 @@ public class PackageOrganizationDO extends BaseDO {
     /**
      * 规格名称
      */
-    private String specificationsName;
+    private String specificationName;
     /**
      * 分类
      */

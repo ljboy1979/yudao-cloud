@@ -4,20 +4,21 @@ import cn.acsm.module.production.bases.controller.admin.soilenv.vo.SoilEnvCreate
 import cn.acsm.module.production.bases.controller.admin.soilenv.vo.SoilEnvExportReqVO;
 import cn.acsm.module.production.bases.controller.admin.soilenv.vo.SoilEnvPageReqVO;
 import cn.acsm.module.production.bases.controller.admin.soilenv.vo.SoilEnvUpdateReqVO;
+import cn.acsm.module.production.bases.convert.soilenv.SoilEnvConvert;
+import cn.acsm.module.production.bases.dal.dataobject.soilenv.SoilEnvDO;
+import cn.acsm.module.production.bases.dal.mysql.soilenv.SoilEnvMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.bases.controller.admin.soilenv.vo.*;
-import cn.acsm.module.production.bases.dal.dataobject.soilenv.SoilEnvDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.bases.convert.soilenv.SoilEnvConvert;
-import cn.acsm.module.production.bases.dal.mysql.soilenv.SoilEnvMapper;
-
+import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.SOIL_ENV_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.*;
 
 /**
  * 基地土壤环境 Service 实现类
@@ -41,6 +42,7 @@ public class SoilEnvServiceImpl implements SoilEnvService {
     }
 
     @Override
+    @CacheEvict(value = "basesSoilEnv", key = "#updateReqVO.id")
     public void updateSoilEnv(SoilEnvUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateSoilEnvExists(updateReqVO.getId());
@@ -50,6 +52,7 @@ public class SoilEnvServiceImpl implements SoilEnvService {
     }
 
     @Override
+    @CacheEvict(value = "basesSoilEnv", key = "#id")
     public void deleteSoilEnv(Long id) {
         // 校验存在
         this.validateSoilEnvExists(id);
@@ -64,6 +67,7 @@ public class SoilEnvServiceImpl implements SoilEnvService {
     }
 
     @Override
+    @Cacheable(value = "basesSoilEnv", key = "#id")
     public SoilEnvDO getSoilEnv(Long id) {
         return soilEnvMapper.selectById(id);
     }

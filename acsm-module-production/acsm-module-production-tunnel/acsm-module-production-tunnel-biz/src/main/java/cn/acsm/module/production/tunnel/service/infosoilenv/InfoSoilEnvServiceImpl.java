@@ -1,19 +1,24 @@
 package cn.acsm.module.production.tunnel.service.infosoilenv;
 
+import cn.acsm.module.production.tunnel.controller.admin.infosoilenv.vo.InfoSoilEnvCreateReqVO;
+import cn.acsm.module.production.tunnel.controller.admin.infosoilenv.vo.InfoSoilEnvExportReqVO;
+import cn.acsm.module.production.tunnel.controller.admin.infosoilenv.vo.InfoSoilEnvPageReqVO;
+import cn.acsm.module.production.tunnel.controller.admin.infosoilenv.vo.InfoSoilEnvUpdateReqVO;
+import cn.acsm.module.production.tunnel.convert.infosoilenv.InfoSoilEnvConvert;
+import cn.acsm.module.production.tunnel.dal.dataobject.infosoilenv.InfoSoilEnvDO;
+import cn.acsm.module.production.tunnel.dal.mysql.infosoilenv.InfoSoilEnvMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.tunnel.controller.admin.infosoilenv.vo.*;
-import cn.acsm.module.production.tunnel.dal.dataobject.infosoilenv.InfoSoilEnvDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.tunnel.convert.infosoilenv.InfoSoilEnvConvert;
-import cn.acsm.module.production.tunnel.dal.mysql.infosoilenv.InfoSoilEnvMapper;
-
+import static cn.acsm.module.production.tunnel.enums.ErrorCodeConstants.INFO_SOIL_ENV_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.acsm.module.production.tunnel.enums.ErrorCodeConstants.*;
 
 /**
  * 地块土壤环境 Service 实现类
@@ -37,6 +42,7 @@ public class InfoSoilEnvServiceImpl implements InfoSoilEnvService {
     }
 
     @Override
+    @CacheEvict(value = "tunnel-infoSoilEnv", key = "#updateReqVO.id")
     public void updateInfoSoilEnv(InfoSoilEnvUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateInfoSoilEnvExists(updateReqVO.getId());
@@ -46,6 +52,7 @@ public class InfoSoilEnvServiceImpl implements InfoSoilEnvService {
     }
 
     @Override
+    @CacheEvict(value = "tunnel-infoSoilEnv", key = "#id")
     public void deleteInfoSoilEnv(Long id) {
         // 校验存在
         this.validateInfoSoilEnvExists(id);
@@ -60,6 +67,7 @@ public class InfoSoilEnvServiceImpl implements InfoSoilEnvService {
     }
 
     @Override
+    @Cacheable(value = "tunnel-infoSoilEnv", key = "#updateReqVO.id")
     public InfoSoilEnvDO getInfoSoilEnv(Long id) {
         return infoSoilEnvMapper.selectById(id);
     }

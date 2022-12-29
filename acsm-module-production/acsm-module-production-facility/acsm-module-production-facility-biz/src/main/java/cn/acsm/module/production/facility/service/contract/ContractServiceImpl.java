@@ -1,19 +1,24 @@
 package cn.acsm.module.production.facility.service.contract;
 
+import cn.acsm.module.production.facility.controller.admin.contract.vo.ContractCreateReqVO;
+import cn.acsm.module.production.facility.controller.admin.contract.vo.ContractExportReqVO;
+import cn.acsm.module.production.facility.controller.admin.contract.vo.ContractPageReqVO;
+import cn.acsm.module.production.facility.controller.admin.contract.vo.ContractUpdateReqVO;
+import cn.acsm.module.production.facility.convert.contract.ContractConvert;
+import cn.acsm.module.production.facility.dal.dataobject.contract.ContractDO;
+import cn.acsm.module.production.facility.dal.mysql.contract.ContractMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.facility.controller.admin.contract.vo.*;
-import cn.acsm.module.production.facility.dal.dataobject.contract.ContractDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.facility.convert.contract.ContractConvert;
-import cn.acsm.module.production.facility.dal.mysql.contract.ContractMapper;
-
+import static cn.acsm.module.production.facility.enums.ErrorCodeConstants.CONTRACT_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.acsm.module.production.facility.enums.ErrorCodeConstants.*;
 
 /**
  * 租赁合同 Service 实现类
@@ -37,6 +42,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    @CacheEvict(value = "facility-contract", key = "#updateReqVO.id")
     public void updateContract(ContractUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateContractExists(updateReqVO.getId());
@@ -46,6 +52,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    @CacheEvict(value = "facility-contract", key = "#id")
     public void deleteContract(Long id) {
         // 校验存在
         this.validateContractExists(id);
@@ -60,6 +67,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    @Cacheable(value = "facility-contract", key = "#id")
     public ContractDO getContract(Long id) {
         return contractMapper.selectById(id);
     }

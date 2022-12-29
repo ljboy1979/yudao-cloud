@@ -4,20 +4,21 @@ import cn.acsm.module.production.bases.controller.admin.productioncapacityplans.
 import cn.acsm.module.production.bases.controller.admin.productioncapacityplans.vo.ProductionCapacityPlansExportReqVO;
 import cn.acsm.module.production.bases.controller.admin.productioncapacityplans.vo.ProductionCapacityPlansPageReqVO;
 import cn.acsm.module.production.bases.controller.admin.productioncapacityplans.vo.ProductionCapacityPlansUpdateReqVO;
+import cn.acsm.module.production.bases.convert.productioncapacityplans.ProductionCapacityPlansConvert;
+import cn.acsm.module.production.bases.dal.dataobject.productioncapacityplans.ProductionCapacityPlansDO;
+import cn.acsm.module.production.bases.dal.mysql.productioncapacityplans.ProductionCapacityPlansMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.bases.controller.admin.productioncapacityplans.vo.*;
-import cn.acsm.module.production.bases.dal.dataobject.productioncapacityplans.ProductionCapacityPlansDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.bases.convert.productioncapacityplans.ProductionCapacityPlansConvert;
-import cn.acsm.module.production.bases.dal.mysql.productioncapacityplans.ProductionCapacityPlansMapper;
-
+import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.PRODUCTION_CAPACITY_PLANS_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.*;
 
 /**
  * 产能计划 Service 实现类
@@ -41,6 +42,7 @@ public class ProductionCapacityPlansServiceImpl implements ProductionCapacityPla
     }
 
     @Override
+    @CacheEvict(value = "basesProductionCapacity", key = "#updateReqVO.id")
     public void updateProductionCapacityPlans(ProductionCapacityPlansUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateProductionCapacityPlansExists(updateReqVO.getId());
@@ -50,6 +52,7 @@ public class ProductionCapacityPlansServiceImpl implements ProductionCapacityPla
     }
 
     @Override
+    @CacheEvict(value = "basesProductionCapacity", key = "#id")
     public void deleteProductionCapacityPlans(Long id) {
         // 校验存在
         this.validateProductionCapacityPlansExists(id);
@@ -64,6 +67,7 @@ public class ProductionCapacityPlansServiceImpl implements ProductionCapacityPla
     }
 
     @Override
+    @Cacheable(value = "basesProductionCapacity", key = "#id")
     public ProductionCapacityPlansDO getProductionCapacityPlans(Long id) {
         return productionCapacityPlansMapper.selectById(id);
     }

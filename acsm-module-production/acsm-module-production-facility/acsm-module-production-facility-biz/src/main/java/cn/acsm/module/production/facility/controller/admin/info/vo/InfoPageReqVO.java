@@ -19,7 +19,7 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class InfoPageReqVO extends PageParam {
 
-    @ApiModelProperty(value = "基地")
+    @ApiModelProperty(value = "基地")
     private String baseId;
 
     @ApiModelProperty(value = "名称")

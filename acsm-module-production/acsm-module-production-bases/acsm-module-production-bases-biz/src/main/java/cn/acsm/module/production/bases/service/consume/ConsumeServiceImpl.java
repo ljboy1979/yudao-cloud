@@ -4,19 +4,20 @@ import cn.acsm.module.production.bases.controller.admin.consume.vo.ConsumeCreate
 import cn.acsm.module.production.bases.controller.admin.consume.vo.ConsumeExportReqVO;
 import cn.acsm.module.production.bases.controller.admin.consume.vo.ConsumePageReqVO;
 import cn.acsm.module.production.bases.controller.admin.consume.vo.ConsumeUpdateReqVO;
+import cn.acsm.module.production.bases.convert.consume.ConsumeConvert;
+import cn.acsm.module.production.bases.dal.dataobject.consume.ConsumeDO;
+import cn.acsm.module.production.bases.dal.mysql.consume.ConsumeMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.bases.controller.admin.consume.vo.*;
-import cn.acsm.module.production.bases.dal.dataobject.consume.ConsumeDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.bases.convert.consume.ConsumeConvert;
-import cn.acsm.module.production.bases.dal.mysql.consume.ConsumeMapper;
-
-import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.*;
+import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.CONSUME_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
 
 /**
@@ -41,6 +42,7 @@ public class ConsumeServiceImpl implements ConsumeService {
     }
 
     @Override
+    @CacheEvict(value = "basesConsume", key = "#updateReqVO.id")
     public void updateConsume(ConsumeUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateConsumeExists(updateReqVO.getId());
@@ -50,6 +52,7 @@ public class ConsumeServiceImpl implements ConsumeService {
     }
 
     @Override
+    @CacheEvict(value = "basesConsume", key = "#id")
     public void deleteConsume(Long id) {
         // 校验存在
         this.validateConsumeExists(id);
@@ -69,6 +72,7 @@ public class ConsumeServiceImpl implements ConsumeService {
     }
 
     @Override
+    @Cacheable(cacheNames = "basesConsume", key = "#id")
     public List<ConsumeDO> getConsumeList(Collection<Long> ids) {
         return consumeMapper.selectBatchIds(ids);
     }
