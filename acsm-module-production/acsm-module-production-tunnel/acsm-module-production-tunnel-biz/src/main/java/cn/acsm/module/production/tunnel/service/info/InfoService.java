@@ -1,10 +1,15 @@
 package cn.acsm.module.production.tunnel.service.info;
 
-import java.util.*;
-import javax.validation.*;
-import cn.acsm.module.production.tunnel.controller.admin.info.vo.*;
+import cn.acsm.module.production.tunnel.controller.admin.info.vo.InfoCreateReqVO;
+import cn.acsm.module.production.tunnel.controller.admin.info.vo.InfoExportReqVO;
+import cn.acsm.module.production.tunnel.controller.admin.info.vo.InfoPageReqVO;
+import cn.acsm.module.production.tunnel.controller.admin.info.vo.InfoUpdateReqVO;
 import cn.acsm.module.production.tunnel.dal.dataobject.info.InfoDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+
+import javax.validation.Valid;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 地块信息 Service 接口
@@ -50,6 +55,9 @@ public interface InfoService {
      * @return 地块信息列表
      */
     List<InfoDO> getInfoList(Collection<Long> ids);
+
+
+    List<InfoDO> getInfoList2(InfoPageReqVO pageVO);
 
     /**
      * 获得地块信息分页
