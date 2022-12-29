@@ -23,6 +23,9 @@
         <if test=" specificationsName !=null and specificationsName!='' ">
             AND ss.specifications_name like CONCAT('%',#{specificationsName},'%')
         </if>
+        <if test=" type !=null and type!='' ">
+            AND ssr.type =  #{type}
+        </if>
         <if test=" creator !=null and creator!='' ">
             AND ssr.creator like CONCAT('%',#{creator},'%')
         </if>
@@ -49,6 +52,9 @@
         </if>
         <if test=" creator !=null and creator!='' ">
             AND ssr.creator like CONCAT('%',#{creator},'%')
+        </if>
+        <if test=" type !=null and type!='' ">
+            AND ssr.type =  #{type}
         </if>
         <if test=" createTime !=null ">
             AND ssr.update_time BETWEEN
