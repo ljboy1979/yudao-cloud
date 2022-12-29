@@ -17,6 +17,7 @@ public class StockRecordBaseVO {
     private String specificationsId;
 
     @ApiModelProperty(value = "类型 0 上架 1下架 2销售 3报损 4退货")
+    @NotNull(message = "类型不能为空")
     private String type;
 
     @ApiModelProperty(value = "操作量", required = true)
@@ -24,19 +25,19 @@ public class StockRecordBaseVO {
     private BigDecimal amount;
 
     @ApiModelProperty(value = "备注", required = true)
-    @NotNull(message = "备注不能为空")
+    //@NotNull(message = "备注不能为空")
     private String remark;
 
     @ApiModelProperty(value = "状态", required = true)
-    @NotNull(message = "状态不能为空")
+    //@NotNull(message = "状态不能为空")
     private Integer status;
 
     @ApiModelProperty(value = "经营主体id", required = true)
-    @NotNull(message = "经营主体id不能为空")
+    //@NotNull(message = "经营主体id不能为空")
     private String subjectId;
 
     @ApiModelProperty(value = "source", required = true)
-    @NotNull(message = "source不能为空")
+    //@NotNull(message = "source不能为空")
     private String source;
 
 }

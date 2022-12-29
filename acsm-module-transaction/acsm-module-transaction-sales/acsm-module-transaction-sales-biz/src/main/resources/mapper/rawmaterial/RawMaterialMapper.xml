@@ -40,7 +40,7 @@
         srms.selling_price AS sellingPrice,
         CONCAT(srms.number,srms.unit_name,"/",srms.packaging_name) AS specifications,
         srm.name AS salesName,
-        ssmfc.category_name AS classifyName
+        srmc.category_name AS classifyName
         FROM sales_raw_material_specification srms
         LEFT JOIN sales_raw_material srm on srms.raw_material_id = srm.id
         LEFT JOIN sales_raw_material_classify srmc on srmc.id = srm.classify
