@@ -4,20 +4,21 @@ import cn.acsm.module.production.bases.controller.admin.partitions.vo.Partitions
 import cn.acsm.module.production.bases.controller.admin.partitions.vo.PartitionsExportReqVO;
 import cn.acsm.module.production.bases.controller.admin.partitions.vo.PartitionsPageReqVO;
 import cn.acsm.module.production.bases.controller.admin.partitions.vo.PartitionsUpdateReqVO;
+import cn.acsm.module.production.bases.convert.partitions.PartitionsConvert;
+import cn.acsm.module.production.bases.dal.dataobject.partitions.PartitionsDO;
+import cn.acsm.module.production.bases.dal.mysql.partitions.PartitionsMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.bases.controller.admin.partitions.vo.*;
-import cn.acsm.module.production.bases.dal.dataobject.partitions.PartitionsDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.bases.convert.partitions.PartitionsConvert;
-import cn.acsm.module.production.bases.dal.mysql.partitions.PartitionsMapper;
-
+import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.PARTITIONS_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.*;
 
 /**
  * 分区信息 Service 实现类
@@ -41,6 +42,7 @@ public class PartitionsServiceImpl implements PartitionsService {
     }
 
     @Override
+    @CacheEvict(value = "partitions", key = "#updateReqVO.id")
     public void updatePartitions(PartitionsUpdateReqVO updateReqVO) {
         // 校验存在
         this.validatePartitionsExists(updateReqVO.getId());
@@ -50,6 +52,7 @@ public class PartitionsServiceImpl implements PartitionsService {
     }
 
     @Override
+    @CacheEvict(value = "partitions", key = "#id")
     public void deletePartitions(Long id) {
         // 校验存在
         this.validatePartitionsExists(id);
@@ -64,6 +67,7 @@ public class PartitionsServiceImpl implements PartitionsService {
     }
 
     @Override
+    @Cacheable(cacheNames = "partitions", key = "#id")
     public PartitionsDO getPartitions(Long id) {
         return partitionsMapper.selectById(id);
     }

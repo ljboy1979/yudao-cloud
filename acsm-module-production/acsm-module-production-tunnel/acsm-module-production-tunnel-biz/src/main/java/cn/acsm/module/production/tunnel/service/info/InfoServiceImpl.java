@@ -1,19 +1,24 @@
 package cn.acsm.module.production.tunnel.service.info;
 
+import cn.acsm.module.production.tunnel.controller.admin.info.vo.InfoCreateReqVO;
+import cn.acsm.module.production.tunnel.controller.admin.info.vo.InfoExportReqVO;
+import cn.acsm.module.production.tunnel.controller.admin.info.vo.InfoPageReqVO;
+import cn.acsm.module.production.tunnel.controller.admin.info.vo.InfoUpdateReqVO;
+import cn.acsm.module.production.tunnel.convert.info.InfoConvert;
+import cn.acsm.module.production.tunnel.dal.dataobject.info.InfoDO;
+import cn.acsm.module.production.tunnel.dal.mysql.info.InfoMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.tunnel.controller.admin.info.vo.*;
-import cn.acsm.module.production.tunnel.dal.dataobject.info.InfoDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.tunnel.convert.info.InfoConvert;
-import cn.acsm.module.production.tunnel.dal.mysql.info.InfoMapper;
-
+import static cn.acsm.module.production.tunnel.enums.ErrorCodeConstants.INFO_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.acsm.module.production.tunnel.enums.ErrorCodeConstants.*;
 
 /**
  * 地块信息 Service 实现类
@@ -37,6 +42,7 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
+    @CacheEvict(value = "tunnel-info", key = "#updateReqVO.id")
     public void updateInfo(InfoUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateInfoExists(updateReqVO.getId());
@@ -46,6 +52,7 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
+    @CacheEvict(value = "tunnel-info", key = "#id")
     public void deleteInfo(Long id) {
         // 校验存在
         this.validateInfoExists(id);
@@ -60,6 +67,7 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
+    @Cacheable(value = "tunnel-info", key = "#id")
     public InfoDO getInfo(Long id) {
         return infoMapper.selectById(id);
     }

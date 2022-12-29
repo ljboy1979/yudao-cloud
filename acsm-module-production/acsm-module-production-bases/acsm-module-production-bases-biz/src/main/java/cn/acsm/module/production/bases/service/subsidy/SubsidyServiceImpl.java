@@ -5,19 +5,20 @@ import cn.acsm.module.production.bases.controller.admin.subsidy.vo.SubsidyExport
 import cn.acsm.module.production.bases.controller.admin.subsidy.vo.SubsidyPageReqVO;
 import cn.acsm.module.production.bases.controller.admin.subsidy.vo.SubsidyUpdateReqVO;
 import cn.acsm.module.production.bases.convert.subsidy.SubsidyConvert;
+import cn.acsm.module.production.bases.dal.dataobject.subsidy.SubsidyDO;
+import cn.acsm.module.production.bases.dal.mysql.subsidy.SubsidyMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.bases.controller.admin.subsidy.vo.*;
-import cn.acsm.module.production.bases.dal.dataobject.subsidy.SubsidyDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.bases.dal.mysql.subsidy.SubsidyMapper;
-
+import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.SUBSIDY_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.*;
 
 /**
  * 基地补贴信息 Service 实现类
@@ -41,6 +42,7 @@ public class SubsidyServiceImpl implements SubsidyService {
     }
 
     @Override
+    @CacheEvict(value = "basesSubsidy", key = "#updateReqVO.id")
     public void updateSubsidy(SubsidyUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateSubsidyExists(updateReqVO.getId());
@@ -50,6 +52,7 @@ public class SubsidyServiceImpl implements SubsidyService {
     }
 
     @Override
+    @CacheEvict(value = "basesSubsidy", key = "#id")
     public void deleteSubsidy(Long id) {
         // 校验存在
         this.validateSubsidyExists(id);
@@ -64,6 +67,7 @@ public class SubsidyServiceImpl implements SubsidyService {
     }
 
     @Override
+    @Cacheable(value = "basesSubsidy", key = "#id")
     public SubsidyDO getSubsidy(Long id) {
         return subsidyMapper.selectById(id);
     }

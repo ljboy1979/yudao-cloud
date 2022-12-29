@@ -4,20 +4,21 @@ import cn.acsm.module.production.bases.controller.admin.phenologicalenv.vo.Pheno
 import cn.acsm.module.production.bases.controller.admin.phenologicalenv.vo.PhenologicalEnvExportReqVO;
 import cn.acsm.module.production.bases.controller.admin.phenologicalenv.vo.PhenologicalEnvPageReqVO;
 import cn.acsm.module.production.bases.controller.admin.phenologicalenv.vo.PhenologicalEnvUpdateReqVO;
+import cn.acsm.module.production.bases.convert.phenologicalenv.PhenologicalEnvConvert;
+import cn.acsm.module.production.bases.dal.dataobject.phenologicalenv.PhenologicalEnvDO;
+import cn.acsm.module.production.bases.dal.mysql.phenologicalenv.PhenologicalEnvMapper;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
-import cn.acsm.module.production.bases.controller.admin.phenologicalenv.vo.*;
-import cn.acsm.module.production.bases.dal.dataobject.phenologicalenv.PhenologicalEnvDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 
-import cn.acsm.module.production.bases.convert.phenologicalenv.PhenologicalEnvConvert;
-import cn.acsm.module.production.bases.dal.mysql.phenologicalenv.PhenologicalEnvMapper;
-
+import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.PHENOLOGICAL_ENV_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.acsm.module.production.bases.enums.ErrorCodeConstants.*;
 
 /**
  * 基地物候环境 Service 实现类
@@ -41,6 +42,7 @@ public class PhenologicalEnvServiceImpl implements PhenologicalEnvService {
     }
 
     @Override
+    @CacheEvict(value = "basesPhenologicalEnv", key = "#updateReqVO.id")
     public void updatePhenologicalEnv(PhenologicalEnvUpdateReqVO updateReqVO) {
         // 校验存在
         this.validatePhenologicalEnvExists(updateReqVO.getId());
@@ -50,6 +52,7 @@ public class PhenologicalEnvServiceImpl implements PhenologicalEnvService {
     }
 
     @Override
+    @CacheEvict(value = "basesPhenologicalEnv", key = "#id")
     public void deletePhenologicalEnv(Long id) {
         // 校验存在
         this.validatePhenologicalEnvExists(id);
@@ -64,6 +67,7 @@ public class PhenologicalEnvServiceImpl implements PhenologicalEnvService {
     }
 
     @Override
+    @Cacheable(cacheNames = "basesPhenologicalEnv", key = "#id")
     public PhenologicalEnvDO getPhenologicalEnv(Long id) {
         return phenologicalEnvMapper.selectById(id);
     }

@@ -1,33 +1,20 @@
-package cn.acsm.module.production.facility.dal.dataobject.info;
+package cn.acsm.module.production.facility.api.info.dto;
 
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * 设施 DO
- *
- * @author 芋道源码
- */
-@TableName("facility_info")
-@KeySequence("facility_info_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InfoDO extends BaseDO {
+public class FacilityInfoDto {
 
     /**
      * 主键
      */
-    @TableId
     private Long id;
     /**
      * 基地
@@ -237,5 +224,4 @@ public class InfoDO extends BaseDO {
      * 经营主体ID
      */
     private Long subjectId;
-
 }

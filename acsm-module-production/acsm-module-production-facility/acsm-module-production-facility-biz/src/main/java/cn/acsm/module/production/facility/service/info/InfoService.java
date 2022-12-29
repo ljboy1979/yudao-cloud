@@ -1,10 +1,16 @@
 package cn.acsm.module.production.facility.service.info;
 
-import java.util.*;
-import javax.validation.*;
-import cn.acsm.module.production.facility.controller.admin.info.vo.*;
+import cn.acsm.module.production.facility.api.info.dto.FacilityInfoDto;
+import cn.acsm.module.production.facility.controller.admin.info.vo.InfoCreateReqVO;
+import cn.acsm.module.production.facility.controller.admin.info.vo.InfoExportReqVO;
+import cn.acsm.module.production.facility.controller.admin.info.vo.InfoPageReqVO;
+import cn.acsm.module.production.facility.controller.admin.info.vo.InfoUpdateReqVO;
 import cn.acsm.module.production.facility.dal.dataobject.info.InfoDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+
+import javax.validation.Valid;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 设施 Service 接口
@@ -66,5 +72,12 @@ public interface InfoService {
      * @return 设施列表
      */
     List<InfoDO> getInfoList(InfoExportReqVO exportReqVO);
+
+    /**
+     * 通过主键获取 详情
+     * @param id
+     * @return
+     */
+    public FacilityInfoDto getFacilityInfoById(Long id);
 
 }
