@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.shelves.service.stockclassify;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +35,7 @@ public class StockClassifyServiceImpl implements StockClassifyService {
     private StockClassifyMapper stockClassifyMapper;
 
     @Override
-    public String createStockClassify(StockClassifyCreateReqVO createReqVO) {
+    public CommonResult createStockClassify(StockClassifyCreateReqVO createReqVO) {
         if (StringUtils.isNotEmpty(createReqVO.getParentCode())) {
             StockClassifyDO parenMarketClassify = stockClassifyMapper.selectById(createReqVO.getParentCode());
             createReqVO.setParentCodes(parenMarketClassify.getParentCodes()+createReqVO.getParentCode()+",");
@@ -52,6 +53,9 @@ public class StockClassifyServiceImpl implements StockClassifyService {
             createReqVO.setTreeLevel(new BigDecimal(0));
             createReqVO.setTreeNames(createReqVO.getClassifyName());
         }
+        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+        }
         Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
         uuid = uuid < 0 ? -uuid : uuid;
         // 插入
@@ -59,16 +63,37 @@ public class StockClassifyServiceImpl implements StockClassifyService {
         stockClassify.setId(uuid.toString());
         stockClassifyMapper.insert(stockClassify);
         // 返回
-        return stockClassify.getId();
+        return CommonResult.success(stockClassify.getId());
     }
 
     @Override
-    public void updateStockClassify(StockClassifyUpdateReqVO updateReqVO) {
+    public CommonResult updateStockClassify(StockClassifyUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateStockClassifyExists(updateReqVO.getId());
+        if (StringUtils.isNotEmpty(updateReqVO.getParentCode())) {
+            StockClassifyDO parenMarketClassify = stockClassifyMapper.selectById(updateReqVO.getParentCode());
+            updateReqVO.setParentCodes(parenMarketClassify.getParentCodes()+updateReqVO.getParentCode()+",");
+            updateReqVO.setTreeSort(new BigDecimal(0));
+            updateReqVO.setTreeSorts(parenMarketClassify.getTreeSorts()+"0,");
+            updateReqVO.setTreeLeaf("0");
+            updateReqVO.setTreeLevel(parenMarketClassify.getTreeLevel().add(new BigDecimal(1)));
+            updateReqVO.setTreeNames(parenMarketClassify.getTreeNames()+"/"+updateReqVO.getClassifyName());
+        }else {
+            updateReqVO.setParentCode("0");
+            updateReqVO.setParentCodes("0,");
+            updateReqVO.setTreeSort(new BigDecimal(0));
+            updateReqVO.setTreeSorts("0,");
+            updateReqVO.setTreeLeaf("0");
+            updateReqVO.setTreeLevel(new BigDecimal(0));
+            updateReqVO.setTreeNames(updateReqVO.getClassifyName());
+        }
+        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+        }
         // 更新
         StockClassifyDO updateObj = StockClassifyConvert.INSTANCE.convert(updateReqVO);
         stockClassifyMapper.updateById(updateObj);
+        return CommonResult.success("成功");
     }
 
     @Override

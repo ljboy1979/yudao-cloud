@@ -5,6 +5,7 @@ import javax.validation.*;
 
 import cn.acsm.module.transaction.sales.controller.admin.commoditycategory.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.commoditycategory.CommodityCategoryDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 
@@ -21,14 +22,14 @@ public interface CommodityCategoryService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createCommodityCategory(@Valid CommodityCategoryCreateReqVO createReqVO);
+    CommonResult createCommodityCategory(@Valid CommodityCategoryCreateReqVO createReqVO);
 
     /**
      * 更新商品分类
      *
      * @param updateReqVO 更新信息
      */
-    void updateCommodityCategory(@Valid CommodityCategoryUpdateReqVO updateReqVO);
+    CommonResult updateCommodityCategory(@Valid CommodityCategoryUpdateReqVO updateReqVO);
 
     /**
      * 删除商品分类

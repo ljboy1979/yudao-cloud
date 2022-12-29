@@ -41,15 +41,15 @@ public class StockClassifyController {
     @ApiOperation("创建库存分类")
     @PreAuthorize("@ss.hasPermission('shelves:stock-classify:create')")
     public CommonResult<String> createStockClassify(@Valid @RequestBody StockClassifyCreateReqVO createReqVO) {
-        return success(stockClassifyService.createStockClassify(createReqVO));
+        return stockClassifyService.createStockClassify(createReqVO);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新库存分类")
     @PreAuthorize("@ss.hasPermission('shelves:stock-classify:update')")
     public CommonResult<Boolean> updateStockClassify(@Valid @RequestBody StockClassifyUpdateReqVO updateReqVO) {
-        stockClassifyService.updateStockClassify(updateReqVO);
-        return success(true);
+
+        return stockClassifyService.updateStockClassify(updateReqVO);
     }
 
     @DeleteMapping("/delete")

@@ -1,6 +1,7 @@
 package cn.acsm.module.transaction.shelves.stockclassify;
 
 import cn.acsm.module.transaction.shelves.service.stockclassify.StockClassifyServiceImpl;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -48,11 +49,11 @@ public class StockClassifyServiceImplTest extends BaseDbUnitTest {
         StockClassifyCreateReqVO reqVO = randomPojo(StockClassifyCreateReqVO.class);
 
         // 调用
-        String stockClassifyId = stockClassifyService.createStockClassify(reqVO);
+        CommonResult result = stockClassifyService.createStockClassify(reqVO);
         // 断言
-        assertNotNull(stockClassifyId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        StockClassifyDO stockClassify = stockClassifyMapper.selectById(stockClassifyId);
+        StockClassifyDO stockClassify = stockClassifyMapper.selectById(result.getData().toString());
         assertPojoEquals(reqVO, stockClassify);
     }
 

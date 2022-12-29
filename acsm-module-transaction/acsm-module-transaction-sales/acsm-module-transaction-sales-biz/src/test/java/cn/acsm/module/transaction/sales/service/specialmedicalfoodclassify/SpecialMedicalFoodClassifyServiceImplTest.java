@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.sales.service.specialmedicalfoodclassify;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -47,11 +48,11 @@ public class SpecialMedicalFoodClassifyServiceImplTest extends BaseDbUnitTest {
         SpecialMedicalFoodClassifyCreateReqVO reqVO = randomPojo(SpecialMedicalFoodClassifyCreateReqVO.class);
 
         // 调用
-        String specialMedicalFoodClassifyId = specialMedicalFoodClassifyService.createSpecialMedicalFoodClassify(reqVO);
+        CommonResult result  = specialMedicalFoodClassifyService.createSpecialMedicalFoodClassify(reqVO);
         // 断言
-        assertNotNull(specialMedicalFoodClassifyId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        SpecialMedicalFoodClassifyDO specialMedicalFoodClassify = specialMedicalFoodClassifyMapper.selectById(specialMedicalFoodClassifyId);
+        SpecialMedicalFoodClassifyDO specialMedicalFoodClassify = specialMedicalFoodClassifyMapper.selectById(result.getData().toString());
         assertPojoEquals(reqVO, specialMedicalFoodClassify);
     }
 

@@ -4,6 +4,7 @@ import java.util.*;
 import javax.validation.*;
 import cn.acsm.module.transaction.shelves.controller.admin.stockclassify.vo.*;
 import cn.acsm.module.transaction.shelves.dal.dataobject.stockclassify.StockClassifyDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 
@@ -20,14 +21,14 @@ public interface StockClassifyService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createStockClassify(@Valid StockClassifyCreateReqVO createReqVO);
+    CommonResult createStockClassify(@Valid StockClassifyCreateReqVO createReqVO);
 
     /**
      * 更新库存分类
      *
      * @param updateReqVO 更新信息
      */
-    void updateStockClassify(@Valid StockClassifyUpdateReqVO updateReqVO);
+    CommonResult updateStockClassify(@Valid StockClassifyUpdateReqVO updateReqVO);
 
     /**
      * 删除库存分类

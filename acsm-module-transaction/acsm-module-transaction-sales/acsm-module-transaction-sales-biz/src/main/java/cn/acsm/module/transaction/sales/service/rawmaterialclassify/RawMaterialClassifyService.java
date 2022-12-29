@@ -5,6 +5,7 @@ import javax.validation.*;
 
 import cn.acsm.module.transaction.sales.dal.dataobject.rawmaterialclassify.RawMaterialClassifyDO;
 import cn.acsm.module.transaction.sales.controller.admin.rawmaterialclassify.vo.*;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 /**
@@ -20,14 +21,14 @@ public interface RawMaterialClassifyService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createRawMaterialClassify(@Valid RawMaterialClassifyCreateReqVO createReqVO);
+    CommonResult createRawMaterialClassify(@Valid RawMaterialClassifyCreateReqVO createReqVO);
 
     /**
      * 更新原料分类
      *
      * @param updateReqVO 更新信息
      */
-    void updateRawMaterialClassify(@Valid RawMaterialClassifyUpdateReqVO updateReqVO);
+    CommonResult updateRawMaterialClassify(@Valid RawMaterialClassifyUpdateReqVO updateReqVO);
 
     /**
      * 删除原料分类

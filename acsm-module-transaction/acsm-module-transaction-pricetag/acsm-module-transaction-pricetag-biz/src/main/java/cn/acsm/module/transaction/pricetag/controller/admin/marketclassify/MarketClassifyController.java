@@ -40,15 +40,14 @@ public class MarketClassifyController {
     @ApiOperation("创建市场分类")
     @PreAuthorize("@ss.hasPermission('pricetag:market-classify:create')")
     public CommonResult<String> createMarketClassify(@Valid @RequestBody MarketClassifyCreateReqVO createReqVO) {
-        return success(marketClassifyService.createMarketClassify(createReqVO));
+        return marketClassifyService.createMarketClassify(createReqVO);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新市场分类")
     @PreAuthorize("@ss.hasPermission('pricetag:market-classify:update')")
     public CommonResult<Boolean> updateMarketClassify(@Valid @RequestBody MarketClassifyUpdateReqVO updateReqVO) {
-        marketClassifyService.updateMarketClassify(updateReqVO);
-        return success(true);
+        return marketClassifyService.updateMarketClassify(updateReqVO);
     }
 
     @DeleteMapping("/delete")

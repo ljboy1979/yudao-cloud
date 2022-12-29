@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.sales.service.inputclassify;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -46,11 +47,11 @@ public class InputClassifyServiceImplTest extends BaseDbUnitTest {
         InputClassifyCreateReqVO reqVO = randomPojo(InputClassifyCreateReqVO.class);
 
         // 调用
-        String inputClassifyId = inputClassifyService.createInputClassify(reqVO);
+        CommonResult result = inputClassifyService.createInputClassify(reqVO);
         // 断言
-        assertNotNull(inputClassifyId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        InputClassifyDO inputClassify = inputClassifyMapper.selectById(inputClassifyId);
+        InputClassifyDO inputClassify = inputClassifyMapper.selectById(result.getData().toString());
         assertPojoEquals(reqVO, inputClassify);
     }
 
