@@ -1,30 +1,29 @@
 package cn.acsm.module.production.tunnel.controller.admin.info;
 
-import org.springframework.web.bind.annotation.*;
-import javax.annotation.Resource;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.security.access.prepost.PreAuthorize;
-import io.swagger.annotations.*;
-
-import javax.validation.constraints.*;
-import javax.validation.*;
-import javax.servlet.http.*;
-import java.util.*;
-import java.io.IOException;
-
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
-
-import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
-
-import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
-import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.*;
-
 import cn.acsm.module.production.tunnel.controller.admin.info.vo.*;
-import cn.acsm.module.production.tunnel.dal.dataobject.info.InfoDO;
 import cn.acsm.module.production.tunnel.convert.info.InfoConvert;
+import cn.acsm.module.production.tunnel.dal.dataobject.info.InfoDO;
 import cn.acsm.module.production.tunnel.service.info.InfoService;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
+import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+
+import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
+import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
 @Api(tags = "管理后台 - 地块信息")
 @RestController
@@ -74,6 +73,14 @@ public class InfoController {
     @PreAuthorize("@ss.hasPermission('tunnel:info:query')")
     public CommonResult<List<InfoRespVO>> getInfoList(@RequestParam("ids") Collection<Long> ids) {
         List<InfoDO> list = infoService.getInfoList(ids);
+        return success(InfoConvert.INSTANCE.convertList(list));
+    }
+
+    @GetMapping("/list2")
+    @ApiOperation("获得地块信息列表")
+    @PreAuthorize("@ss.hasPermission('tunnel:info:query')")
+    public CommonResult<List<InfoRespVO>> getInfoList(@Valid InfoPageReqVO pageVO) {
+        List<InfoDO> list = infoService.getInfoList2(pageVO);
         return success(InfoConvert.INSTANCE.convertList(list));
     }
 

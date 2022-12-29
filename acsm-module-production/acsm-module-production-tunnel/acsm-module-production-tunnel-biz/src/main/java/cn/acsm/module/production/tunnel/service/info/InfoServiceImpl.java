@@ -73,6 +73,11 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
+    public List<InfoDO> getInfoList2(InfoPageReqVO pageVO){
+        return infoMapper.selectList(pageVO);
+    }
+
+    @Override
     public List<InfoDO> getInfoList(Collection<Long> ids) {
         return infoMapper.selectBatchIds(ids);
     }
