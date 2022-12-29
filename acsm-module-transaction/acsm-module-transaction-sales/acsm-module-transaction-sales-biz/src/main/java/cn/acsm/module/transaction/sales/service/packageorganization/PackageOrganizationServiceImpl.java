@@ -111,13 +111,7 @@ public class PackageOrganizationServiceImpl implements PackageOrganizationServic
         this.validatePackageOrganizationExists(updateReqVO.getId());
         // 更新
         PackageOrganizationDO updateObj = PackageOrganizationConvert.INSTANCE.convert(updateReqVO);
-        Integer type=null;
-        if("0".equals(updateReqVO.getType())){
-            type = 2;
-        }
-        if("1".equals(updateReqVO.getType())){
-            type = 3;
-        }
+        Integer type=Integer.valueOf(updateReqVO.getType());
         ShelvesSalesReqVO shelvesSalesReqVO = new ShelvesSalesReqVO();
         shelvesSalesReqVO.setClassify(Long.valueOf(updateReqVO.getClassify()));
         List<TreeSelect> classifyList = shelvesContext.getService(ShelvesEnums.getByType(type).getValue()).findClassify(shelvesSalesReqVO);
