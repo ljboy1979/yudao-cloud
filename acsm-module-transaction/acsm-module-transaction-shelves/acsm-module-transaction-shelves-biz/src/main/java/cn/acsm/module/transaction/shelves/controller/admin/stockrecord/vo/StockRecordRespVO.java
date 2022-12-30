@@ -23,10 +23,10 @@ public class StockRecordRespVO extends StockRecordBaseVO {
 
 
     @ApiModelProperty(value = "创建时间", required = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     @ApiModelProperty(value = "更新时间", required = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
 }
