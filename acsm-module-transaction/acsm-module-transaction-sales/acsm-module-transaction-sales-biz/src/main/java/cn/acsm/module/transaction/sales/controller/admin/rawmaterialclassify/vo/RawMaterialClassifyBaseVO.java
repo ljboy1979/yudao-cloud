@@ -58,5 +58,6 @@ public class RawMaterialClassifyBaseVO {
     private String source;
 
     @ApiModelProperty(value = "备注")
+    @Size(max = 200 , min = 0,message = "备注个数必须在0和200之间")
     private String remarks;
 }
