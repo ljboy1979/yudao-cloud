@@ -23,6 +23,7 @@ public interface DishesCategoryMapper extends BaseMapperX<DishesCategoryDO> {
     default PageResult<DishesCategoryDO> selectPage(DishesCategoryPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<DishesCategoryDO>()
                 .likeIfPresent(DishesCategoryDO::getCategoryName, reqVO.getCategoryName())
+                .eqIfPresent(DishesCategoryDO::getParentCode,reqVO.getParentCode())
                 .betweenIfPresent(DishesCategoryDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(DishesCategoryDO::getId));
     }

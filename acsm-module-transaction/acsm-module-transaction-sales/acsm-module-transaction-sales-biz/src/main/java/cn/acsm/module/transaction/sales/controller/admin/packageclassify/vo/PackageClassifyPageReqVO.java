@@ -17,6 +17,9 @@ public class PackageClassifyPageReqVO extends PageParam {
     @ApiModelProperty(value = "分类名称")
     private String categoryName;
 
+    @ApiModelProperty(value = "父级编号", required = true)
+    private String parentCode;
+
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private Date[] createTime;

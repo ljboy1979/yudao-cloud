@@ -46,5 +46,6 @@ public interface ErrorCodeConstants {
     ErrorCode SPECIAL_MEDICAL_FOOD_SPECIFICATION_EXISTENCE = new ErrorCode(2000000036, "特医食品规格不存在");
     ErrorCode STRATEGY_NOT_DEFINED =  new ErrorCode (2000000037, "未定义策略,未找到通知接口对应的处理实现类");
     ErrorCode STOCK_CLASSIFY_OVER_LIMIT = new ErrorCode(2100000038, "库存分类层级已超限制，最大4级");
+    ErrorCode STOCK_CLASSIFY_OVER_LIMIT3 = new ErrorCode(2100000038, "库存分类层级已超限制，最大3级");
 
 }

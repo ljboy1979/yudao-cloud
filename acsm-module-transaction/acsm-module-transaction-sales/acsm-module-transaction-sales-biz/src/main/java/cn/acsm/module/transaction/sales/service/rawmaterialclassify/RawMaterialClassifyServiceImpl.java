@@ -24,6 +24,7 @@ import cn.acsm.module.transaction.sales.convert.rawmaterialclassify.RawMaterialC
 import cn.acsm.module.transaction.sales.dal.mysql.rawmaterialclassify.RawMaterialClassifyMapper;
 
 import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.STOCK_CLASSIFY_OVER_LIMIT;
+import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.STOCK_CLASSIFY_OVER_LIMIT3;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.RAW_MATERIAL_CLASSIFY_NOT_EXISTS;
 
@@ -58,8 +59,11 @@ public class RawMaterialClassifyServiceImpl implements RawMaterialClassifyServic
             createReqVO.setTreeLevel(new BigDecimal(0));
             createReqVO.setTreeNames(createReqVO.getCategoryName());
         }
-        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
-            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(2))==1){
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT3);
+        }
+        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(2))==0){
+            createReqVO.setTreeLeaf("1");
         }
         Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
         uuid = uuid < 0 ? -uuid : uuid;
@@ -92,8 +96,11 @@ public class RawMaterialClassifyServiceImpl implements RawMaterialClassifyServic
             updateReqVO.setTreeLevel(new BigDecimal(0));
             updateReqVO.setTreeNames(updateReqVO.getCategoryName());
         }
-        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
-            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(2))==1){
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT3);
+        }
+        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(2))==0){
+            updateReqVO.setTreeLeaf("1");
         }
         // 更新
         RawMaterialClassifyDO updateObj = RawMaterialClassifyConvert.INSTANCE.convert(updateReqVO);
@@ -127,6 +134,12 @@ public class RawMaterialClassifyServiceImpl implements RawMaterialClassifyServic
 
     @Override
     public PageResult<RawMaterialClassifyDO> getRawMaterialClassifyPage(RawMaterialClassifyPageReqVO pageReqVO) {
+        if (StringUtils.isEmpty(pageReqVO.getParentCode())){
+            pageReqVO.setParentCode("0");
+        }else {
+            pageReqVO.setPageNo(1);
+            pageReqVO.setPageSize(99999);
+        }
         return rawMaterialClassifyMapper.selectPage(pageReqVO);
     }
 

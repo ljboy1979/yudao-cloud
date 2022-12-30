@@ -56,6 +56,9 @@ public class MarketClassifyServiceImpl implements MarketClassifyService {
         if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
             return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
         }
+        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==0){
+            createReqVO.setTreeLeaf("1");
+        }
         // 插入
         MarketClassifyDO marketClassify = MarketClassifyConvert.INSTANCE.convert(createReqVO);
         Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
@@ -90,6 +93,9 @@ public class MarketClassifyServiceImpl implements MarketClassifyService {
         if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
             return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
         }
+        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==0){
+            updateReqVO.setTreeLeaf("1");
+        }
         // 更新
         MarketClassifyDO updateObj = MarketClassifyConvert.INSTANCE.convert(updateReqVO);
         marketClassifyMapper.updateById(updateObj);
@@ -122,6 +128,12 @@ public class MarketClassifyServiceImpl implements MarketClassifyService {
 
     @Override
     public PageResult<MarketClassifyDO> getMarketClassifyPage(MarketClassifyPageReqVO pageReqVO) {
+        if (StringUtils.isEmpty(pageReqVO.getParentCode())){
+            pageReqVO.setParentCode("0");
+        }else {
+            pageReqVO.setPageNo(1);
+            pageReqVO.setPageSize(99999);
+        }
         return marketClassifyMapper.selectPage(pageReqVO);
     }
 

@@ -21,6 +21,7 @@ public interface RawMaterialClassifyMapper extends BaseMapperX<RawMaterialClassi
     default PageResult<RawMaterialClassifyDO> selectPage(RawMaterialClassifyPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<RawMaterialClassifyDO>()
                 .likeIfPresent(RawMaterialClassifyDO::getCategoryName, reqVO.getCategoryName())
+                .eqIfPresent(RawMaterialClassifyDO::getParentCode,reqVO.getParentCode())
                 .orderByDesc(RawMaterialClassifyDO::getId));
     }
 

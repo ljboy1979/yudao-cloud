@@ -10,5 +10,9 @@ public interface ErrorCodeConstants {
     ErrorCode CONTRACT_NOT_EXISTS = new ErrorCode(270000001, "租赁合同不存在");
     ErrorCode INFO_NOT_EXISTS = new ErrorCode(270000002, "设施不存在");
 
+    ErrorCode CARGO_SPACE_NOT_EXISTS = new ErrorCode(270000003, "设施货位不存在");
+
+    ErrorCode MAINTENANCE_NOT_EXISTS = new ErrorCode(270000004, "设施维护记录不存在");
+
 }
 

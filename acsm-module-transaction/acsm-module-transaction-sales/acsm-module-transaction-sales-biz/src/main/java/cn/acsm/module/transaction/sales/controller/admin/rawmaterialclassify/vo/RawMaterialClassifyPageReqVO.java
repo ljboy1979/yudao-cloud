@@ -14,4 +14,7 @@ public class RawMaterialClassifyPageReqVO extends PageParam {
     @ApiModelProperty(value = "分类名称")
     private String categoryName;
 
+    @ApiModelProperty(value = "父级编号", required = true)
+    private String parentCode;
+
 }

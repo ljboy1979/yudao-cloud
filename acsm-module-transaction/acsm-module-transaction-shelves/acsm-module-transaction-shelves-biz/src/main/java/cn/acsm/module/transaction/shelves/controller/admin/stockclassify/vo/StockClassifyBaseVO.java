@@ -16,6 +16,7 @@ public class StockClassifyBaseVO {
 
     @ApiModelProperty(value = "分类名称", required = true)
     @NotNull(message = "分类名称不能为空")
+    @Size(max = 10 , min = 0,message = "分类名称个数必须在0和10之间")
     private String classifyName;
 
     @ApiModelProperty(value = "父级编号", required = true)
@@ -66,5 +67,6 @@ public class StockClassifyBaseVO {
     private String source;
 
     @ApiModelProperty(value = "备注")
+    @Size(max = 200 , min = 0,message = "备注个数必须在0和200之间")
     private String remarks;
 }

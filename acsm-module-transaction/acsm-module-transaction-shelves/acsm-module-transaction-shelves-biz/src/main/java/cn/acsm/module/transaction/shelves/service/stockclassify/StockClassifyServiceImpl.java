@@ -56,6 +56,9 @@ public class StockClassifyServiceImpl implements StockClassifyService {
         if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
             return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
         }
+        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==0){
+            createReqVO.setTreeLeaf("1");
+        }
         Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
         uuid = uuid < 0 ? -uuid : uuid;
         // 插入
@@ -90,6 +93,9 @@ public class StockClassifyServiceImpl implements StockClassifyService {
         if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
             return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
         }
+        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==0){
+            updateReqVO.setTreeLeaf("1");
+        }
         // 更新
         StockClassifyDO updateObj = StockClassifyConvert.INSTANCE.convert(updateReqVO);
         stockClassifyMapper.updateById(updateObj);
@@ -122,6 +128,12 @@ public class StockClassifyServiceImpl implements StockClassifyService {
 
     @Override
     public PageResult<StockClassifyDO> getStockClassifyPage(StockClassifyPageReqVO pageReqVO) {
+        if (StringUtils.isEmpty(pageReqVO.getParentCode())){
+            pageReqVO.setParentCode("0");
+        }else {
+            pageReqVO.setPageNo(1);
+            pageReqVO.setPageSize(99999);
+        }
         return stockClassifyMapper.selectPage(pageReqVO);
     }
 

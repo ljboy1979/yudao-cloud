@@ -20,6 +20,7 @@ public interface PackageClassifyMapper extends BaseMapperX<PackageClassifyDO> {
     default PageResult<PackageClassifyDO> selectPage(PackageClassifyPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<PackageClassifyDO>()
                 .likeIfPresent(PackageClassifyDO::getCategoryName, reqVO.getCategoryName())
+                .eqIfPresent(PackageClassifyDO::getParentCode,reqVO.getParentCode())
                 .betweenIfPresent(PackageClassifyDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(PackageClassifyDO::getId));
     }
