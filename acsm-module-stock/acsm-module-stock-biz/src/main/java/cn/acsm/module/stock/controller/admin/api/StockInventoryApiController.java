@@ -1,7 +1,7 @@
 package cn.acsm.module.stock.controller.admin.api;
 
 import cn.acsm.module.stock.api.inventory.qo.InventoryVirtualQO;
-import cn.acsm.module.stock.dal.dataobject.inventory.StockInventoryDO;
+import cn.acsm.module.stock.api.inventory.vo.StockInventoryApiReqVO;
 import cn.acsm.module.stock.service.inventory.StockInventoryService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import io.swagger.annotations.Api;
@@ -34,7 +34,7 @@ public class StockInventoryApiController {
     @PostMapping("/get/specificationId")
     @ApiOperation("根据规格id获取具体清单数据")
     @PreAuthorize("@ss.hasPermission('stock:inventory:get')")
-    public CommonResult<StockInventoryDO> getInventorysBySpId(@Valid @RequestParam("packagingSpecificationId") String packagingSpecificationId) {
+    public CommonResult<StockInventoryApiReqVO> getInventorysBySpId(@Valid @RequestParam("packagingSpecificationId") String packagingSpecificationId) {
         return success(inventoryService.getInventorysBySpId(packagingSpecificationId));
     }
 
