@@ -21,6 +21,8 @@ public interface MarketClassifyMapper extends BaseMapperX<MarketClassifyDO> {
         return selectPage(reqVO, new LambdaQueryWrapperX<MarketClassifyDO>()
                 .likeIfPresent(MarketClassifyDO::getCategoryName, reqVO.getCategoryName())
                 .betweenIfPresent(MarketClassifyDO::getUpdateTime, reqVO.getUpdateTime())
+                .eqIfPresent(MarketClassifyDO::getParentCode,reqVO.getParentCode())
+                .eqIfPresent(MarketClassifyDO::getTreeLevel,reqVO.getTreeLevel())
                 .orderByDesc(MarketClassifyDO::getId));
     }
 

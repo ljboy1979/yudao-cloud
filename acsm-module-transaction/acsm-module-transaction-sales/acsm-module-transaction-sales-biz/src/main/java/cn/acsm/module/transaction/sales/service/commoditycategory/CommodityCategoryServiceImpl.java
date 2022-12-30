@@ -67,6 +67,9 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
         if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
             return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
         }
+        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==0){
+            createReqVO.setTreeLeaf("1");
+        }
         Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
         uuid = uuid < 0 ? -uuid : uuid;
         // 插入
@@ -100,6 +103,9 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
         }
         if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
             return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+        }
+        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==0){
+            updateReqVO.setTreeLeaf("1");
         }
         // 更新
         CommodityCategoryDO updateObj = CommodityCategoryConvert.INSTANCE.convert(updateReqVO);
