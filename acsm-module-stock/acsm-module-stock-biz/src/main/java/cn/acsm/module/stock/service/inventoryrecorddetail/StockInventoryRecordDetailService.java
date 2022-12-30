@@ -2,7 +2,6 @@ package cn.acsm.module.stock.service.inventoryrecorddetail;
 
 import cn.acsm.module.stock.controller.admin.inventoryrecorddetail.vo.*;
 import cn.acsm.module.stock.dal.dataobject.inventoryrecorddetail.StockInventoryRecordDetailDO;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import javax.validation.Valid;
@@ -60,7 +59,7 @@ public interface StockInventoryRecordDetailService {
      * @param pageReqVO 分页查询
      * @return 盘点记录表子表-明细分页
      */
-    PageResult<StockInventoryRecordDetailDO> getInventoryRecordDetailPage(StockInventoryRecordDetailPageReqVO pageReqVO);
+    Page<StockInventoryRecordDetailRespVO> getInventoryRecordDetailPage(StockInventoryRecordDetailPageReqVO pageReqVO);
 
     /**
      * 获得盘点记录表子表-明细列表, 用于 Excel 导出

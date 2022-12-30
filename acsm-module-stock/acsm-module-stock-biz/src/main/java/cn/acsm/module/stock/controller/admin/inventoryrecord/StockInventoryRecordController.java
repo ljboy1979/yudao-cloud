@@ -5,7 +5,6 @@ import cn.acsm.module.stock.convert.inventoryrecord.StockInventoryRecordConvert;
 import cn.acsm.module.stock.dal.dataobject.inventoryrecord.StockInventoryRecordDO;
 import cn.acsm.module.stock.service.inventoryrecord.StockInventoryRecordService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -80,9 +79,9 @@ public class StockInventoryRecordController {
     @GetMapping("/page")
     @ApiOperation("获得盘点记录分页")
     @PreAuthorize("@ss.hasPermission('stock:inventory-record:query')")
-    public CommonResult<PageResult<StockInventoryRecordRespVO>> getInventoryRecordPage(@Valid StockInventoryRecordPageReqVO pageVO) {
-        PageResult<StockInventoryRecordDO> pageResult = inventoryRecordService.getInventoryRecordPage(pageVO);
-        return success(StockInventoryRecordConvert.INSTANCE.convertPage(pageResult));
+    public CommonResult<Page<StockInventoryRecordRespVO>> getInventoryRecordPage(@Valid StockInventoryRecordPageReqVO pageVO) {
+        Page<StockInventoryRecordRespVO> pageResult = inventoryRecordService.getInventoryRecordPage(pageVO);
+        return success(pageResult);
     }
 
     @GetMapping("/export-excel")

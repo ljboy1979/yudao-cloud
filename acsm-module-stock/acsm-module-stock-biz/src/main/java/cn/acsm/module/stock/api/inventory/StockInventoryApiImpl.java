@@ -1,17 +1,15 @@
 package cn.acsm.module.stock.api.inventory;
 
 import cn.acsm.module.stock.api.inventory.qo.InventoryQO;
+import cn.acsm.module.stock.api.inventory.qo.InventoryVirtualQO;
 import cn.acsm.module.stock.api.inventory.vo.StockInventoryApiReqVO;
 import cn.acsm.module.stock.service.inventory.StockInventoryService;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static cn.iocoder.yudao.module.system.enums.ApiConstants.VERSION;
 
@@ -34,5 +32,15 @@ public class StockInventoryApiImpl implements StockInventoryApi {
     @Override
     public StockInventoryApiReqVO getInventorys(InventoryQO reqQO) {
         return inventoryService.getInventory(reqQO);
+    }
+
+    @Override
+    public StockInventoryApiReqVO getInventorysBySpId(String packagingSpecificationId) {
+        return null;
+    }
+
+    @Override
+    public Boolean updateInventorys(InventoryVirtualQO qo) {
+        return null;
     }
 }

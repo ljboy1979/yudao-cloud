@@ -44,7 +44,7 @@ public class StockInventoryServiceImpl implements StockInventoryService {
     private LossApiFeignClient lossApiFeignClient;
 
     @Override
-    public String createInventory(StockInventoryCreateReqVO createReqVO) {
+    public Long createInventory(StockInventoryCreateReqVO createReqVO) {
         // 插入
         StockInventoryDO inventory = StockInventoryConvert.INSTANCE.convert(createReqVO);
         inventoryMapper.insert(inventory);

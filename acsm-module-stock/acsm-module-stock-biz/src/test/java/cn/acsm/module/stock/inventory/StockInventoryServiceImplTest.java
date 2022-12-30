@@ -44,7 +44,7 @@ public class StockInventoryServiceImplTest extends BaseDbUnitTest {
         StockInventoryCreateReqVO reqVO = randomPojo(StockInventoryCreateReqVO.class);
 
         // 调用
-        String inventoryId = inventoryService.createInventory(reqVO);
+        Long inventoryId = inventoryService.createInventory(reqVO);
         // 断言
         assertNotNull(inventoryId);
         // 校验记录的属性是否正确
@@ -59,7 +59,7 @@ public class StockInventoryServiceImplTest extends BaseDbUnitTest {
         inventoryMapper.insert(dbInventory);// @Sql: 先插入出一条存在的数据
         // 准备参数
         StockInventoryUpdateReqVO reqVO = randomPojo(StockInventoryUpdateReqVO.class, o -> {
-            o.setId(dbInventory.getId()); // 设置更新的 ID
+            o.setId(dbInventory.getId().toString()); // 设置更新的 ID
         });
 
         // 调用
@@ -84,10 +84,10 @@ public class StockInventoryServiceImplTest extends BaseDbUnitTest {
         StockInventoryDO dbInventory = randomPojo(StockInventoryDO.class);
         inventoryMapper.insert(dbInventory);// @Sql: 先插入出一条存在的数据
         // 准备参数
-        String id = dbInventory.getId();
+        Long id = dbInventory.getId();
 
         // 调用
-        inventoryService.deleteInventory(id);
+        inventoryService.deleteInventory(id.toString());
        // 校验数据不存在了
        assertNull(inventoryMapper.selectById(id));
     }

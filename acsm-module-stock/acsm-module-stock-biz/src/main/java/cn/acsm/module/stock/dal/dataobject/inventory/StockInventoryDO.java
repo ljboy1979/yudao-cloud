@@ -26,7 +26,7 @@ public class StockInventoryDO extends BaseDO {
      * 库存清单id
      */
     @TableId(type = IdType.INPUT)
-    private String id;
+    private Long id;
     /**
      * 库存类型(1.原料 2.投入品 3.成品 4.办公用品)
      */

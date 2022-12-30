@@ -115,8 +115,8 @@ public class StockRecordDetailController {
     @GetMapping("/page/detail")
     @ApiOperation("3.7.2.15.根据库存id或批次号查询库存详情")
     @PreAuthorize("@ss.hasPermission('stock:record-detail:page')")
-    public CommonResult<Page<StockRecordDetailDO>> getRecordDetailPage(@Valid StockRecordDetailPageVO pageVO) {
-        Page<StockRecordDetailDO> pageResult = recordDetailService.getRecordDetailPage(pageVO);
+    public CommonResult<Page<StockRecordDetailRespVO>> getRecordDetailPage(@Valid StockRecordDetailPageVO pageVO) {
+        Page<StockRecordDetailRespVO> pageResult = recordDetailService.getRecordDetailPage(pageVO);
         return success(pageResult);
     }
 

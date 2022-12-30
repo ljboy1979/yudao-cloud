@@ -37,7 +37,7 @@ public class StockInventoryController {
     @PostMapping("/create")
     @ApiOperation("创建预警信息")
     @PreAuthorize("@ss.hasPermission('stock:inventory:create')")
-    public CommonResult<String> createInventory(@Valid @RequestBody StockInventoryCreateReqVO createReqVO) {
+    public CommonResult<Long> createInventory(@Valid @RequestBody StockInventoryCreateReqVO createReqVO) {
         return success(inventoryService.createInventory(createReqVO));
     }
 

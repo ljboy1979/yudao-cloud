@@ -138,7 +138,51 @@ public class StockRecordServiceImpl implements StockRecordService {
 
 
                 StockRecordDetailDO detailDO = new StockRecordDetailDO();
-                detailDO.setRecordDetailId(Long.valueOf(detail.getId()));
+                // 如果传参中，“关联库存记录明细id”没有传值，按传参的类型以及货品id和规格id在
+                // 【库存出入库记录子表-明细表】中“临期时间”和“入库时间”正序优先出库
+                if(ObjectUtils.isNotEmpty(detail.getId())) {
+                    detailDO.setRecordDetailId(Long.valueOf(detail.getId()));
+                } else {
+                    QueryWrapper queryWrapper = new QueryWrapper();
+                    queryWrapper.eq("goods_id", detail.getGoodsId());
+                    queryWrapper.eq("packing_specification", detail.getPackingSpecification());
+                    queryWrapper.orderByAsc("temporary_time");
+                    queryWrapper.orderByAsc("create_time");
+                    List<StockRecordDetailDO> list = detailMapper.selectList(queryWrapper);
+                    Integer deliveryQuantity = detail.getDeliveryQuantity();
+                    for (StockRecordDetailDO ck : list) {
+                        // 将商品批量出库
+                        if(deliveryQuantity > 0) {
+                            deliveryQuantity = deliveryQuantity - ck.getExistingInventory();
+                            // 若当前库存详情现有库存量小于出库量则将当前详情的现有库存量归零
+                            if(deliveryQuantity > 0) {
+                                UpdateWrapper wrapper1 = new UpdateWrapper();
+                                wrapper1.eq("id", ck.getId());
+                                StockRecordDetailDO recordDetailDO = new StockRecordDetailDO();
+                                recordDetailDO.setExistingInventory(0);
+                                detailMapper.update(recordDetailDO, wrapper1);
+                            } else { // 若当前库存详情现有库存量大于出库量则将当前详情的 现有库存量 - 出库量 得出最终现有库存量
+                                Integer existingInventory = ck.getExistingInventory() - deliveryQuantity;
+                                UpdateWrapper wrapper1 = new UpdateWrapper();
+                                wrapper1.eq("id", ck.getId());
+                                StockRecordDetailDO recordDetailDO = new StockRecordDetailDO();
+                                recordDetailDO.setExistingInventory(existingInventory);
+                                detailMapper.update(recordDetailDO, wrapper1);
+                            }
+                            // 更新库存清单
+                            StockInventoryUpdateCountVO updateCountVO = new StockInventoryUpdateCountVO();
+                            updateCountVO.setGoodsId(ck.getGoodsId());
+                            updateCountVO.setPackingSpecification(ck.getPackingSpecification());
+                            updateCountVO.setWarehouseId(createReqVO.getWarehouseId());
+                            // 减去当前出库数量 - “虚拟库存量”=“虚拟库存量”-出库数量；
+                            updateCountVO.setInventoryQuantity(-detail.getDeliveryQuantity());
+                            inventoryService.updateInventoryCount(updateCountVO);
+                        } else {
+                            break;
+                        }
+                    }
+                    return;
+                }
                 detailDO.setOperationType(true);
                 detailDO.setRecordId(stockRecordDO.getId());
                 detailDO.setStockBatchNo(batchNo);
@@ -471,8 +515,8 @@ public class StockRecordServiceImpl implements StockRecordService {
         } else if(StringUtils.equalsIgnoreCase(treasurySource,"2")) {
             // 获取采购记录信息
 //            String purchaseNumber = detailDO.getPurchaseNumber();
-            List<OrderDetailsApiVO> orderDetails = detailsApi.getOrderDetails();
-            return null;
+            CommonResult<List<OrderDetailsApiVO>> orderDetails = detailsApi.getOrderDetails();
+            return orderDetails.getData();
         }
         return null;
     }

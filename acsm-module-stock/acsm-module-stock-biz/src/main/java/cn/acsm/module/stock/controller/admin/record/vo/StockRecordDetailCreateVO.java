@@ -61,4 +61,10 @@ public class StockRecordDetailCreateVO implements Serializable {
     @ApiModelProperty(value = "入库来源")
     private String treasurySource;
 
+    @ApiModelProperty(value = "来源批次号")
+    private String foreignId;
+
+    @ApiModelProperty(value = "来源说明")
+    private String sourceTo;
+
 }

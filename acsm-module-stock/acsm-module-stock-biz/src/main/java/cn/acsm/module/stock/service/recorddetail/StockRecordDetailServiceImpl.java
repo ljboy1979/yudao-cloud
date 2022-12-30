@@ -136,6 +136,7 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
             wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getGoodsName()), "goods_name", pageReqVO.getGoodsName());
             wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getStockBatchNo()), "stock_batch_no", pageReqVO.getStockBatchNo());
             Page page1 = recordDetailMapper.selectPage(page, wrapper);
+            // 获取地块名称
 //            page1
             return page1;
         }
@@ -207,7 +208,7 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
 //    @Cacheable(value = "stockRecord", key = "'getRecordDetailPage'.concat('-').concat(#pageReqVO.stockBatchNo)" +
 //            ".concat('-').concat(#pageReqVO.operationType).concat('-').concat(#pageReqVO.goodsType)")
     @Override
-    public Page<StockRecordDetailDO> getRecordDetailPage(StockRecordDetailPageVO pageReqVO) {
+    public Page<StockRecordDetailRespVO> getRecordDetailPage(StockRecordDetailPageVO pageReqVO) {
         Page<StockRecordDetailDO> page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("stock_batch_no", pageReqVO.getStockBatchNo());
@@ -215,7 +216,27 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getGoodsType()), "goods_type", pageReqVO.getGoodsType());
         wrapper.eq("operation_type", pageReqVO.getOperationType());
         wrapper.orderByAsc("create_time");
-        return recordDetailMapper.selectPage(page, wrapper);
+        Page<StockRecordDetailDO> page1 = recordDetailMapper.selectPage(page, wrapper);
+        List<StockRecordDetailRespVO> detailRespVOS = page1.getRecords().stream().map(p -> {
+            StockRecordDetailRespVO respVO = new StockRecordDetailRespVO();
+            BeanUtils.copyProperties(p, respVO);
+            // 获得部门名称
+            if(ObjectUtils.isNotEmpty(p.getDepartmentId())) {
+                respVO.setDepartmentName(deptApi.getDept(Long.valueOf(p.getDepartmentId())).getData().getName());
+            }
+            // 获取公司名称
+
+            // 出库数量
+            QueryWrapper wrapper1 = new QueryWrapper();
+            wrapper1.eq("record_detail_id", p.getId());
+            List<StockRecordDetailDO> list = recordDetailMapper.selectList(wrapper1);
+            respVO.setDeliveryQuantity(list.stream().map(rd -> rd.getDeliveryQuantity()).mapToInt(Integer::intValue).sum());
+            return respVO;
+        }).collect(Collectors.toList());
+        Page<StockRecordDetailRespVO> voPage = new Page<>(page1.getCurrent(), page1.getSize());
+        voPage.setRecords(detailRespVOS);
+        voPage.setTotal(page1.getTotal());
+        return voPage;
     }
 
     /**

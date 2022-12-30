@@ -1,10 +1,12 @@
 package cn.acsm.module.stock.controller.admin.inventoryrecord.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 /**
 * 盘点记录 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -29,6 +31,7 @@ public class StockInventoryRecordBaseVO {
     private String inventoryCode;
 
     @ApiModelProperty(value = "操作时间")
+    @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND, timezone = "GMT+8")
     private Date operationTime;
 
     @ApiModelProperty(value = "负责人id")
@@ -38,15 +41,12 @@ public class StockInventoryRecordBaseVO {
     private String headName;
 
     @ApiModelProperty(value = "经营主体", required = true)
-    @NotNull(message = "经营主体不能为空")
     private String subjectId;
 
     @ApiModelProperty(value = "用户id", required = true)
-    @NotNull(message = "用户id不能为空")
     private Long userId;
 
     @ApiModelProperty(value = "租户集合", required = true)
-    @NotNull(message = "租户集合不能为空")
     private Long sourceId;
 
 }

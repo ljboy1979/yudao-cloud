@@ -24,7 +24,7 @@ public interface StockInventoryService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createInventory(@Valid StockInventoryCreateReqVO createReqVO);
+    Long createInventory(@Valid StockInventoryCreateReqVO createReqVO);
 
     /**
      * 更新库存清单

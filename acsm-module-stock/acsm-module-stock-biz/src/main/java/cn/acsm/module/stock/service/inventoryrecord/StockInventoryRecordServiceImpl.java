@@ -5,13 +5,13 @@ import cn.acsm.module.stock.controller.admin.inventoryrecorddetail.vo.StockInven
 import cn.acsm.module.stock.convert.inventoryrecord.StockInventoryRecordConvert;
 import cn.acsm.module.stock.dal.dataobject.inventory.StockInventoryDO;
 import cn.acsm.module.stock.dal.dataobject.inventoryrecord.StockInventoryRecordDO;
+import cn.acsm.module.stock.dal.dataobject.inventoryrecorddetail.StockInventoryRecordDetailDO;
 import cn.acsm.module.stock.dal.dataobject.recorddetail.StockRecordDetailDO;
 import cn.acsm.module.stock.dal.mysql.inventory.StockInventoryMapper;
 import cn.acsm.module.stock.dal.mysql.inventoryrecord.StockInventoryRecordMapper;
 import cn.acsm.module.stock.dal.mysql.recorddetail.StockRecordDetailMapper;
 import cn.acsm.module.stock.service.inventoryrecorddetail.StockInventoryRecordDetailService;
 import cn.hutool.core.date.format.FastDateFormat;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,12 +22,14 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static cn.acsm.module.stock.enums.ErrorCodeConstants.INVENTORY_RECORD_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -56,43 +58,57 @@ public class StockInventoryRecordServiceImpl implements StockInventoryRecordServ
     @Override
     public Long createInventoryRecord(StockInventoryRecordCreateReqVO createReqVO) {
         // 生成盘点批次号
-        createReqVO.setInventoryCode(getInventoryCode());
+        String inventoryCode = getInventoryCode();
+        createReqVO.setInventoryCode(inventoryCode);
 
         // 插入盘点记录表
         StockInventoryRecordDO inventoryRecord = StockInventoryRecordConvert.INSTANCE.convert(createReqVO);
         inventoryRecordMapper.insert(inventoryRecord);
 
+        // 获取盘点记录id
+        QueryWrapper wrapperOne = new QueryWrapper();
+        wrapperOne.eq("inventory_code", inventoryCode);
+        StockInventoryRecordDO stoDo = inventoryRecordMapper.selectOne(wrapperOne);
+
         // 插入盘点记录明细表
-        StockInventoryRecordDetailCreateReqVO reqVO = new StockInventoryRecordDetailCreateReqVO();
-        reqVO.setInventoryCode(createReqVO.getInventoryCode());
-        BeanUtils.copyProperties(createReqVO, reqVO);
-        detailService.createInventoryRecordDetail(reqVO);
+        List<StockInventoryRecordDetailDO> detailDOS = createReqVO.getDetailDOS();
+        if(!CollectionUtils.isEmpty(detailDOS)) {
+            detailDOS.forEach(ds -> {
+                StockInventoryRecordDetailCreateReqVO reqVO = new StockInventoryRecordDetailCreateReqVO();
+                BeanUtils.copyProperties(ds, reqVO);
+                reqVO.setInventoryRecordId(stoDo.getId());
+                reqVO.setInventoryCode(inventoryCode);
+                reqVO.setStockRecordDetailId(ds.getId());
+                detailService.createInventoryRecordDetail(reqVO);
 
-        // 如果“盘点前数量”不等于“盘点后数量”
-        if(createReqVO.getInventoryFrontQuantity() != createReqVO.getInventoryAfterQuantity()) {
-            // 更新【库存记录表】：根据“库存记录明细id”更新“现有库存数量”字段=盘点明细中“盘点后数量”;
-            UpdateWrapper wrapper = new UpdateWrapper();
-            wrapper.eq("stock_record_detail_id", createReqVO.getStockRecordDetailId());
+                // 如果“盘点前数量”不等于“盘点后数量”
+                if(createReqVO.getInventoryFrontQuantity() != createReqVO.getInventoryAfterQuantity()) {
+                    // 更新【库存记录表】：根据“库存记录明细id”更新“现有库存数量”字段=盘点明细中“盘点后数量”;
+                    UpdateWrapper wrapper = new UpdateWrapper();
+                    wrapper.eq("stock_record_detail_id", ds.getId());
 
-            StockRecordDetailDO detailDO = new StockRecordDetailDO();
-            detailDO.setExistingInventory(createReqVO.getInventoryAfterQuantity());
-            detailMapper.update(detailDO, wrapper);
+                    StockRecordDetailDO detailDO = new StockRecordDetailDO();
+                    detailDO.setExistingInventory(createReqVO.getInventoryAfterQuantity());
+                    detailMapper.update(detailDO, wrapper);
 
-            // 更新【库存清单表】：根据商品id规格id，更新“库存数量”=“库存数量”+“盘点后数量”-“盘点前数量”;
-            // 获取库存数量
-            QueryWrapper queryWrapper = new QueryWrapper();
-            queryWrapper.eq("goods_id", createReqVO.getGoodsId());
-            queryWrapper.eq("packaging_specification_id", createReqVO.getPackagingSpecificationId());
-            StockInventoryDO one = inventoryMapper.selectOne(queryWrapper);
+                    // 更新【库存清单表】：根据商品id规格id，更新“库存数量”=“库存数量”+“盘点后数量”-“盘点前数量”;
+                    // 获取库存数量
+                    QueryWrapper queryWrapper = new QueryWrapper();
+                    queryWrapper.eq("goods_id", createReqVO.getGoodsId());
+                    queryWrapper.eq("packaging_specification_id", createReqVO.getPackagingSpecificationId());
+                    StockInventoryDO one = inventoryMapper.selectOne(queryWrapper);
 
-            // 更新库存清单表
-            UpdateWrapper updateWrapper = new UpdateWrapper();
-            updateWrapper.eq("goods_id", createReqVO.getGoodsId());
-            updateWrapper.eq("packaging_specification_id", createReqVO.getPackagingSpecificationId());
+                    // 更新库存清单表
+                    UpdateWrapper updateWrapper = new UpdateWrapper();
+                    updateWrapper.eq("goods_id", createReqVO.getGoodsId());
+                    updateWrapper.eq("packaging_specification_id", createReqVO.getPackagingSpecificationId());
 
-            StockInventoryDO inventoryDO = new StockInventoryDO();
-            inventoryDO.setInventoryQuantity(one.getInventoryQuantity() + createReqVO.getInventoryAfterQuantity() - createReqVO.getInventoryFrontQuantity());
-            inventoryMapper.update(inventoryDO, updateWrapper);
+                    StockInventoryDO inventoryDO = new StockInventoryDO();
+                    inventoryDO.setInventoryQuantity(one.getInventoryQuantity() + createReqVO.getInventoryAfterQuantity() - createReqVO.getInventoryFrontQuantity());
+                    inventoryDO.setVirtualInventory(one.getVirtualInventory() + createReqVO.getInventoryAfterQuantity() - createReqVO.getInventoryFrontQuantity());
+                    inventoryMapper.update(inventoryDO, updateWrapper);
+                }
+            });
         }
 
 
@@ -174,10 +190,26 @@ public class StockInventoryRecordServiceImpl implements StockInventoryRecordServ
         return inventoryRecordMapper.selectBatchIds(ids);
     }
 
-    @Cacheable(value = "inventoryRecord", key = "'getInventoryRecordPage'.concat(#pageReqVO.inventoryCode)")
+//    @Cacheable(value = "inventoryRecord", key = "'getInventoryRecordPage'.concat(#pageReqVO.inventoryCode)")
     @Override
-    public PageResult<StockInventoryRecordDO> getInventoryRecordPage(StockInventoryRecordPageReqVO pageReqVO) {
-        return inventoryRecordMapper.selectPage(pageReqVO);
+    public Page<StockInventoryRecordRespVO> getInventoryRecordPage(StockInventoryRecordPageReqVO pageReqVO) {
+        Page<StockInventoryRecordDO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq(StringUtils.isNotBlank(pageReqVO.getInventoryCode()), "inventory_code", pageReqVO.getInventoryCode());
+        wrapper.eq(StringUtils.isNotBlank(pageReqVO.getHeadName()), "head_name",pageReqVO.getHeadName());
+        wrapper.gt(ObjectUtils.isNotEmpty(pageReqVO.getOperationStartTime()), "operation_time", pageReqVO.getOperationStartTime());
+        wrapper.lt(ObjectUtils.isNotEmpty(pageReqVO.getOperationEndTime()), "operation_time", pageReqVO.getOperationEndTime());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getType()), "type", pageReqVO.getType());
+        Page<StockInventoryRecordDO> page1 = inventoryRecordMapper.selectPage(page, wrapper);
+        List<StockInventoryRecordRespVO> respVOS = page1.getRecords().stream().map(s -> {
+            StockInventoryRecordRespVO respVO = new StockInventoryRecordRespVO();
+            BeanUtils.copyProperties(s, respVO);
+            return respVO;
+        }).collect(Collectors.toList());
+        Page<StockInventoryRecordRespVO> voPage = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        voPage.setRecords(respVOS);
+        voPage.setTotal(page1.getTotal());
+        return voPage;
     }
 
     @Cacheable(value = "inventoryRecord", key = "'getInventoryRecordList'.concat(#pageReqVO.type).concat(#pageReqVO.inventoryCode)")

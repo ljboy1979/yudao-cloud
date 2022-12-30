@@ -25,7 +25,6 @@ public interface StockInventoryRecordMapper extends BaseMapperX<StockInventoryRe
                 .eqIfPresent(StockInventoryRecordDO::getWarehouseCode, reqVO.getWarehouseCode())
                 .likeIfPresent(StockInventoryRecordDO::getWarehouseName, reqVO.getWarehouseName())
                 .eqIfPresent(StockInventoryRecordDO::getInventoryCode, reqVO.getInventoryCode())
-                .betweenIfPresent(StockInventoryRecordDO::getOperationTime, reqVO.getOperationTime())
                 .eqIfPresent(StockInventoryRecordDO::getHeadId, reqVO.getHeadId())
                 .likeIfPresent(StockInventoryRecordDO::getHeadName, reqVO.getHeadName())
                 .betweenIfPresent(StockInventoryRecordDO::getCreateTime, reqVO.getCreateTime())

@@ -28,6 +28,12 @@ public class StockRecordDetailOutEnterVO implements Serializable {
     @ApiModelProperty(value = "单价")
     private BigDecimal unitPrice;
 
+    @ApiModelProperty(value = "优惠金额")
+    private BigDecimal discountPrice;
+
+    @ApiModelProperty(value = "付款方式")
+    private String payMethod;
+
     @ApiModelProperty(value = "合计总价")
     private BigDecimal totalPrice;
 
@@ -45,6 +51,15 @@ public class StockRecordDetailOutEnterVO implements Serializable {
 
     @ApiModelProperty(value = "货位id")
     private Long goodsAllocationId;
+
+    @ApiModelProperty(value = "货位名称")
+    private Long goodsAllocationName;
+
+    @ApiModelProperty(value = "部门id")
+    private Long departmentId;
+
+    @ApiModelProperty(value = "公司id")
+    private Long companyId;
 
 
 

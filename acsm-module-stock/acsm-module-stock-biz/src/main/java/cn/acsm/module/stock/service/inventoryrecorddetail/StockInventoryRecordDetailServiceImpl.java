@@ -4,11 +4,11 @@ import cn.acsm.module.stock.controller.admin.inventoryrecorddetail.vo.*;
 import cn.acsm.module.stock.convert.inventoryrecorddetail.StockInventoryRecordDetailConvert;
 import cn.acsm.module.stock.dal.dataobject.inventoryrecorddetail.StockInventoryRecordDetailDO;
 import cn.acsm.module.stock.dal.mysql.inventoryrecorddetail.StockInventoryRecordDetailMapper;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static cn.acsm.module.stock.enums.ErrorCodeConstants.INVENTORY_RECORD_DETAIL_NOT_EXISTS;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -37,7 +38,9 @@ public class StockInventoryRecordDetailServiceImpl implements StockInventoryReco
     @Override
     public Long createInventoryRecordDetail(StockInventoryRecordDetailCreateReqVO createReqVO) {
         // 插入
-        StockInventoryRecordDetailDO inventoryRecordDetail = StockInventoryRecordDetailConvert.INSTANCE.convert(createReqVO);
+        StockInventoryRecordDetailDO inventoryRecordDetail = new StockInventoryRecordDetailDO();// ;StockInventoryRecordDetailConvert.INSTANCE.convert(createReqVO);
+        BeanUtils.copyProperties(createReqVO, inventoryRecordDetail);
+        inventoryRecordDetail.setStockRecordDetailId(createReqVO.getStockRecordDetailId());
         inventoryRecordDetailMapper.insert(inventoryRecordDetail);
         // 返回
         return inventoryRecordDetail.getId();
@@ -80,10 +83,25 @@ public class StockInventoryRecordDetailServiceImpl implements StockInventoryReco
         return inventoryRecordDetailMapper.selectBatchIds(ids);
     }
 
-    @Cacheable(value = "inventoryRecordDetail", key = "'getInventoryRecordDetailPage'.concat('-').concat(#pageReqVO.stockRecordId).concat('-').concat(#pageReqVO.stockRecordDetailId)")
+//    @Cacheable(value = "inventoryRecordDetail", key = "'getInventoryRecordDetailPage'.concat('-').concat(#pageReqVO.stockRecordId).concat('-').concat(#pageReqVO.stockRecordDetailId)")
     @Override
-    public PageResult<StockInventoryRecordDetailDO> getInventoryRecordDetailPage(StockInventoryRecordDetailPageReqVO pageReqVO) {
-        return inventoryRecordDetailMapper.selectPage(pageReqVO);
+    public Page<StockInventoryRecordDetailRespVO> getInventoryRecordDetailPage(StockInventoryRecordDetailPageReqVO pageReqVO) {
+        Page<StockInventoryRecordDetailDO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq(StringUtils.isNotBlank(pageReqVO.getInventoryCode()), "inventory_code", pageReqVO.getInventoryCode());
+        wrapper.like(StringUtils.isNotBlank(pageReqVO.getGoodsName()), "goods_name",pageReqVO.getGoodsName());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getGoodsType()), "goods_type", pageReqVO.getGoodsType());
+        wrapper.orderByDesc("create_time");
+        Page<StockInventoryRecordDetailDO> page1 = inventoryRecordDetailMapper.selectPage(page, wrapper);
+        List<StockInventoryRecordDetailRespVO> respVOS = page1.getRecords().stream().map(s -> {
+            StockInventoryRecordDetailRespVO respVO = new StockInventoryRecordDetailRespVO();
+            BeanUtils.copyProperties(s, respVO);
+            return respVO;
+        }).collect(Collectors.toList());
+        Page<StockInventoryRecordDetailRespVO> voPage = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        voPage.setRecords(respVOS);
+        voPage.setTotal(page1.getTotal());
+        return voPage;
     }
 
     @Cacheable(value = "inventoryRecordDetail", key = "'getInventoryRecordDetailList'.concat('-').concat(#pageReqVO.stockRecordId).concat('-').concat(#pageReqVO.stockRecordDetailId)")

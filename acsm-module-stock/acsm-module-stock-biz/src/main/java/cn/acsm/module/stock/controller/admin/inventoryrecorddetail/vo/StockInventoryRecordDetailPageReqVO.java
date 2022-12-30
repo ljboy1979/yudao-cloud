@@ -18,6 +18,9 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class StockInventoryRecordDetailPageReqVO extends PageParam {
 
+    @ApiModelProperty(value = "盘点批次号")
+    private String inventoryCode;
+
     @ApiModelProperty(value = "库存记录id")
     private Long stockRecordId;
 

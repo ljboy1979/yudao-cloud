@@ -60,7 +60,7 @@ public interface StockInventoryRecordService {
      * @param pageReqVO 分页查询
      * @return 盘点记录分页
      */
-    PageResult<StockInventoryRecordDO> getInventoryRecordPage(StockInventoryRecordPageReqVO pageReqVO);
+    Page<StockInventoryRecordRespVO> getInventoryRecordPage(StockInventoryRecordPageReqVO pageReqVO);
 
     /**
      * 获得盘点记录列表, 用于 Excel 导出

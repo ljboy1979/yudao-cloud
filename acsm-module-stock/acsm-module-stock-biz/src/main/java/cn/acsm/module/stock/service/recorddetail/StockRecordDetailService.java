@@ -95,7 +95,7 @@ public interface StockRecordDetailService {
      * @param pageReqVO 分页查询
      * @return
      */
-    Page<StockRecordDetailDO> getRecordDetailPage(StockRecordDetailPageVO pageReqVO);
+    Page<StockRecordDetailRespVO> getRecordDetailPage(StockRecordDetailPageVO pageReqVO);
 
     /**
      * 3.7.2.20.临期时间管理
