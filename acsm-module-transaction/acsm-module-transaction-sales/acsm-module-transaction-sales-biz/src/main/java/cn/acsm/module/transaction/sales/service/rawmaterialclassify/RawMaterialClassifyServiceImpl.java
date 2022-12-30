@@ -58,10 +58,10 @@ public class RawMaterialClassifyServiceImpl implements RawMaterialClassifyServic
             createReqVO.setTreeLevel(new BigDecimal(0));
             createReqVO.setTreeNames(createReqVO.getCategoryName());
         }
-        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
+        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(2))==1){
             return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
         }
-        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==0){
+        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(2))==0){
             createReqVO.setTreeLeaf("1");
         }
         Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
@@ -95,10 +95,10 @@ public class RawMaterialClassifyServiceImpl implements RawMaterialClassifyServic
             updateReqVO.setTreeLevel(new BigDecimal(0));
             updateReqVO.setTreeNames(updateReqVO.getCategoryName());
         }
-        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
+        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(2))==1){
             return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
         }
-        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==0){
+        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(2))==0){
             updateReqVO.setTreeLeaf("1");
         }
         // 更新
