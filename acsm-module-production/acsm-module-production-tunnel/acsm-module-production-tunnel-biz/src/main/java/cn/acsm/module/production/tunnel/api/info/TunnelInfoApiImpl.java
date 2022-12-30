@@ -15,7 +15,7 @@ public class TunnelInfoApiImpl implements TunnelInfoApi {
     private InfoServiceImpl infoService;
 
     @Override
-    public CommonResult<InfoBaseDTO> getFacilityInfoById(Long id) {
+    public CommonResult<InfoBaseDTO> getInfoById(Long id) {
         InfoDO info = infoService.getInfo(id);
         return CommonResult.success(InfoConvert.INSTANCE.convert01(info));
     }

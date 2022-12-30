@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(value = ApiConstants.NAME)
-@Api(tags = "RPC 服务 - 设施相关接口")
+@Api(tags = "RPC 服务 - 地块相关接口")
 public interface TunnelInfoApi {
     String PREFIX = ApiConstants.PREFIX + "/info";
 
     @GetMapping(PREFIX+"/get")
-    @ApiOperation("获得设施")
+    @ApiOperation("获得地块详情")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
-    CommonResult<InfoBaseDTO> getFacilityInfoById(@RequestParam("id") Long id) ;
+    CommonResult<InfoBaseDTO> getInfoById(@RequestParam("id") Long id) ;
 
 }
