@@ -1,6 +1,7 @@
 package cn.acsm.module.stock.service.inventory;
 
 import cn.acsm.module.stock.api.inventory.qo.InventoryQO;
+import cn.acsm.module.stock.api.inventory.qo.InventoryVirtualQO;
 import cn.acsm.module.stock.api.inventory.vo.StockInventoryApiReqVO;
 import cn.acsm.module.stock.controller.admin.inventory.vo.*;
 import cn.acsm.module.stock.dal.dataobject.inventory.StockInventoryDO;
@@ -91,4 +92,19 @@ public interface StockInventoryService {
      * @return 库存清单列表
      */
     StockInventoryApiReqVO getInventory(InventoryQO apiReqVO);
+
+    /**
+     * 获取库存清单数据
+     *
+     * @param packagingSpecificationId
+     * @return 编号
+     */
+    StockInventoryApiReqVO getInventorysBySpId(String packagingSpecificationId);
+
+    /**
+     * 根据规格id修改虚拟库存量
+     *
+     * @param qo
+     */
+    Boolean updateInventorys(InventoryVirtualQO qo);
 }

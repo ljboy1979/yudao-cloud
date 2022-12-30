@@ -76,9 +76,8 @@ public interface PurchaseDetailsService {
     /**
      * 获得采购单明细信息
      *
-     * @param purchaseNumber 查询条件
      * @return 采购单明细列表信息
      */
-    List<OrderDetailsApiVO> getDetailsList(String purchaseNumber);
+    List<OrderDetailsApiVO> getDetailsList();
 
 }

@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @ApiModel("管理后台 - 3.7.2.14.查询出/入库记录 Request VO")
@@ -14,10 +13,13 @@ import java.util.Date;
 @ToString(callSuper = true)
 public class StockRecordOutEnterVO extends PageParam {
 
-    @ApiModelProperty(value = "库存类型(1.原料 2.投入品 3.成品 4.办公用品)", required = true)
+    @ApiModelProperty(value = "库存类型(0:原料 1:投入品 2:商品 3: 菜品 4:套餐 5:特医食品)", required = true)
     private Integer type;
 
-    @ApiModelProperty(value = "仓库名称", required = true)
+    @ApiModelProperty(value = "操作类型(0.入库 1.出库)")
+    private Integer operationType;
+
+    @ApiModelProperty(value = "仓库名称")
     private String warehouseName;
 
     @ApiModelProperty(value = "批次号")

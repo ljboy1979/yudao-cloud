@@ -2,6 +2,7 @@ package cn.acsm.module.stock.service.inventory;
 
 import cn.acsm.module.purchase.api.loss.dto.LossReqDTO;
 import cn.acsm.module.stock.api.inventory.qo.InventoryQO;
+import cn.acsm.module.stock.api.inventory.qo.InventoryVirtualQO;
 import cn.acsm.module.stock.api.inventory.vo.StockInventoryApiReqVO;
 import cn.acsm.module.stock.controller.admin.inventory.vo.*;
 import cn.acsm.module.stock.convert.inventory.StockInventoryConvert;
@@ -114,6 +115,7 @@ public class StockInventoryServiceImpl implements StockInventoryService {
         if(ObjectUtils.isEmpty(aDo)) {
             StockInventoryDO inventoryDO = new StockInventoryDO();
             BeanUtils.copyProperties(updateReqVO, inventoryDO);
+            inventoryDO.setVirtualInventory(updateReqVO.getInventoryQuantity());
             inventoryDO.setGoodsName("此处需远程调用获取商品名称");
             inventoryMapper.insert(inventoryDO);
         } else { // 反之则更新记录【库存数量 = 已有库存+传参数量】
@@ -124,6 +126,8 @@ public class StockInventoryServiceImpl implements StockInventoryService {
             updateWrapper.eq(StringUtils.isNotBlank(updateReqVO.getPackingSpecification()), "packing_specification", updateReqVO.getPackingSpecification());
             StockInventoryDO inventoryDO = new StockInventoryDO();
             inventoryDO.setInventoryQuantity(aDo.getInventoryQuantity() + updateReqVO.getInventoryQuantity());
+            // 更新虚拟库存数量【“虚拟库存量”=“虚拟库存量”-出库数量】
+            inventoryDO.setVirtualInventory(aDo.getVirtualInventory() + updateReqVO.getInventoryQuantity());
             inventoryMapper.update(inventoryDO, updateWrapper);
         }
     }
@@ -164,4 +168,35 @@ public class StockInventoryServiceImpl implements StockInventoryService {
         return inventoryMapper.getList(apiReqVO);
     }
 
+    /**
+     * 获取库存清单数据
+     *
+     * @param packagingSpecificationId
+     * @return 编号
+     */
+    public StockInventoryApiReqVO getInventorysBySpId(String packagingSpecificationId) {
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("packaging_specification_id", packagingSpecificationId);
+        StockInventoryDO inventoryDO = inventoryMapper.selectOne(wrapper);
+        StockInventoryApiReqVO vo = new StockInventoryApiReqVO();
+        BeanUtils.copyProperties(inventoryDO, vo);
+        return vo;
+    }
+
+    /**
+     * 根据规格id修改虚拟库存量
+     * @param qo
+     */
+    public Boolean updateInventorys(InventoryVirtualQO qo) {
+        // 获取具体虚拟库存量
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("packaging_specification_id", qo.getPackagingSpecificatioId());
+        StockInventoryDO inventoryDO = inventoryMapper.selectOne(wrapper);
+
+        UpdateWrapper updateWrapper = new UpdateWrapper();
+        updateWrapper.eq("packaging_specification_id", qo.getPackagingSpecificatioId());
+        StockInventoryDO inventoryDO1 = new StockInventoryDO();
+        inventoryDO1.setVirtualInventory(ObjectUtils.isNotEmpty(inventoryDO.getVirtualInventory()) ? inventoryDO.getVirtualInventory() + qo.getVirtualInventory() : inventoryDO.getVirtualInventory());
+        return true;
+    }
 }

@@ -80,6 +80,10 @@ public class StockInventoryDO extends BaseDO {
      */
     private Integer inventoryQuantity;
     /**
+     * 虚拟库存数量
+     */
+    private Integer virtualInventory;
+    /**
      * 计量单位
      */
     private String measureUnit;

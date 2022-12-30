@@ -32,14 +32,13 @@ public class StockRecordDetailOutEnterVO implements Serializable {
     private BigDecimal totalPrice;
 
     @ApiModelProperty(value = "生产批次号", required = true)
-    @NotNull(message = "生产批次号不能为空")
     private String productionBatchNo;
 
     @ApiModelProperty(value = "入库来源")
     private String treasurySource;
 
     @ApiModelProperty(value = "数量")
-    private Integer quantity;
+    private Integer deliveryQuantity;
 
     @ApiModelProperty(value = "来源说明")
     private String sourceTo;

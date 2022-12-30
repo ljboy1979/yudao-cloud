@@ -3,6 +3,7 @@ package cn.acsm.module.stock.api.inventory.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -38,5 +39,8 @@ public class StockInventoryApiReqVO implements Serializable {
 
     @ApiModelProperty(value = "计量单位")
     private String measureUnit;
+
+    @ApiModelProperty(value = "虚拟库存量")
+    private Integer virtualInventory;
 
 }

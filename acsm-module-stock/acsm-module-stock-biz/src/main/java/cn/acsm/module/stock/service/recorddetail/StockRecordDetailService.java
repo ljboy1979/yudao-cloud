@@ -61,6 +61,13 @@ public interface StockRecordDetailService {
     Page<StockRecordDetailDO> getRecordDetailPage(StockRecordDetailPageReqVO pageReqVO);
 
     /**
+     * 获取出入库记录详情
+     * @param pageReqVO 分页查询
+     * @return
+     */
+    Page<StockRecordDetailDO> getRecordDetailOutPage(StockRecordDetailPageInOutVO pageReqVO);
+
+    /**
      * 获得库存记录字表-明细列表, 用于 Excel 导出
      *
      * @param exportReqVO 查询条件

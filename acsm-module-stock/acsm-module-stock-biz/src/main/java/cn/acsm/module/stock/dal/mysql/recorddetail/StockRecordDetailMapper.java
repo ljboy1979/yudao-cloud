@@ -23,7 +23,6 @@ public interface StockRecordDetailMapper extends BaseMapperX<StockRecordDetailDO
                 .eqIfPresent(StockRecordDetailDO::getRecordId, reqVO.getRecordId())
                 .eqIfPresent(StockRecordDetailDO::getStockBatchNo, reqVO.getStockBatchNo())
                 .eqIfPresent(StockRecordDetailDO::getOperationType, reqVO.getOperationType())
-                .eqIfPresent(StockRecordDetailDO::getSecondaryClassification, reqVO.getSecondaryClassification())
                 .eqIfPresent(StockRecordDetailDO::getGoodsId, reqVO.getGoodsId())
                 .eqIfPresent(StockRecordDetailDO::getGoodsNumber, reqVO.getGoodsNumber())
                 .likeIfPresent(StockRecordDetailDO::getGoodsName, reqVO.getGoodsName())

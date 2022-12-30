@@ -7,7 +7,6 @@ import cn.acsm.module.stock.controller.admin.recorddetail.vo.StockRecordDetailUp
 import cn.acsm.module.stock.dal.dataobject.recorddetail.StockRecordDetailDO;
 import cn.acsm.module.stock.dal.mysql.recorddetail.StockRecordDetailMapper;
 import cn.acsm.module.stock.service.recorddetail.StockRecordDetailServiceImpl;
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Disabled;
@@ -226,7 +225,6 @@ public class StockRecordDetailServiceImplTest extends BaseDbUnitTest {
        reqVO.setRecordId(null);
        reqVO.setStockBatchNo(null);
        reqVO.setOperationType(null);
-       reqVO.setSecondaryClassification(null);
        reqVO.setGoodsId(null);
        reqVO.setGoodsNumber(null);
        reqVO.setGoodsName(null);

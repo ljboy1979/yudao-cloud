@@ -66,6 +66,15 @@ public class StockRecordController {
         return success(true);
     }
 
+    @DeleteMapping("/delete/out")
+    @ApiOperation("删除出库信息")
+    @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
+    @PreAuthorize("@ss.hasPermission('stock:record:delete')")
+    public CommonResult<Boolean> deleteOutRecord(@RequestParam("id") Long id) {
+        recordService.deleteOutRecord(id);
+        return success(true);
+    }
+
     @GetMapping("/get")
     @ApiOperation("获得库存信息")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
@@ -114,7 +123,7 @@ public class StockRecordController {
     @GetMapping("/get/record/detail")
     @ApiOperation("根据入库来源获取来源批次")
     @PreAuthorize("@ss.hasPermission('stock:record:source')")
-    public CommonResult<List<OrderDetailsApiVO>> getRecord(@RequestParam("treasurySource") String treasurySource, @RequestParam("id") Integer id) {
+    public CommonResult<List<OrderDetailsApiVO>> getRecord(@RequestParam("treasurySource") String treasurySource, @RequestParam("id") String id) {
         List<OrderDetailsApiVO> record = recordService.getRecord(treasurySource, id);
         return success(record);
     }

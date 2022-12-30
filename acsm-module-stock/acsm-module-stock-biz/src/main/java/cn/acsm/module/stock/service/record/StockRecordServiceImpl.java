@@ -134,8 +134,11 @@ public class StockRecordServiceImpl implements StockRecordService {
         StockRecordDO stockRecordDO = recordMapper.selectOne(wrapper);
         // 插入子表-库存记录明细表
         createReqVO.getStockRecordDetailDOList().forEach(detail -> {
+            // 根据货位名称获取货位id
+
+
                 StockRecordDetailDO detailDO = new StockRecordDetailDO();
-//                detailDO.setRecordDetailId(createReqVO.getRecordDetailId());
+                detailDO.setRecordDetailId(Long.valueOf(detail.getId()));
                 detailDO.setOperationType(true);
                 detailDO.setRecordId(stockRecordDO.getId());
                 detailDO.setStockBatchNo(batchNo);
@@ -149,15 +152,17 @@ public class StockRecordServiceImpl implements StockRecordService {
                 detailMapper.insert(detailDO);
 
             QueryWrapper queryWrapper = new QueryWrapper();
-            queryWrapper.eq("warehouse_id", createReqVO.getWarehouseId());
-            queryWrapper.eq("goods_id", detail.getGoodsId());
-            queryWrapper.eq("packing_specification", detail.getPackingSpecification());
+            queryWrapper.eq("id", detail.getId());
+//            queryWrapper.eq("warehouse_id", createReqVO.getWarehouseId());
+//            queryWrapper.eq("goods_id", detail.getGoodsId());
+//            queryWrapper.eq("packing_specification", detail.getPackingSpecification());
             StockRecordDetailDO detailDO2 = detailMapper.selectOne(queryWrapper);
 
             // 根据库存明细id更新入库数据的现有库存数量
             UpdateWrapper updateWrapper = new UpdateWrapper();
-            updateWrapper.eq("warehouse_id", createReqVO.getWarehouseId());
-            updateWrapper.eq("goods_id", detail.getGoodsId());
+            updateWrapper.eq("id", detail.getId());
+//            updateWrapper.eq("warehouse_id", createReqVO.getWarehouseId());
+//            updateWrapper.eq("goods_id", detail.getGoodsId());
 //            updateWrapper.eq(StringUtils.isNotBlank(detail.getPackingSpecification()), "packing_specification", createReqVO.getPackingSpecification());
 
             StockRecordDetailDO detailDO1 = new StockRecordDetailDO();
@@ -169,7 +174,7 @@ public class StockRecordServiceImpl implements StockRecordService {
             updateCountVO.setGoodsId(detail.getGoodsId());
             updateCountVO.setPackingSpecification(detail.getPackingSpecification());
             updateCountVO.setWarehouseId(createReqVO.getWarehouseId());
-            // 减去当前出库数量
+            // 减去当前出库数量 - “虚拟库存量”=“虚拟库存量”-出库数量；
             updateCountVO.setInventoryQuantity(-detail.getDeliveryQuantity());
             inventoryService.updateInventoryCount(updateCountVO);
         });
@@ -301,6 +306,73 @@ public class StockRecordServiceImpl implements StockRecordService {
         });
     }
 
+    /**
+     * 删除出库记录单
+     *
+     * @param id 编号
+     */
+    public void deleteOutRecord(Long id) {
+        // 获取出库记录
+        QueryWrapper recordWrapper = new QueryWrapper();
+        recordWrapper.eq("id", id);
+        recordWrapper.eq("deleted", 0);
+        StockRecordDO stockRecordDO = recordMapper.selectOne(recordWrapper);
+
+        // 获取出库记录详情
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("record_id", id);
+        queryWrapper.eq("operation_type", 1);
+        List<StockRecordDetailDO> list = detailMapper.selectList(queryWrapper);
+        if(!CollectionUtils.isEmpty(list)) {
+            // 更新清单库存量
+            list.stream().forEach(ls -> {
+                // 获取对应入库记录详情的现有库存量
+                Long recordDetailId = ls.getRecordDetailId();
+                QueryWrapper detailQueryWrapper = new QueryWrapper();
+                detailQueryWrapper.eq("id", recordDetailId);
+
+                StockRecordDetailDO detailDO1 = detailMapper.selectOne(detailQueryWrapper);
+
+
+                // 更新对应入库记录详情的现有库存量
+                UpdateWrapper detailUpdateWrapper = new UpdateWrapper();
+                detailUpdateWrapper.eq("id", recordDetailId);
+
+                StockRecordDetailDO detailDO = new StockRecordDetailDO();
+                // 现有库存量 = 现有库存量 + 出库量
+                detailDO.setExistingInventory(detailDO1.getExistingInventory() + ls.getDeliveryQuantity());
+
+                detailMapper.update(detailDO, detailUpdateWrapper);
+
+                // 查询清单库存量
+                QueryWrapper inventoryQueryWrapper = new QueryWrapper();
+                inventoryQueryWrapper.eq("goods_id", ls.getGoodsId());
+                inventoryQueryWrapper.eq("packing_specification", ls.getPackingSpecification());
+                inventoryQueryWrapper.eq("warehouse_id", stockRecordDO.getWarehouseId());
+                StockInventoryDO inventoryDO1 = inventoryMapper.selectOne(inventoryQueryWrapper);
+
+                UpdateWrapper inventoryWrapper = new UpdateWrapper();
+                inventoryWrapper.eq("goods_id", ls.getGoodsId());
+                inventoryWrapper.eq("packing_specification", ls.getPackingSpecification());
+                inventoryWrapper.eq("warehouse_id", stockRecordDO.getWarehouseId());
+
+                StockInventoryDO inventoryDO = new StockInventoryDO();
+                // 获取出库的总数量
+                Integer sum = list.stream().filter(sd -> (sd.getGoodsId() == ls.getGoodsId()
+                        && sd.getPackingSpecification().equalsIgnoreCase(ls.getPackingSpecification())))
+                        .map(s -> s.getDeliveryQuantity()).mapToInt(Integer::intValue).sum();
+                inventoryDO.setInventoryQuantity(inventoryDO1.getInventoryQuantity() + sum);
+                inventoryMapper.update(inventoryDO, inventoryWrapper);
+
+                // 删除出库记录详情
+                detailMapper.deleteById(ls.getId());
+            });
+        }
+
+        // 删除出库记录
+        recordMapper.deleteById(id);
+    }
+
     private void validateRecordExists(Long id) {
         if (recordMapper.selectById(id) == null) {
             throw exception(RECORD_NOT_EXISTS);
@@ -378,9 +450,10 @@ public class StockRecordServiceImpl implements StockRecordService {
         Page<StockRecordDO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
 
         QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq(StringUtils.isNotBlank(pageReqVO.getHeadName()), "head_name", pageReqVO.getHeadName());
+        wrapper.eq("operation_type", pageReqVO.getOperationType());
+        wrapper.like(StringUtils.isNotBlank(pageReqVO.getHeadName()), "head_name", pageReqVO.getHeadName());
         wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getType()), "type", pageReqVO.getType());
-        wrapper.eq(StringUtils.isNotBlank(pageReqVO.getWarehouseName()), "warehouse_name", pageReqVO.getWarehouseName());
+        wrapper.like(StringUtils.isNotBlank(pageReqVO.getWarehouseName()), "warehouse_name", pageReqVO.getWarehouseName());
         wrapper.eq(StringUtils.isNotBlank(pageReqVO.getBatchNo()), "batch_no", pageReqVO.getBatchNo());
         wrapper.gt(ObjectUtils.isNotEmpty(pageReqVO.getOperationStartTime()), "operation_time", pageReqVO.getOperationStartTime());
         wrapper.lt(ObjectUtils.isNotEmpty(pageReqVO.getOperationEndTime()), "operation_time", pageReqVO.getOperationEndTime());
@@ -390,19 +463,16 @@ public class StockRecordServiceImpl implements StockRecordService {
 
 //    @Cacheable(value = "stockRecord", key = "#treasurySource")
     @Override
-    public List<OrderDetailsApiVO> getRecord(String treasurySource, Integer id) {
-        QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq("id", id);
-        StockRecordDetailDO detailDO = detailMapper.selectOne(wrapper);
+    public List<OrderDetailsApiVO> getRecord(String treasurySource, String id) {
         if(StringUtils.equalsIgnoreCase(treasurySource,"1")) {
             // 获取采收记录信息
-            String harvestBatchId = detailDO.getHarvestBatchId();
+//            String harvestBatchId = detailDO.getHarvestBatchId();
             // 此处需远程调用获取采收记录信息
         } else if(StringUtils.equalsIgnoreCase(treasurySource,"2")) {
             // 获取采购记录信息
-            String purchaseNumber = detailDO.getPurchaseNumber();
-            List<OrderDetailsApiVO> orderDetails = detailsApi.getOrderDetails(purchaseNumber);
-            return orderDetails;
+//            String purchaseNumber = detailDO.getPurchaseNumber();
+            List<OrderDetailsApiVO> orderDetails = detailsApi.getOrderDetails();
+            return null;
         }
         return null;
     }

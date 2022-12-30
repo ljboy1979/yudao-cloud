@@ -47,6 +47,13 @@ public interface StockRecordService {
     void deleteRecord(Long id);
 
     /**
+     * 删除出库记录单
+     *
+     * @param id 编号
+     */
+    void deleteOutRecord(Long id);
+
+    /**
      * 获得库存记录
      *
      * @param id 编号
@@ -92,6 +99,6 @@ public interface StockRecordService {
      * @param treasurySource 入库来源
      * @return 库存记录
      */
-    List<OrderDetailsApiVO> getRecord(String treasurySource, Integer id);
+    List<OrderDetailsApiVO> getRecord(String treasurySource, String id);
 
 }

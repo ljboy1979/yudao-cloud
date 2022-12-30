@@ -132,13 +132,11 @@ public class PurchaseDetailsServiceImpl implements PurchaseDetailsService {
     /**
      * 获得采购单明细信息
      *
-     * @param purchaseNumber 查询条件
      * @return 采购单明细列表信息
      */
-    public List<OrderDetailsApiVO> getDetailsList(String purchaseNumber) {
-        QueryWrapper<PurchaseDetailsDO> wrapper = new QueryWrapper();
-        wrapper.eq("purchase_number", purchaseNumber);
-        return detailsMapper.selectList(wrapper).stream().map(detail -> {
+    public List<OrderDetailsApiVO> getDetailsList() {
+        List<PurchaseDetailsDO> purchaseDetailsDOS = detailsMapper.selectList();
+        return purchaseDetailsDOS.stream().map(detail -> {
             OrderDetailsApiVO apiVO = new OrderDetailsApiVO();
             BeanUtils.copyProperties(detail, apiVO);
             return apiVO;

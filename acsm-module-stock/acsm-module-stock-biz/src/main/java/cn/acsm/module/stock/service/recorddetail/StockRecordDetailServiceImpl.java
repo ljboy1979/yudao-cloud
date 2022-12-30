@@ -2,13 +2,14 @@ package cn.acsm.module.stock.service.recorddetail;
 
 import cn.acsm.module.stock.controller.admin.recorddetail.vo.*;
 import cn.acsm.module.stock.convert.recorddetail.StockRecordDetailConvert;
+import cn.acsm.module.stock.dal.dataobject.record.StockRecordDO;
 import cn.acsm.module.stock.dal.dataobject.recorddetail.StockRecordDetailDO;
+import cn.acsm.module.stock.dal.mysql.record.StockRecordMapper;
 import cn.acsm.module.stock.dal.mysql.recorddetail.StockRecordDetailMapper;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.module.system.api.dept.DeptApi;
 import cn.iocoder.yudao.module.system.api.dept.dto.DeptRespDTO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +41,9 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
 
     @Resource
     private StockRecordDetailMapper recordDetailMapper;
+
+    @Resource
+    private StockRecordMapper recordMapper;
 
     @Resource
     private DeptApi deptApi;
@@ -94,19 +98,49 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
      * @param pageReqVO 分页查询
      * @return
      */
-    @Cacheable(value = "stockRecord", key = "'getRecordDetailPage'.concat('-').concat(#pageReqVO.goodsType)" +
-            ".concat('-').concat(#pageReqVO.stockBatchNo).concat('-').concat(#pageReqVO.goodsName)")
+//    @Cacheable(value = "stockRecord", key = "'getRecordDetailPage'.concat('-').concat(#pageReqVO.goodsType)" +
+//            ".concat('-').concat(#pageReqVO.stockBatchNo).concat('-').concat(#pageReqVO.goodsName)")
     @Override
     public Page<StockRecordDetailDO> getRecordDetailPage(StockRecordDetailPageReqVO pageReqVO) {
+        // 获取指定仓库的入库id
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("warehouse_id", pageReqVO.getWarehouseId());
+        queryWrapper.eq("operation_type", 0);
+        List<StockRecordDO> list = recordMapper.selectList(queryWrapper);
+        List<Long> ids = list.stream().map(sd -> sd.getId()).collect(Collectors.toList());
+
         Page<StockRecordDetailDO> page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
         QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq("goods_type", pageReqVO.getGoodsType());
-        wrapper.eq("stock_batch_no", pageReqVO.getStockBatchNo());
-        wrapper.eq("goods_name", pageReqVO.getGoodsName());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getGoodsType()), "goods_type", pageReqVO.getGoodsType());
+        wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getStockBatchNo()), "stock_batch_no", pageReqVO.getStockBatchNo());
+        wrapper.like(ObjectUtils.isNotEmpty(pageReqVO.getGoodsName()),"goods_name", pageReqVO.getGoodsName());
+        wrapper.in("record_id", ids);
         // 现有库存数量大于0
         wrapper.gt("existing_inventory", 0);
         wrapper.orderByAsc("create_time");
         return recordDetailMapper.selectPage(page, wrapper);
+    }
+
+    /**
+     * 获取出入库记录详情
+     * @param pageReqVO 分页查询
+     * @return
+     */
+    public Page<StockRecordDetailDO> getRecordDetailOutPage(StockRecordDetailPageInOutVO pageReqVO) {
+        Page<StockRecordDetailDO> page = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        // 获取出库详情
+        if(StringUtils.equalsIgnoreCase(pageReqVO.getOperationType(), "1")) {
+            QueryWrapper wrapper = new QueryWrapper();
+            wrapper.eq("operation_type", 1);
+            wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getGoodsType()), "goods_type", pageReqVO.getGoodsType());
+            wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getGoodsName()), "goods_name", pageReqVO.getGoodsName());
+            wrapper.eq(ObjectUtils.isNotEmpty(pageReqVO.getStockBatchNo()), "stock_batch_no", pageReqVO.getStockBatchNo());
+            Page page1 = recordDetailMapper.selectPage(page, wrapper);
+//            page1
+            return page1;
+        }
+        // 获取入库详情
+        return null;
     }
 
     @Cacheable(value = "stockRecord", key = "'getRecordDetailList'.concat('-').concat(#exportReqVO.operationType)" +
@@ -151,19 +185,17 @@ public class StockRecordDetailServiceImpl implements StockRecordDetailService {
         wrapper.eq("id", updateReqVO.getId());
         StockRecordDetailDO detailDO = recordDetailMapper.selectOne(wrapper);
 
-        // 修改条件
-        UpdateWrapper updateWrapper = new UpdateWrapper();
-        updateWrapper.set("id", updateReqVO.getId());
-
         // 修改数据
         StockRecordDetailDO recordDetailDO = new StockRecordDetailDO();
         BeanUtils.copyProperties(updateReqVO, recordDetailDO);
+        recordDetailDO.setId(updateReqVO.getId());
+        BeanUtils.copyProperties(updateReqVO, recordDetailDO);
         if(detailDO.getOperationType() == false) { // 入库
-            recordDetailDO.setReceiptQuantity(updateReqVO.getQuantity());
-            recordDetailMapper.update(recordDetailDO, updateWrapper);
+            recordDetailDO.setReceiptQuantity(updateReqVO.getDeliveryQuantity());
+            recordDetailMapper.updateById(recordDetailDO);
         } else if(detailDO.getOperationType() == true) { // 出库
-            recordDetailDO.setDeliveryQuantity(updateReqVO.getQuantity());
-            recordDetailMapper.update(recordDetailDO, updateWrapper);
+            recordDetailDO.setDeliveryQuantity(updateReqVO.getDeliveryQuantity());
+            recordDetailMapper.updateById(recordDetailDO);
         }
     }
 

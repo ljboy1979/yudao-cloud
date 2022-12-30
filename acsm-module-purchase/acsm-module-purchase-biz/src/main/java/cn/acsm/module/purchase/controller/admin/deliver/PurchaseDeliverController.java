@@ -1,9 +1,11 @@
 package cn.acsm.module.purchase.controller.admin.deliver;
 
+import cn.acsm.module.purchase.api.orderdetails.vo.OrderDetailsApiVO;
 import cn.acsm.module.purchase.controller.admin.deliver.vo.*;
 import cn.acsm.module.purchase.convert.deliver.PurchaseDeliverConvert;
 import cn.acsm.module.purchase.dal.dataobject.deliver.PurchaseDeliverDO;
 import cn.acsm.module.purchase.service.deliver.PurchaseDeliverService;
+import cn.acsm.module.purchase.service.details.PurchaseDetailsService;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
@@ -59,14 +61,14 @@ public class PurchaseDeliverController {
         return success(true);
     }
 
-    @GetMapping("/get")
-    @ApiOperation("获得采购交付")
-    @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
-    @PreAuthorize("@ss.hasPermission('purchase:deliver:query')")
-    public CommonResult<PurchaseDeliverRespVO> getDeliver(@RequestParam("id") Long id) {
-        PurchaseDeliverDO deliver = deliverService.getDeliver(id);
-        return success(PurchaseDeliverConvert.INSTANCE.convert(deliver));
-    }
+//    @GetMapping("/get")
+//    @ApiOperation("获得采购交付")
+//    @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
+//    @PreAuthorize("@ss.hasPermission('purchase:deliver:query')")
+//    public CommonResult<PurchaseDeliverRespVO> getDeliver(@RequestParam("id") Long id) {
+//        PurchaseDeliverDO deliver = deliverService.getDeliver(id);
+//        return success(PurchaseDeliverConvert.INSTANCE.convert(deliver));
+//    }
 
     @GetMapping("/list")
     @ApiOperation("获得采购交付列表")

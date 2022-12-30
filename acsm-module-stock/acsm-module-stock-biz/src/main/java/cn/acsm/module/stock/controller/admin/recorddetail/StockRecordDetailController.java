@@ -79,8 +79,16 @@ public class StockRecordDetailController {
     @GetMapping("/page")
     @ApiOperation("3.7.2.11.获取入库详情及现有库存量")
     @PreAuthorize("@ss.hasPermission('stock:record-detail:query')")
-    public CommonResult<Page<StockRecordDetailDO>> getRecordDetailPage(@Valid @RequestBody StockRecordDetailPageReqVO pageVO) {
+    public CommonResult<Page<StockRecordDetailDO>> getRecordDetailPage(@Valid StockRecordDetailPageReqVO pageVO) {
         Page<StockRecordDetailDO> pageResult = recordDetailService.getRecordDetailPage(pageVO);
+        return success(pageResult);
+    }
+
+    @GetMapping("/page/inout")
+    @ApiOperation("+获取出库记录详情")
+    @PreAuthorize("@ss.hasPermission('stock:record-detail:query')")
+    public CommonResult<Page<StockRecordDetailDO>> getRecordDetailOutPage(@Valid StockRecordDetailPageInOutVO pageVO) {
+        Page<StockRecordDetailDO> pageResult = recordDetailService.getRecordDetailOutPage(pageVO);
         return success(pageResult);
     }
 

@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -24,14 +23,13 @@ public class StockRecordDetailPageReqVO extends PageParam {
     private Long recordId;
 
     @ApiModelProperty(value = "库存批次号")
-    @NotBlank(message = "库存批次号不能为空")
     private String stockBatchNo;
 
     @ApiModelProperty(value = "操作类型(0.入库 1.出库)")
     private Boolean operationType;
 
-    @ApiModelProperty(value = "二级分类(成品类：套餐/商品/特医食品)")
-    private String secondaryClassification;
+    @ApiModelProperty(value = "仓库id")
+    private String warehouseId;
 
     @ApiModelProperty(value = "货品id")
     private String goodsId;
@@ -40,11 +38,9 @@ public class StockRecordDetailPageReqVO extends PageParam {
     private String goodsNumber;
 
     @ApiModelProperty(value = "货品名称")
-    @NotBlank(message = "货品名称不能为空")
     private String goodsName;
 
     @ApiModelProperty(value = "货品类型")
-    @NotBlank(message = "货品类型不能为空")
     private String goodsType;
 
     @ApiModelProperty(value = "包装类型")

@@ -2,8 +2,6 @@ package cn.acsm.module.purchase.api.orderdetails.vo;
 
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
  * <pre>
  * 对象功能: OrderDetailsApiVO.java
@@ -12,7 +10,7 @@ import java.io.Serializable;
  * <pre>
  */
 @Data
-public class OrderDetailsApiVO implements Serializable {
+public class OrderDetailsApiVO {
 
     /**
      * 采购单号

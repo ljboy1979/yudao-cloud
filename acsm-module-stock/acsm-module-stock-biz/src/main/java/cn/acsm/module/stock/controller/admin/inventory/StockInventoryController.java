@@ -27,7 +27,7 @@ import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.E
 
 @Api(tags = "管理后台 - 预警 - 库存清单")
 @RestController
-@RequestMapping("/stock/inventory")
+@RequestMapping("stock/feign/purchase")
 @Validated
 public class StockInventoryController {
 

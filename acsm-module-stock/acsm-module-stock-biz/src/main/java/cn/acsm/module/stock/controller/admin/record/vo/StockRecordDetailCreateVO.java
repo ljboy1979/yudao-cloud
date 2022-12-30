@@ -13,6 +13,9 @@ import java.math.BigDecimal;
 @ToString(callSuper = true)
 public class StockRecordDetailCreateVO implements Serializable {
 
+    @ApiModelProperty(value = "库存记录明细id")
+    private String id;
+
     @ApiModelProperty(value = "货品id")
     private String goodsId;
 
@@ -52,8 +55,8 @@ public class StockRecordDetailCreateVO implements Serializable {
     @ApiModelProperty(value = "所属部门id")
     private String departmentId;
 
-    @ApiModelProperty(value = "货位id")
-    private Long goodsAllocationId;
+    @ApiModelProperty(value = "货位名称")
+    private String goodsAllocationName;
 
     @ApiModelProperty(value = "入库来源")
     private String treasurySource;
