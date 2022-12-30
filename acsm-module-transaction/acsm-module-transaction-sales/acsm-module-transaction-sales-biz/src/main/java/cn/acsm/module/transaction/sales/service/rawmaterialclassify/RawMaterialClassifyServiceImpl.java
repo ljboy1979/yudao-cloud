@@ -24,6 +24,7 @@ import cn.acsm.module.transaction.sales.convert.rawmaterialclassify.RawMaterialC
 import cn.acsm.module.transaction.sales.dal.mysql.rawmaterialclassify.RawMaterialClassifyMapper;
 
 import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.STOCK_CLASSIFY_OVER_LIMIT;
+import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.STOCK_CLASSIFY_OVER_LIMIT3;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.RAW_MATERIAL_CLASSIFY_NOT_EXISTS;
 
@@ -59,7 +60,7 @@ public class RawMaterialClassifyServiceImpl implements RawMaterialClassifyServic
             createReqVO.setTreeNames(createReqVO.getCategoryName());
         }
         if (createReqVO.getTreeLevel().compareTo(new BigDecimal(2))==1){
-            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT3);
         }
         if (createReqVO.getTreeLevel().compareTo(new BigDecimal(2))==0){
             createReqVO.setTreeLeaf("1");
@@ -96,7 +97,7 @@ public class RawMaterialClassifyServiceImpl implements RawMaterialClassifyServic
             updateReqVO.setTreeNames(updateReqVO.getCategoryName());
         }
         if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(2))==1){
-            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT3);
         }
         if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(2))==0){
             updateReqVO.setTreeLeaf("1");
