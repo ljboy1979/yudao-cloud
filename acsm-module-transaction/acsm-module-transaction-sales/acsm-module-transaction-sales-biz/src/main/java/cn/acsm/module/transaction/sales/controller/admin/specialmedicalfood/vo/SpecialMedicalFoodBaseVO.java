@@ -25,9 +25,11 @@ public class SpecialMedicalFoodBaseVO {
     private String imgUrl;
 
     @ApiModelProperty(value = "备注")
+    @Size(max = 200 , min = 0)
     private String remark;
 
     @ApiModelProperty(value = "专家建议")
+    @Size(max = 200 , min = 0)
     private String expertAdvice;
 
     @ApiModelProperty(value = "状态", required = true)
