@@ -45,7 +45,7 @@ public class RawMaterialClassifyController {
     @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:create')")
     @CacheEvict(value = "/sales/raw-material-classify/treeList")
     public CommonResult<String> createRawMaterialClassify(@Valid @RequestBody RawMaterialClassifyCreateReqVO createReqVO) {
-        return success(rawMaterialClassifyService.createRawMaterialClassify(createReqVO));
+        return rawMaterialClassifyService.createRawMaterialClassify(createReqVO);
     }
 
     @PutMapping("/update")
@@ -53,8 +53,7 @@ public class RawMaterialClassifyController {
     @CacheEvict(value = "/sales/raw-material-classify/treeList")
     @PreAuthorize("@ss.hasPermission('sales:raw-material-classify:update')")
     public CommonResult<Boolean> updateRawMaterialClassify(@Valid @RequestBody RawMaterialClassifyUpdateReqVO updateReqVO) {
-        rawMaterialClassifyService.updateRawMaterialClassify(updateReqVO);
-        return success(true);
+        return rawMaterialClassifyService.updateRawMaterialClassify(updateReqVO);
     }
 
     @DeleteMapping("/delete")

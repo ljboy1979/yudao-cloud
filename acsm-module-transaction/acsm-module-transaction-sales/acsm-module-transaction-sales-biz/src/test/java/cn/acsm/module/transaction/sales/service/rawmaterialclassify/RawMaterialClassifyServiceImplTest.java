@@ -1,6 +1,7 @@
 package cn.acsm.module.transaction.sales.service.rawmaterialclassify;
 
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -48,11 +49,11 @@ public class RawMaterialClassifyServiceImplTest extends BaseDbUnitTest {
         RawMaterialClassifyCreateReqVO reqVO = randomPojo(RawMaterialClassifyCreateReqVO.class);
 
         // 调用
-        String rawMaterialClassifyId = rawMaterialClassifyService.createRawMaterialClassify(reqVO);
+        CommonResult result = rawMaterialClassifyService.createRawMaterialClassify(reqVO);
         // 断言
-        assertNotNull(rawMaterialClassifyId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        RawMaterialClassifyDO rawMaterialClassify = rawMaterialClassifyMapper.selectById(rawMaterialClassifyId);
+        RawMaterialClassifyDO rawMaterialClassify = rawMaterialClassifyMapper.selectById(result.getData().toString());
         assertPojoEquals(reqVO, rawMaterialClassify);
     }
 

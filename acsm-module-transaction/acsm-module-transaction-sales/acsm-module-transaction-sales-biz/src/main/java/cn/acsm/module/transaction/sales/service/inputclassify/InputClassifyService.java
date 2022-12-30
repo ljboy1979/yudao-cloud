@@ -5,6 +5,7 @@ import javax.validation.*;
 import cn.acsm.module.transaction.sales.controller.admin.inputclassify.vo.*;
 import cn.acsm.module.transaction.sales.controller.admin.inputclassify.vo.InputClassifyCreateReqVO;
 import cn.acsm.module.transaction.sales.dal.dataobject.inputclassify.InputClassifyDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 
@@ -21,14 +22,14 @@ public interface InputClassifyService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createInputClassify(@Valid InputClassifyCreateReqVO createReqVO);
+    CommonResult createInputClassify(@Valid InputClassifyCreateReqVO createReqVO);
 
     /**
      * 更新投入品分类
      *
      * @param updateReqVO 更新信息
      */
-    void updateInputClassify(@Valid InputClassifyUpdateReqVO updateReqVO);
+    CommonResult updateInputClassify(@Valid InputClassifyUpdateReqVO updateReqVO);
 
     /**
      * 删除投入品分类

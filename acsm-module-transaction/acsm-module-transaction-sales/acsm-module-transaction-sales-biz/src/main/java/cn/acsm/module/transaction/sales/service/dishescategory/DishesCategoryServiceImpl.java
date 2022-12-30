@@ -7,6 +7,7 @@ import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.Dishe
 import cn.acsm.module.transaction.sales.convert.dishescategory.DishesCategoryConvert;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -41,7 +42,7 @@ public class DishesCategoryServiceImpl implements DishesCategoryService {
     private DishesCategoryMapper dishesCategoryMapper;
 
     @Override
-    public String createDishesCategory(DishesCategoryCreateReqVO createReqVO) {
+    public CommonResult createDishesCategory(DishesCategoryCreateReqVO createReqVO) {
         if (StringUtils.isNotEmpty(createReqVO.getParentCode())) {
             DishesCategoryDO parenMarketClassify = dishesCategoryMapper.selectById(createReqVO.getParentCode());
             createReqVO.setParentCodes(parenMarketClassify.getParentCodes()+createReqVO.getParentCode()+",");
@@ -59,6 +60,9 @@ public class DishesCategoryServiceImpl implements DishesCategoryService {
             createReqVO.setTreeLevel(new BigDecimal(0));
             createReqVO.setTreeNames(createReqVO.getCategoryName());
         }
+        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+        }
         Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
         uuid = uuid < 0 ? -uuid : uuid;
         // 插入
@@ -66,16 +70,37 @@ public class DishesCategoryServiceImpl implements DishesCategoryService {
         dishesCategory.setId(uuid.toString());
         dishesCategoryMapper.insert(dishesCategory);
         // 返回
-        return dishesCategory.getId();
+        return CommonResult.success(dishesCategory.getId());
     }
 
     @Override
-    public void updateDishesCategory(DishesCategoryUpdateReqVO updateReqVO) {
+    public CommonResult updateDishesCategory(DishesCategoryUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateDishesCategoryExists(updateReqVO.getId());
+        if (StringUtils.isNotEmpty(updateReqVO.getParentCode())) {
+            DishesCategoryDO parenMarketClassify = dishesCategoryMapper.selectById(updateReqVO.getParentCode());
+            updateReqVO.setParentCodes(parenMarketClassify.getParentCodes()+updateReqVO.getParentCode()+",");
+            updateReqVO.setTreeSort(new BigDecimal(0));
+            updateReqVO.setTreeSorts(parenMarketClassify.getTreeSorts()+"0,");
+            updateReqVO.setTreeLeaf("0");
+            updateReqVO.setTreeLevel(parenMarketClassify.getTreeLevel().add(new BigDecimal(1)));
+            updateReqVO.setTreeNames(parenMarketClassify.getTreeNames()+"/"+updateReqVO.getCategoryName());
+        }else {
+            updateReqVO.setParentCode("0");
+            updateReqVO.setParentCodes("0,");
+            updateReqVO.setTreeSort(new BigDecimal(0));
+            updateReqVO.setTreeSorts("0,");
+            updateReqVO.setTreeLeaf("0");
+            updateReqVO.setTreeLevel(new BigDecimal(0));
+            updateReqVO.setTreeNames(updateReqVO.getCategoryName());
+        }
+        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+        }
         // 更新
         DishesCategoryDO updateObj = DishesCategoryConvert.INSTANCE.convert(updateReqVO);
         dishesCategoryMapper.updateById(updateObj);
+        return CommonResult.success("成功");
     }
 
     @Override

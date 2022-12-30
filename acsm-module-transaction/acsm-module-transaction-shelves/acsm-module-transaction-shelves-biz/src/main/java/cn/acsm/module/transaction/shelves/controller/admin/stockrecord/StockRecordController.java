@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.shelves.controller.admin.stockrecord;
 
+import cn.acsm.module.transaction.shelves.dal.dataobject.stockrecord.StockRecordInfoDO;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -81,8 +82,8 @@ public class StockRecordController {
     @ApiOperation("获得货架库存记录分页")
     @PreAuthorize("@ss.hasPermission('shelves:stock-record:query')")
     public CommonResult<PageResult<StockRecordRespVO>> getStockRecordPage(@Valid StockRecordPageReqVO pageVO) {
-        PageResult<StockRecordDO> pageResult = stockRecordService.getStockRecordPage(pageVO);
-        return success(StockRecordConvert.INSTANCE.convertPage(pageResult));
+        PageResult<StockRecordInfoDO> pageResult = stockRecordService.findStockRecordPage(pageVO);
+        return success(StockRecordConvert.INSTANCE.convertInfoPage(pageResult));
     }
 
     @GetMapping("/export-excel")

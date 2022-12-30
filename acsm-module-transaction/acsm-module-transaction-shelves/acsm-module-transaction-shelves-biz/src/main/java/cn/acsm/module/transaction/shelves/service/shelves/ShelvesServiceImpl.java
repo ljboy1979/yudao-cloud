@@ -79,6 +79,7 @@ public class ShelvesServiceImpl implements ShelvesService {
                 // 插入
                 SpecificationsDO specifications = SpecificationsConvert.INSTANCE.convert(specificationsCreateReqVO);
                 specifications.setId(UUID.randomUUID().toString());
+                specifications.setShelvesId(shelves.getId());
                 specificationsMapper.insert(specifications);
             });
         }

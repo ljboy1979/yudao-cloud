@@ -7,6 +7,7 @@ import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.Dishe
 import cn.acsm.module.transaction.sales.dal.dataobject.dishescategory.DishesCategoryDO;
 import cn.acsm.module.transaction.sales.dal.mysql.dishescategory.DishesCategoryMapper;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -55,11 +56,11 @@ public class DishesCategoryServiceImplTest extends BaseDbUnitTest {
         DishesCategoryCreateReqVO reqVO = randomPojo(DishesCategoryCreateReqVO.class);
 
         // 调用
-        String dishesCategoryId = dishesCategoryService.createDishesCategory(reqVO);
+        CommonResult result = dishesCategoryService.createDishesCategory(reqVO);
         // 断言
-        assertNotNull(dishesCategoryId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        DishesCategoryDO dishesCategory = dishesCategoryMapper.selectById(dishesCategoryId);
+        DishesCategoryDO dishesCategory = dishesCategoryMapper.selectById(result.getData().toString());
         assertPojoEquals(reqVO, dishesCategory);
     }
 

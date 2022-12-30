@@ -67,4 +67,5 @@ public interface SpecificationsService {
      */
     List<SpecificationsDO> getSpecificationsList(SpecificationsExportReqVO exportReqVO);
 
+    List<SpecificationsRespVO> findSpecifications(SpecificationsPageReqVO specificationsPageReqVO);
 }

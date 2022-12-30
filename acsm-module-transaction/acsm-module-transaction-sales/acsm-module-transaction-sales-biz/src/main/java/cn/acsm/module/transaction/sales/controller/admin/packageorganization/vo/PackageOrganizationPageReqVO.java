@@ -17,7 +17,7 @@ public class PackageOrganizationPageReqVO extends PageParam {
     @ApiModelProperty(value = "套餐id")
     private String packageId;
 
-    @ApiModelProperty(value = "0商品 1菜品")
+    @ApiModelProperty(value = "2商品 3菜品")
     private String type;
 
     @ApiModelProperty(value = "组成编号")

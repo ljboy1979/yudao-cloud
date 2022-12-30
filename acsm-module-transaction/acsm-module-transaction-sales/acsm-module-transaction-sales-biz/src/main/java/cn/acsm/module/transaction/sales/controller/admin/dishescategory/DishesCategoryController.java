@@ -45,15 +45,14 @@ public class DishesCategoryController {
     @ApiOperation("创建菜品分类")
     @PreAuthorize("@ss.hasPermission('sales:dishes-category:create')")
     public CommonResult<String> createDishesCategory(@Valid @RequestBody DishesCategoryCreateReqVO createReqVO) {
-        return success(dishesCategoryService.createDishesCategory(createReqVO));
+        return dishesCategoryService.createDishesCategory(createReqVO);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新菜品分类")
     @PreAuthorize("@ss.hasPermission('sales:dishes-category:update')")
     public CommonResult<Boolean> updateDishesCategory(@Valid @RequestBody DishesCategoryUpdateReqVO updateReqVO) {
-        dishesCategoryService.updateDishesCategory(updateReqVO);
-        return success(true);
+        return dishesCategoryService.updateDishesCategory(updateReqVO);
     }
 
     @DeleteMapping("/delete")

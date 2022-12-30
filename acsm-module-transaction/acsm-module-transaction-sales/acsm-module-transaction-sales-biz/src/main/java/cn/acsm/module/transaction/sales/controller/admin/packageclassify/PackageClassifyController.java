@@ -41,15 +41,14 @@ public class PackageClassifyController {
     @ApiOperation("创建套餐分类")
     @PreAuthorize("@ss.hasPermission('sales:package-classify:create')")
     public CommonResult<String> createPackageClassify(@Valid @RequestBody PackageClassifyCreateReqVO createReqVO) {
-        return success(packageClassifyService.createPackageClassify(createReqVO));
+        return packageClassifyService.createPackageClassify(createReqVO);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新套餐分类")
     @PreAuthorize("@ss.hasPermission('sales:package-classify:update')")
     public CommonResult<Boolean> updatePackageClassify(@Valid @RequestBody PackageClassifyUpdateReqVO updateReqVO) {
-        packageClassifyService.updatePackageClassify(updateReqVO);
-        return success(true);
+        return packageClassifyService.updatePackageClassify(updateReqVO);
     }
 
     @DeleteMapping("/delete")

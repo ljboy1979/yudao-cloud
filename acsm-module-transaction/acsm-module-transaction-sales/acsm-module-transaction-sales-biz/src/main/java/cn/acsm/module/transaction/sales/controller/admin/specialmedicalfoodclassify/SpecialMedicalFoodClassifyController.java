@@ -41,15 +41,14 @@ public class SpecialMedicalFoodClassifyController {
     @ApiOperation("创建特医食品分类")
     @PreAuthorize("@ss.hasPermission('sales:special-medical-food-classify:create')")
     public CommonResult<String> createSpecialMedicalFoodClassify(@Valid @RequestBody SpecialMedicalFoodClassifyCreateReqVO createReqVO) {
-        return success(specialMedicalFoodClassifyService.createSpecialMedicalFoodClassify(createReqVO));
+        return specialMedicalFoodClassifyService.createSpecialMedicalFoodClassify(createReqVO);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新特医食品分类")
     @PreAuthorize("@ss.hasPermission('sales:special-medical-food-classify:update')")
     public CommonResult<Boolean> updateSpecialMedicalFoodClassify(@Valid @RequestBody SpecialMedicalFoodClassifyUpdateReqVO updateReqVO) {
-        specialMedicalFoodClassifyService.updateSpecialMedicalFoodClassify(updateReqVO);
-        return success(true);
+        return specialMedicalFoodClassifyService.updateSpecialMedicalFoodClassify(updateReqVO);
     }
 
     @DeleteMapping("/delete")

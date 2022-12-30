@@ -10,6 +10,7 @@ public interface ErrorCodeConstants {
     ErrorCode SPECIFICATIONS_NOT_EXISTS = new ErrorCode(2100000001, "货架规格不存在");
     ErrorCode STOCK_RECORD_NOT_EXISTS = new ErrorCode(2100000002, "货架库存记录不存在");
     ErrorCode STOCK_CLASSIFY_NOT_EXISTS = new ErrorCode(2100000003, "库存分类不存在");
+    ErrorCode STOCK_CLASSIFY_OVER_LIMIT = new ErrorCode(2100000004, "库存分类层级已超限制，最大4级");
     ErrorCode CONFIG_NUMBER_EXISTS = new ErrorCode(2000000015, "生成编码失败，异常信息");
     ErrorCode NUMBER_GET_LOCK_EXISTS= new ErrorCode(2000000016, "编码获取锁失败，异常信息");
 

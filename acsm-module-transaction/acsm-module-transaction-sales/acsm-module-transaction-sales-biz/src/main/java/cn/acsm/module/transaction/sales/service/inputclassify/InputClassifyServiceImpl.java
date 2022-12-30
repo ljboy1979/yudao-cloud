@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.sales.service.inputclassify;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +19,7 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.acsm.module.transaction.sales.convert.inputclassify.InputClassifyConvert;
 import cn.acsm.module.transaction.sales.dal.mysql.inputclassify.InputClassifyMapper;
 
+import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.STOCK_CLASSIFY_OVER_LIMIT;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.INPUT_CLASSIFY_NOT_EXISTS;
 
@@ -34,7 +36,7 @@ public class InputClassifyServiceImpl implements InputClassifyService {
     private InputClassifyMapper inputClassifyMapper;
 
     @Override
-    public String createInputClassify(InputClassifyCreateReqVO createReqVO) {
+    public CommonResult createInputClassify(InputClassifyCreateReqVO createReqVO) {
         if (StringUtils.isNotEmpty(createReqVO.getParentCode())) {
             InputClassifyDO parenMarketClassify = inputClassifyMapper.selectById(createReqVO.getParentCode());
             createReqVO.setParentCodes(parenMarketClassify.getParentCodes()+createReqVO.getParentCode()+",");
@@ -52,6 +54,9 @@ public class InputClassifyServiceImpl implements InputClassifyService {
             createReqVO.setTreeLevel(new BigDecimal(0));
             createReqVO.setTreeNames(createReqVO.getCategoryName());
         }
+        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+        }
         Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
         uuid = uuid < 0 ? -uuid : uuid;
         // 插入
@@ -59,16 +64,37 @@ public class InputClassifyServiceImpl implements InputClassifyService {
         inputClassify.setId(uuid.toString());
         inputClassifyMapper.insert(inputClassify);
         // 返回
-        return inputClassify.getId();
+        return CommonResult.success(inputClassify.getId());
     }
 
     @Override
-    public void updateInputClassify(InputClassifyUpdateReqVO updateReqVO) {
+    public CommonResult updateInputClassify(InputClassifyUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateInputClassifyExists(updateReqVO.getId());
+        if (StringUtils.isNotEmpty(updateReqVO.getParentCode())) {
+            InputClassifyDO parenMarketClassify = inputClassifyMapper.selectById(updateReqVO.getParentCode());
+            updateReqVO.setParentCodes(parenMarketClassify.getParentCodes()+updateReqVO.getParentCode()+",");
+            updateReqVO.setTreeSort(new BigDecimal(0));
+            updateReqVO.setTreeSorts(parenMarketClassify.getTreeSorts()+"0,");
+            updateReqVO.setTreeLeaf("0");
+            updateReqVO.setTreeLevel(parenMarketClassify.getTreeLevel().add(new BigDecimal(1)));
+            updateReqVO.setTreeNames(parenMarketClassify.getTreeNames()+"/"+updateReqVO.getCategoryName());
+        }else {
+            updateReqVO.setParentCode("0");
+            updateReqVO.setParentCodes("0,");
+            updateReqVO.setTreeSort(new BigDecimal(0));
+            updateReqVO.setTreeSorts("0,");
+            updateReqVO.setTreeLeaf("0");
+            updateReqVO.setTreeLevel(new BigDecimal(0));
+            updateReqVO.setTreeNames(updateReqVO.getCategoryName());
+        }
+        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+        }
         // 更新
         InputClassifyDO updateObj = InputClassifyConvert.INSTANCE.convert(updateReqVO);
         inputClassifyMapper.updateById(updateObj);
+        return CommonResult.success("成功");
     }
 
     @Override

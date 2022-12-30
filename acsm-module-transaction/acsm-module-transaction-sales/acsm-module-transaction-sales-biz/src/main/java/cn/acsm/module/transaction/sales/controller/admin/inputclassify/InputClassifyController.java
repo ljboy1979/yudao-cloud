@@ -45,15 +45,14 @@ public class InputClassifyController {
     @ApiOperation("创建投入品分类")
     @PreAuthorize("@ss.hasPermission('sales:input-classify:create')")
     public CommonResult<String> createInputClassify(@Valid @RequestBody InputClassifyCreateReqVO createReqVO) {
-        return success(inputClassifyService.createInputClassify(createReqVO));
+        return inputClassifyService.createInputClassify(createReqVO);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新投入品分类")
     @PreAuthorize("@ss.hasPermission('sales:input-classify:update')")
     public CommonResult<Boolean> updateInputClassify(@Valid @RequestBody InputClassifyUpdateReqVO updateReqVO) {
-        inputClassifyService.updateInputClassify(updateReqVO);
-        return success(true);
+        return inputClassifyService.updateInputClassify(updateReqVO);
     }
 
     @DeleteMapping("/delete")

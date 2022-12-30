@@ -1,11 +1,13 @@
 package cn.acsm.module.transaction.shelves.controller.admin.shelves.vo;
 
-import lombok.*;
-import java.util.*;
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
-import io.swagger.annotations.*;
-import javax.validation.constraints.*;
+import java.math.BigDecimal;
+import java.util.Date;
+
+import static cn.iocoder.yudao.framework.common.util.date.DateUtils.TIME_ZONE_DEFAULT;
 
 /**
 * 货架 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -48,9 +50,11 @@ public class ShelvesBaseVO {
     private String saleState;
 
     @ApiModelProperty(value = "供应日期")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = TIME_ZONE_DEFAULT)
     private Date supplyDate;
 
     @ApiModelProperty(value = "供应结束日期")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = TIME_ZONE_DEFAULT)
     private Date supplyEndDate;
 
     @ApiModelProperty(value = "供应类型 0 日期 1 长期")

@@ -4,6 +4,7 @@ import java.util.*;
 import javax.validation.*;
 import cn.acsm.module.transaction.sales.controller.admin.packageclassify.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.packageclassify.PackageClassifyDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 
@@ -20,14 +21,14 @@ public interface PackageClassifyService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createPackageClassify(@Valid PackageClassifyCreateReqVO createReqVO);
+    CommonResult createPackageClassify(@Valid PackageClassifyCreateReqVO createReqVO);
 
     /**
      * 更新套餐分类
      *
      * @param updateReqVO 更新信息
      */
-    void updatePackageClassify(@Valid PackageClassifyUpdateReqVO updateReqVO);
+    CommonResult updatePackageClassify(@Valid PackageClassifyUpdateReqVO updateReqVO);
 
     /**
      * 删除套餐分类

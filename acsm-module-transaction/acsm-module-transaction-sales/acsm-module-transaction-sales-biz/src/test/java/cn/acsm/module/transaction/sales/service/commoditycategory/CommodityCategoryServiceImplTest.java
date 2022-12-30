@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.sales.service.commoditycategory;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.test.core.ut.BaseDbUnitTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -47,11 +48,11 @@ public class CommodityCategoryServiceImplTest extends BaseDbUnitTest {
         CommodityCategoryCreateReqVO reqVO = randomPojo(CommodityCategoryCreateReqVO.class);
 
         // 调用
-        String commodityCategoryId = commodityCategoryService.createCommodityCategory(reqVO);
+        CommonResult result = commodityCategoryService.createCommodityCategory(reqVO);
         // 断言
-        assertNotNull(commodityCategoryId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        CommodityCategoryDO commodityCategory = commodityCategoryMapper.selectById(commodityCategoryId);
+        CommodityCategoryDO commodityCategory = commodityCategoryMapper.selectById(result.getData().toString());
         assertPojoEquals(reqVO, commodityCategory);
     }
 

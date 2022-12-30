@@ -142,14 +142,8 @@ public class StockRecordServiceImplTest extends BaseDbUnitTest {
        stockRecordMapper.insert(cloneIgnoreId(dbStockRecord, o -> o.setSource(null)));
        // 准备参数
        StockRecordPageReqVO reqVO = new StockRecordPageReqVO();
-       reqVO.setSpecificationsId(null);
        reqVO.setType(null);
-       reqVO.setAmount(null);
-       reqVO.setRemark(null);
-       reqVO.setStatus(null);
        reqVO.setCreateTime((new Date[]{}));
-       reqVO.setSubjectId(null);
-       reqVO.setSource(null);
 
        // 调用
        PageResult<StockRecordDO> pageResult = stockRecordService.getStockRecordPage(reqVO);

@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.pricetag.service.marketclassify;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -47,11 +48,11 @@ public class MarketClassifyServiceImplTest extends BaseDbUnitTest {
         MarketClassifyCreateReqVO reqVO = randomPojo(MarketClassifyCreateReqVO.class);
 
         // 调用
-        String marketClassifyId = marketClassifyService.createMarketClassify(reqVO);
+        CommonResult result = marketClassifyService.createMarketClassify(reqVO);
         // 断言
-        assertNotNull(marketClassifyId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        MarketClassifyDO marketClassify = marketClassifyMapper.selectById(marketClassifyId);
+        MarketClassifyDO marketClassify = marketClassifyMapper.selectById(result.getData().toString());
         assertPojoEquals(reqVO, marketClassify);
     }
 

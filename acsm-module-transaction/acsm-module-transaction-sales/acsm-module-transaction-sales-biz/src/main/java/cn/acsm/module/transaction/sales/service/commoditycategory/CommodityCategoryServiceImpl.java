@@ -10,6 +10,7 @@ import cn.acsm.module.transaction.sales.dal.dataobject.commoditycategory.Commodi
 import cn.acsm.module.transaction.sales.dal.mysql.commoditycategory.CommodityCategoryMapper;
 import cn.acsm.module.transaction.sales.enums.ErrorCodeConstants;
 import cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,7 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.acsm.module.transaction.sales.convert.commoditycategory.CommodityCategoryConvert;
 import cn.acsm.module.transaction.sales.dal.mysql.commoditycategory.CommodityCategoryMapper;
 
+import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.STOCK_CLASSIFY_OVER_LIMIT;
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static cn.acsm.module.transaction.sales.enums.ErrorCodeConstants.COMMODITY_CATEGORY_NOT_EXISTS;
 
@@ -44,7 +46,7 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
     private CommodityCategoryMapper commodityCategoryMapper;
 
     @Override
-    public String createCommodityCategory(CommodityCategoryCreateReqVO createReqVO) {
+    public CommonResult createCommodityCategory(CommodityCategoryCreateReqVO createReqVO) {
         if (StringUtils.isNotEmpty(createReqVO.getParentCode())) {
             CommodityCategoryDO parenMarketClassify = commodityCategoryMapper.selectById(createReqVO.getParentCode());
             createReqVO.setParentCodes(parenMarketClassify.getParentCodes()+createReqVO.getParentCode()+",");
@@ -62,6 +64,9 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
             createReqVO.setTreeLevel(new BigDecimal(0));
             createReqVO.setTreeNames(createReqVO.getCommodityCategoryName());
         }
+        if (createReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+        }
         Integer uuid=UUID.randomUUID().toString().replaceAll("-","").hashCode();
         uuid = uuid < 0 ? -uuid : uuid;
         // 插入
@@ -69,16 +74,37 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
         commodityCategory.setId(uuid.toString());
         commodityCategoryMapper.insert(commodityCategory);
         // 返回
-        return commodityCategory.getId();
+        return CommonResult.success(commodityCategory.getId());
     }
 
     @Override
-    public void updateCommodityCategory(CommodityCategoryUpdateReqVO updateReqVO) {
+    public CommonResult updateCommodityCategory(CommodityCategoryUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateCommodityCategoryExists(updateReqVO.getId());
+        if (StringUtils.isNotEmpty(updateReqVO.getParentCode())) {
+            CommodityCategoryDO parenMarketClassify = commodityCategoryMapper.selectById(updateReqVO.getParentCode());
+            updateReqVO.setParentCodes(parenMarketClassify.getParentCodes()+updateReqVO.getParentCode()+",");
+            updateReqVO.setTreeSort(new BigDecimal(0));
+            updateReqVO.setTreeSorts(parenMarketClassify.getTreeSorts()+"0,");
+            updateReqVO.setTreeLeaf("0");
+            updateReqVO.setTreeLevel(parenMarketClassify.getTreeLevel().add(new BigDecimal(1)));
+            updateReqVO.setTreeNames(parenMarketClassify.getTreeNames()+"/"+updateReqVO.getCommodityCategoryName());
+        }else {
+            updateReqVO.setParentCode("0");
+            updateReqVO.setParentCodes("0,");
+            updateReqVO.setTreeSort(new BigDecimal(0));
+            updateReqVO.setTreeSorts("0,");
+            updateReqVO.setTreeLeaf("0");
+            updateReqVO.setTreeLevel(new BigDecimal(0));
+            updateReqVO.setTreeNames(updateReqVO.getCommodityCategoryName());
+        }
+        if (updateReqVO.getTreeLevel().compareTo(new BigDecimal(3))==1){
+            return CommonResult.error(STOCK_CLASSIFY_OVER_LIMIT);
+        }
         // 更新
         CommodityCategoryDO updateObj = CommodityCategoryConvert.INSTANCE.convert(updateReqVO);
         commodityCategoryMapper.updateById(updateObj);
+        return CommonResult.success("成功");
     }
 
     @Override

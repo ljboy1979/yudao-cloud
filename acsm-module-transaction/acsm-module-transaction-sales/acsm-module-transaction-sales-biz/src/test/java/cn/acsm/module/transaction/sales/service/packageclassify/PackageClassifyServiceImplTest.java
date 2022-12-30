@@ -1,5 +1,6 @@
 package cn.acsm.module.transaction.sales.service.packageclassify;
 
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -47,11 +48,11 @@ public class PackageClassifyServiceImplTest extends BaseDbUnitTest {
         PackageClassifyCreateReqVO reqVO = randomPojo(PackageClassifyCreateReqVO.class);
 
         // 调用
-        String packageClassifyId = packageClassifyService.createPackageClassify(reqVO);
+        CommonResult result = packageClassifyService.createPackageClassify(reqVO);
         // 断言
-        assertNotNull(packageClassifyId);
+        assertNotNull(result.getData());
         // 校验记录的属性是否正确
-        PackageClassifyDO packageClassify = packageClassifyMapper.selectById(packageClassifyId);
+        PackageClassifyDO packageClassify = packageClassifyMapper.selectById(result.getData().toString());
         assertPojoEquals(reqVO, packageClassify);
     }
 

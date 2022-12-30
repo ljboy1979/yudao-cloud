@@ -4,6 +4,7 @@ import java.util.*;
 import javax.validation.*;
 import cn.acsm.module.transaction.shelves.controller.admin.stockrecord.vo.*;
 import cn.acsm.module.transaction.shelves.dal.dataobject.stockrecord.StockRecordDO;
+import cn.acsm.module.transaction.shelves.dal.dataobject.stockrecord.StockRecordInfoDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
 /**
@@ -67,4 +68,5 @@ public interface StockRecordService {
      */
     List<StockRecordDO> getStockRecordList(StockRecordExportReqVO exportReqVO);
 
+    PageResult<StockRecordInfoDO> findStockRecordPage(StockRecordPageReqVO pageVO);
 }

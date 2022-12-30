@@ -4,6 +4,7 @@ import java.util.*;
 import javax.validation.*;
 import cn.acsm.module.transaction.pricetag.controller.admin.marketclassify.vo.*;
 import cn.acsm.module.transaction.pricetag.dal.dataobject.marketclassify.MarketClassifyDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 
@@ -20,14 +21,14 @@ public interface MarketClassifyService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createMarketClassify(@Valid MarketClassifyCreateReqVO createReqVO);
+    CommonResult createMarketClassify(@Valid MarketClassifyCreateReqVO createReqVO);
 
     /**
      * 更新市场分类
      *
      * @param updateReqVO 更新信息
      */
-    void updateMarketClassify(@Valid MarketClassifyUpdateReqVO updateReqVO);
+    CommonResult updateMarketClassify(@Valid MarketClassifyUpdateReqVO updateReqVO);
 
     /**
      * 删除市场分类

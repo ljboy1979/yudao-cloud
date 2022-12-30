@@ -9,6 +9,7 @@ import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.Dishe
 import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.DishesCategoryUpdateReqVO;
 import cn.acsm.module.transaction.sales.controller.admin.dishescategory.vo.*;
 import cn.acsm.module.transaction.sales.dal.dataobject.dishescategory.DishesCategoryDO;
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.TreeSelect;
 
@@ -25,14 +26,14 @@ public interface DishesCategoryService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    String createDishesCategory(@Valid DishesCategoryCreateReqVO createReqVO);
+    CommonResult createDishesCategory(@Valid DishesCategoryCreateReqVO createReqVO);
 
     /**
      * 更新菜品分类
      *
      * @param updateReqVO 更新信息
      */
-    void updateDishesCategory(@Valid DishesCategoryUpdateReqVO updateReqVO);
+    CommonResult updateDishesCategory(@Valid DishesCategoryUpdateReqVO updateReqVO);
 
     /**
      * 删除菜品分类
