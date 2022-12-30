@@ -72,6 +72,7 @@ public class ShelvesServiceImpl implements ShelvesService {
         // 插入
         ShelvesDO shelves = ShelvesConvert.INSTANCE.convert(createReqVO);
         shelves.setNumber("HJ"+number);
+        shelves.setAddNum(createReqVO.getAddNum());
         shelves.setId(UUID.randomUUID().toString());
         shelvesMapper.insert(shelves);
         if (createReqVO.getSpecificationsCreateReqVOS()!=null && createReqVO.getSpecificationsCreateReqVOS().size()!=0){
@@ -80,6 +81,8 @@ public class ShelvesServiceImpl implements ShelvesService {
                 SpecificationsDO specifications = SpecificationsConvert.INSTANCE.convert(specificationsCreateReqVO);
                 specifications.setId(UUID.randomUUID().toString());
                 specifications.setShelvesId(shelves.getId());
+                specifications.setAvailableNum(specificationsCreateReqVO.getAddNum());
+                specifications.setAddNum(specificationsCreateReqVO.getAddNum());
                 specificationsMapper.insert(specifications);
             });
         }
