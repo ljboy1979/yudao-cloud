@@ -128,6 +128,12 @@ public class MarketClassifyServiceImpl implements MarketClassifyService {
 
     @Override
     public PageResult<MarketClassifyDO> getMarketClassifyPage(MarketClassifyPageReqVO pageReqVO) {
+        if (StringUtils.isEmpty(pageReqVO.getParentCode())){
+            pageReqVO.setParentCode("0");
+        }else {
+            pageReqVO.setPageNo(1);
+            pageReqVO.setPageSize(99999);
+        }
         return marketClassifyMapper.selectPage(pageReqVO);
     }
 

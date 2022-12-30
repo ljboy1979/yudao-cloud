@@ -5,6 +5,8 @@ import java.util.*;
 import io.swagger.annotations.*;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
 
+import javax.validation.constraints.NotNull;
+
 @ApiModel("管理后台 - 投入品分类分页 Request VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -19,5 +21,9 @@ public class InputClassifyPageReqVO extends PageParam {
 
     @ApiModelProperty(value = "source")
     private String source;
+
+
+    @ApiModelProperty(value = "父级编号", required = true)
+    private String parentCode;
 
 }

@@ -21,6 +21,7 @@ public interface InputClassifyMapper extends BaseMapperX<InputClassifyDO> {
         return selectPage(reqVO, new LambdaQueryWrapperX<InputClassifyDO>()
                 .likeIfPresent(InputClassifyDO::getCategoryName, reqVO.getCategoryName())
                 .eqIfPresent(InputClassifyDO::getSubjectId, reqVO.getSubjectId())
+                .eqIfPresent(InputClassifyDO::getParentCode, reqVO.getParentCode())
                 .eqIfPresent(InputClassifyDO::getSource, reqVO.getSource())
                 .orderByDesc(InputClassifyDO::getId));
     }

@@ -128,6 +128,12 @@ public class StockClassifyServiceImpl implements StockClassifyService {
 
     @Override
     public PageResult<StockClassifyDO> getStockClassifyPage(StockClassifyPageReqVO pageReqVO) {
+        if (StringUtils.isEmpty(pageReqVO.getParentCode())){
+            pageReqVO.setParentCode("0");
+        }else {
+            pageReqVO.setPageNo(1);
+            pageReqVO.setPageSize(99999);
+        }
         return stockClassifyMapper.selectPage(pageReqVO);
     }
 

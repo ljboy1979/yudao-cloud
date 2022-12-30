@@ -135,6 +135,12 @@ public class DishesCategoryServiceImpl implements DishesCategoryService {
 
     @Override
     public PageResult<DishesCategoryDO> getDishesCategoryPage(DishesCategoryPageReqVO pageReqVO) {
+        if (StringUtils.isEmpty(pageReqVO.getParentCode())){
+            pageReqVO.setParentCode("0");
+        }else {
+            pageReqVO.setPageNo(1);
+            pageReqVO.setPageSize(99999);
+        }
         return dishesCategoryMapper.selectPage(pageReqVO);
     }
 

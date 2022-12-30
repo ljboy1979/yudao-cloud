@@ -129,6 +129,12 @@ public class InputClassifyServiceImpl implements InputClassifyService {
 
     @Override
     public PageResult<InputClassifyDO> getInputClassifyPage(InputClassifyPageReqVO pageReqVO) {
+        if (StringUtils.isEmpty(pageReqVO.getParentCode())){
+            pageReqVO.setParentCode("0");
+        }else {
+            pageReqVO.setPageNo(1);
+            pageReqVO.setPageSize(99999);
+        }
         return inputClassifyMapper.selectPage(pageReqVO);
     }
 

@@ -20,6 +20,7 @@ public interface SpecialMedicalFoodClassifyMapper extends BaseMapperX<SpecialMed
     default PageResult<SpecialMedicalFoodClassifyDO> selectPage(SpecialMedicalFoodClassifyPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<SpecialMedicalFoodClassifyDO>()
                 .likeIfPresent(SpecialMedicalFoodClassifyDO::getCategoryName, reqVO.getCategoryName())
+                .eqIfPresent(SpecialMedicalFoodClassifyDO::getParentCode,reqVO.getParentCode())
                 .betweenIfPresent(SpecialMedicalFoodClassifyDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(SpecialMedicalFoodClassifyDO::getId));
     }

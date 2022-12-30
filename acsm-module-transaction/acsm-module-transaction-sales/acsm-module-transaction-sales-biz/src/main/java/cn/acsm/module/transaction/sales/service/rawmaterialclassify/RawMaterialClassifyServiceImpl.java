@@ -133,6 +133,12 @@ public class RawMaterialClassifyServiceImpl implements RawMaterialClassifyServic
 
     @Override
     public PageResult<RawMaterialClassifyDO> getRawMaterialClassifyPage(RawMaterialClassifyPageReqVO pageReqVO) {
+        if (StringUtils.isEmpty(pageReqVO.getParentCode())){
+            pageReqVO.setParentCode("0");
+        }else {
+            pageReqVO.setPageNo(1);
+            pageReqVO.setPageSize(99999);
+        }
         return rawMaterialClassifyMapper.selectPage(pageReqVO);
     }
 
