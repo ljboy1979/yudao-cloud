@@ -16,6 +16,7 @@ public class MarketClassifyBaseVO {
 
     @ApiModelProperty(value = "分类名称", required = true)
     //@NotNull(message = "分类名称不能为空")
+    @Size(max = 10 , min = 0,message = "分类名称个数必须在0和10之间")
     private String categoryName;
 
     @ApiModelProperty(value = "父级编号", required = true)
