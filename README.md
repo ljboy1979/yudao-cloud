@@ -66,213 +66,213 @@
 
   @Configuration(proxyBeanMethods = false) //表示对openfeign的实现类方法不用代理拦截
   @EnableFeignClients(clients = {RoleApi.class, DeptApi.class, PostApi.class, AdminUserApi.class, SmsSendApi.class, DictDataApi.class})//声明需要openfeign代理拦截的rpc类
-  
+
   2然后在相应的调用处用@Resource注入服务方
-  
+
 * 服务方（被调用方）：
 
   1一个是在rpc包下用@FeignClient声明需要被内部调用的接口，
 * 2方法上要加入调用链接
 
-  
 
-  （dubbo方式了解即可，不采用
 
-  主要看两个注解
+（dubbo方式了解即可，不采用
 
-  一个是@DubboService，服务方
+主要看两个注解
 
-  一个是@DubboReference(version = "1.0.0", retries = 0)，消费方）
+一个是@DubboService，服务方
 
-  \--------------------------
+一个是@DubboReference(version = "1.0.0", retries = 0)，消费方）
 
-  3、代码生成功能：
+\--------------------------
 
-  http://cloud.iocoder.cn/new-feature/
+3、代码生成功能：
 
-  需要启动前端，yudao-admin-ui，见学习教程
+http://cloud.iocoder.cn/new-feature/
 
-  4、权限验证
+需要启动前端，yudao-admin-ui，见学习教程
 
-  Token 存储在数据库中，对应system_oauth2_access_token 访问令牌表的id 字段。考虑到访问的性能，缓存在 Redis 的 oauth2_access_token:%s 键中。
+4、权限验证
 
-  默认配置下，管理后台的 
+Token 存储在数据库中，对应system_oauth2_access_token 访问令牌表的id 字段。考虑到访问的性能，缓存在 Redis 的 oauth2_access_token:%s 键中。
 
-  /admin-api/** 所有 API 接口都**必须**登录后才允许访问，
+默认配置下，管理后台的
 
-  用户 App 的 /app-api/** 所有 API 接口**无需**登录就可以访问。
+/admin-api/** 所有 API 接口都**必须**登录后才允许访问，
 
-  token拦截
+用户 App 的 /app-api/** 所有 API 接口**无需**登录就可以访问。
 
-  public class TokenAuthenticationFilter extends OncePerRequestFilter
+token拦截
 
-  管理端登录
+public class TokenAuthenticationFilter extends OncePerRequestFilter
 
-  public class AuthController
+管理端登录
 
-  app端登录，分开的
+public class AuthController
 
-  public class AppAuthController
+app端登录，分开的
 
-  前端调用其它接口，需要在请求头带上 Token 进行访问。请求头格式如下： 
+public class AppAuthController
 
-  \### Authorization: Bearer 登录时返回的
+前端调用其它接口，需要在请求头带上 Token 进行访问。请求头格式如下：
 
-  Token Authorization: Bearer d2a3cdbc6c53470db67a582bd115103f
+\### Authorization: Bearer 登录时返回的
 
-  前端调试用以下方法跳过认证
+Token Authorization: Bearer d2a3cdbc6c53470db67a582bd115103f
 
-  考虑到使用 Postman、Swagger 调试接口方便，提供了 **Token 的模拟机制**。请求头格式如下：
+前端调试用以下方法跳过认证
 
-  \### Authorization: Bearer test用户编号 Authorization: Bearer test1
+考虑到使用 Postman、Swagger 调试接口方便，提供了 **Token 的模拟机制**。请求头格式如下：
 
-  其中 "test" 可自定义，配置项如下：
+\### Authorization: Bearer test用户编号 Authorization: Bearer test1
 
-  \### application-local.yaml yudao:  security:    mock-enable: true # 是否开启 Token 的模拟机制    mock-secret: test # Token 模拟机制的 Token 前缀
+其中 "test" 可自定义，配置项如下：
 
-  权限控制：
+\### application-local.yaml yudao:  security:    mock-enable: true # 是否开启 Token 的模拟机制    mock-secret: test # Token 模拟机制的 Token 前缀
 
-  ① 基于【权限标识】的权限控制
+权限控制：
 
-  system_menu表的 permission 字段
+① 基于【权限标识】的权限控制
 
-  // 符合 system:user:list 权限要求 @PreAuthorize("@ss.hasPermission('system:user:list')") // 符合 system:user:add 或 system:user:edit 权限要求即可 @PreAuthorize("@ss.hasAnyPermissions('system:user:add,system:user:edit')")
+system_menu表的 permission 字段
 
-  ②基于【角色标识】的权限控制
+// 符合 system:user:list 权限要求 @PreAuthorize("@ss.hasPermission('system:user:list')") // 符合 system:user:add 或 system:user:edit 权限要求即可 @PreAuthorize("@ss.hasAnyPermissions('system:user:add,system:user:edit')")
 
-  权限标识，对应 system_role 表的 code 字段
+②基于【角色标识】的权限控制
 
-  // 属于 user 角色 @PreAuthorize("@ss.hasRole('user')") // 属于 user 或者 admin 之一 @PreAuthorize("@ss.hasAnyRoles('user,admin')")
+权限标识，对应 system_role 表的 code 字段
 
-  ss 对应的 Bean 是
+// 属于 user 角色 @PreAuthorize("@ss.hasRole('user')") // 属于 user 或者 admin 之一 @PreAuthorize("@ss.hasAnyRoles('user,admin')")
 
-   public class PermissionServiceImpl implements PermissionService
+ss 对应的 Bean 是
 
-  强制认证
+public class PermissionServiceImpl implements PermissionService
 
-  @PreAuthenticated 注解
+强制认证
 
-  public class PreAuthenticatedAspect
+@PreAuthenticated 注解
 
-  自定义权限
+public class PreAuthenticatedAspect
 
-  1自定义 AuthorizeRequestsCustomizer 实现
+自定义权限
 
-  2、@PermitAll 注解
+1自定义 AuthorizeRequestsCustomizer 实现
 
-  3、yudao.security.permit-all-urls 配置项
+2、@PermitAll 注解
 
-  yudao:  security:    permit-all-urls:      - /admin-ui/** # /resources/admin-ui 目录下的静态资源      - /admin-api/xxx/yyy
+3、yudao.security.permit-all-urls 配置项
 
-  \------------------------------------------
+yudao:  security:    permit-all-urls:      - /admin-ui/** # /resources/admin-ui 目录下的静态资源      - /admin-api/xxx/yyy
 
-  数据权限：
+\------------------------------------------
 
-  在yudao-framework下面：
+数据权限：
 
-  yudao-spring-boot-starter-biz-data-permission
+在yudao-framework下面：
 
-  实现类
+yudao-spring-boot-starter-biz-data-permission
 
-  public class DataPermissionAnnotationInterceptor implements MethodInterceptor
+实现类
 
-  内置了基于部门的数据权限
+public class DataPermissionAnnotationInterceptor implements MethodInterceptor
 
-  可通过管理后台的 [系统管理 -> 角色管理] 菜单，设置用户角色的数据权限
+内置了基于部门的数据权限
 
-  参考方法：
+可通过管理后台的 [系统管理 -> 角色管理] 菜单，设置用户角色的数据权限
 
-  public DeptDataPermissionRuleCustomizer sysDeptDataPermissionRuleCustomizer()
+参考方法：
 
-  字段配置：存疑
+public DeptDataPermissionRuleCustomizer sysDeptDataPermissionRuleCustomizer()
 
-  每个 Maven Module， 通过自定义 DeptDataPermissionRuleCustomizer Bean，配置哪些表的哪些字段，进行数据权限的过滤。
+字段配置：存疑
 
-  @DataPermission 注解
+每个 Maven Module， 通过自定义 DeptDataPermissionRuleCustomizer Bean，配置哪些表的哪些字段，进行数据权限的过滤。
 
-  [@DataPermission ](https://github.com/YunaiV/ruoyi-vue-pro/blob/master/yudao-framework/yudao-spring-boot-starter-biz-data-permission/src/main/java/cn/iocoder/yudao/framework/datapermission/core/annotation/DataPermission.java)数据权限注解，可声明在类或者方法上，配置使用的数据权限规则。
+@DataPermission 注解
 
-  **也就是说，数据权限默认是开启的，无需添加** **@DataPermission** **注解**
+[@DataPermission ](https://github.com/YunaiV/ruoyi-vue-pro/blob/master/yudao-framework/yudao-spring-boot-starter-biz-data-permission/src/main/java/cn/iocoder/yudao/framework/datapermission/core/annotation/DataPermission.java)数据权限注解，可声明在类或者方法上，配置使用的数据权限规则。
 
-  自定义的数据权限规则
+**也就是说，数据权限默认是开启的，无需添加** **@DataPermission** **注解**
 
-  如果想要自定义数据权限规则，只需要实现 DataPermissionRule数据权限规则接口，并声明成 Spring Bean 即可。
+自定义的数据权限规则
 
-  \---------------------------
+如果想要自定义数据权限规则，只需要实现 DataPermissionRule数据权限规则接口，并声明成 Spring Bean 即可。
 
-  用户体系
+\---------------------------
 
-  1.表结构
+用户体系
 
-  2 种用户类型，采用不同数据库的表进行存储，管理员用户对应 system_users表，会员用户对应 member_user 表。
+1.表结构
 
-  3. 如何获取当前登录的用户？
+2 种用户类型，采用不同数据库的表进行存储，管理员用户对应 system_users表，会员用户对应 member_user 表。
 
-  使用 [SecurityFrameworkUtils](https://github.com/YunaiV/ruoyi-vue-pro/blob/master/yudao-framework/yudao-spring-boot-starter-security/src/main/java/cn/iocoder/yudao/framework/security/core/util/SecurityFrameworkUtils.java)提供的如下方法，可以获得当前登录用户的信息
+3. 如何获取当前登录的用户？
 
-  4. 所有登录都由
+使用 [SecurityFrameworkUtils](https://github.com/YunaiV/ruoyi-vue-pro/blob/master/yudao-framework/yudao-spring-boot-starter-security/src/main/java/cn/iocoder/yudao/framework/security/core/util/SecurityFrameworkUtils.java)提供的如下方法，可以获得当前登录用户的信息
 
-   [AuthController](https://github.com/YunaiV/ruoyi-vue-pro/blob/master/yudao-module-system/yudao-module-system-biz/src/main/java/cn/iocoder/yudao/module/system/controller/admin/auth/AuthController.java#L55-L62)提供接口
+4. 所有登录都由
 
-  \-------------------------------
+[AuthController](https://github.com/YunaiV/ruoyi-vue-pro/blob/master/yudao-module-system/yudao-module-system-biz/src/main/java/cn/iocoder/yudao/module/system/controller/admin/auth/AuthController.java#L55-L62)提供接口
 
-  多租户
+\-------------------------------
 
-  前端的每个请求 Header **必须**带上 tenant-id
+多租户
 
-  通过 yudao.tenant.ignore-urls 配置项，可以设置哪些 URL 无需带该请求头。
+前端的每个请求 Header **必须**带上 tenant-id
 
-  主要是校验登录的用户，校验是否有权限访问该租户，避免越权问题
+通过 yudao.tenant.ignore-urls 配置项，可以设置哪些 URL 无需带该请求头。
 
-  public class TenantSecurityWebFilter extends ApiRequestFilter
+主要是校验登录的用户，校验是否有权限访问该租户，避免越权问题
 
-  **需要**开启多租户的表，必须添加tenant_id 字段，开多租户的表要继承 TenantBaseDO类。
+public class TenantSecurityWebFilter extends ApiRequestFilter
 
-  **无需**开启多租户的表，需要添加表名到 yudao.tenant.ignore-tables 配置项目application.yaml
+**需要**开启多租户的表，必须添加tenant_id 字段，开多租户的表要继承 TenantBaseDO类。
 
-  ① 声明 @TenantIgnore注解在方法上，标记指定方法不进行租户的自动过滤，避免**自动**拼接 WHERE tenant_id = ? 条件
+**无需**开启多租户的表，需要添加表名到 yudao.tenant.ignore-tables 配置项目application.yaml
 
-  ② 使用 TenantUtils的 #execute(Long tenantId, Runnable runnable) 方法，模拟指定租户( tenantId )，执行某段业务逻辑( runnable )。
+① 声明 @TenantIgnore注解在方法上，标记指定方法不进行租户的自动过滤，避免**自动**拼接 WHERE tenant_id = ? 条件
 
-  3 job：声明 @TenantJob注解在 Job 类上，实现**并行**遍历每个租户，执行定时任务的逻辑。
+② 使用 TenantUtils的 #execute(Long tenantId, Runnable runnable) 方法，模拟指定租户( tenantId )，执行某段业务逻辑( runnable )。
 
-  4MQ：通过租户对 MQ 层面的封装，实现租户上下文，可以继续传递到 MQ 消费的逻辑中，避免丢失的问题。
+3 job：声明 @TenantJob注解在 Job 类上，实现**并行**遍历每个租户，执行定时任务的逻辑。
 
-  5Async通过使用阿里开源的 TransmittableThreadLocal组件，实现 Spring Async 执行异步逻辑时，租户上下文可以继续传递，避免丢失的问题。
+4MQ：通过租户对 MQ 层面的封装，实现租户上下文，可以继续传递到 MQ 消费的逻辑中，避免丢失的问题。
 
-  \-----------------------------------
+5Async通过使用阿里开源的 TransmittableThreadLocal组件，实现 Spring Async 执行异步逻辑时，租户上下文可以继续传递，避免丢失的问题。
 
-  环境：
+\-----------------------------------
 
-  \##rocketmq-console
+环境：
 
-  [http://123.56.19.224:29999/#](http://123.56.19.224:29999/#/topic)
+\##rocketmq-console
 
-  \##rocketmq namesrv
+[http://123.56.19.224:29999/#](http://123.56.19.224:29999/#/topic)
 
-  [http://123.56.19.224](http://123.56.19.224:29999/#/topic):19876
+\##rocketmq namesrv
 
-  \##nacos console
+[http://123.56.19.224](http://123.56.19.224:29999/#/topic):19876
 
-  http://123.56.19.224:18848/nacos
+\##nacos console
 
-  nacos/uodn&110
+http://123.56.19.224:18848/nacos
 
-  \##redis
+nacos/uodn&110
 
-  [http://123.56.19.224](http://123.56.19.224:29999/#/topic):16379
+\##redis
 
-  auth uodn&110
+[http://123.56.19.224](http://123.56.19.224:29999/#/topic):16379
 
-  \##xxl-job
+auth uodn&110
 
-  [http://123.56.19.224](http://123.56.19.224:29999/#/topic):19090
+\##xxl-job
 
-  \##spring-admin
+[http://123.56.19.224](http://123.56.19.224:29999/#/topic):19090
 
-  [http://123.56.19.224](http://123.56.19.224:29999/#/topic):48081
+\##spring-admin
 
-  [http://123.56.19.224](http://123.56.19.224:29999/#/topic):48082
+[http://123.56.19.224](http://123.56.19.224:29999/#/topic):48081
 
-  [http://123.56.19.224](http://123.56.19.224:29999/#/topic):48083
+[http://123.56.19.224](http://123.56.19.224:29999/#/topic):48082
+
+[http://123.56.19.224](http://123.56.19.224:29999/#/topic):48083
 需要新建demo数据库，表文件在sql目录下的demo.sql

@@ -29,7 +29,7 @@
         <dependency>
             <groupId>cn.iocoder.cloud</groupId>
             <artifactId>yudao-module-system-api</artifactId>
-            <version>1.6.2-snapshot</version>
+            <version>${revision}</version>
         </dependency>
         <!-- Spring Cloud 基础 -->
         <dependency>
@@ -132,13 +132,13 @@
         <dependency>
             <groupId>cn.iocoder.cloud</groupId>
             <artifactId>acsm-module-service-api</artifactId>
-            <version>1.6.2-snapshot</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>cn.iocoder.cloud</groupId>
             <artifactId>acsm-module-resource-api</artifactId>
-            <version>1.6.2-snapshot</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

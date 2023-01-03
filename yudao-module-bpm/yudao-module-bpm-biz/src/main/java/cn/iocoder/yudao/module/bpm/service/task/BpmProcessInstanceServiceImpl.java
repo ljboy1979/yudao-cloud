@@ -250,6 +250,7 @@ public class BpmProcessInstanceServiceImpl implements BpmProcessInstanceService 
                 BpmProcessInstanceConvert.INSTANCE.convert(this, processInstance, instanceExtDO.getResult()));
     }
 
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateProcessInstanceExtReject(String id, String reason) {
         // 需要主动查询，因为 instance 只有 id 属性

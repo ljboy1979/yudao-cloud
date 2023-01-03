@@ -146,7 +146,7 @@
         <dependency>
             <groupId>cn.iocoder.cloud</groupId>
             <artifactId>yudao-spring-boot-starter-config</artifactId>
-            <version>1.6.2-snapshot</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

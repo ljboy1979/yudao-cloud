@@ -146,7 +146,7 @@
         <dependency>
             <groupId>cn.iocoder.cloud</groupId>
             <artifactId>acsm-module-transaction-shelves-api</artifactId>
-            <version>1.6.2-snapshot</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
 
